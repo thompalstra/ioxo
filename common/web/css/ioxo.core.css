@@ -1,0 +1,87 @@
+body, html{
+    background-color: #ddd;
+    margin: 0; padding: 0;
+}
+
+.container{
+    width: 1200px;
+    margin: 0 auto;
+}
+
+.element{
+    padding: 10px;
+    box-sizing: border-box;
+}
+.inner{
+    background-color: white;
+    padding: 10px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.col{
+    float: left;
+    display: inline-block;
+    min-height: 10px;
+}
+
+/*extra-small mobile devices*/
+@media screen and (min-width: 0){
+    .xs12{  width: 100%;        }
+    .xs11{  width: 91.666667%;  }
+    .xs10{  width: 83.333334%;  }
+    .xs9{   width: 75%;         }
+    .xs8{    width: 66.666667%; }
+    .xs7{   width: 58.333334%;  }
+    .xs6{    width: 50%;        }
+    .xs5{    width: 41.666667%; }
+    .xs4{   width: 33.333334%;  }
+    .xs3{    width: 25%;        }
+    .xs2{    width: 16.666667%; }
+    .xs1{    width: 8.333334%;  }
+}
+/*mobile / small tablet*/
+@media screen and (min-width: 640px){
+    .mb12{  width: 100%;        }
+    .mb11{  width: 91.666667%;  }
+    .mb10{  width: 83.333334%;  }
+    .mb9{   width: 75%;         }
+    .mb8{   width: 66.666667%;  }
+    .mb7{   width: 58.333334%;  }
+    .mb6{   width: 50%;         }
+    .mb5{   width: 41.666667%;  }
+    .mb4{   width: 33.333334%;  }
+    .mb3{   width: 25%;         }
+    .mb2{   width: 16.666667%;  }
+    .mb1{   width: 8.333334%;   }
+}
+/*laptop / tablet*/
+@media screen and (min-width: 960px){
+    .tb12{  width: 100%;        }
+    .tb11{  width: 91.666667%;  }
+    .tb10{  width: 83.333334%;  }
+    .tb9{   width: 75%;         }
+    .tb8{   width: 66.666667%;  }
+    .tb7{   width: 58.333334%;  }
+    .tb6{   width: 50%;         }
+    .tb5{   width: 41.666667%;  }
+    .tb4{   width: 33.333334%;  }
+    .tb3{   width: 25%;         }
+    .tb2{   width: 16.666667%;  }
+    .tb1{   width: 8.333334%;   }
+}
+/*desktop*/
+@media screen and (min-width: 1280px){
+    .dt12{  width: 100%;        }
+    .dt11{  width: 91.666667%;  }
+    .dt10{  width: 83.333334%;  }
+    .dt9{   width: 75%;         }
+    .dt8{   width: 66.666667%;  }
+    .dt7{   width: 58.333334%;  }
+    .dt6{   width: 50%;         }
+    .dt5{   width: 41.666667%;  }
+    .dt4{   width: 33.333334%;  }
+    .dt3{   width: 25%;         }
+    .dt2{   width: 16.666667%;  }
+    .dt1{   width: 8.333334%;   }
+}
