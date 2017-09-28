@@ -1,10 +1,10 @@
 <?php
 return [
     'mysql' => [
-        'dbname' => 'modulus',
+        'dbname' => 'ioxo',
         'host' => 'localhost',
     ],
-    'username' => 'modulus',
-    'password' => '8aWu4p%2',
+    'username' => 'ioxo',
+    'password' => 'ioxo1337',
 ];
 ?>

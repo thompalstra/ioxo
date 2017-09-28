@@ -6,6 +6,8 @@ use io\web\Domain;
 use io\web\Controller;
 use io\web\Action;
 
+use io\db\DbConnector;
+
 class Application{
 
     public function prepare(){
@@ -21,6 +23,7 @@ class Application{
         $this->domain = new Domain();
         $this->controller = new Controller();
         $this->action = new Action();
+        $this->dbConnector = new DbConnector();
     }
 
     public function initialize(){
@@ -30,7 +33,15 @@ class Application{
 
         if(file_exists($commonConfigDbFile)){
             $this->db = include($commonConfigDbFile);
+
+            $this->dbConnector->mysql = $this->db['mysql'];
+            $this->dbConnector->username = $this->db['username'];
+            $this->dbConnector->password = $this->db['password'];
+
+            $this->dbConnector->connect();
         }
+
+
 
         // env config.php
 
