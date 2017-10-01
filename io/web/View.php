@@ -2,7 +2,7 @@
 namespace io\web;
 
 class View{
-    public function render($item, $data){
+    public function render($item, $data = []){
         $root = \IO::$app->root;
         $domain = \IO::$app->domain->name;
         $path = ( \IO::$app->controller->path == "" ) ? "" : \IO::$app->controller->path . DIRECTORY_SEPARATOR;

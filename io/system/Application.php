@@ -53,6 +53,8 @@ class Application{
             }
         }
 
+
+
         // env params.php
 
         $domainParamFile = $this->domain->directory . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'config.php';
@@ -62,6 +64,32 @@ class Application{
                 $this->params[$k] = $v;
             }
         }
+
+        session_start();
+        $sessionUser = $this->identity['class'];
+
+        $this->session = &$_SESSION;
+
+        if(empty($this->session['identity'])){
+            $identity = new \io\web\Identity();
+            $identity->identity = new $sessionUser();
+            $this->session['identity'] = $identity;
+        }
+
+        $this->user = &$this->session['identity'];
+
+
+
+
+        // $this->session = &$_SESSION;
+        // if(!isset($_SESSION['user']) || empty($_SESSION['user'])){
+        //     die;
+        //     $user = new \io\web\Identity();
+        //     $user->identity = new $sessionUser();
+        //     $_SESSION['user'] = $user;
+        // }
+        //
+        // $this->user = &$_SESSION['user'];
     }
 
     public function run(){

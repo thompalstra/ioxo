@@ -25,7 +25,8 @@ class Controller{
             // modify name
 
             // get the last part of the explode
-            $newName = $explode[count($explode)-1];
+            unset($explode[count($explode)-1]);
+            $name = $explode[count($explode)-1];
             unset($explode[count($explode)-1]);
 
             $path = implode(DIRECTORY_SEPARATOR, $explode);
@@ -76,9 +77,14 @@ class Controller{
         }
     }
 
-    public function render($item, $args){
+    public function render($item, $args = []){
         $view = new View();
         return $view->render($item, $args);
+    }
+
+    public function redirect($url){
+        header("Location: $url");
+        \IO::$app->end();
     }
 }
 ?>
