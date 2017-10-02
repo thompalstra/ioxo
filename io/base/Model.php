@@ -59,6 +59,21 @@ class Model extends \io\db\Row{
         }
     }
 
+    public function delete(){
+        if(!$this->isNewModel){
+            $class = self::className();
+            $table = $class::$table;
+
+            $pk = $this->getPkColumnName();
+            $v = $this->$pk;
+
+            $query = "DELETE FROM $table WHERE $pk = $v";
+
+            $sth = \IO::$app->dbConnector->pdo->prepare($query);
+            return $sth->execute();
+        }
+    }
+
     public function validate(){
         if(method_exists($this, 'rules')){
             foreach($this->rules() as $rule){
@@ -84,6 +99,7 @@ class Model extends \io\db\Row{
         $values = [];
 
         foreach($this->_attributes as $attributeKey => $attributeValue){
+            if($attributeKey === 'id'){ continue; }
             $keys[] = $attributeKey;
             $attributeValue = $this->sanitize($attributeValue);
             $values[] = ":$attributeKey";
@@ -93,7 +109,6 @@ class Model extends \io\db\Row{
 
         $command = "$query ($keys) VALUES ($values)";
         $sth = \IO::$app->dbConnector->pdo->prepare($command);
-
         foreach($this->_attributes as $attributeKey => $attributeValue){
             if($attributeKey === 'id'){ continue; }
             $sth->bindValue(":$attributeKey", $attributeValue);

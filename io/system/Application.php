@@ -77,19 +77,6 @@ class Application{
         }
 
         $this->user = &$this->session['identity'];
-
-
-
-
-        // $this->session = &$_SESSION;
-        // if(!isset($_SESSION['user']) || empty($_SESSION['user'])){
-        //     die;
-        //     $user = new \io\web\Identity();
-        //     $user->identity = new $sessionUser();
-        //     $_SESSION['user'] = $user;
-        // }
-        //
-        // $this->user = &$_SESSION['user'];
     }
 
     public function run(){
