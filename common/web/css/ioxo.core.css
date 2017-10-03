@@ -25,6 +25,83 @@ body, html{
     min-height: 10px;
 }
 
+.wide{
+    width: 100%;
+}
+.hidden{
+    display: none !important;
+}
+
+.action{
+    color: white;
+    background-color: #3D8EB9;
+}
+.action-outline{
+    border: 1px solid #3D8EB9;
+    color: #3D8EB9;
+    background-color: transparent;
+}
+.info{
+    color: white;
+    background-color: #64DDBB;
+}
+.info-outline{
+    border: 1px solid #64DDBB;
+    color: #64DDBB;
+    background-color: transparent;
+}
+
+.menu.menu-default{
+    list-style: none;
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    z-index: 10000;
+}
+.menu.menu-default > li.item,
+.menu.menu-default > li.dropdown{
+    height: 50px;
+    float: left;
+    min-width: 50px;
+    line-height: 50px;
+    padding: 0 10px;
+    position: relative;
+    background: inherit;
+}
+
+.menu.menu-default > li.dropdown > ul{
+    position: absolute;
+    top: -100%;
+    width: 150px;
+    left: 0;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    background-color: inherit;
+    z-index: 9999;
+}
+.menu.menu-default > li.dropdown.toggled > ul{
+    top: 100%;
+}
+.menu.menu-default > li.dropdown > ul a{
+    color: inherit;
+    background-color: inherit;
+}
+
+.menu.menu-default > li.dropdown > ul li{
+    box-sizing: border-box;
+    height: 50px;
+    float: left;
+    min-width: 50px;
+    line-height: 50px;
+    padding: 0 10px;
+    position: relative;
+    width: 100%;
+}
+
+
+
 /*extra-small mobile devices*/
 @media screen and (min-width: 0){
     .xs12{  width: 100%;        }

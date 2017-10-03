@@ -13,12 +13,21 @@ class User extends \io\base\Model implements \io\web\IdentityInterface{
         ];
     }
 
-    public function login(){
-        \IO::$app->user->isGuest = false;
-        \IO::$app->user->identity = $this;
+    public function login($model){
+
+        $identity = new \io\web\Identity;
+        $identity->isGuest = false;
+        $identity->identity = $model;
+
+        \IO::$app->session['identity'] = $identity;
+
+        return true;
     }
     public function logout(){
-        unset(\IO::$app->user->identity);
+
+        unset(\IO::$app->session['identity']);
+
+        return true;
     }
 }
 ?>

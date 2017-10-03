@@ -30,9 +30,5 @@ class Row extends \io\db\Query{
     public static function className(){
         return get_called_class();
     }
-
-    public static function tableExists(){
-        
-    }
 }
 ?>

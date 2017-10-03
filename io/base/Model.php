@@ -12,13 +12,15 @@ class Model extends \io\db\Row{
         foreach($arguments as $k => $v){
             $this->$k = $v;
         }
-        $columns = $this->getColumns();
-        $this->_attributes = array_combine($columns,$columns);
-        foreach($this->_attributes as $attributeKey => $attributeValue){
-            if(!property_exists($this, $attributeKey)){
-                $this->$attributeKey = null;
+        if(self::tableExists($this::$table)){
+            $columns = $this->getColumns();
+            $this->_attributes = array_combine($columns,$columns);
+            foreach($this->_attributes as $attributeKey => $attributeValue){
+                if(!property_exists($this, $attributeKey)){
+                    $this->$attributeKey = null;
+                }
+                $this->_attributes[$attributeKey] = &$this->$attributeKey;
             }
-            $this->_attributes[$attributeKey] = &$this->$attributeKey;
         }
     }
 
@@ -36,6 +38,25 @@ class Model extends \io\db\Row{
 
     public function hasErrors(){
         return (empty($this->_errors));
+    }
+
+    public static function getClass(){
+        $called = get_called_class();
+        $explode = explode('\\', $called);
+        return $explode[count($explode) - 1];
+    }
+
+    public function load($array){
+
+        $className = self::getClass();
+
+        if(isset($array[$className])){
+            $data = $array[$className];
+            foreach($data as $dataKey => $dataValue){
+                $this->$dataKey = $dataValue;
+            }
+            return true;
+        }
     }
 
     public function getColumns(){
@@ -131,6 +152,19 @@ class Model extends \io\db\Row{
             return $results['Column_name'];
         } else {
             return false;
+        }
+    }
+
+    public function getAttributeLabel($attribute){
+        if(method_exists($this, 'attributes')){
+            $attributes = $this->attributes();
+            if(isset($attributes[$attribute])){
+                return $attributes[$attribute];
+            } else {
+                return $attribute;
+            }
+        } else {
+            return $attribute;
         }
     }
 

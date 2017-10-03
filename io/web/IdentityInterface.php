@@ -2,7 +2,7 @@
 namespace io\web;
 
 interface IdentityInterface{
-    public function login();
+    public function login($model);
     public function logout();
 }
 

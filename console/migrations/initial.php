@@ -12,6 +12,13 @@ class initial extends \io\db\Migration{
             'is_enabled' => Schema::TYPE_BOOLEAN,
             'is_deleted' => Schema::TYPE_BOOLEAN
         ]);
+
+        $this->insert('user', [
+            'username' => 'BROTHOM',
+            'password' => \io\data\Security::passwordHash('test2016'),
+            'is_enabled' => 1,
+            'is_deleted' => 0
+        ]);
     }
     public function down(){
         $this->dropTable('user');

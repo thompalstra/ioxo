@@ -2,6 +2,11 @@
 namespace frontend\controllers;
 
 use io\web\Controller;
+use io\web\User;
+
+use io\data\Security;
+
+use common\models\LoginForm;
 
 class DefaultController extends Controller{
     public function actionIndex(){
@@ -17,26 +22,33 @@ class DefaultController extends Controller{
         ]);
     }
 
-    public function actionDownloadMap(){
-
-        //frontend/web/img/56/100x100.png
-        $id = $_GET['id'];
-
-        $path = \IO::$app->root . DIRECTORY_SEPARATOR . "frontend/web/img/$id/100x100.png";
-
-        if(file_exists($path)){
-            $size = filesize($path);
-            header('Content-Description: File Transfer');
-            header('Content-Type: image/png');
-            header('Content-Disposition: attachment; filename="Image.png"');
-            header('Content-Transfer-Encoding: binary');
-            header('Expires: 0');
-            header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
-            header('Pragma: public');
-            header('Content-Length: ' . $size);
-            readfile($path);
+    public function actionLogin(){
+        $model = new LoginForm();
+        if($_POST && $model->load($_POST)){
+            $user = User::find()->where([
+                '=' => [
+                    'username' => $model->username
+                ],
+            ])->one();
+            if($user){
+                if(Security::passwordVerify($model->password, $user->password) && \IO::$app->user->identity->login($user)){
+                    return $this->redirect('/');
+                } else {
+                    $model->addError('username', 'No user found matching credentials');
+                }
+            } else {
+                $model->addError('username', 'No user found matching credentials');
+            }
         }
-
+        return $this->render('login', ['model' => $model]);
+    }
+    public function actionLogout(){
+        if(!\IO::$app->user->isGuest){
+            \IO::$app->user->identity->logout();
+            return $this->redirect('/');
+        } else {
+            echo 'cant logout when not logged in'; die;
+        }
 
     }
 }

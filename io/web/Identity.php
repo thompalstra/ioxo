@@ -2,7 +2,7 @@
 namespace io\web;
 
 class Identity{
-    public $user;
+    public $identity;
     public $isGuest = true;
 }
 

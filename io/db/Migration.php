@@ -11,13 +11,7 @@ class Migration extends \io\base\Model{
     }
 
     public static function initialize(){
-        echo "Creating migration table... \n\r";
-        $migration = new self();
-        $result = $migration->createTable('migrations', [
-            'id' => Schema::TYPE_PK,
-            'name' => 'VARCHAR(255)',
-            'created_at' => 'INT(11)'
-        ]);
+
         return $result;
     }
 
@@ -26,10 +20,18 @@ class Migration extends \io\base\Model{
     }
 
     public static function run(){
-        if(!self::isInitialized()){
-            return self::initialize();
+        $result = true;
+        if(!self::tableExists('migrations')){
+            echo "Creating migration table...";
+            $migration = new self();
+            $result = $migration->createTable('migrations', [
+                'id' => Schema::TYPE_PK,
+                'name' => 'VARCHAR(255)',
+                'created_at' => 'INT(11)'
+            ]);
+            echo "success!\n\r";
         }
-        return true;
+        return $result;
     }
 
     public static function new($name){
@@ -48,23 +50,6 @@ class Migration extends \io\base\Model{
         return file_put_contents($dir . $migrationName . '.php', $template);
     }
 
-    public function createTable($tableName, $columns){
-        $command = "CREATE table $tableName";
-        $c = [];
-
-        foreach($columns as $k => $v){
-            $c[] = "$k $v";
-        }
-        $command .= "(" . implode(', ', $c) . ")";
-        $this->execute($command);
-    }
-
-    public function dropTable($tableName){
-        $command = "DROP TABLE $tableName";
-
-        return $this->execute($command);
-    }
-
     public static function executePending($items){
         $time = time();
 
@@ -73,6 +58,7 @@ class Migration extends \io\base\Model{
             $migration = new $class();
             $migration->up();
             $m = new Migration();
+            echo "\033[32mExecuted migration $item\r\n\033[0m";
             $m->name = $item;
             $m->created_at = $time;
             $m->save();
@@ -118,8 +104,15 @@ class Migration extends \io\base\Model{
     }
 
     public static function getCompleted(){
-        $migrations = Migration::find()->all();
-
+        $date = Migration::find()
+        ->orderBy([
+            'created_at' => 'desc'
+        ])->one()->created_at;
+        $migrations = Migration::find()->where([
+            '=' => [
+                'created_at' => $date
+            ],
+        ])->all();
 
         $items = [];
 
@@ -128,6 +121,48 @@ class Migration extends \io\base\Model{
         }
 
         return $items;
+    }
+
+    public function createTable($tableName, $columns){
+        $command = "CREATE table $tableName";
+        $c = [];
+
+        foreach($columns as $k => $v){
+            $c[] = "$k $v";
+        }
+        $command .= "(" . implode(', ', $c) . ")";
+
+        $sth = \IO::$app->dbConnector->pdo->prepare($command);
+        $result = $sth->execute();
+        return $result;
+    }
+
+    public function dropTable($tableName){
+        $command = "DROP TABLE $tableName";
+        return $this->execute($command);
+    }
+
+    public function insert($tableName, $columns){
+        foreach($columns as $attributeKey => $attributeValue){
+            if($attributeKey === 'id'){ continue; }
+            $keys[] = $attributeKey;
+            $attributeValue = $this->sanitize($attributeValue);
+            $values[] = ":$attributeKey";
+        }
+
+        $keys = implode(', ', $keys);
+        $values = implode(', ', $values);
+
+        $command = "INSERT INTO $tableName ($keys) VALUES ($values)";
+
+        $sth = \IO::$app->dbConnector->pdo->prepare($command);
+
+        foreach($columns as $attributeKey => $attributeValue){
+            $sth->bindValue(":$attributeKey", $attributeValue);
+        }
+
+
+        return $sth->execute();
     }
 
     public function addColumn(){

@@ -4,13 +4,7 @@ namespace console\controllers;
 use io\db\Migration;
 
 class MigrateController extends \io\web\Controller{
-    public function actionIndex(){
-        echo 'dsa';
-        die;
-    }
-
     public function actionCreate(){
-
         if(Migration::run()){
             if(!isset($_SERVER['argv'][2])){
                 echo "Missing argument(s): migrate/create my-migration-name.";
@@ -24,42 +18,50 @@ class MigrateController extends \io\web\Controller{
                 }
             }
         } else {
-
+            echo "Something went wrong trying to initialize the migration system. Please check your database.\r\n";
         }
     }
 
     public function actionPending(){
-        $pending = Migration::getPending();
-        if($pending){
-            echo "There are pending migrations: \r\n";
-            foreach($pending as $migration){
-                echo "$migration\r\n";
-            }
-            echo "Execute migrations?\r\n";
-            $handle = fopen ("php://stdin","r");
-            $line = trim(fgets($handle));
+        if(Migration::run()){
+            $pending = Migration::getPending();
+            if($pending){
+                echo "There are pending migrations: \r\n\r\n";
+                foreach($pending as $migration){
+                    echo "\033[32m$migration\r\n\033[0m";
+                }
+                echo "\r\nExecute migration(s)? (y/n):";
+                $handle = fopen ("php://stdin","r");
+                $line = trim(fgets($handle));
 
-            if($line == 'y'){
-                return Migration::executePending($pending);
+                if($line == 'y'){
+                    return Migration::executePending($pending);
+                }
             }
+        } else {
+            echo "Something went wrong trying to initialize the migration system. Please check your database.\r\n";
         }
 
     }
 
     public function actionDown(){
-        $completed = Migration::getCompleted();
-        if($completed){
-            echo "There are pending migrations: \r\n";
-            foreach($completed as $migration){
-                echo "$migration\r\n";
-            }
-            echo "Execute migrations?\r\n";
-            $handle = fopen ("php://stdin","r");
-            $line = trim(fgets($handle));
+        if(Migration::run()){
+            $completed = Migration::getCompleted();
+            if($completed){
+                echo "There are pending migrations: \r\n";
+                foreach($completed as $migration){
+                    echo "$migration\r\n";
+                }
+                echo "Undo migration(s)? (y/n):";
+                $handle = fopen ("php://stdin","r");
+                $line = trim(fgets($handle));
 
-            if($line == 'y'){
-                return Migration::undoCompleted($completed);
+                if($line == 'y'){
+                    return Migration::undoCompleted($completed);
+                }
             }
+        } else {
+            echo "Something went wrong trying to initialize the migration system. Please check your database.\r\n";
         }
     }
 }

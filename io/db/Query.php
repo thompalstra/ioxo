@@ -9,6 +9,17 @@ class Query{
 
     public $arguments = [];
 
+    public static function tableExists($tableName){
+        $command = "SHOW TABLES LIKE $tableName";
+
+        $db = \IO::$app->db['mysql']['dbname'];
+        $command = "SHOW TABLES LIKE '$tableName'";
+        $sth = \IO::$app->dbConnector->pdo->prepare($command);
+        $sth->execute();
+
+        return ( $sth->rowCount() > 0 );
+    }
+
     public function push($key, $data, $glue){
 
         $this->arguments[] = [
@@ -38,6 +49,17 @@ class Query{
         return $this;
     }
 
+    public function orderBy($arguments){
+        $a = [];
+        foreach($arguments as $k => $v){
+            $a[] = "$k $v";
+        }
+        $a = implode($a, ' ');
+
+        $this->push('ORDER BY', $a, '');
+        return $this;
+    }
+
     public function orWhere($arguments){
         $this->push('OR', $arguments, 'AND');
         return $this;
@@ -53,10 +75,10 @@ class Query{
         }
     }
 
-    public function insert($arguments){
-        $this->push('INSERT', $arguments, '');
-        return $this;
-    }
+    // public function insert($arguments){
+    //     $this->push('INSERT', $arguments, '');
+    //     return $this;
+    // }
 
     public function toString(){
         $arg = [];
@@ -67,21 +89,28 @@ class Query{
 
             $key = $argValue['key'];
             $glue = $argValue['glue'];
-            foreach($argValue['arguments'] as $type => $data){
-                if(is_array($data)){
-                    foreach($data as $column => $value){
-                        $value = $this->sanitize($value);
-                        $a[] = "$column $type $value";
+            if(is_array($argValue['arguments'])){
+                foreach($argValue['arguments'] as $type => $data){
+                    if(is_array($data)){
+                        foreach($data as $column => $value){
+                            $value = $this->sanitize($value);
+                            $a[] = "$column $type $value";
+                        }
+                    } else{
+                        $a[] = $data;
                     }
-                } else{
-                    $a[] = $data;
                 }
+                $arg[] = "$key (" . implode(" $glue ", $a) . ")";
+            } else {
+                $a[] = $argValue['arguments'];
 
+                $arg[] = "$key " . implode(" ", $a);
             }
 
-            $arg[] = "$key (" . implode(" $glue ", $a) . ")";
+
         }
         $command = implode(' ', $arg);
+
         return $command;
     }
 
@@ -92,6 +121,7 @@ class Query{
     }
 
     public function one(){
+
         $sth = $this->execute($this->toString());
 
         $args = [];

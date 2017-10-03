@@ -32,6 +32,30 @@ class ConsoleApplication{
         $this->dbConnector = new DbConnector();
     }
 
+    public function outputAllMethods(){
+        $dir = $this->root . DIRECTORY_SEPARATOR . 'console' . DIRECTORY_SEPARATOR . 'controllers';
+        foreach(scandir($dir) as $d){
+            if($d == '.' || $d == '..'){ continue; }
+            $d = str_replace('.php', '', $d);
+            $class = "\\console\\controllers\\$d";
+            $d = strtolower($d);
+            $d = str_replace('controller', '', $d);
+
+            $methods = get_class_methods($class);
+
+            foreach($methods as $m){
+
+                if(strpos($m, 'action') !== false){
+                    $m = strtolower($m);
+                    $m = str_replace('action', '', $m);
+                    echo "$d/$m\r\n";
+                }
+
+            }
+        }
+        $this->end();
+    }
+
     public function initialize(){
         // common config db
 
@@ -49,6 +73,9 @@ class ConsoleApplication{
     }
 
     public function handleRequest(){
+        if(!isset($_SERVER['argv'][1])){
+            return $this->outputAllMethods();
+        }
         return $_SERVER['argv'][1];
     }
     public function parseRequest($url){

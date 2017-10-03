@@ -1,0 +1,9 @@
+.btn{
+    border: 0;
+    outline: 0;
+}
+.btn.btn-default{
+    height: 50px;
+    min-width: 50px;
+    line-height: 50px;
+}
