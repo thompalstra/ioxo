@@ -1,9 +1,49 @@
 .btn{
     border: 0;
     outline: 0;
+    padding: 0 30px;
+    display: inline-block;
+    text-decoration: none;
+    transition: background-color .3s linear, box-shadow .3s linear;
+    cursor: pointer;
+    position: relative;
 }
 .btn.btn-default{
     height: 50px;
     min-width: 50px;
     line-height: 50px;
+    -webkit-box-shadow: 0px 3px 7px 0px rgba(0,0,0,0.3);
+    -moz-box-shadow: 0px 3px 7px 0px rgba(0,0,0,0.3);
+    box-shadow: 0px 3px 7px 0px rgba(0,0,0,0.3);
+}
+.btn.btn-flat{
+    height: 50px;
+    min-width: 50px;
+    line-height: 50px;
+    -webkit-box-shadow: 0px 3px 7px 0px rgba(0,0,0,0.0);
+    -moz-box-shadow: 0px 3px 7px 0px rgba(0,0,0,0.0);
+    box-shadow: 0px 3px 7px 0px rgba(0,0,0,0.0);
+}
+
+.btn-flat:after,
+.btn-default:after{
+    content: "";
+    position: absolute;
+    left: 0; right: 0; top: 0; bottom: 0;
+    background-color: rgba(255,255,255,.0);
+    transition: background-color .3s linear;
+}
+.btn-default:active{
+    -moz-box-shadow: 0px 6px 7px 0px rgba(0,0,0,0.3);
+    box-shadow: 0px 6px 7px 0px rgba(0,0,0,0.3);
+}
+.btn-flat:active{
+    -moz-box-shadow: 0px 6px 7px 0px rgba(0,0,0,0.3);
+    box-shadow: 0px 6px 7px 0px rgba(0,0,0,0.3);
+}
+.btn-default:active:after{
+    background-color: rgba(255,255,255,.05);
+}
+.btn-flat:active:after{
+    background-color: rgba(0,0,0,.05);
 }

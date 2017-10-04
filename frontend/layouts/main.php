@@ -1,23 +1,26 @@
 <html>
     <head>
     <?=$this->head()?>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+    <link rel="stylesheet" href="/common/web/css/ioxo.theme.css">
     <link rel="stylesheet" href="/common/web/css/ioxo.forms.css">
     <link rel="stylesheet" href="/common/web/css/ioxo.buttons.css">
     <link rel="stylesheet" href="/common/web/css/ioxo.core.css">
     </head>
     <body>
-        <ul class='menu menu-default action'>
-            <li class='item'>menu</li>
+        <ul class='menu menu-default'>
+            <li class='item'><i class='icon material-icons'>menu</i></li>
             <?php if(\IO::$app->user->isGuest){ ?>
-                <li class='item'><a href="/login">log in</a></li>
+                <li class='item'><a href="/login"><span>log in</span></a></li>
             <?php } else { ?>
                 <li class='dropdown'>
                     <?php
                     ?>
-                    <?=\IO::$app->user->identity->username?>
+                    <span><?=\IO::$app->user->identity->username?></span>
                     <ul>
-                        <a href="/profile"><li class='item'>profile</li></a>
-                        <a href="/logout"><li class='item'>log out</li></a>
+                        <a href="/profile"><li class='item'><span>profile</span></li></a>
+                        <a href="/logout"><li class='item'><span>log out</span></li></a>
                     </ul>
                 </li>
             <?php } ?>

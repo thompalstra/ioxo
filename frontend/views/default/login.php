@@ -34,8 +34,8 @@ use io\data\Security;
 
         <?=$form->field($model, 'username')->textInput(['type' => 'text', 'class' => 'derp'])?>
         <?=$form->field($model, 'password')->passwordInput(['type' => 'password'])?>
-
-        <?=Html::button('login', ['class' => 'btn btn-default action-outline wide'])?>
+        <a href="/" class='btn btn-flat action-flat'>cancel</a>
+        <?=Html::button('LOGIN', ['class' => 'btn btn-default action'])?>
 
     <?php $form->end() ?>
 

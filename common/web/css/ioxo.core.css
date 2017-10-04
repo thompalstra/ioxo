@@ -25,6 +25,13 @@ body, html{
     min-height: 10px;
 }
 
+.pull-left{
+    float: left;
+}
+.pull-right{
+    float: right;
+}
+
 .wide{
     width: 100%;
 }
@@ -36,11 +43,15 @@ body, html{
     color: white;
     background-color: #3D8EB9;
 }
+.action-flat{
+    color: #3D8EB9;
+}
 .action-outline{
     border: 1px solid #3D8EB9;
     color: #3D8EB9;
     background-color: transparent;
 }
+
 .info{
     color: white;
     background-color: #64DDBB;
@@ -59,34 +70,40 @@ body, html{
     width: 100%;
     z-index: 10000;
 }
+
+.icon{
+    min-width: 50px;
+    min-height: 50px;
+    line-height: 50px;
+    text-align: center;
+}
+
 .menu.menu-default > li.item,
 .menu.menu-default > li.dropdown{
+    float: left;
+    position: relative;
+}
+.menu.menu-default > li span{
+    padding: 0 10px;
     height: 50px;
     float: left;
     min-width: 50px;
     line-height: 50px;
-    padding: 0 10px;
-    position: relative;
-    background: inherit;
+    width: 100%;
+    box-sizing: border-box;
 }
-
 .menu.menu-default > li.dropdown > ul{
     position: absolute;
-    top: -100%;
+    top: 100%;
     width: 150px;
     left: 0;
     padding: 0;
     margin: 0;
     list-style: none;
-    background-color: inherit;
-    z-index: 9999;
+    display: none;
 }
 .menu.menu-default > li.dropdown.toggled > ul{
     top: 100%;
-}
-.menu.menu-default > li.dropdown > ul a{
-    color: inherit;
-    background-color: inherit;
 }
 
 .menu.menu-default > li.dropdown > ul li{
@@ -95,7 +112,6 @@ body, html{
     float: left;
     min-width: 50px;
     line-height: 50px;
-    padding: 0 10px;
     position: relative;
     width: 100%;
 }
