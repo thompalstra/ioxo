@@ -69,11 +69,23 @@ class Controller{
     public function runAction($id){
         $args = [];
         $fn = self::translateId($id);
-        if(method_exists($this, $fn)){
+        if(method_exists($this, $fn) && $this->allowed($id)){
             // return
             return call_user_func_array([$this, $fn], $args);
         } else {
             throw new \io\exceptions\HttpNotFoundException('Page not found');
+        }
+    }
+
+    public function allowed($id){
+        if(method_exists($this, 'rules')){
+            $rules = $this->rules();
+            foreach($rules as $k => $v){
+                var_dump($v); die;
+            }
+
+        } else {
+            return true;
         }
     }
 

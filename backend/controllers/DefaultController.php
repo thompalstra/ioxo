@@ -4,6 +4,16 @@ namespace backend\controllers;
 use io\web\Controller;
 
 class DefaultController extends Controller{
+
+    public function rules(){
+        return [
+            [
+                'on' => ['8'],
+                'can' => ['backend']
+            ],
+        ];
+    }
+
     public function actionIndex(){
         return $this->render('index');
     }

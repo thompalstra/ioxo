@@ -4,7 +4,6 @@ namespace io\web;
 class User extends \io\base\Model implements \io\web\IdentityInterface{
     public static $table = "user";
 
-
     public function rules(){
         return [
             [['username', 'password'], 'required'],
