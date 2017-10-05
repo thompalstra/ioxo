@@ -21,7 +21,7 @@ use io\data\Security;
                     'class' => 'input input-default col dt10 tb8 mb12 xs12'
                 ],
                 'error' => [
-                    'class' => 'error error-default col dt12 tb12 mb12 xs12',
+                    'class' => 'error error-default pull-right',
                 ],
             ],
             'options' => [
@@ -32,10 +32,12 @@ use io\data\Security;
             ]
         ]); ?>
 
-        <?=$form->field($model, 'username')->textInput(['type' => 'text', 'class' => 'derp'])?>
+        <?=$form->field($model, 'username')->textInput(['type' => 'text'])?>
         <?=$form->field($model, 'password')->passwordInput(['type' => 'password'])?>
-        <a href="/" class='btn btn-flat action-flat'>cancel</a>
-        <?=Html::button('LOGIN', ['class' => 'btn btn-default action'])?>
+        <div class='row row-button'>
+        <?=Html::button('LOGIN', ['class' => 'btn btn-default action pull-right'])?>
+        <a href="/" class='btn btn-flat action-flat pull-right'>cancel</a>
+        </div>
 
     <?php $form->end() ?>
 

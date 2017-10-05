@@ -85,6 +85,7 @@ class FormField{
             $options['class'] = "label label-default error";
             $label = implode(' ', $messages);
         }
+        $options = Html::mergeAttributes($options, $this->form->templateOptions['error']);
         $options = Html::attributes($options);
         return "<label $options>$label</label>";
     }

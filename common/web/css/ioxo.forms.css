@@ -2,17 +2,25 @@
     margin: 0;
     padding: 0;
 }
-.form .row.row-default{
-    margin-bottom: 10px;
+.form .row{
     display: inline-block;
     width: 100%;
+}
+.row.row-default{
+    /*margin-bottom: 10px;*/
+}
+.row.row-btn .btn.pull-left{
+    margin-right: 10px;
+}
+.row.row-btn .btn.pull-right{
+    margin-left: 10px;
 }
 
 .input.input-default[type="password"],
 .input.input-default[type="number"],
 .input.input-default[type="text"]{
-    height: 50px;
-    line-height: 50px;
+    height: 40px;
+    line-height: 40px;
     border: 1px solid #ddd;
     outline: 0;
     padding: 0 10px;
@@ -22,8 +30,7 @@
 .input.input-default[type="text"]:focus{
     border: 1px solid #aaa;
 }
-
-.label.label-default{
-    height: 50px;
-    line-height: 50px;
+.form .row .input,
+.form .row .label{
+    margin-bottom: 10px;
 }

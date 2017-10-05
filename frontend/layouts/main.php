@@ -10,11 +10,11 @@
     </head>
     <body>
         <ul class='menu menu-default'>
-            <li class='item'><i class='icon material-icons'>menu</i></li>
+            <li class='item pull-left'><i class='icon material-icons'>menu</i></li>
             <?php if(\IO::$app->user->isGuest){ ?>
-                <li class='item'><a href="/login"><span>log in</span></a></li>
+                <li class='item pull-left'><a href="/login"><span>log in</span></a></li>
             <?php } else { ?>
-                <li class='dropdown'>
+                <li class='item dropdown pull-left'>
                     <?php
                     ?>
                     <span><?=\IO::$app->user->identity->username?></span>
@@ -24,6 +24,7 @@
                     </ul>
                 </li>
             <?php } ?>
+            <li class='item pull-right'><i class="icon material-icons">more_vert</i></li>
         </ul>
         <div class='container'>
             <?=$content?>

@@ -56,9 +56,25 @@ body, html{
     color: white;
     background-color: #64DDBB;
 }
+.info-flat{
+    color: #64DDBB;
+}
 .info-outline{
     border: 1px solid #64DDBB;
     color: #64DDBB;
+    background-color: transparent;
+}
+
+.error{
+    color: white;
+    background-color: #C0392B;
+}
+.error-flat{
+    color: #C0392B;
+}
+.error-outline{
+    border: 1px solid #C0392B;
+    color: #C0392B;
     background-color: transparent;
 }
 
@@ -71,6 +87,17 @@ body, html{
     z-index: 10000;
 }
 
+.label{
+}
+.label-default{
+    height: 40px;
+    line-height: 40px;
+    display: inline-block;
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+
+
 .icon{
     min-width: 50px;
     min-height: 50px;
@@ -78,15 +105,12 @@ body, html{
     text-align: center;
 }
 
-.menu.menu-default > li.item,
-.menu.menu-default > li.dropdown{
-    float: left;
+.menu.menu-default > li.item{
     position: relative;
 }
 .menu.menu-default > li span{
     padding: 0 10px;
     height: 50px;
-    float: left;
     min-width: 50px;
     line-height: 50px;
     width: 100%;
