@@ -34,7 +34,7 @@ use io\data\Security;
 
         <?=$form->field($model, 'username')->textInput(['type' => 'text'])?>
         <?=$form->field($model, 'password')->passwordInput(['type' => 'password'])?>
-        <div class='row row-button'>
+        <div class='row row-btn'>
         <?=Html::button('LOGIN', ['class' => 'btn btn-default action pull-right'])?>
         <a href="/" class='btn btn-flat action-flat pull-right'>cancel</a>
         </div>
