@@ -115,6 +115,8 @@ body, html{
     line-height: 50px;
     width: 100%;
     box-sizing: border-box;
+    display: inline-block;
+
 }
 .menu.menu-default > li.dropdown > ul{
     position: absolute;

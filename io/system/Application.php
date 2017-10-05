@@ -77,6 +77,7 @@ class Application{
         }
 
         $this->user = &$this->session['identity'];
+        $this->_csrf = \io\data\Security::getCsrf();
     }
 
     public function run(){

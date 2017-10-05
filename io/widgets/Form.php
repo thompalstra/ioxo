@@ -12,7 +12,13 @@ class Form{
         }
 
         $options = Html::attributes($this->options);
-        echo "<form $options>";
+        $out = "<form $options>";
+        $out .= Html::textInput(
+            '_csrf',
+            \IO::$app->_csrf->token
+        );
+
+        echo $out;
     }
 
     public $template = "{rowBegin}{label}{input}{error}{rowEnd}";
