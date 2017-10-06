@@ -9,6 +9,8 @@ return [
     ],
     'identity' => [
         'class' => '\io\web\User'
-    ]
+    ],
+    'enableCsrfValidation' => true,
+    'csrfTimeout' => 30,
 ];
 ?>

@@ -2,15 +2,35 @@
 namespace backend\controllers;
 
 use io\web\Controller;
+use io\web\User;
+use io\data\Security;
+
+use common\models\LoginForm;
 
 class DefaultController extends Controller{
 
     public function rules(){
         return [
             [
-                'on' => ['8'],
-                'can' => ['backend']
+                'actions' => ['error'],
+                'can' => ['*']
             ],
+            [
+                'actions' => ['login'],
+                'can' => ['?'],
+                'on' => [
+                    'allow' => true,
+                    'deny' => '/'
+                ]
+            ],
+            [
+                'actions' => ['*'],
+                'can' => ['backend'],
+                'on' => [
+                    'allow' => true,
+                    'deny' => '/login'
+                ]
+            ]
         ];
     }
 
@@ -25,16 +45,33 @@ class DefaultController extends Controller{
     }
 
     public function actionLogin(){
-        $user = \io\web\User::find()->one();
-
-        $user->login();
-
-
-        return $this->redirect('/');
+        $model = new LoginForm();
+        if($_POST && $model->load($_POST) && $model->validate()){
+            $user = User::find()->where([
+                '=' => [
+                    'username' => $model->username
+                ],
+            ])->one();
+            if($user && $user->can('backend')){
+                if(Security::passwordVerify($model->password, $user->password) && \IO::$app->user->identity->login($user)){
+                    return $this->redirect('/');
+                } else {
+                    $model->addError('No user found matching credentials');
+                }
+            } else {
+                $model->addError('No user found matching credentials');
+            }
+        }
+        return $this->render('login', ['model' => $model]);
     }
 
     public function actionLogout(){
-        return $this->redirect('/');
+        if(!\IO::$app->user->isGuest){
+            \IO::$app->user->identity->logout();
+            return $this->redirect('/');
+        } else {
+            echo 'cant logout when not logged in'; die;
+        }
     }
 }
 ?>

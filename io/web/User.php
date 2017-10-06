@@ -1,12 +1,16 @@
 <?php
 namespace io\web;
 
+use io\web\AuthUser;
+use io\web\User;
+
 class User extends \io\base\Model implements \io\web\IdentityInterface{
     public static $table = "user";
 
     public function rules(){
         return [
             [['username', 'password'], 'required'],
+            [['username'], 'number'],
             [['is_deleted'], 'tinyint', 'default' => 0],
             [['is_enabled'], 'tinyint', 'default' => 1]
         ];
@@ -27,6 +31,29 @@ class User extends \io\base\Model implements \io\web\IdentityInterface{
         unset(\IO::$app->session['identity']);
 
         return true;
+    }
+
+    public function can($role){
+        switch($role){
+            case '*':
+            return true;
+            break;
+            case '?':
+                return (\IO::$app->user->isGuest);
+            break;
+            default:
+                return Auth::find()
+                ->leftJoin('auth_user as au', [
+                    'au.auth_id' => 'auth.id'
+                ])
+                ->where([
+                    '=' => [
+                        'au.user_id' => $this->id,
+                        'name' => $role
+                    ]
+                ])->exists();
+            break;
+        }
     }
 }
 ?>

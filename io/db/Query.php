@@ -49,6 +49,15 @@ class Query{
         return $this;
     }
 
+    public function limit($i){
+        $this->push('LIMIT', $i, '');
+        return $this;
+    }
+    public function offset($i){
+        $this->push('OFFSET', $i, '');
+        return $this;
+    }
+
     public function orderBy($arguments){
         $a = [];
         foreach($arguments as $k => $v){
@@ -62,6 +71,11 @@ class Query{
 
     public function orWhere($arguments){
         $this->push('OR', $arguments, 'AND');
+        return $this;
+    }
+
+    public function leftJoin($tableName, $arguments){
+        $this->push("LEFT JOIN $tableName ON", $arguments, "");
         return $this;
     }
 
@@ -120,6 +134,8 @@ class Query{
         return $sth;
     }
 
+
+
     public function one(){
 
         $sth = $this->execute($this->toString());
@@ -142,6 +158,10 @@ class Query{
             $args,
             false
         ]);
+    }
+
+    public function exists(){
+        return ($this->execute($this->toString())->rowCount() > 0);
     }
 }
 ?>

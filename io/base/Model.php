@@ -1,6 +1,8 @@
 <?php
 namespace io\base;
 
+use io\data\Security;
+
 class Model extends \io\db\Row{
 
     public $isNewModel = true;
@@ -24,20 +26,36 @@ class Model extends \io\db\Row{
         }
     }
 
-    public function addError($attribute, $message){
-        if(!isset($this->_errors[$attribute])){
-            $this->_errors[$attribute] = [];
+    public function addError($a, $b = null){
+        if(!empty($a) && !empty($b)){
+            if(!isset($this->_errors[$a])){
+                $this->_errors[$a] = [];
+            }
+            $this->_errors[$a][] = $b;
+        } else if(empty($b)) {
+            if(!isset($this->_errors['model'])){
+                $this->_errors['model'] = [];
+            }
+            $this->_errors['model'][] = $a;
         }
-
-        $this->_errors[$attribute][] = $message;
     }
 
     public function getErrors(){
         return $this->_errors;
     }
 
+    public function getError($attribute){
+        if(isset($this->_errors[$attribute])){
+            return $this->_errors[$attribute];
+        }
+        return false;
+    }
+
     public function hasErrors(){
         return (empty($this->_errors));
+    }
+    public function hasError($attribute){
+        return (isset($this->_errors[$attribute]));
     }
 
     public static function getClass(){
@@ -49,6 +67,17 @@ class Model extends \io\db\Row{
     public function load($array){
 
         $className = self::getClass();
+
+        if(\IO::$app->enableCsrfValidation){
+            if(isset($array['_csrf']) && Security::validateCsrf($array['_csrf'])){
+
+            } else {
+                foreach($this->_attributes as $attr){
+                    $attr = null;
+                }
+                return false;
+            }
+        }
 
         if(isset($array[$className])){
             $data = $array[$className];
@@ -160,12 +189,11 @@ class Model extends \io\db\Row{
             $attributes = $this->attributes();
             if(isset($attributes[$attribute])){
                 return $attributes[$attribute];
-            } else {
-                return $attribute;
             }
-        } else {
-            return $attribute;
         }
+        $attribute = str_replace('_', ' ', $attribute);
+        $attribute = ucwords($attribute);
+        return $attribute;
     }
 
     public function update(){

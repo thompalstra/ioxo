@@ -10,12 +10,8 @@ use common\models\LoginForm;
 
 class DefaultController extends Controller{
     public function actionIndex(){
-        return $this->render('index', [
-            'argA' => 'a',
-            'argB' => 543
-        ]);
+        return $this->render('index');
     }
-
     public function actionError(){
         return $this->render('error', [
             'exception' => \IO::$app->exception,
@@ -49,7 +45,6 @@ class DefaultController extends Controller{
         } else {
             echo 'cant logout when not logged in'; die;
         }
-
     }
 }
 ?>

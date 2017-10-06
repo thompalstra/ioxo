@@ -1,11 +1,6 @@
 body, html{
-    background-color: #ddd;
+    /*background-color: #ddd;*/
     margin: 0; padding: 0;
-}
-
-.container{
-    width: 1200px;
-    margin: 0 auto;
 }
 
 .element{
@@ -15,7 +10,7 @@ body, html{
 .inner{
     background-color: white;
     padding: 10px;
-    border: 1px solid #ccc;
+    /*border: 1px solid #ccc;*/
     box-sizing: border-box;
 }
 
@@ -45,10 +40,25 @@ body, html{
 }
 .action-flat{
     color: #3D8EB9;
+    background-color: inherit;
 }
 .action-outline{
     border: 1px solid #3D8EB9;
     color: #3D8EB9;
+    background-color: transparent;
+}
+
+.success{
+    color: white;
+    background-color: #71BA51;
+}
+.success-flat{
+    color: #71BA51;
+    background-color: inherit;
+}
+.success-outline{
+    border: 1px solid #71BA51;
+    color: #71BA51;
     background-color: transparent;
 }
 
@@ -58,6 +68,7 @@ body, html{
 }
 .info-flat{
     color: #64DDBB;
+    background-color: inherit;
 }
 .info-outline{
     border: 1px solid #64DDBB;
@@ -65,12 +76,14 @@ body, html{
     background-color: transparent;
 }
 
+
 .error{
     color: white;
     background-color: #C0392B;
 }
 .error-flat{
     color: #C0392B;
+    background-color: inherit;
 }
 .error-outline{
     border: 1px solid #C0392B;
@@ -93,8 +106,14 @@ body, html{
     height: 40px;
     line-height: 40px;
     display: inline-block;
-    padding: 0 10px;
     box-sizing: border-box;
+}
+.label.action,
+.label.success,
+.label.error,
+.label.info,
+.label.warning{
+    padding: 0 10px;
 }
 
 
@@ -122,12 +141,19 @@ body, html{
     position: absolute;
     top: 100%;
     width: 150px;
-    left: 0;
     padding: 0;
     margin: 0;
     list-style: none;
     display: none;
 }
+
+.menu.menu-default > li.dropdown.pull-left > ul{
+    left: 0;
+}
+.menu.menu-default > li.dropdown.pull-right > ul{
+    right: 0;
+}
+
 .menu.menu-default > li.dropdown.toggled > ul{
     top: 100%;
 }
@@ -142,7 +168,9 @@ body, html{
     width: 100%;
 }
 
-
+.container{
+    margin: 0 auto;
+}
 
 /*extra-small mobile devices*/
 @media screen and (min-width: 0){
@@ -158,6 +186,7 @@ body, html{
     .xs3{    width: 25%;        }
     .xs2{    width: 16.666667%; }
     .xs1{    width: 8.333334%;  }
+    .container{ width: 100%; }
 }
 /*mobile / small tablet*/
 @media screen and (min-width: 640px){
@@ -173,6 +202,7 @@ body, html{
     .mb3{   width: 25%;         }
     .mb2{   width: 16.666667%;  }
     .mb1{   width: 8.333334%;   }
+    .container{ width: 640px; }
 }
 /*laptop / tablet*/
 @media screen and (min-width: 960px){
@@ -188,6 +218,7 @@ body, html{
     .tb3{   width: 25%;         }
     .tb2{   width: 16.666667%;  }
     .tb1{   width: 8.333334%;   }
+    .container{ width: 960px; }
 }
 /*desktop*/
 @media screen and (min-width: 1280px){
@@ -203,4 +234,5 @@ body, html{
     .dt3{   width: 25%;         }
     .dt2{   width: 16.666667%;  }
     .dt1{   width: 8.333334%;   }
+    .container{ width: 1280px; }
 }

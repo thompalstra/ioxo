@@ -70,7 +70,7 @@ class Application{
 
         $this->session = &$_SESSION;
 
-        if(empty($this->session['identity'])){
+        if(empty($this->session['identity']) || empty($this->session['identity']->identity)){
             $identity = new \io\web\Identity();
             $identity->identity = new $sessionUser();
             $this->session['identity'] = $identity;

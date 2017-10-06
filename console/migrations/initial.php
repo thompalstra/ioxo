@@ -54,7 +54,6 @@ class initial extends \io\db\Migration{
             'user_id' => $userId,
             'auth_id' => $authId
         ]);
-
     }
     public function down(){
         $this->dropTable('user');

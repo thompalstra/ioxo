@@ -5,10 +5,27 @@ class Html{
 
     public $options = [];
 
+    public static function a($label, $url, $options){
+        $options['href'] = $url;
+        $options = self::attributes($options);
+
+        return "<a $options>$label</a>";
+    }
+
     public static function textInput($name, $value = null, $options = []){
         $options['name'] = $name;
         $options['value'] = $value;
         $options['type'] = 'text';
+
+        $options = self::attributes($options);
+
+        return "<input $options/>";
+    }
+
+    public static function hiddenInput($name, $value = null, $options = []){
+        $options['name'] = $name;
+        $options['value'] = $value;
+        $options['type'] = 'hidden';
 
         $options = self::attributes($options);
 

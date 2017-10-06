@@ -44,10 +44,11 @@ class Controller{
         $path = (($path !== "") ? $path . "\\" : "");
 
         $className = $namespace . $path . $name;
-
         if(!class_exists($className)){
             $className = $namespace . 'DefaultController';
         }
+
+
 
         $controller = new $className();
         $controller->path = $path;
@@ -66,14 +67,36 @@ class Controller{
         return $fn;
     }
 
-    public function runAction($id){
-        $args = [];
+    public function matchArguments($controller, $function, $arguments){
+        $f = new \ReflectionMethod(get_class($controller), $function);
+        $params = $f->getParameters();
+
+        $result = [];
+        $error = [];
+        foreach($params as $param){
+            $name = $param->name;
+            if(isset($arguments[$name])){
+                $result[] = $arguments[$name];
+            } else {
+                $error[] = "Missing required parameter: $name";
+            }
+        }
+
+        if(!empty($error)){
+            throw new \io\exceptions\HttpNotFoundException( implode("\n", $error) );
+        }
+        return $result;
+    }
+
+    public function runAction($id, $args = []){
         $fn = self::translateId($id);
         if(method_exists($this, $fn) && $this->allowed($id)){
             // return
-            return call_user_func_array([$this, $fn], $args);
+            $arg = $this->matchArguments($this, $fn, $args + $_GET);
+
+            return call_user_func_array([$this, $fn], $arg);
         } else {
-            throw new \io\exceptions\HttpNotFoundException('Page not found');
+            throw new \io\exceptions\HttpNotFoundException('Permission denied');
         }
     }
 
@@ -81,9 +104,37 @@ class Controller{
         if(method_exists($this, 'rules')){
             $rules = $this->rules();
             foreach($rules as $k => $v){
-                var_dump($v); die;
-            }
+                $actions = $v['actions'];
+                $can = $v['can'];
 
+                foreach($actions as $action){
+                    if($action == '*' || $action == $id){
+                        foreach($can as $role){
+                            $result = \IO::$app->user->identity->can($role);
+                            if($result === true){
+                                if(isset($v['on']) && isset($v['on']['allow'])){
+                                    if(is_string($v['on']['allow'])){
+                                        $this->redirect($v['on']['allow']);
+                                    } else {
+                                        return true;
+                                    }
+                                } else {
+                                    return true;
+                                }
+                            } else if($result === false){
+                                if(isset($v['on']) && isset($v['on']['deny'])){
+                                    if(is_string($v['on']['deny'])){
+                                        return $this->redirect($v['on']['deny']);
+                                    } else {
+                                        return false;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return false;
         } else {
             return true;
         }

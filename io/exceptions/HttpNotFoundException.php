@@ -2,6 +2,10 @@
 namespace io\exceptions;
 
 class HttpNotFoundException extends \Exception{
+
+    public $title = "";
+    public $message = "";
+
     public function __construct($message){
         // get default layout
         $defaultLayout = \IO::$app->root . DIRECTORY_SEPARATOR . \IO::$app->domain->name . DIRECTORY_SEPARATOR . 'layouts' . DIRECTORY_SEPARATOR . 'main.php';
@@ -14,7 +18,6 @@ class HttpNotFoundException extends \Exception{
         if(!file_exists($defaultView)){
             echo "Error! Default view file missing: $defaultView"; \IO::$app->end();
         }
-
         if(\IO::$app->action->id == 'error'){
             echo 'ERROR EXECUTING ERROR';
             \IO::$app->end();
@@ -26,6 +29,7 @@ class HttpNotFoundException extends \Exception{
         \IO::$app->action = new \io\web\Action();
         \IO::$app->action->id = 'error';
         \IO::$app->exception = new \Exception($message, 404);
+
         \IO::$app->controller->runAction(\IO::$app->action->id);
         \IO::$app->end();
     }
