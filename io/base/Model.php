@@ -132,6 +132,8 @@ class Model extends \io\db\Row{
                 foreach($attributes as $attribute){
                     if(method_exists('\io\base\Validator', $validator)){
                         \io\base\Validator::$validator($this, $attribute, $rule);
+                    } else if(method_exists($this, $validator)) {
+                        $this::$validator($this, $attribute, $rule);
                     }
                 }
             }
@@ -164,7 +166,22 @@ class Model extends \io\db\Row{
             $sth->bindValue(":$attributeKey", $attributeValue);
         }
 
-        return $sth->execute();
+        $result = $sth->execute();
+
+        if($result == true){
+            $id = \IO::$app->dbConnector->pdo->lastInsertId ();
+            $pk = $this->getPkColumnName();
+            $item = $class::find()->where([
+                '=' => [
+                    $pk => $id
+                ],
+            ])->one();
+            foreach($item->_attributes as $k => $v){
+                $this->$k = $v;
+            }
+
+            return true;
+        }
     }
 
     public function getPkColumnName(){

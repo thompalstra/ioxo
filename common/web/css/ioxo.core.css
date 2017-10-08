@@ -34,6 +34,21 @@ body, html{
     display: none !important;
 }
 
+.default{
+    color: white;
+    background-color: #555;
+}
+
+.default-flat{
+    color: #555;
+    background-color: inherit;
+}
+.default-outline{
+    border: 1px solid #555;
+    color: #555;
+    background-color: transparent;
+}
+
 .action{
     color: white;
     background-color: #3D8EB9;
@@ -170,6 +185,27 @@ body, html{
 
 .container{
     margin: 0 auto;
+}
+[behaviour="active"]{
+    -webkit-box-shadow: 0px 3px 7px 0px rgba(0,0,0,0.0);
+    -moz-box-shadow: 0px 3px 7px 0px rgba(0,0,0,0.0);
+    box-shadow: 0px 3px 7px 0px rgba(0,0,0,0.0);
+    position: relative;
+    transition: box-shadow .3s linear;
+}
+[behaviour="active"]:after{
+    content: "";
+    position: absolute;
+    left: 0; right: 0; top: 0; bottom: 0;
+    background-color: rgba(255,255,255,.0);
+    transition: background-color .3s linear;
+}
+[behaviour="active"]:active{
+    -moz-box-shadow: 0px 6px 7px 0px rgba(0,0,0,0.3);
+    box-shadow: 0px 6px 7px 0px rgba(0,0,0,0.3);
+}
+[behaviour="active"]:active:after{
+    background-color: rgba(255,255,255,.05);
 }
 
 /*extra-small mobile devices*/

@@ -42,6 +42,19 @@ class Html{
         return "<input $options/>";
     }
 
+    public static function dropdown($name, $value = null, $items = [], $options = []){
+        $options['name'] = $name;
+        $options = Html::attributes($options);
+        $out = "<select $options>";
+        foreach($items as $k => $item){
+            $selected = ($k === $value) ? 'selected' : '';
+            $out .= "<option value='$k'>$item</option>";
+        }
+        $out .= "</select>";
+
+        return $out;
+    }
+
     public static function button($text, $options = []){
         $options = self::attributes($options);
         return "<button $options>$text</button>";
@@ -54,6 +67,9 @@ class Html{
             if(is_array($v)){
                 $out[] = "$k='" . self::arrayAttributes($v) . "'";
             } else {
+
+                $v = self::sanitizeValue($v);
+
                 $out[] = "$k='$v'";
             }
         }
@@ -63,6 +79,9 @@ class Html{
         $out = [];
 
         foreach($options as $k => $v){
+
+            $v = self::sanitizeValue($v);
+
             $out[] = "$k: $v";
         }
 
@@ -72,7 +91,12 @@ class Html{
     public static function mergeAttributes($new, $original){
         $opt = [];
 
-        foreach($original as $k => $v){ $opt[$k] = $v; }
+        foreach($original as $k => $v){
+
+            $v = self::sanitizeValue($v);
+
+            $opt[$k] = $v;
+        }
 
         foreach($new as $k => $v){
             if(isset($original[$k])){
@@ -81,14 +105,28 @@ class Html{
                 } else {
                     $l = [];
                     $l[] = $opt[$k];
+
+                    $v = self::sanitizeValue($v);
+
                     $l[] = $v;
                     $opt[$k] = implode(' ', $l);
                 }
             } else {
+
+                $v = self::sanitizeValue($v);
+
                 $opt[$k] = $v;
             }
         }
         return $opt;
+    }
+
+    public static function sanitizeValue($v){
+        if(is_bool($v)){
+            return ($v == true) ? 'true' : 'false';
+        }
+
+        return $v;
     }
 }
 ?>

@@ -163,5 +163,8 @@ class Query{
     public function exists(){
         return ($this->execute($this->toString())->rowCount() > 0);
     }
+    public function count(){
+        return $this->execute($this->toString())->rowCount();
+    }
 }
 ?>

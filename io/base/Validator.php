@@ -10,7 +10,20 @@ class Validator{
         }
     }
     public static function tinyint($model, $attribute, $rule){
-        $model->$attribute = intval(boolval($model->$attribute));
+
+        $value = $model->$attribute;
+
+        if(!is_bool($value)){
+            if($value == 'false'){
+                $value = false;
+            } else {
+                $value = boolval($value);
+            }
+        } else {
+            $value = false;
+        }
+
+        $model->$attribute = intval(boolval($value));
     }
 }
 

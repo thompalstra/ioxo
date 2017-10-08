@@ -3,7 +3,10 @@ namespace io\widgets;
 
 use io\helpers\Html;
 
+use io\widgets\DataPager;
+
 class DataTable extends \io\base\Widget{
+
 
     public $tableOptions = [
         'class' => 'datatable'
@@ -12,7 +15,10 @@ class DataTable extends \io\base\Widget{
         'class' => 'column'
     ];
     public $rowOptions = [
-        'class' => 'row'
+        'class' => 'row',        
+    ];
+    public $pager = [
+        'range' => 2,
     ];
 
     public $columns = [];
@@ -25,11 +31,15 @@ class DataTable extends \io\base\Widget{
             $this->$k = $v;
         }
     }
+    public $template = '{tableBegin}{columns}{rows}{tableEnd}{pager}';
     public function run(){
-        $out = $this->tableBegin($this->tableOptions);
-        $out .= $this->columns($this->columnOptions);
-        $out .= $this->rows($this->rowOptions);
-        $out .= $this->tableEnd();
+
+        $out = $this->template;
+        $out = str_replace('{pager}', $this->pager(), $out);
+        $out = str_replace('{tableBegin}', $this->tableBegin($this->tableOptions), $out);
+        $out = str_replace('{columns}', $this->columns($this->columnOptions), $out);
+        $out = str_replace('{rows}', $this->rows($this->rowOptions), $out);
+        $out = str_replace('{tableEnd}', $this->tableEnd(), $out);
 
         return $out;
     }
@@ -63,11 +73,18 @@ class DataTable extends \io\base\Widget{
     public function rows($options = []){
         $options = Html::attributes($options);
 
+        $out = "";
+
         foreach($this->dataSet->getAll() as $key => $item){
             if(is_array($item)){
                 (object)$item;
+            } else {
+                $key = $item->id;
             }
-            $out = "<tr $options>";
+
+
+
+            $out .= "<tr $options datakey='$key'>";
 
             foreach($this->columns as $index => $column){
                 if(is_array($column)){
@@ -83,7 +100,19 @@ class DataTable extends \io\base\Widget{
         return $out;
     }
 
+    public function pager(){
+        if($this->pagination !== false){
+
+            $options = $this->pager;
+            $options['pagination'] = $this->dataSet->pagination;
+            $options['query'] = $this->dataSet->query;
+
+            return DataPager::widget($options);
+        }
+    }
+
     public function tableEnd(){
+
         return "</table>";
     }
 }

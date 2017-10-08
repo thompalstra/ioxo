@@ -171,7 +171,11 @@ class FormField{
         ];
 
         $widget->prepare($opt);
-        $input = $widget->run();
+
+
+        $options = Html::attributes($this->form->templateOptions['input']);
+
+        $input = "<div $options>" . $widget->run() . "</div>";
 
         $label = $this->createInputLabel();
         $error = $this->createErrorLabel();

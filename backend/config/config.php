@@ -11,6 +11,6 @@ return [
         'class' => '\io\web\User'
     ],
     'enableCsrfValidation' => true,
-    'csrfTimeout' => 30,
+    'csrfTimeout' => 60 * 60,
 ];
 ?>

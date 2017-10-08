@@ -25,9 +25,18 @@ $(document).on('click', "*:not(.menu *)", function(e){
             ul.slideUp(200);
         }
     });
-})
+});
 
 
 var ioxo = function(){
 
 }
+
+$(document).on('click', '.slidebox', function(e){
+    var input = $( $(this).find('input') )
+    var value = input.val();
+    if(value == 'true'){
+        return input.val('false');
+    }
+    return input.val('true');
+})

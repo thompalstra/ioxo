@@ -10,6 +10,7 @@ use io\web\Url;
 
     <?=Html::a('NIEUW', Url::to('/user/view', ['a' => 'b', 'c' => 'd']), ['class' => 'btn btn-default success pull-right'] )?>
 </div>
+<?=$searchModel->console()?>
 <?=DataTable::widget([
     'dataSet' => $dataSet,
     'columns' => [
@@ -25,4 +26,8 @@ use io\web\Url;
         ],
         'is_enabled',
     ],
+    'rowOptions' => [
+        'class' => 'row',
+        'onclick' => 'location.href = "/user/view?id=" + this.getAttribute("datakey")'
+    ]
 ]);?>
