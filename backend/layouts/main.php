@@ -12,14 +12,15 @@
 
     <link rel="stylesheet" href="/backend/web/css/style.css">
     </head>
-    <body>
+    <body class='theme <?=\IO::$app->controller->theme?>'>
         <ul class='menu menu-default'>
             <li class='item dropdown pull-left'>
                 <i class='icon material-icons'>menu</i>
                 <ul>
                     <?php if(\IO::$app->user->isGuest) { ?>
                     <?php } else { ?>
-                        <a href="/user/index"><li class='item'><span>User</span></li></a>
+                        <a href="/user/index"><li class='item'><span><i class="material-icons icon pull-left">&#xE853;</i> User</span></li></a>
+                        <a href="/auth/index"><li class='item'><span><i class="material-icons icon pull-left">&#xE898;</i> Auth</span></li></a>
                     <?php } ?>
                 </ul>
             </li>
@@ -35,12 +36,11 @@
                 </ul>
             </li>
         </ul>
-        <div class='container'>
-            <?=$content?>
-        </div>
+        <?=$content?>
         <script src="http://code.jquery.com/jquery-latest.js"></script>
         <script src="/common/web/js/ioxo.core.js"></script>
         <script src="/common/web/js/ioxo.forms.js"></script>
+        <script src="/common/web/js/ioxo.widgets.js"></script>
         <?=$this->footer()?>
     </body>
 </html>

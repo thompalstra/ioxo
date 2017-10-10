@@ -12,16 +12,8 @@ class DefaultController extends Controller{
     public function rules(){
         return [
             [
-                'actions' => ['error'],
-                'can' => ['*']
-            ],
-            [
-                'actions' => ['login'],
-                'can' => ['?'],
-                'on' => [
-                    'allow' => true,
-                    'deny' => '/'
-                ]
+                'actions' => ['login', 'logout', 'error'],
+                'can' => ['*'],
             ],
             [
                 'actions' => ['*'],
@@ -56,7 +48,7 @@ class DefaultController extends Controller{
                 if(Security::passwordVerify($model->password, $user->password) && \IO::$app->user->identity->login($user)){
                     return $this->redirect('/');
                 } else {
-                    $model->addError('No user found matching credentials');
+                    $model->addError('Incorrect credentials');
                 }
             } else {
                 $model->addError('No user found matching credentials');
@@ -68,10 +60,8 @@ class DefaultController extends Controller{
     public function actionLogout(){
         if(!\IO::$app->user->isGuest){
             \IO::$app->user->identity->logout();
-            return $this->redirect('/');
-        } else {
-            echo 'cant logout when not logged in'; die;
         }
+        return $this->redirect('/login');
     }
 }
 ?>

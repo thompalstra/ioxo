@@ -18,7 +18,6 @@ $(document).on('click', ".menu.menu-default > li.dropdown" ,function(e){
 })
 $(document).on('click', "*:not(.menu *)", function(e){
     $('.open').each(function(e){
-        console.log(this);
         var ul = $(this).find('ul');
         if(ul.length > 0){
             $(this).removeClass('open');

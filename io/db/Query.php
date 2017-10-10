@@ -75,7 +75,18 @@ class Query{
     }
 
     public function leftJoin($tableName, $arguments){
-        $this->push("LEFT JOIN $tableName ON", $arguments, "");
+        $commands = [];
+
+        foreach($arguments as $k => $v){
+            $commands[] = "$k = $v";
+        }
+
+        $this->push("LEFT JOIN $tableName ON", $commands, "");
+        return $this;
+    }
+
+    public function groupBy($arguments){
+        $this->push("GROUP BY", $arguments, "");
         return $this;
     }
 

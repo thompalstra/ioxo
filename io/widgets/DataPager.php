@@ -40,7 +40,7 @@ class DataPager extends \io\base\Widget{
         if($rangeStart < 1){
             $rangeStart = 1;
         }
-        $rangeEnd = $page + $this->reange;
+        $rangeEnd = $page + $this->range;
         if($rangeEnd > $lastPage){
             $rangeEnd = $lastPage;
         }

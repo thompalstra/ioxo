@@ -15,12 +15,30 @@ class User extends \io\base\Model implements \io\web\IdentityInterface{
     public function rules(){
         return [
             [['new_password'], 'passwordCreate', 'min' => 6, 'max' => 24],
-            [['username', 'password'], 'required'],
+            [['username', 'password', 'email'], 'required'],
+            [['email'], 'email'],
             [['username'], 'number'],
             [['is_deleted'], 'tinyint', 'default' => 0],
-            [['is_enabled'], 'tinyint', 'default' => 1],
-
+            [['is_enabled'], 'tinyint', 'default' => 1]
         ];
+    }
+
+    public function attributes(){
+        return [
+            'page_size' => 'Per page',
+            'id' => '#',
+            'usedRoles' => "Roles",
+            'is_enabled' => "Enabled"
+        ];
+    }
+
+    public function password($model, $attribute, $rule){
+        preg_match_all("/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/", $model->$attribute, $output_array);
+        if(isset($output_array[0]) && isset($output_array[0][0])){
+
+        } else {
+            $this->addError($attribute, 'Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters');
+        }
     }
 
     public function passwordCreate($model, $attribute, $rule){
@@ -65,6 +83,31 @@ class User extends \io\base\Model implements \io\web\IdentityInterface{
                 $attributeLabel = $model->getAttributeLabel('new_password_repeat');
                 $this->addError('new_password_repeat', "$attributeLabel cannot be empty");
             }
+        }
+    }
+    public function getRoles(){
+        return [''=>'None'] + \io\helpers\ArrayHelper::map(Auth::find()->all(), 'id', 'name');
+    }
+    public function getUsedRoles(){
+        return \io\helpers\ArrayHelper::map(AuthUser::find()->where([
+            '=' => [
+                'user_id' => $this->id
+            ],
+        ])->all(), 'auth_id', 'auth_id');
+    }
+
+    public function saveRoles(){
+        $result = AuthUser::deleteAll([
+            '=' => [
+                'user_id' => $this->id
+            ],
+        ]);
+        foreach($this->usedRoles as $k => $v){
+            if(empty($v)){ continue; }
+            $authUser = new AuthUser();
+            $authUser->user_id = $this->id;
+            $authUser->auth_id = $v;
+            $authUser->save();
         }
     }
 

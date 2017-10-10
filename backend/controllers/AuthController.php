@@ -1,12 +1,12 @@
 <?php
 namespace backend\controllers;
 
-use io\web\User;
+use io\web\Auth;
 use io\web\Url;
 
-use common\models\UserSearch;
+use common\models\AuthSearch;
 
-class UserController extends \io\web\Controller{
+class AuthController extends \io\web\Controller{
 
     public function rules(){
         return [
@@ -22,12 +22,12 @@ class UserController extends \io\web\Controller{
     }
 
     public function beforeAction(){
-        $this->theme = 'theme-user';
+        $this->theme = 'theme-auth';
     }
 
     public function actionIndex(){
 
-        $searchModel = UserSearch::search( ($_POST) ? $_POST : [] );
+        $searchModel = AuthSearch::search( ($_POST) ? $_POST : [] );
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -36,17 +36,17 @@ class UserController extends \io\web\Controller{
     }
     public function actionView(){
         if(isset($_GET['id'])){
-            $model = User::find()->where([
+            $model = Auth::find()->where([
                 '=' => [
                     'id' => $_GET['id']
                 ],
             ])->one();
 
         } else {
-            $model = new User();
+            $model = new Auth();
         }
-        if($_POST && $model->load($_POST) && $model->validate() && $model->save() && $model->saveRoles()){
-            return $this->redirect( Url::to('/user/view', ['id' => $model->id]) );
+        if($_POST && $model->load($_POST) && $model->validate() && $model->save()){
+            return $this->redirect( Url::to('/auth/view', ['id' => $model->id]) );
         }
 
         return $this->render('view', [

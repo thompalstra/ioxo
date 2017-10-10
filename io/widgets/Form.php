@@ -23,12 +23,14 @@ class Form{
         ],
     ];
 
-    public function __construct($arguments){
+    public function __construct($arguments = []){
 
         foreach($arguments as $key => $value){
             $this->$key = $value;
         }
+    }
 
+    public function begin(){
         $options = Html::attributes($this->options);
         $out = "<form $options>";
         if(\IO::$app->enableCsrfValidation){
@@ -37,7 +39,7 @@ class Form{
                 \IO::$app->_csrf->token
             );
         }
-        echo $out;
+        return $out;
     }
 
 
@@ -68,7 +70,7 @@ class Form{
     }
 
     public function end(){
-        echo '</form>';
+        return '</form>';
     }
 }
 ?>

@@ -42,6 +42,49 @@ class Html{
         return "<input $options/>";
     }
 
+    public static function input($name, $value = null, $options = []){
+        $options = self::attributes($options + ['name' => $name, 'value' => $value]);
+        return "<input $options/>";
+    }
+    public static function iconInput($icon, $name, $value = null, $options = []){
+        $labelOptions = [
+            'for' => (isset($options['id']) ? $options['id'] : ''),
+            'class' => 'icon-label'
+        ];
+        $options = self::attributes($options + ['name' => $name, 'value' => $value]);
+        $labelOptions = self::attributes($labelOptions);
+        return "<label $labelOptions><input $options/>$icon</label>";
+    }
+    public static function select($name, $value = null, $items = [], $options = []){
+        $options = self::attributes($options + ['name' => $name]);
+        $out = "<select $options>";
+        foreach($items as $k => $v){
+            $selected = '';
+            if($value){
+                if(is_array($value) && (array_search($k, $value) !== false)){
+                    $selected = 'selected';
+                } else if($value == $k) {
+                    $selected = 'selected';
+                }
+            }
+            $out .= "<option value='$k' $selected>$v</option>";
+        }
+
+        $out .= "</select>";
+
+        return $out;
+    }
+    public static function datalist($id, $items = [], $options = []){
+        $options['id'] = $id;
+        $options = Html::attributes($options);
+        $out = "<datalist $options>";
+        foreach($items as $item){
+            $out .= "<option value='$item'></option>";
+        }
+        $out .= "</datalist>";
+
+        return $out;
+    }
     public static function dropdown($name, $value = null, $items = [], $options = []){
         $options['name'] = $name;
         $options = Html::attributes($options);
@@ -67,7 +110,6 @@ class Html{
             if(is_array($v)){
                 $out[] = "$k='" . self::arrayAttributes($v) . "'";
             } else {
-
                 $v = self::sanitizeValue($v);
 
                 $out[] = "$k='$v'";
@@ -88,7 +130,7 @@ class Html{
         return implode('; ',$out);
     }
 
-    public static function mergeAttributes($new, $original){
+    public static function mergeAttributes($original, $new){
         $opt = [];
 
         foreach($original as $k => $v){

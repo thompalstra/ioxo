@@ -4,6 +4,7 @@ namespace io\web;
 class Controller{
 
     public $layout = 'main';
+    public $theme = 'theme-default';
 
     public function __construct(){
 
@@ -93,7 +94,7 @@ class Controller{
         if(method_exists($this, $fn) && $this->allowed($id)){
             // return
             $arg = $this->matchArguments($this, $fn, $args + $_GET);
-
+            $this->beforeAction($id);
             return call_user_func_array([$this, $fn], $arg);
         } else {
             throw new \io\exceptions\HttpNotFoundException('Permission denied');

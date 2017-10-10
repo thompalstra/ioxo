@@ -14,6 +14,7 @@ class FormField{
     public $model;
     public $attribute;
     public $form;
+
     public $label = true;
 
     public function label($boolean){
@@ -25,16 +26,25 @@ class FormField{
         $model = $this->model;
         $model = $model::getClass();
         $add = '';
-        if(strpos($this->attribute, '[]') !== false){
-            $add = '[]';
-        }
+
         $attribute = $this->attribute;
+
+        if(strpos($attribute, '[]') !== false){
+            $add = '[]';
+            $attribute = str_replace('[]', '', $attribute);
+        }
+
 
         return $model."[".$attribute."]".$add;
     }
 
     public function getValue(){
         $attribute = $this->attribute;
+
+        if(strpos($attribute, '[]') !== false){
+            $attribute = str_replace('[]', '', $attribute);
+        }
+
         $model = $this->model;
         return $model->$attribute;
     }
@@ -63,6 +73,42 @@ class FormField{
         return $this->createRow($label, $input, $error);
     }
 
+    public function input($options = [], $innerHtml = ''){
+        $label = $this->createInputLabel();
+        $options = $this->appendOptions($options);
+        $input = \io\helpers\Html::input(
+            $this->getName(),
+            $this->getValue(),
+            Html::mergeAttributes($options, $this->form->templateOptions['input'])
+        );
+        $error = $this->createErrorLabel();
+        return $this->createRow($label, $input, $error);
+    }
+    public function iconInput($icon, $options = []){
+        $label = $this->createInputLabel();
+        $options = $this->appendOptions($options);
+        $input = \io\helpers\Html::iconInput(
+            $icon,
+            $this->getName(),
+            $this->getValue(),
+            Html::mergeAttributes($options, $this->form->templateOptions['input'])
+        );
+        $error = $this->createErrorLabel();
+        return $this->createRow($label, $input, $error);
+    }
+    public function select($items = [], $options = []){
+        $label = $this->createInputLabel();
+        $options = $this->appendOptions($options);
+        $input = \io\helpers\Html::select(
+            $this->getName(),
+            $this->getValue(),
+            $items,
+            Html::mergeAttributes($options, $this->form->templateOptions['input'])
+        );
+        $error = $this->createErrorLabel();
+        return $this->createRow($label, $input, $error);
+    }
+
     public function appendOptions($options){
         $options['id'] = (!isset($options['id']) ? $this->getId() : $options['id']);
         $options['placeholder'] = (!isset($options['placeholder']) ? $this->model->getAttributeLabel($this->attribute) : $options['placeholder']);
@@ -70,16 +116,14 @@ class FormField{
         if($this->form->enableClientValidation){
             if(method_exists($this->model, 'rules')){
                 $rules = $this->model->rules();
-                $validationClass = [];
                 foreach($rules as $rule){
                     $attributes = $rule[0];
                     $validator = $rule[1];
                     if($key = array_search($this->attribute, $attributes) !== false){
-                        $validationClass[] = $validator;
+                        $options[$validator] = '';
                         continue;
                     }
                 }
-                $options['class'] = (isset($options['class']) ? $options['class'] . ' ' . implode(' ', $validationClass) :  implode(' ', $validationClass));
             }
         }
         return $options;
@@ -166,6 +210,7 @@ class FormField{
         $value = $model->$attribute;
 
         $opt = [
+            'model' => $model,
             'options' =>  $options,
             'inputOptions' => $inputOptions,
         ];

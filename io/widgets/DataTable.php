@@ -15,7 +15,7 @@ class DataTable extends \io\base\Widget{
         'class' => 'column'
     ];
     public $rowOptions = [
-        'class' => 'row',        
+        'class' => 'row',
     ];
     public $pager = [
         'range' => 2,
@@ -50,19 +50,24 @@ class DataTable extends \io\base\Widget{
     }
 
     public function columns($options = []){
-        $options = Html::attributes($options);
+
 
         $class = new $this->dataSet->query->class;
 
         $out = "<tr>";
 
         foreach($this->columns as $index => $column){
+            $columnOptions = [];
             if(is_array($column)){
-                $label = $class->getAttributeLabel($column['label']);
+                $label = (isset($column['label']) ? $column['label'] : $index);
+                $columnOptions = (isset($column['options']) ? $column['options'] : []);
+                $label = $class->getAttributeLabel($label);
             } else {
                 $label = $class->getAttributeLabel($column);
             }
-            $out .= "<th $options>$label</th>";
+            $opt = Html::mergeAttributes($options, $columnOptions);
+            $opt = Html::attributes($opt);
+            $out .= "<th $opt>$label</th>";
         }
 
         $out .= "</tr>";
@@ -71,29 +76,38 @@ class DataTable extends \io\base\Widget{
     }
 
     public function rows($options = []){
-        $options = Html::attributes($options);
+
+
+        $options = $options;
 
         $out = "";
-
         foreach($this->dataSet->getAll() as $key => $item){
             if(is_array($item)){
                 (object)$item;
             } else {
                 $key = $item->id;
             }
+            $opt = $options;
+            $options['datakey'] = $key;
 
+            $opt = Html::attributes($options);
 
-
-            $out .= "<tr $options datakey='$key'>";
+            $out .= "<tr $opt>";
 
             foreach($this->columns as $index => $column){
+                $columnOptions = [];
                 if(is_array($column)){
-
-                    $value = $column['value']($item);
+                    $columnOptions = (isset($column['options']) ? $column['options'] : []);
+                    if(isset($column['value'])){
+                        $value = $column['value']($item);
+                    } else {
+                        $value = $item->$index;
+                    }
                 } else {
                     $value = $item->$column;
                 }
-                $out .= "<td>$value</td>";
+                $columnOptions = Html::attributes($columnOptions);
+                $out .= "<td $columnOptions>$value</td>";
             }
             $out .= "</tr>";
         }
@@ -101,12 +115,11 @@ class DataTable extends \io\base\Widget{
     }
 
     public function pager(){
-        if($this->pagination !== false){
+        if($this->dataSet->pagination !== false){
 
             $options = $this->pager;
             $options['pagination'] = $this->dataSet->pagination;
             $options['query'] = $this->dataSet->query;
-
             return DataPager::widget($options);
         }
     }

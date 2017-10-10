@@ -7,37 +7,11 @@ use io\helpers\ArrayHelper;
 
 use io\widgets\Toolstrip;
 
-class UserSearch extends \io\web\User{
+class AuthSearch extends \io\web\Auth{
 
     public $search_value = '';
-    public $is_enabled = -1;
-    public $role = -1;
     public $page_size = 20;
     public $filters = [
-        [
-            'className' => '\io\widgets\ToolstripList',
-            'attribute' => 'is_enabled',
-            'options' => [
-                'inputOptions' => [
-
-                ],
-                'options' => [
-                    'items' => [-1 => 'Any', 1 => 'Enabled', 0 => 'Disabled']
-                ]
-            ]
-        ],
-        [
-            'className' => '\io\widgets\ToolstripList',
-            'attribute' => 'role',
-            'options' => [
-                'inputOptions' => [
-
-                ],
-                'options' => [
-                    'items' => [-1 => 'Any', 1 => 'Backend', 2 => 'Administrator']
-                ]
-            ]
-        ],
         [
             'className' => '\io\widgets\ToolstripList',
             'attribute' => 'page_size',
@@ -54,12 +28,12 @@ class UserSearch extends \io\web\User{
 
     public function rules(){
         return [
-            [['is_enabled'], 'safe']
+            // [['is_enabled'], 'safe']
         ];
     }
 
     public function getDataList(){
-        return ArrayHelper::map( self::find()->where(['=' => ['is_deleted' => 0]])->all(), 'id', 'username');
+        return ArrayHelper::map( self::find()->all(), 'id', 'name');
     }
 
     public function console(){
@@ -82,10 +56,10 @@ class UserSearch extends \io\web\User{
         $out .= $form->field($this, 'search_value')->label(false)->iconInput('<i class="material-icons icon">search</i>', [
             'class' => 'input input-default dt12 tb12 mb12 xs12',
             'type' => 'text',
-            'list' => 'user-search'
+            'list' => 'auth-search'
 
         ]);
-        $out .= Html::datalist('user-search', self::getDataList(), ['class' => 'data-list']);
+        $out .= Html::datalist('auth-search', self::getDataList(), ['class' => 'data-list']);
         $out .= "</div>";
         $out .= $form->field($this, 'filters')->label(false)->widget(Toolstrip::className(), []);
         $out .= $form->end();
@@ -107,55 +81,28 @@ class UserSearch extends \io\web\User{
 
     public static function search($data){
 
-        $userSearch = new self();
+        $authSearch = new self();
 
-        $userSearch->load($data);
+        $authSearch->load($data);
 
         $query = self::find();
 
-
-        if($userSearch->role != -1){
-            $query->leftJoin('auth_user', ['auth_user.user_id' => 'user.id']);
-            $query->leftJoin('auth', ['auth.id' => 'auth_user.auth_id']);
-        }
-
-
-
-        $query->where([
-            '=' => [
-                'is_deleted' => 0
-            ]
-        ]);
-        if($userSearch->is_enabled != -1){
-            $query->andWhere([
-                '=' => [
-                    'is_enabled' => $userSearch->is_enabled
-                ]
-            ]);
-        }
-        if(!empty($userSearch->search_value)){
-            $query->andWhere([
+        if(!empty($authSearch->search_value)){
+            $query->where([
                 'LIKE' => [
-                    'username' => "%$userSearch->search_value%"
+                    'username' => "%$authSearch->search_value%"
                 ],
             ]);
         }
-        if($userSearch->role != -1){
-            $query->andWhere([
-                '=' => [
-                    'auth.id' => $userSearch->role,
-                ],
-            ]);
-        }
-        $query->groupBy('user.id');
-        $userSearch->dataSet = new DataSet([
+
+        $authSearch->dataSet = new DataSet([
             'pagination' => [
                 'page' => (isset($_GET['page']) ? $_GET['page'] : 1),
-                'pageSize' => $userSearch->page_size
+                'pageSize' => $authSearch->page_size
             ],
             'query' => $query
         ]);
-        return $userSearch;
+        return $authSearch;
     }
 }
 ?>

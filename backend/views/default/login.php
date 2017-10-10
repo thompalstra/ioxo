@@ -29,7 +29,7 @@ use io\data\Security;
                 'action' => '/login'
             ]
         ]); ?>
-
+        <?=$form->begin()?>
         <?=$form->field($model, 'username')->label(false)->textInput(['type' => 'text'])?>
         <?=$form->field($model, 'password')->label(false)->passwordInput(['type' => 'password'])?>
         <?=$form->errorField($model, 'model')?>
@@ -37,8 +37,7 @@ use io\data\Security;
         <?=Html::button('LOGIN', ['class' => 'btn btn-default action pull-right'])?>
         <a href="/" class='btn btn-flat action-flat pull-right'>cancel</a>
         </div>
-
-    <?php $form->end() ?>
+        <?php $form->end() ?>
 
     </div>
 </div>

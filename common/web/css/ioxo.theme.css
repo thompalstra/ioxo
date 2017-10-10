@@ -7,7 +7,8 @@ html{
     color: white;
 }
 .menu.menu-default > li.dropdown > ul{
-    background-color: #3D8EB9;
+    /*background-color: #3D8EB9;*/
+    background-color: white;
 }
 .menu.menu-default a{
     color: white;

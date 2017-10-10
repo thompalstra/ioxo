@@ -1,6 +1,6 @@
 <?php
 namespace io\web;
-class Auth extends \io\base\Model{
-    public static $table = "auth";
+class AuthUser extends \io\base\Model{
+    public static $table = "auth_user";
 }
 ?>

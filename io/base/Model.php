@@ -124,6 +124,26 @@ class Model extends \io\db\Row{
         }
     }
 
+    public static function deleteAll($arguments = []){
+        $class = self::className();
+        $table = $class::$table;
+
+        $a = [];
+
+        foreach($arguments as $k => $type){
+            foreach($type as $columnKey => $columnValue){
+                $a[] = "$columnKey $k $columnValue";
+            }
+        }
+
+        $a = implode(' ', $a);
+
+        $query = "DELETE FROM $table WHERE $a";
+
+        $sth = \IO::$app->dbConnector->pdo->prepare($query);
+        return $sth->execute();
+    }
+
     public function validate(){
         if(method_exists($this, 'rules')){
             foreach($this->rules() as $rule){
@@ -202,6 +222,11 @@ class Model extends \io\db\Row{
     }
 
     public function getAttributeLabel($attribute){
+
+        if(strpos($attribute, '[]') !== false){
+            $add = '[]';
+            $attribute = str_replace('[]', '', $attribute);
+        }
         if(method_exists($this, 'attributes')){
             $attributes = $this->attributes();
             if(isset($attributes[$attribute])){
@@ -245,6 +270,20 @@ class Model extends \io\db\Row{
         }
 
         return $sth->execute();
+    }
+
+    public function __get($attribute){
+        if(!property_exists($this, $attribute)){
+            $attribute = str_replace('_', ' ', $attribute);
+            $attribute = ucwords($attribute);
+            $attribute = str_replace(' ', '', $attribute);
+            $attribute = "get$attribute";
+
+            if(method_exists($this, $attribute)){
+                return $this->$attribute();
+            }
+        }
+        throw new \Exception("$attribute not found");
     }
 }
 ?>

@@ -12,17 +12,17 @@
     height: 40px;
     min-width: 40px;
     line-height: 40px;
-    -webkit-box-shadow: 0px 3px 7px 0px rgba(0,0,0,0.3);
-    -moz-box-shadow: 0px 3px 7px 0px rgba(0,0,0,0.3);
-    box-shadow: 0px 3px 7px 0px rgba(0,0,0,0.3);
+    -webkit-box-shadow: 0px 2px 5px -1px rgba(80,80,80,.3);
+    -moz-box-shadow: 0px 2px 5px -1px rgba(80,80,80,.3);
+    box-shadow: 0px 2px 5px -1px rgba(80,80,80,.3);
 }
 .btn.btn-flat{
     height: 40px;
     min-width: 40px;
     line-height: 40px;
-    -webkit-box-shadow: 0px 3px 7px 0px rgba(0,0,0,0.0);
-    -moz-box-shadow: 0px 3px 7px 0px rgba(0,0,0,0.0);
-    box-shadow: 0px 3px 7px 0px rgba(0,0,0,0.0);
+    -webkit-box-shadow: 0px 3px 7px 0px rgba(0,0,0,0);
+    -moz-box-shadow: 0px 3px 7px 0px rgba(0,0,0,0);
+    box-shadow: 0px 3px 7px 0px rgba(0,0,0,0);
 }
 
 .btn-flat:after,
@@ -34,16 +34,18 @@
     transition: background-color .3s linear;
 }
 .btn-default:active{
-    -moz-box-shadow: 0px 6px 7px 0px rgba(0,0,0,0.3);
-    box-shadow: 0px 6px 7px 0px rgba(0,0,0,0.3);
+    -webkit-box-shadow: 0px 1px 10px -2px rgba(80,80,80,.8);
+    -moz-box-shadow: 0px 1px 10px -2px rgba(80,80,80,.8);
+    box-shadow: 0px 1px 10px -2px rgba(80,80,80,.8);
 }
 .btn-flat:active{
-    -moz-box-shadow: 0px 6px 7px 0px rgba(0,0,0,0.3);
-    box-shadow: 0px 6px 7px 0px rgba(0,0,0,0.3);
+    -webkit-box-shadow: 0px 1px 10px -2px rgba(80,80,80,.8);
+    -moz-box-shadow: 0px 1px 10px -2px rgba(80,80,80,.8);
+    box-shadow: 0px 1px 10px -2px rgba(80,80,80,.8);
 }
 .btn-default:active:after{
-    background-color: rgba(255,255,255,.05);
+    background-color: rgba(255,255,255,.1);
 }
 .btn-flat:active:after{
-    background-color: rgba(0,0,0,.05);
+    background-color: rgba(0,0,0,.1);
 }

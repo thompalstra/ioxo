@@ -118,7 +118,7 @@ body, html{
 .label{
 }
 .label-default{
-    height: 40px;
+    min-height: 40px;
     line-height: 40px;
     display: inline-block;
     box-sizing: border-box;
@@ -134,7 +134,7 @@ body, html{
 
 .icon{
     min-width: 50px;
-    min-height: 50px;
+    /*min-height: 50px;*/
     line-height: 50px;
     text-align: center;
 }
@@ -143,69 +143,141 @@ body, html{
     position: relative;
 }
 .menu.menu-default > li span{
-    padding: 0 10px;
-    height: 50px;
-    min-width: 50px;
-    line-height: 50px;
+    /*padding: 0 10px;*/
+    padding: 0;
+    height: 40px;
+    min-width: 40px;
+    line-height: 40px;
     width: 100%;
+    color: #333;
     box-sizing: border-box;
     display: inline-block;
 
 }
 .menu.menu-default > li.dropdown > ul{
     position: absolute;
-    top: 100%;
+    top: 5px;
     width: 150px;
-    padding: 0;
+    padding: 10px 0;
     margin: 0;
     list-style: none;
     display: none;
+    z-index: 10000;
+
+    -webkit-box-shadow: 0px 0px 5px -1px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 5px -1px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 5px -1px rgba(0,0,0,0.75);
 }
 
 .menu.menu-default > li.dropdown.pull-left > ul{
-    left: 0;
+    left: 5px;
 }
 .menu.menu-default > li.dropdown.pull-right > ul{
-    right: 0;
+    right: 5px;
 }
 
 .menu.menu-default > li.dropdown.toggled > ul{
-    top: 100%;
+    top: 5px;
 }
 
 .menu.menu-default > li.dropdown > ul li{
     box-sizing: border-box;
-    height: 50px;
+    height: 40px;
     float: left;
-    min-width: 50px;
-    line-height: 50px;
+    min-width: 40px;
+    line-height: 40px;
     position: relative;
     width: 100%;
+}
+
+.menu.menu-default > li.dropdown > ul li .icon{
+    min-width: 40px;
+    height: 40px;
+    line-height: 40px;
+    width: 40px;
+    padding-right: 10px;
 }
 
 .container{
     margin: 0 auto;
 }
 [behaviour="active"]{
-    -webkit-box-shadow: 0px 3px 7px 0px rgba(0,0,0,0.0);
-    -moz-box-shadow: 0px 3px 7px 0px rgba(0,0,0,0.0);
-    box-shadow: 0px 3px 7px 0px rgba(0,0,0,0.0);
+    -webkit-box-shadow: 0px 2px 5px 0px rgba(80,80,80,.0);
+    -moz-box-shadow: 0px 2px 5px 0px rgba(80,80,80,.0);
+    box-shadow: 0px 2px 5px 0px rgba(80,80,80,.0);
     position: relative;
-    transition: box-shadow .3s linear;
+    transition: box-shadow 150ms linear;
 }
 [behaviour="active"]:after{
     content: "";
     position: absolute;
     left: 0; right: 0; top: 0; bottom: 0;
     background-color: rgba(255,255,255,.0);
-    transition: background-color .3s linear;
+    transition: background-color 150ms linear;
 }
 [behaviour="active"]:active{
-    -moz-box-shadow: 0px 6px 7px 0px rgba(0,0,0,0.3);
-    box-shadow: 0px 6px 7px 0px rgba(0,0,0,0.3);
+    -webkit-box-shadow: 0px 1px 10px -2px rgba(80,80,80,.8);
+    -moz-box-shadow: 0px 1px 10px -2px rgba(80,80,80,.8);
+    box-shadow: 0px 1px 10px -2px rgba(80,80,80,.8);
 }
 [behaviour="active"]:active:after{
     background-color: rgba(255,255,255,.05);
+}
+
+.header{
+
+}
+.header.header-default{
+    background-color: #5099bf;
+    padding: 20px;
+    float: left;
+    display: inline-block;
+    width: 100%;
+    box-sizing: border-box;
+    min-height: 140px;
+}
+.header-default input.input.input-default::-webkit-input-placeholder    {       color: rgba(255,255,255,.7);    }
+.header-default input.input.input-default:-ms-input-placeholder         {       color: rgba(255,255,255,.7);    }
+.header-default input.input.input-default::-moz-placeholder             {       color: rgba(255,255,255,.7);    }
+.header-default input.input.input-default:-moz-placeholder              {       color: rgba(255,255,255,.7);    }
+
+.header-default input.input.input-default{
+    -webkit-box-shadow: 0px 2px 5px -1px rgba(0,0,0,.3);
+    -moz-box-shadow: 0px 2px 5px -1px rgba(0,0,0,.3);
+    box-shadow: 0px 2px 5px -1px rgba(0,0,0,.3);
+    border: 0;
+    margin: 0;
+    background-color: rgba(255,255,255,.2);
+    color: white;
+    padding-left: 50px;
+    height: 50px;
+    line-height: 50px;
+    position: relative;
+    transition: all 150ms linear;
+}
+.header-default input.input.input-default:focus,
+.header-default input.input.input-default:active{
+    box-shadow: 0px 2px 5px -1px rgba(0,0,0,.3);
+    background-color: rgba(255,255,255,1);
+    color: #333;
+}
+
+.header-default input.input.input-default + .icon,
+.header-default input.input.input-default + .icon{
+    color: rgba(255,255,255,.7);
+}
+
+.header-default input.input.input-default:focus + .icon,
+.header-default input.input.input-default:active + .icon{
+    color: #333;
+}
+
+.header-default input.input.input-default + .icon{
+    height: 50px;
+    /*min-height: 40px;*/
+    width: 50px;
+    /*min-width: 40px;*/
+    line-height: 50px;
 }
 
 /*extra-small mobile devices*/
