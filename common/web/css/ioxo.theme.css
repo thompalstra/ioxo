@@ -2,6 +2,20 @@ html{
     font-family: 'Poppins', sans-serif;
 }
 
+
+.theme.theme-user .header,
+.theme.theme-user .menu{
+    color: white;
+    background-color: #71BA51;
+}
+
+.theme.theme-auth .header,
+.theme.theme-auth .menu{
+    color: white;
+    background-color: #8870FF;
+}
+
+
 .menu.menu-default{
     background-color: #3D8EB9;
     color: white;
@@ -11,7 +25,14 @@ html{
     background-color: white;
 }
 .menu.menu-default a{
-    color: white;
+    color: inherit;
+}
+.menu.menu-default > li.dropdown > ul{
+    color: #333;
+}
+.menu.menu-default > li.dropdown > ul li span{
+    line-height: 40px;
+    height: 40px;
 }
 .menu.menu-default li{
     cursor: pointer;

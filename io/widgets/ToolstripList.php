@@ -35,13 +35,12 @@ class ToolstripList extends \io\base\Widget{
         $options = Html::attributes($options);
         $out = "<div $options>";
         $placeholder = $this->inputOptions['placeholder'];
-
         $value = "";
         if($this->value != null && isset($this->items[$this->value])){
             $value = ": <strong>" . $this->items[$this->value] . "</strong>";
         }
 
-        $out .= "<div>$placeholder$value</div>";
+        $out .= "<div class='value'>$placeholder$value</div>";
         $out .= "<ul class='hidden'>";
         $out .= Html::hiddenInput($this->name, $this->value, []);
         return $out;

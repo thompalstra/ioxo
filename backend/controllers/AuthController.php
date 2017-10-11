@@ -21,8 +21,10 @@ class AuthController extends \io\web\Controller{
         ];
     }
 
-    public function beforeAction(){
+    public function beforeAction($id){
         $this->theme = 'theme-auth';
+
+        return true;
     }
 
     public function actionIndex(){
@@ -52,6 +54,16 @@ class AuthController extends \io\web\Controller{
         return $this->render('view', [
             'model' => $model
         ]);
+    }
+    public function actionDelete($id){
+        $model = Auth::find()->where([
+            '=' => [
+                'id' => $id
+            ],
+        ])->one();
+        if($model && $model->delete()){
+            return $this->redirect('/auth/index');
+        }
     }
 }
 

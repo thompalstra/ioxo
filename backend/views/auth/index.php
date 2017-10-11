@@ -13,7 +13,7 @@ use io\web\Url;
 </div>
 <div class='container'>
     <div class='row row-btn'>
-        <?=Html::a('NIEUW', Url::to('/auth/view', ['a' => 'b', 'c' => 'd']), ['class' => 'btn btn-default success pull-right'] )?>
+        <?=Html::a('<i class="material-icons icon pull-left">&#xE145;</i> NIEUW', Url::to('/auth/view', ['a' => 'b', 'c' => 'd']), ['class' => 'btn btn-icon btn-default success pull-right'] )?>
     </div>
 <?=DataTable::widget([
     'dataSet' => $dataSet,
@@ -27,15 +27,35 @@ use io\web\Url;
             ]
         ],
         'name' => [
+            'options' => [
+                'title' => "click to edit",
+                'onclick' => 'location.href = "/user/view?id=" + this.parentNode.getAttribute("datakey")'
+            ],
             'value' => function($model){
                 return $model->name;
             },
         ],
+        'trash' => [
+            'value' => function($model){
+                return "<i class='material-icons delete'>&#xE872;</i>";
+            }
+        ]
     ],
     'rowOptions' => [
         'class' => 'row',
-        'onclick' => 'location.href = "/auth/view?id=" + this.getAttribute("datakey")',
-        'title' => 'click to edit this role'
     ]
 ]);?>
 </div>
+
+<?php
+$js = <<<JS
+$(document).on('click', '.delete', function(e){
+    e.preventDefault();
+    e.stopPropagation();
+    if(confirm("Do you want to delete this item?")){
+        location.href = "/auth/delete?id=" + this.parentNode.parentNode.getAttribute('datakey');
+    }
+});
+JS;
+$this->registerJs($js);
+?>

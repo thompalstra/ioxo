@@ -26,12 +26,6 @@ class AuthSearch extends \io\web\Auth{
         ],
     ];
 
-    public function rules(){
-        return [
-            // [['is_enabled'], 'safe']
-        ];
-    }
-
     public function getDataList(){
         return ArrayHelper::map( self::find()->all(), 'id', 'name');
     }
@@ -56,8 +50,8 @@ class AuthSearch extends \io\web\Auth{
         $out .= $form->field($this, 'search_value')->label(false)->iconInput('<i class="material-icons icon">search</i>', [
             'class' => 'input input-default dt12 tb12 mb12 xs12',
             'type' => 'text',
-            'list' => 'auth-search'
-
+            'list' => 'auth-search',
+            'placeholder' => $this->getAttributeLabel('search_value')
         ]);
         $out .= Html::datalist('auth-search', self::getDataList(), ['class' => 'data-list']);
         $out .= "</div>";

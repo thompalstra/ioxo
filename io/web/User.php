@@ -12,6 +12,13 @@ class User extends \io\base\Model implements \io\web\IdentityInterface{
     public $new_password;
     public $new_password_repeat;
 
+    public function events(){
+        return [
+            [['\io\events\beforeDeleteEvent'],'beforeDelete'],
+            [['\io\events\onUpdateEvent'],'onUpdate'],
+        ];
+    }
+
     public function rules(){
         return [
             [['new_password'], 'passwordCreate', 'min' => 6, 'max' => 24],
@@ -27,6 +34,7 @@ class User extends \io\base\Model implements \io\web\IdentityInterface{
         return [
             'page_size' => 'Per page',
             'id' => '#',
+            'search_value' => 'admin, etc',
             'usedRoles' => "Roles",
             'is_enabled' => "Enabled"
         ];
@@ -109,6 +117,8 @@ class User extends \io\base\Model implements \io\web\IdentityInterface{
             $authUser->auth_id = $v;
             $authUser->save();
         }
+
+        return true;
     }
 
     public function login($model){

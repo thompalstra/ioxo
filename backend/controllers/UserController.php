@@ -21,8 +21,10 @@ class UserController extends \io\web\Controller{
         ];
     }
 
-    public function beforeAction(){
+    public function beforeAction($id){
         $this->theme = 'theme-user';
+
+        return true;
     }
 
     public function actionIndex(){
@@ -52,6 +54,16 @@ class UserController extends \io\web\Controller{
         return $this->render('view', [
             'model' => $model
         ]);
+    }
+    public function actionDelete($id){
+        $model = User::find()->where([
+            '=' => [
+                'id' => $id
+            ],
+        ])->one();
+        if($model && $model->delete()){
+            return $this->redirect('/user/index');
+        }
     }
 }
 

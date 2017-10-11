@@ -74,8 +74,9 @@ class UserSearch extends \io\web\User{
             'options' => [
                 'id' => 'form-search-form',
                 'class' => 'form form-default',
+                'autosubmit' => '',
                 'method' => 'POST'
-            ]
+            ],
         ]);
         $out = $form->begin();
         $out .= "<div class='row row-default col dt12 tb12 mb12 xs12'>";

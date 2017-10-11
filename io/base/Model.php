@@ -110,18 +110,24 @@ class Model extends \io\db\Row{
     }
 
     public function delete(){
+        $result = $this->on('beforeDelete');
         if(!$this->isNewModel){
-            $class = self::className();
-            $table = $class::$table;
-
-            $pk = $this->getPkColumnName();
-            $v = $this->$pk;
-
-            $query = "DELETE FROM $table WHERE $pk = $v";
-
-            $sth = \IO::$app->dbConnector->pdo->prepare($query);
-            return $sth->execute();
+            $result = $this->deleteModel();
         }
+        return $result;
+    }
+
+    function deleteModel(){
+        $class = self::className();
+        $table = $class::$table;
+
+        $pk = $this->getPkColumnName();
+        $v = $this->$pk;
+
+        $query = "DELETE FROM $table WHERE $pk = $v";
+
+        $sth = \IO::$app->dbConnector->pdo->prepare($query);
+        return $sth->execute();
     }
 
     public static function deleteAll($arguments = []){
@@ -271,7 +277,6 @@ class Model extends \io\db\Row{
 
         return $sth->execute();
     }
-
     public function __get($attribute){
         if(!property_exists($this, $attribute)){
             $attribute = str_replace('_', ' ', $attribute);
@@ -283,7 +288,28 @@ class Model extends \io\db\Row{
                 return $this->$attribute();
             }
         }
-        throw new \Exception("$attribute not found");
+        // throw new \Exception("$attribute not found");
+    }
+
+    public function on($called){
+        if(method_exists($this, 'events')){
+            foreach($this->events() as $event){
+                $classes = $event[0];
+                $on = $event[1];
+                if($on == $called){
+                    foreach($classes as $class){
+                        $class = new $class();
+                        $class->prepare($this, $event);
+                        if(!$class->run()){
+                            return false;
+                        }
+                    }
+                }
+            }
+        } else {
+            // return true;
+        }
+        return true;
     }
 }
 ?>

@@ -23,7 +23,7 @@
     margin-left: 10px;
 }
 
-
+.input.input-default[type="email"],
 .input.input-default[type="search"],
 .input.input-default[type="password"],
 .input.input-default[type="number"],
@@ -34,6 +34,7 @@
     outline: 0;
     padding: 0 10px;
 }
+.input.input-default[type="email"]:focus,
 .input.input-default[type="search"]:focus,
 .input.input-default[type="password"]:focus,
 .input.input-default[type="number"]:focus,

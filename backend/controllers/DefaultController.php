@@ -14,12 +14,15 @@ class DefaultController extends Controller{
             [
                 'actions' => ['login', 'logout', 'error'],
                 'can' => ['*'],
-            ],
-            [
-                'actions' => ['*'],
-                'can' => ['backend'],
                 'on' => [
                     'allow' => true,
+                    'deny' => '/'
+                ]
+            ],
+            [
+                'actions' => ['index'],
+                'can' => ['backend'],
+                'on' => [
                     'deny' => '/login'
                 ]
             ]

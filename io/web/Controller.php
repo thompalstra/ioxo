@@ -9,6 +9,7 @@ class Controller{
     public function __construct(){
 
     }
+    public function beforeAction($id){ return true; }
 
     public static function get($url){
         if($url[0] == '/'){
@@ -94,8 +95,9 @@ class Controller{
         if(method_exists($this, $fn) && $this->allowed($id)){
             // return
             $arg = $this->matchArguments($this, $fn, $args + $_GET);
-            $this->beforeAction($id);
-            return call_user_func_array([$this, $fn], $arg);
+            if($this->beforeAction($id)){
+                return call_user_func_array([$this, $fn], $arg);
+            }
         } else {
             throw new \io\exceptions\HttpNotFoundException('Permission denied');
         }

@@ -7,8 +7,14 @@ return [
             '/default/test' => '/defualt/redirect'
         ],
     ],
+    'lang' => [
+        'default' => 'nl',
+        'languages' => ['nl', 'en']
+    ]
     'identity' => [
         'class' => '\io\web\User'
-    ]
+    ],
+    'enableCsrfValidation' => true,
+    'csrfTimeout' => 60 * 60,
 ];
 ?>

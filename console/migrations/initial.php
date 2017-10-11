@@ -13,6 +13,7 @@ class initial extends \io\db\Migration{
             'id' => Schema::TYPE_PK,
             'username' => Schema::TYPE_CHAR,
             'password' => Schema::TYPE_CHAR,
+            'email' => Schema::TYPE_CHAR,
             'is_enabled' => Schema::TYPE_BOOLEAN,
             'is_deleted' => Schema::TYPE_BOOLEAN
         ]);
@@ -54,11 +55,25 @@ class initial extends \io\db\Migration{
             'user_id' => $userId,
             'auth_id' => $authId
         ]);
+
+        $this->createTable('translation', [
+            'id' => Schema::TYPE_PK,
+            'category' => Schema::TYPE_CHAR
+            'message' => Schema::TYPE_CHAR
+        ]);
+        $this->createTable('translation_message', [
+            'id' => Schema::TYPE_PK,
+            'language' => Schema::TYPE_CHAR,
+            'message' => Schema::TYPE_CHAR
+        ]);
     }
     public function down(){
         $this->dropTable('user');
         $this->dropTable('auth');
         $this->dropTable('auth_user');
+
+        $this->dropTable('translation');
+        $this->dropTable('translation_message');
     }
 }
 ?>
