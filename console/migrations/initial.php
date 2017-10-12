@@ -58,7 +58,7 @@ class initial extends \io\db\Migration{
 
         $this->createTable('translation', [
             'id' => Schema::TYPE_PK,
-            'category' => Schema::TYPE_CHAR
+            'category' => Schema::TYPE_CHAR,
             'message' => Schema::TYPE_CHAR
         ]);
         $this->createTable('translation_message', [

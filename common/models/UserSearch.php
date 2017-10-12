@@ -7,7 +7,7 @@ use io\helpers\ArrayHelper;
 
 use io\widgets\Toolstrip;
 
-class UserSearch extends \io\web\User{
+class UserSearch extends \common\models\User{
 
     public $search_value = '';
     public $is_enabled = -1;
