@@ -7,7 +7,7 @@
     width: 100%;
 }
 .row.row-default{
-    margin-bottom: 10px;
+    /*margin-bottom: 10px;*/
     float: left;
     width: 100%;
 }
@@ -82,7 +82,7 @@ select.input.input-default[multiple] option:checked{
 }
 
 .form .row .input,
-.form .row .label{
+.form .row .label:not(.error){
     margin-bottom: 10px;
 }
 .row.has-error .input{

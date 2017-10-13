@@ -19,27 +19,6 @@ class User extends \io\base\Model implements \io\web\IdentityInterface{
         ];
     }
 
-    public function rules(){
-        return [
-            [['new_password'], 'passwordCreate', 'min' => 6, 'max' => 24],
-            [['username', 'password', 'email'], 'required'],
-            [['email'], 'email'],
-            [['username'], 'number'],
-            [['is_deleted'], 'tinyint', 'default' => 0],
-            [['is_enabled'], 'tinyint', 'default' => 1]
-        ];
-    }
-
-    public function attributes(){
-        return [
-            'page_size' => 'Per page',
-            'id' => '#',
-            'search_value' => 'admin, etc',
-            'usedRoles' => "Roles",
-            'is_enabled' => "Enabled"
-        ];
-    }
-
     public function password($model, $attribute, $rule){
         preg_match_all("/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/", $model->$attribute, $output_array);
         if(isset($output_array[0]) && isset($output_array[0][0])){

@@ -17,6 +17,14 @@ use io\web\Url;
 <?=DataTable::widget([
     'dataSet' => $dataSet,
     'columns' => [
+        'select' => [
+            'options' => [
+                'width' => ''
+            ],
+            'value' => function($model){
+                return Html::input("select[$model->id]", $model->id, ['type' => 'checkbox']);
+            }
+        ],
         'id' => [
             'options' => [
                 'width' => '80',

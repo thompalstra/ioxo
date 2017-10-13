@@ -29,12 +29,9 @@ class DefaultController extends Controller{
             if($user){
                 if(Security::passwordVerify($model->password, $user->password) && \IO::$app->user->identity->login($user)){
                     return $this->redirect('/');
-                } else {
-                    $model->addError('username', 'No user found matching credentials');
                 }
-            } else {
-                $model->addError('username', 'No user found matching credentials');
             }
+            $model->addError('No user found matching credentials');
         }
         return $this->render('login', ['model' => $model]);
     }

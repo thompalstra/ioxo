@@ -7,7 +7,7 @@ use io\helpers\ArrayHelper;
 
 use io\widgets\Toolstrip;
 
-class AuthSearch extends \io\web\Auth{
+class TranslateSearch extends \io\base\Translate{
 
     public $search_value = '';
     public $page_size = 20;
@@ -31,7 +31,7 @@ class AuthSearch extends \io\web\Auth{
     ];
 
     public function getDataList(){
-        return ArrayHelper::map( self::find()->all(), 'id', 'name');
+        return ArrayHelper::map( self::find()->all(), 'id', 'source_message');
     }
 
     public function console(){
@@ -88,10 +88,12 @@ class AuthSearch extends \io\web\Auth{
         if(!empty($authSearch->search_value)){
             $query->where([
                 'LIKE' => [
-                    'username' => "%$authSearch->search_value%"
+                    'source_message' => "%$authSearch->search_value%"
                 ],
             ]);
         }
+
+        $query->groupBy('source_message');
 
         $authSearch->dataSet = new DataSet([
             'pagination' => [

@@ -22,7 +22,11 @@ class UserSearch extends \common\models\User{
 
                 ],
                 'options' => [
-                    'items' => [-1 => 'Any', 1 => 'Enabled', 0 => 'Disabled']
+                    'items' => [
+                        -1 =>   "Any",
+                        1 =>    "Enabled",
+                        0 =>    "Disabled"
+                    ]
                 ]
             ]
         ],

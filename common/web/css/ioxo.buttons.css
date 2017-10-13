@@ -20,9 +20,10 @@
     height: 40px;
     min-width: 40px;
     line-height: 40px;
-    -webkit-box-shadow: 0px 3px 7px 0px rgba(0,0,0,0);
-    -moz-box-shadow: 0px 3px 7px 0px rgba(0,0,0,0);
-    box-shadow: 0px 3px 7px 0px rgba(0,0,0,0);
+    padding: 0 30px;
+    -webkit-box-shadow: 0px 3px 7px -2px rgba(0,0,0,0);
+    -moz-box-shadow: 0px 3px 7px -2px rgba(0,0,0,0);
+    box-shadow: 0px 3px 7px -2px rgba(0,0,0,0);
 }
 .btn.btn-icon{
     padding-left: 0;
@@ -57,5 +58,5 @@
     background-color: rgba(255,255,255,.1);
 }
 .btn-flat:active:after{
-    background-color: rgba(0,0,0,.1);
+    background-color: rgba(0,0,0,.05);
 }

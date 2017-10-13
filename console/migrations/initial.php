@@ -14,18 +14,22 @@ class initial extends \io\db\Migration{
             'username' => Schema::TYPE_CHAR,
             'password' => Schema::TYPE_CHAR,
             'email' => Schema::TYPE_CHAR,
-            'is_enabled' => Schema::TYPE_BOOLEAN,
-            'is_deleted' => Schema::TYPE_BOOLEAN
+            'is_enabled' => Schema::TYPE_BOOLEAN . " DEFAULT 0 NOT NULL",
+            'is_deleted' => Schema::TYPE_BOOLEAN . " DEFAULT 0 NOT NULL"
         ]);
         $this->createTable('auth', [
             'id' => Schema::TYPE_PK,
             'name' => Schema::TYPE_CHAR,
+            'is_enabled' => Schema::TYPE_BOOLEAN . " DEFAULT 0 NOT NULL",
+            'is_deleted' => Schema::TYPE_BOOLEAN . " DEFAULT 0 NOT NULL"
         ]);
 
         $this->createTable('auth_user', [
             'id' => Schema::TYPE_PK,
             'user_id' => Schema::TYPE_INT,
             'auth_id' => Schema::TYPE_INT,
+            'is_enabled' => Schema::TYPE_BOOLEAN . " DEFAULT 0 NOT NULL",
+            'is_deleted' => Schema::TYPE_BOOLEAN . " DEFAULT 0 NOT NULL"
         ]);
 
         $this->insert('user', [
@@ -56,15 +60,16 @@ class initial extends \io\db\Migration{
             'auth_id' => $authId
         ]);
 
-        $this->createTable('translation', [
+        $this->createTable('translate', [
             'id' => Schema::TYPE_PK,
             'category' => Schema::TYPE_CHAR,
-            'message' => Schema::TYPE_CHAR
+            'source_message' => Schema::TYPE_CHAR
         ]);
-        $this->createTable('translation_message', [
+        $this->createTable('translate_message', [
             'id' => Schema::TYPE_PK,
+            'translate_id' => Schema::TYPE_INT,
             'language' => Schema::TYPE_CHAR,
-            'message' => Schema::TYPE_CHAR
+            'message' => Schema::TYPE_TEXT
         ]);
     }
     public function down(){
@@ -72,8 +77,8 @@ class initial extends \io\db\Migration{
         $this->dropTable('auth');
         $this->dropTable('auth_user');
 
-        $this->dropTable('translation');
-        $this->dropTable('translation_message');
+        $this->dropTable('translate');
+        $this->dropTable('translate_message');
     }
 }
 ?>

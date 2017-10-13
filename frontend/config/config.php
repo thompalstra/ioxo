@@ -7,10 +7,8 @@ return [
             '/default/test' => '/defualt/redirect'
         ],
     ],
-    'lang' => [
-        'default' => 'nl',
-        'languages' => ['nl', 'en']
-    ]
+    'language' => 'nl',
+    'languages' => ['nl', 'en'],
     'identity' => [
         'class' => '\io\web\User'
     ],

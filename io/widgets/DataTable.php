@@ -46,7 +46,34 @@ class DataTable extends \io\base\Widget{
 
     public function tableBegin($options = []){
         $options = Html::attributes($options);
-        return "<table $options>";
+
+        $out = '';
+
+        if($this->dataSet->pagination != false){
+            $total = $this->dataSet->query->count();
+            $page = $this->dataSet->pagination['page'] == 1 ? 0 : $this->dataSet->pagination['page'] - 1;
+            $pageSize = $this->dataSet->pagination['pageSize'];
+
+
+
+            // $total = 200;
+            // $page = 2;
+            // $pageSize = 20;
+
+            // showing $page * pageSize of total
+
+            $start = ($page * $pageSize) + $pageSize;
+
+            if($start > $total) {
+                $start = $total;
+            }
+
+            $out .= "Showing <strong>$start</strong> out of <strong>$total</strong> results";
+        }
+
+
+        $out .= "<table $options>";
+        return $out;
     }
 
     public function columns($options = []){

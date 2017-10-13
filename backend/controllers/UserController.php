@@ -55,14 +55,23 @@ class UserController extends \io\web\Controller{
             'model' => $model
         ]);
     }
-    public function actionDelete($id){
-        $model = User::find()->where([
-            '=' => [
-                'id' => $id
-            ],
-        ])->one();
-        if($model && $model->delete()){
-            return $this->redirect('/user/index');
+    public function actionDelete($ids = []){
+        $success = true;
+        foreach(json_decode($ids) as $id){
+            $model = User::find()->where([
+                '=' => [
+                    'id' => $id
+                ],
+            ])->one();
+            if($model && $model->delete()){
+                continue;
+            } else {
+                $success = false;
+                break;
+            }
+        }
+        if($success){
+            return $this->redirect('/translate/index');
         }
     }
 }

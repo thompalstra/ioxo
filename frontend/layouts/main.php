@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="/common/web/css/ioxo.forms.css">
     <link rel="stylesheet" href="/common/web/css/ioxo.buttons.css">
     <link rel="stylesheet" href="/common/web/css/ioxo.core.css">
+    <link rel="stylesheet" href="/frontend/web/css/style.css">
     </head>
     <body>
         <ul class='menu menu-default'>
@@ -25,11 +26,18 @@
                     </ul>
                 </li>
             <?php } ?>
-            <li class='item pull-right'><i class="icon material-icons">more_vert</i></li>
+            <li class='item dropdown pull-right'>
+                <i class="icon material-icons">more_vert</i>
+                <ul>
+                    <?php if(\IO::$app->user->isGuest) { ?>
+                        <a href="/login"><li class='item pull-left' behaviour="active"><span>log in</span></li></a>
+                    <?php } else { ?>
+
+                    <?php } ?>
+                </ul>
+            </li>
         </ul>
-        <div class='container'>
-            <?=$content?>
-        </div>
+        <?=$content?>
         <script src="http://code.jquery.com/jquery-latest.js"></script>
         <script src="/common/web/js/ioxo.core.js"></script>
         <script src="/common/web/js/ioxo.forms.js"></script>

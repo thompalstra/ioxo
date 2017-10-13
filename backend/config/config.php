@@ -7,6 +7,8 @@ return [
             '/default/test' => '/defualt/redirect'
         ],
     ],
+    'language' => 'nl',
+    'languages' => ['nl', 'en'],
     'identity' => [
         'class' => '\io\web\User'
     ],

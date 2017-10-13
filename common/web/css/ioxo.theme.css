@@ -15,6 +15,12 @@ html{
     background-color: #8870FF;
 }
 
+.theme.theme-translate .header,
+.theme.theme-translate .menu{
+    color: white;
+    background-color: #3E4651;
+}
+
 
 .menu.menu-default{
     background-color: #3D8EB9;
@@ -37,12 +43,12 @@ html{
 .menu.menu-default li{
     cursor: pointer;
     background-color: rgba(255,255,255,0);
-    transition: background-color .3s linear;
+    /*transition: background-color .3s linear;*/
 }
-.menu.menu-default li:active{
+.menu.menu-default li:hover{
     cursor: pointer;
-    background-color: rgba(255,255,255,.1);
+    background-color: rgba(80,80,80,.05);
 }
 .menu.menu-default li.dropdown.open{
-    background-color: rgba(255,255,255,.1);
+    background-color: rgba(80,80,80,.05);
 }

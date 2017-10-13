@@ -19,8 +19,9 @@
                 <ul>
                     <?php if(\IO::$app->user->isGuest) { ?>
                     <?php } else { ?>
-                        <a href="/user/index"><li class='item'><span><i class="material-icons icon pull-left">&#xE853;</i> User</span></li></a>
-                        <a href="/auth/index"><li class='item'><span><i class="material-icons icon pull-left">&#xE898;</i> Auth</span></li></a>
+                        <a href="/user/index"><li class='item' behaviour="active"><span><i class="material-icons icon pull-left">&#xE853;</i> User</span></li></a>
+                        <a href="/auth/index"><li class='item' behaviour="active"><span><i class="material-icons icon pull-left">&#xE898;</i> Auth</span></li></a>
+                        <a href="/translate/index"><li class='item' behaviour="active"><span><i class="material-icons icon pull-left">&#xE8E2;</i> Translate</span></li></a>
                     <?php } ?>
                 </ul>
             </li>
@@ -28,10 +29,10 @@
                 <i class="icon material-icons">more_vert</i>
                 <ul>
                     <?php if(\IO::$app->user->isGuest) { ?>
-                        <li class='item pull-left'><a href="/login"><span>log in</span></a></li>
+                        <a href="/login"><li class='item pull-left' behaviour="active"><span>log in</span></li></a>
                     <?php } else { ?>
-                        <a href="/profile"><li class='item'><span>profile</span></li></a>
-                        <a href="/logout"><li class='item'><span>log out</span></li></a>
+                        <a href="/profile"><li class='item' behaviour="active"><span>profile</span></li></a>
+                        <a href="/logout"><li class='item' behaviour="active"><span>log out</span></li></a>
                     <?php } ?>
                 </ul>
             </li>

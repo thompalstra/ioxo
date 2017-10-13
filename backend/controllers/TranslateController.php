@@ -4,9 +4,10 @@ namespace backend\controllers;
 use io\web\Auth;
 use io\web\Url;
 
-use common\models\AuthSearch;
+use io\base\Translate;
+use common\models\TranslateSearch;
 
-class AuthController extends \io\web\Controller{
+class TranslateController extends \io\web\Controller{
 
     public function rules(){
         return [
@@ -22,14 +23,14 @@ class AuthController extends \io\web\Controller{
     }
 
     public function beforeAction($id){
-        $this->theme = 'theme-auth';
+        $this->theme = 'theme-translate';
 
         return true;
     }
 
     public function actionIndex(){
 
-        $searchModel = AuthSearch::search( ($_POST) ? $_POST : [] );
+        $searchModel = TranslateSearch::search( ($_POST) ? $_POST : [] );
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -38,17 +39,18 @@ class AuthController extends \io\web\Controller{
     }
     public function actionView(){
         if(isset($_GET['id'])){
-            $model = Auth::find()->where([
+            $model = Translate::find()->where([
                 '=' => [
                     'id' => $_GET['id']
                 ],
             ])->one();
 
         } else {
-            $model = new Auth();
+            $model = new Translate();
         }
-        if($_POST && $model->load($_POST) && $model->validate() && $model->save()){
-            return $this->redirect( Url::to('/auth/view', ['id' => $model->id]) );
+
+        if($_POST && $model->load($_POST) && $model->validate() && $model->save() && $model->saveMessages()){
+            return $this->redirect( Url::to('/translate/view', ['id' => $model->id]) );
         }
 
         return $this->render('view', [
@@ -58,7 +60,7 @@ class AuthController extends \io\web\Controller{
     public function actionDelete($ids = []){
         $success = true;
         foreach(json_decode($ids) as $id){
-            $model = Auth::find()->where([
+            $model = Translate::find()->where([
                 '=' => [
                     'id' => $id
                 ],
