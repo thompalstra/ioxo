@@ -7,6 +7,7 @@ use io\web\Url;
 
 <div class='col xs12 header header-default theme user'>
 <div class='container'>
+    <h1 class='title'>User <i class="material-icons icon pull-right">&#xE853;</i></h1>
     <?=$searchModel->console()?>
 </div>
 </div>
@@ -17,49 +18,56 @@ use io\web\Url;
 <?=DataTable::widget([
     'dataSet' => $dataSet,
     'columns' => [
-        'select' => [
+        '' => [
             'options' => [
-                'width' => ''
+                'width' => '40',
+                'style' => [
+                    'text-align' => 'center'
+                ]
             ],
             'value' => function($model){
                 return Html::input("select[$model->id]", $model->id, ['type' => 'checkbox']);
             }
         ],
-        'id' => [
-            'options' => [
-                'width' => '80',
-                'style' => [
-                    'text-align' => 'center'
-                ]
-            ]
-        ],
         'username' => [
-            'options' => [
-                'title' => "click to edit",
-                'onclick' => 'location.href = "/user/view?id=" + this.parentNode.getAttribute("datakey")'
-            ],
             'value' => function($model){
                 return $model->username;
             }
         ],
         'is_enabled' => [
             'options' => [
-                'width' => '80',
+                'width' => '40',
                 'style' => [
                     'text-align' => 'center'
                 ]
             ],
+            'label' => '',
             'value' => function($model){
                 return ($model->is_enabled) ? '<i class="material-icons">&#xE5CA;</i>' : '';
             }
         ],
         'trash' => [
-            'width' => '80',
-            'style' => [
-                'text-align' => 'center'
+            'options' => [
+                'width' => '40',
+                'style' => [
+                    'text-align' => 'center'
+                ],
             ],
+            'label' => '',
             'value' => function($model){
                 return "<i class='material-icons delete'>&#xE872;</i>";
+            }
+        ],
+        'view' => [
+            'options' => [
+                'width' => '40',
+                'style' => [
+                    'text-align' => 'center'
+                ],
+            ],
+            'label' => '',
+            'value' => function($model){
+                return "<a href='/user/view?id=$model->id'><i class='material-icons'>&#xE8B6;</i></a>";
             }
         ]
     ],
@@ -74,8 +82,18 @@ $js = <<<JS
 $(document).on('click', '.delete', function(e){
     e.preventDefault();
     e.stopPropagation();
-    if(confirm("Do you want to delete this item?")){
-        location.href = "/user/delete?id=" + this.parentNode.parentNode.getAttribute('datakey');
+    if(confirm("Do you want to delete the selected this item(s)?")){
+        var tbody = $(this.parentNode.parentNode.parentNode);
+        var checked = $(tbody.find('tr input[type="checkbox"]:checked'));
+        if(checked.length == 0){
+            location.href = "/user/delete?id=" + this.parentNode.parentNode.getAttribute('datakey');
+        } else {
+            var ids = [];
+            checked.each(function(index){
+                ids.push( this.value );
+            });
+            location.href = "/user/delete?ids=" + JSON.stringify(ids);
+        }
     }
 });
 JS;

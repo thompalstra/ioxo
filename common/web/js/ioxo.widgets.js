@@ -42,13 +42,17 @@ $(document).on('click', '.toolstrip.list > ul > li', function(e){
     $(this.parentNode).addClass('hidden');
 });
 
-// submit on select
-// $(document).on('input', '.toolstrip input', function(e){
-//     var form = $(this).parents('form');
-//     form.submit();
-// });
-
-
 $(document).on('input', 'form[autosubmit] *', function(e){
-    $(this).parents('form').submit();
+    $(this).closest('form').submit();
 })
+
+$(document).on('click', '.datatable td', function(e){
+    if(e.target.tagName != "INPUT"){
+        var p = this.parentNode;
+        var input = p.querySelectorAll('input[type="checkbox"]');
+        if(input.length > 0){
+            input[0].checked = (input[0].checked) ? false : true;
+        }
+    }
+
+});

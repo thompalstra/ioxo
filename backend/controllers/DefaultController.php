@@ -40,6 +40,7 @@ class DefaultController extends Controller{
     }
 
     public function actionLogin(){
+        $this->layout = 'back-login';
         $model = new LoginForm();
         if($_POST && $model->load($_POST) && $model->validate()){
             $user = User::find()->where([

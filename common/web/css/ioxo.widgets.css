@@ -1,3 +1,7 @@
+
+
+
+
 .datatable{
     width: 100%;
     border-spacing: 0;
@@ -127,4 +131,19 @@
 }
 .toolstrip.list ul li.active:before{
     content: "\E5CA";
+}
+
+.breadcrumb.breadcrumb-default{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+.breadcrumb.breadcrumb-default{
+}
+.breadcrumb.breadcrumb-default .item{
+    display: inline-block;
+    color: white;
+}
+.breadcrumb.breadcrumb-default .item:hover{
+    text-decoration: underline;
 }

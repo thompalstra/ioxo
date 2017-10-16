@@ -4,11 +4,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+    <link rel="stylesheet" href="/common/web/css/ioxo.core.css">
     <link rel="stylesheet" href="/common/web/css/ioxo.theme.css">
     <link rel="stylesheet" href="/common/web/css/ioxo.forms.css">
     <link rel="stylesheet" href="/common/web/css/ioxo.buttons.css">
-    <link rel="stylesheet" href="/common/web/css/ioxo.core.css">
-    <link rel="stylesheet" href="/frontend/web/css/style.css">
+    <link rel="stylesheet" href="/common/web/css/ioxo.widgets.css">
     </head>
     <body>
         <ul class='menu menu-default'>

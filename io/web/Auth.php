@@ -7,7 +7,7 @@ class Auth extends \io\base\Model{
         return [
             'page_size'         => \IO::translate('io', 'Page size'),
             'id'                => \IO::translate('io', '#'),
-            'search_values'     => \IO::translate('io', 'Search values'),
+            'search_value'     => \IO::translate('io', 'Search value'),
             'usedRoles'         => \IO::translate('io', 'Used roles'),
             'is_enabled'        => \IO::translate('io', 'Enabled')
         ];

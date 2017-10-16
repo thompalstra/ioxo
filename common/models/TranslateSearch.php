@@ -9,6 +9,13 @@ use io\widgets\Toolstrip;
 
 class TranslateSearch extends \io\base\Translate{
 
+    public function attributes(){
+        return [
+            'page_size'         => \IO::translate('io', 'Page size'),
+            'search_value'      => \IO::translate('io', 'Search value'),
+        ];
+    }
+
     public $search_value = '';
     public $page_size = 20;
     public $filters = [

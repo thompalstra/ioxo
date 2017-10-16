@@ -2,6 +2,92 @@ html{
     font-family: 'Poppins', sans-serif;
 }
 
+.default{
+    color: white;
+    background-color: #555;
+}
+
+.default-flat{
+    color: #555;
+    background-color: inherit;
+}
+.default-outline{
+    border: 1px solid #555;
+    color: #555;
+    background-color: transparent;
+}
+
+.action{
+    color: white;
+    background-color: #3D8EB9;
+}
+.action-flat{
+    color: #3D8EB9;
+    background-color: inherit;
+}
+.action-outline{
+    border: 1px solid #3D8EB9;
+    color: #3D8EB9;
+    background-color: transparent;
+}
+
+.success{
+    color: white;
+    background-color: #71BA51;
+}
+.success-flat{
+    color: #71BA51;
+    background-color: inherit;
+}
+.success-outline{
+    border: 1px solid #71BA51;
+    color: #71BA51;
+    background-color: transparent;
+}
+
+.info{
+    color: white;
+    background-color: #64DDBB;
+}
+.info-flat{
+    color: #64DDBB;
+    background-color: inherit;
+}
+.info-outline{
+    border: 1px solid #64DDBB;
+    color: #64DDBB;
+    background-color: transparent;
+}
+
+
+.error{
+    color: white;
+    background-color: #C0392B;
+}
+.error-flat{
+    color: #C0392B;
+    background-color: inherit;
+}
+.error-outline{
+    border: 1px solid #C0392B;
+    color: #C0392B;
+    background-color: transparent;
+}
+
+.epic{
+    color: white;
+    background-color: #441340;
+}
+.epic-flat{
+    color: #441340;
+    background-color: inherit;
+}
+.epic-outline{
+    border: 1px solid #441340;
+    color: #441340;
+    background-color: transparent;
+}
+
 
 .theme.theme-user .header,
 .theme.theme-user .menu{

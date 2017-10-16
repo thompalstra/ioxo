@@ -15,6 +15,12 @@ body, html{
     border: 1px solid #ccc;
 }
 
+.row.row-element{
+    margin: 0 -10px;
+display: inline-block;
+    width: 100%;
+}
+
 .col{
     float: left;
     display: inline-block;
@@ -55,78 +61,6 @@ body, html{
 }
 .hidden{
     display: none !important;
-}
-
-.default{
-    color: white;
-    background-color: #555;
-}
-
-.default-flat{
-    color: #555;
-    background-color: inherit;
-}
-.default-outline{
-    border: 1px solid #555;
-    color: #555;
-    background-color: transparent;
-}
-
-.action{
-    color: white;
-    background-color: #3D8EB9;
-}
-.action-flat{
-    color: #3D8EB9;
-    background-color: inherit;
-}
-.action-outline{
-    border: 1px solid #3D8EB9;
-    color: #3D8EB9;
-    background-color: transparent;
-}
-
-.success{
-    color: white;
-    background-color: #71BA51;
-}
-.success-flat{
-    color: #71BA51;
-    background-color: inherit;
-}
-.success-outline{
-    border: 1px solid #71BA51;
-    color: #71BA51;
-    background-color: transparent;
-}
-
-.info{
-    color: white;
-    background-color: #64DDBB;
-}
-.info-flat{
-    color: #64DDBB;
-    background-color: inherit;
-}
-.info-outline{
-    border: 1px solid #64DDBB;
-    color: #64DDBB;
-    background-color: transparent;
-}
-
-
-.error{
-    color: white;
-    background-color: #C0392B;
-}
-.error-flat{
-    color: #C0392B;
-    background-color: inherit;
-}
-.error-outline{
-    border: 1px solid #C0392B;
-    color: #C0392B;
-    background-color: transparent;
 }
 
 .menu.menu-default{
@@ -251,13 +185,26 @@ body, html{
 }
 .header.header-default{
     background-color: #5099bf;
-    padding: 20px;
+    padding: 20px 0 ;
     float: left;
     display: inline-block;
     width: 100%;
     box-sizing: border-box;
-    min-height: 140px;
+    /*min-height: 140px;*/
 }
+
+.header-default .title{
+    margin: 0;
+    padding: 0;
+    line-height: 40px;
+    height: 40px;
+}
+
+.header-default .title .icon{
+    line-height: 40px;
+    height: 40px;
+}
+
 .header-default input.input.input-default::-webkit-input-placeholder    {       color: rgba(255,255,255,.7);    }
 .header-default input.input.input-default:-ms-input-placeholder         {       color: rgba(255,255,255,.7);    }
 .header-default input.input.input-default::-moz-placeholder             {       color: rgba(255,255,255,.7);    }

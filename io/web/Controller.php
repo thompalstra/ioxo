@@ -92,14 +92,18 @@ class Controller{
 
     public function runAction($id, $args = []){
         $fn = self::translateId($id);
-        if(method_exists($this, $fn) && $this->allowed($id)){
-            // return
-            $arg = $this->matchArguments($this, $fn, $args + $_GET);
-            if($this->beforeAction($id)){
-                return call_user_func_array([$this, $fn], $arg);
+
+        if(method_exists($this, $fn)){
+            if($this->allowed($id)){
+                $arg = $this->matchArguments($this, $fn, $args + $_GET);
+                if($this->beforeAction($id)){
+                    return call_user_func_array([$this, $fn], $arg);
+                }
+            } else {
+                throw new \io\exceptions\HttpNotFoundException('Permission denied');
             }
         } else {
-            throw new \io\exceptions\HttpNotFoundException('Permission denied');
+            throw new \io\exceptions\HttpNotFoundException("Could not find $id");
         }
     }
 

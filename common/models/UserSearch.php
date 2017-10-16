@@ -9,6 +9,14 @@ use io\widgets\Toolstrip;
 
 class UserSearch extends \common\models\User{
 
+    public function attributes(){
+        return [
+            'page_size'         => \IO::translate('io', 'Page size'),
+            'search_value'      => \IO::translate('io', 'Search value'),
+            'is_enabled'        => \IO::translate('io', 'Enabled'),
+        ];
+    }
+
     public $search_value = '';
     public $is_enabled = -1;
     public $role = -1;

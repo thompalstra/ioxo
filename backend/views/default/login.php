@@ -5,7 +5,7 @@ use io\data\Security;
 ?>
 
 <div class='element'>
-    <div class='inner'>
+    <!-- <div class='inner'> -->
         <div class='col dt4 tb4 mb12 xs12'></div>
         <div class='col dt4 tb4 mb12 xs12'>
             <h1>Sign in</h1>
@@ -43,5 +43,5 @@ use io\data\Security;
             <?php $form->end() ?>
         </div>
         <div class='col dt4 tb4 mb12 xs12'></div>
-    </div>
+    <!-- </div> -->
 </div>

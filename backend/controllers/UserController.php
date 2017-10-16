@@ -1,9 +1,10 @@
 <?php
 namespace backend\controllers;
 
-use io\web\User;
+
 use io\web\Url;
 
+use common\models\User;
 use common\models\UserSearch;
 
 class UserController extends \io\web\Controller{

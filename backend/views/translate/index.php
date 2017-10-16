@@ -7,6 +7,7 @@ use io\web\Url;
 
 <div class='col xs12 header header-default'>
 <div class='container'>
+    <h1 class='title'>Translate <i class="material-icons icon pull-right">&#xE8E2;</i></h1>
     <?=$searchModel->console()?>
 
 </div>
@@ -18,36 +19,47 @@ use io\web\Url;
 <?=DataTable::widget([
     'dataSet' => $dataSet,
     'columns' => [
-        'select' => [
+        '' => [
             'options' => [
-                'width' => ''
+                'width' => '40',
+                'style' => [
+                    'text-align' => 'center'
+                ]
             ],
+            'label' => '',
             'value' => function($model){
                 return Html::input("select[$model->id]", $model->id, ['type' => 'checkbox']);
             }
         ],
-        'id' => [
-            'options' => [
-                'width' => '80',
-                'style' => [
-                    'text-align' => 'center'
-                ]
-            ]
-        ],
         'source_message' => [
-            'options' => [
-                'title' => "click to edit",
-                'onclick' => 'location.href = "/translate/view?id=" + this.parentNode.getAttribute("datakey")'
-            ],
             'value' => function($model){
                 return $model->source_message;
             },
         ],
         'trash' => [
+            'options' => [
+                'width' => '40',
+                'style' => [
+                    'text-align' => 'center'
+                ],
+            ],
+            'label' => '',
             'value' => function($model){
                 return "<i class='material-icons delete'>&#xE872;</i>";
             }
         ],
+        'view' => [
+            'options' => [
+                'width' => '40',
+                'style' => [
+                    'text-align' => 'center'
+                ],
+            ],
+            'label' => '',
+            'value' => function($model){
+                return "<a href='/translate/view?id=$model->id'><i class='material-icons'>&#xE8B6;</i></a>";
+            }
+        ]
     ],
     'rowOptions' => [
         'class' => 'row',

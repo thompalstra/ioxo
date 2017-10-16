@@ -15,9 +15,7 @@ class User extends \io\web\User{
 
     public function attributes(){
         return [
-            'page_size'         => \IO::translate('io', 'Page size'),
             'id'                => \IO::translate('io', '#'),
-            'search_value'      => \IO::translate('io', 'Search value'),
             'role'              => \IO::translate('io', 'Role'),
             'usedRoles'         => \IO::translate('io', 'Used roles'),
             'is_enabled'        => \IO::translate('io', 'Enabled'),

@@ -9,8 +9,15 @@ class View{
 
         \IO::$app->view = $this;
 
-        $view = $root . DIRECTORY_SEPARATOR . $domain . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . \IO::$app->controller->name . DIRECTORY_SEPARATOR . $path . \IO::$app->action->id . '.php';
+        $item = str_replace('/', DIRECTORY_SEPARATOR, $item);
+        if($item[0] == DIRECTORY_SEPARATOR){
+            $item = substr($item, 1, strlen($item));
+            $view = $root . DIRECTORY_SEPARATOR . $domain . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . $item . '.php';
+        } else {
+            $view = $root . DIRECTORY_SEPARATOR . $domain . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . \IO::$app->controller->name . DIRECTORY_SEPARATOR . $path . $item . '.php';
+        }
         $layout = $root . DIRECTORY_SEPARATOR . $domain . DIRECTORY_SEPARATOR . 'layouts' . DIRECTORY_SEPARATOR . \IO::$app->controller->layout . '.php';
+
 
         if(!file_exists($view)){
             throw new \io\exceptions\HttpNotFoundException("View not found: $view");
