@@ -1,5 +1,5 @@
-$(document).on('click', ".menu.menu-default > li.dropdown" ,function(e){
-
+// $(document).on('click', ".menu.menu-default > li.dropdown" ,function(e){
+_(document).when('click', ".menu.menu-default > li.dropdown", function(e){
     e.stopPropagation();
 
     var ul = $(this).find('ul');
@@ -16,26 +16,26 @@ $(document).on('click', ".menu.menu-default > li.dropdown" ,function(e){
         }
     });
 })
-$(document).on('click', "*:not(.menu *)", function(e){
-    $('.open').each(function(e){
-        var ul = $(this).find('ul');
-        if(ul.length > 0){
-            $(this).removeClass('open');
-            ul.slideUp(200);
-        }
-    });
-});
+// _(document).when('click', "*:not(.menu) *:not(.item)", function(e){
+// // $(document).on('click', "*:not(.menu *)", function(e){
+//     $('.open').each(function(e){
+//         var ul = $(this).find('ul');
+//         if(ul.length > 0){
+//             $(this).removeClass('open');
+//             ul.slideUp(200);
+//         }
+//     });
+// });
 
+// $(document).on('click', '.slidebox', function(e){
+_(document).when('click', ".slidebox", function(e){
 
-var ioxo = function(){
+    console.log(this);
 
-}
-
-$(document).on('click', '.slidebox', function(e){
-    var input = $( $(this).find('input') )
-    var value = input.val();
+    var input = this.querySelector('input');
+    var value = input.value;
     if(value == 'true'){
-        return input.val('false');
+        return input.value = 'false';
     }
-    return input.val('true');
+    return input.value = 'true';
 })

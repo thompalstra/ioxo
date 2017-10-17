@@ -63,3 +63,25 @@ use io\widgets\Breadcrumb;
         </a>
     </div>
 </div>
+
+
+<?php
+// $js = <<<JS
+// _(document).when('mousedown', 'a[href="/about/ioxo"] > div', function(e){
+//     console.log(this);
+//     console.log('mousedown a div via document!');
+// });
+// _(document).when('mousehover', 'a[href="/about/ioxo"] > div', function(e){
+//     console.log(this);
+//     console.log('document hover on div inside A');
+// });
+// _('a[href="/documentation/index"] > div').when('mousehover', function(e){
+//     console.log(this);
+//     console.log('document hover on div inside A');
+// });
+// _('a[href="/documentation/index"] > div').when('mousedown', function(e){
+//     console.log('mousedown a div!');
+// });
+// JS;
+// $this->registerJs($js);
+?>

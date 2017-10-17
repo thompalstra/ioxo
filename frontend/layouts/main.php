@@ -38,9 +38,11 @@
             </li>
         </ul>
         <?=$content?>
+        <script src="/common/web/js/ioxo.app.js"></script>
         <script src="http://code.jquery.com/jquery-latest.js"></script>
         <script src="/common/web/js/ioxo.core.js"></script>
         <script src="/common/web/js/ioxo.forms.js"></script>
+
         <?=$this->footer()?>
     </body>
 </html>

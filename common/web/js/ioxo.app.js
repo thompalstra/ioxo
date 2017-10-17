@@ -1,0 +1,271 @@
+/**declare application**/
+var Application = function(query){
+    if(typeof query == 'string'){
+        if(query[0] == '<'){
+            var div = document.createElement('div')
+            div.innerHTML = query;
+            return new Element(div.childNodes);
+        } else {
+            return new Element(document.querySelectorAll(query));
+        }
+    } else if(typeof query == 'object'){
+        console.log('typeof of object');
+        if(query instanceof Element){
+            console.log('instance of Element');
+            return new Element([query]);
+        } else if(query === document) {
+            return new Element([document]);
+        }
+
+    }
+}
+var ioxo = io = _ = Application;
+/**declare element**/
+var Element = function(arguments){
+    for(var i = 0; i < arguments.length; i++){
+        this[i] = arguments[i];
+    }
+    this.length = arguments.length;
+}
+var ioxoElement = ioElement = _Element = Element;
+/**extend element with DOM manipulation**/
+Element.prototype.hasClass = function(className){
+    return this[0].classList.contains( className );
+}
+Element.prototype.addClass = function(className){
+    for(var i = 0; i < this.length; i++){
+        this[i].classList.add( className );
+    }
+}
+Element.prototype.removeClass = function(className){
+    for(var i = 0; i < this.length; i++){
+        this[i].classList.remove( className );
+    }
+}
+Element.prototype.toggleClass = function(className){
+    for(var i = 0; i < this.length; i++){
+        if( this[i].classList.contains( className ) ){
+            this[i].classList.remove( className );
+        } else {
+            this[i].classList.add( className );
+        }
+    }
+}
+Element.prototype.attribute = function(key, value){
+    if(this.length > 0){
+        if (typeof value == 'undefined'){
+            return this[0].getAttribute(key);
+        } else {
+            if(value === false || value === null){
+                return this[0].removeAttribute(key);
+            } else {
+                return this[0].setAttribute(key, value);
+            }
+        }
+    }
+}
+Element.prototype.style = function(key, value){
+    if(this.length > 0){
+        if (typeof value == 'undefined'){
+            var returnValue = this[0].style[key];
+
+            if(returnValue == ''){
+                returnValue = window.getComputedStyle(this[0])[key];
+            }
+
+            return returnValue;
+
+        } else {
+            if(value === false || value === null){
+                return this[0].style[key] = null;
+            } else {
+                return this[0].style[key] = value;
+            }
+        }
+    }
+}
+Element.prototype.property = function(key, value){
+    if(this.length > 0){
+        if (typeof value == 'undefined'){
+            return this[0][key];
+        } else {
+            if(value === false || value === null){
+                return this[0][key] = null;
+            } else {
+                return this[0][key] = value;
+            }
+        }
+    }
+}
+Element.prototype.html = function(value){
+    if(this.length > 0){
+        if (typeof value == 'undefined'){
+            return this[0].innerHTML;
+        } else {
+            return this[0].innerHTML = value;
+        }
+    }
+}
+Element.prototype.remove = function(){
+    for(var i = 0; i < this.length; i++){
+        this[i].remove();
+    }
+}
+Element.prototype.insert = function( elements ){
+    for(var i = 0; i < elements.length; i++){
+        this[0].appendChild( elements[i] );
+    }
+}
+Element.prototype.insertAt = function( elements, index ){
+    var referenceNode = this[0].childNodes[index];
+    for(var i = 0; i < elements.length; i++){
+        this[0].insertBefore(elements[i], referenceNode);
+    }
+}
+Element.prototype.removeFrom = function( index ){
+    if(typeof index == 'undefined'){    throw new Error("Undefined index: expected numeric value.");    }
+
+    var node = this[0].childNodes[index];
+
+    if(typeof node != 'undefined' && node.remove){
+        return node.remove();
+    } else {
+        return false;
+    }
+}
+
+document.body.addEventListener('DOMNodeRemoved', function (e) {
+  console.log('remove node');
+}, false);
+document.body.addEventListener('DOMNodeInserted', function (e) {
+  console.log('inserted node');
+  if(document.events){
+      for(var i = 0; i < document.events.length; i++){
+          var elements = document.querySelectorAll(document.events[i].argB);
+          if(elements.length > 0){
+              for(var i = 0; i < elements.length; i++){
+                  var element = elements[i];
+                  element.addEventListener(document.events[i].argA, document.events[i].argC);
+              }
+          }
+      }
+
+  }
+
+
+}, false);
+
+/**extend element with event support**/
+Element.prototype.when = function(argA, argB, argC, argD){
+    var p = this[0];
+
+
+
+    if(p === document){
+        // delegate
+        console.log('delegate');
+
+        var events = document.events;
+        if(typeof events == 'undefined'){
+            document.events = [];
+        }
+
+        document.events.push({
+            'argA': argA,
+            'argB': argB,
+            'argC': argC,
+            'argD': argD
+        });
+
+        var elements = document.querySelectorAll(argB);
+        for(var i = 0; i < elements.length; i++){
+            elements[i].addEventListener(argA, argC);
+        }
+
+    } else {
+        // direct
+        console.log('direct');
+
+        for(var i = 0; i < this.length; i++){
+            this[i].addEventListener(argA, argB);
+        }
+
+    }
+}
+
+
+
+/**extend element with animatibles**/
+Element.prototype.height = function(){
+    var returnValue = this.style('height');
+    if(returnValue == 'auto'){
+        returnValue = window.getComputedStyle(this[0])['height'];
+        if(isNaN(returnValue)){
+            returnValue = 0;
+        }
+
+    }
+    return parseFloat( returnValue );
+}
+Element.prototype.outerHeight = function(){
+    return this[0].clientHeight;
+}
+
+
+Element.prototype.slideDown = function( speed ){
+    var el = this;
+
+    this.style('transition', false);
+
+    var oldHeight = this.style('height');
+    var display = this.style('display');
+
+    this.style('display', 'inherit');
+
+    var newHeight = this.style('height');
+    var newPadding = this.style('padding');
+
+    this.style('height', '0px');
+    this.style('padding', '0px');
+    this.style('overflow', 'hidden');
+
+    var transition = "all "+speed+"ms ease-in-out";
+
+    setTimeout(function(e){
+        el.style('transition', transition);
+        el.style('padding', false);
+        el.style('height', parseFloat(newHeight) + "px");
+    }, 1);
+
+}
+Element.prototype.slideUp = function( speed ){
+    var el = this;
+
+    this.style('transition', false);
+
+    var newHeight = 0;
+
+    var transition = "all "+speed+"ms ease-in-out";
+
+    el.style('transition', transition);
+
+    setTimeout(function(e){
+
+        el.style('height', '0px');
+        el.style('padding', '0px 0px 0px 0px');
+
+        setTimeout(function(e){
+            el.style('display', 'none');
+            el.style('padding', false);
+            el.style('height', false);
+            el.style('transition', false);
+        }, speed);
+    },1);
+}
+Element.prototype.slideToggle = function(speed){
+    if(this.style('display') == 'none'){
+        this.slideDown(speed);
+    } else {
+        this.slideUp(speed);
+    }
+}
