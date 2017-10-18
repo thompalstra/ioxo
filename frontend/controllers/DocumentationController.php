@@ -1,19 +1,43 @@
 <?php
 namespace frontend\controllers;
 
-use io\web\Controller;
-use io\web\User;
+use common\models\NewsCategory;
+use common\models\NewsItem;
 
-use io\data\Security;
-
-use common\models\LoginForm;
-
-class AboutController extends Controller{
-    public function actionIoxo(){
-        return $this->render('ioxo', []);
+class DocumentationController extends \io\web\Controller{
+    public function actionIndex(){
+        return $this->render('index');
     }
-    public function actionTheTeam(){
-        return $this->render('the-team', []);
+    public function actionCategory($category = null){
+        $newsCategory = NewsCategory::find()->where([
+            '=' => [
+                'url' => $category,
+            ],
+        ])->one();
+        if($newsCategory){
+            return $this->render('category', ['newsCategory' => $newsCategory]);
+        }
+    }
+    public function actionItem($category = null, $item = null){
+        $newsCategory = NewsCategory::find()->where([
+            '=' => [
+                'url' => $category,
+            ],
+        ])->one();
+        if($newsCategory){
+            $newsItem = NewsItem::find()->where([
+                '=' => [
+                    'url' => $item,
+                    'news_category_id' => $newsCategory->id
+                ]
+            ])->one();
+            if($newsItem){
+                return $this->render('item', [
+                    'newsItem' => $newsItem,
+                    'newsCategory' => $newsCategory
+                ]);
+            }
+        }
     }
 }
 ?>

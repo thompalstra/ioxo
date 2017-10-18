@@ -42,6 +42,15 @@
     border: 1px solid #aaa;
 }
 
+textarea.input.input-default{
+    border: 1px solid #ddd;
+    outline: 0;
+    padding: 0 10px;
+}
+textarea.input.input-default:focus{
+    border: 1px solid #aaa;
+}
+
 
 select.input.input-default[multiple]{
     outline: 0;

@@ -87,6 +87,6 @@ class DataPager extends \io\base\Widget{
     }
 
     public function pagerEnd(){
-        return "</div>";
+        return "</ul>";
     }
 }

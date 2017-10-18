@@ -1,10 +1,14 @@
 <?php
 return [
     'url' => [
-        'className' => '\io\web\Url',
         'routes' => [
-            '/test/index' => '/default/index',
-            '/default/test' => '/defualt/redirect'
+            [
+                'class' => '\io\web\Url',
+                ['a' => 'b']
+            ],
+            '/documentation/<category:(.*)>/<item:(.*)>' => '/documentation/item',
+            '/documentation/<category:(.*)>' => '/documentation/category',
+            '/documentation' => '/documentation/index'
         ],
     ],
     'language' => 'nl',

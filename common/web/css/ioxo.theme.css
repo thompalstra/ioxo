@@ -107,6 +107,12 @@ html{
     background-color: #3E4651;
 }
 
+.theme.theme-news .header,
+.theme.theme-news .menu{
+    color: white;
+    background-color: #22C4DF;
+}
+
 
 .menu.menu-default{
     background-color: #3D8EB9;

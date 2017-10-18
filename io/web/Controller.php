@@ -47,8 +47,11 @@ class Controller{
 
         $className = $namespace . $path . $name;
         if(!class_exists($className)){
-            $className = $namespace . 'DefaultController';
+            throw new \io\exceptions\HttpNotFoundException("Controller not found: $className");
+            // $className = $namespace . 'DefaultController';
         }
+
+
 
 
 

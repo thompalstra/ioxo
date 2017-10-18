@@ -22,6 +22,7 @@
                         <a href="/user/index"><li class='item' behaviour="active"><span><i class="material-icons icon pull-left">&#xE853;</i> User</span></li></a>
                         <a href="/auth/index"><li class='item' behaviour="active"><span><i class="material-icons icon pull-left">&#xE898;</i> Auth</span></li></a>
                         <a href="/translate/index"><li class='item' behaviour="active"><span><i class="material-icons icon pull-left">&#xE8E2;</i> Translate</span></li></a>
+                        <a href="/news/index"><li class='item' behaviour="active"><span><i class="material-icons icon pull-left">&#xE2C7;</i> News category</span></li></a>
                     <?php } ?>
                 </ul>
             </li>

@@ -98,6 +98,13 @@ class Html{
         return $out;
     }
 
+    public static function textarea($name, $value = null, $options = []){
+        $options['name'] = $name;
+        $options = Html::attributes($options);
+        $out = "<textarea $options>$value</textarea>";
+        return $out;
+    }
+
     public static function button($text, $options = []){
         $options = self::attributes($options);
         return "<button $options>$text</button>";

@@ -36,7 +36,7 @@ class Migration extends \io\base\Model{
 
     public static function new($name){
 
-        $migrationName = "m$name"."_".time();
+        $migrationName = "m" . time() . "_$name";
 
         $template = file_get_contents( \IO::$app->root . DIRECTORY_SEPARATOR . 'io' . DIRECTORY_SEPARATOR . 'db' . DIRECTORY_SEPARATOR . 'MigrationTemplate.php' );
         $template = str_replace('{CLASS}', $migrationName, $template);

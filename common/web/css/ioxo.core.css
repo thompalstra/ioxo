@@ -110,6 +110,16 @@ display: inline-block;
     display: inline-block;
 
 }
+
+.dropdown {
+    position: relative;
+}
+
+.dropdown ul{
+    background-color: white;
+}
+
+.dropdown > ul,
 .menu.menu-default > li.dropdown > ul{
     position: absolute;
     top: 5px;
@@ -125,9 +135,11 @@ display: inline-block;
     box-shadow: 0px 0px 5px -1px rgba(0,0,0,0.75);
 }
 
+.dropdown.pull-left > ul,
 .menu.menu-default > li.dropdown.pull-left > ul{
     left: 5px;
 }
+.dropdown.pull-right > ul,
 .menu.menu-default > li.dropdown.pull-right > ul{
     right: 5px;
 }
@@ -135,7 +147,7 @@ display: inline-block;
 .menu.menu-default > li.dropdown.toggled > ul{
     top: 5px;
 }
-
+.dropdown.pull-left > ul li,
 .menu.menu-default > li.dropdown > ul li{
     box-sizing: border-box;
     height: 40px;
@@ -145,7 +157,7 @@ display: inline-block;
     position: relative;
     width: 100%;
 }
-
+.dropdown > ul li .icon,
 .menu.menu-default > li.dropdown > ul li .icon{
     min-width: 40px;
     height: 40px;

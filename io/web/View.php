@@ -18,7 +18,6 @@ class View{
         }
         $layout = $root . DIRECTORY_SEPARATOR . $domain . DIRECTORY_SEPARATOR . 'layouts' . DIRECTORY_SEPARATOR . \IO::$app->controller->layout . '.php';
 
-
         if(!file_exists($view)){
             throw new \io\exceptions\HttpNotFoundException("View not found: $view");
         }

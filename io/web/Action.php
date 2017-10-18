@@ -2,6 +2,9 @@
 namespace io\web;
 
 class Action{
+
+    public $id = 'index';
+
     public function __construct(){
 
     }

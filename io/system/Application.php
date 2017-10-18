@@ -89,9 +89,28 @@ class Application{
     }
 
     public function handleRequest(){
+        // do something with the routes
+
         $url = $this->request->REQUEST_URI;
         if(strpos($url, '?') !== false){
             $url = substr($url, 0, strpos($url, '?'));
+        }
+
+        if(\IO::$app->url){
+            foreach(\IO::$app->url['routes'] as $match => $route){
+                if(is_array($route)){
+                    $class = $route['class'];
+                    unset($route['class']);
+                    $component = new $class($route);
+                    if($dest = $component->parseRequest($url)){
+                        return $dest;
+                    }
+                } else {
+                    if($dest = \io\web\Url::matches($match, $route, $url)){
+                        return $dest;
+                    }
+                }
+            }
         }
         return $url;
     }

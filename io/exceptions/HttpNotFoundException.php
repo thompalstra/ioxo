@@ -18,7 +18,8 @@ class HttpNotFoundException extends \Exception{
         if(!file_exists($defaultView)){
             echo "Error! Default view file missing: $defaultView"; \IO::$app->end();
         }
-        if(\IO::$app->action->id == 'error'){
+
+        if(\IO::$app->action->id != NULL && \IO::$app->action->id == 'error'){
             echo 'ERROR EXECUTING ERROR';
             \IO::$app->end();
         }

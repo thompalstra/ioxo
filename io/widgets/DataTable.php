@@ -54,14 +54,6 @@ class DataTable extends \io\base\Widget{
             $page = $this->dataSet->pagination['page'] == 1 ? 0 : $this->dataSet->pagination['page'] - 1;
             $pageSize = $this->dataSet->pagination['pageSize'];
 
-
-
-            // $total = 200;
-            // $page = 2;
-            // $pageSize = 20;
-
-            // showing $page * pageSize of total
-
             $start = ($page * $pageSize) + $pageSize;
 
             if($start > $total) {
@@ -70,8 +62,6 @@ class DataTable extends \io\base\Widget{
 
             $out .= "Showing <strong>$start</strong> out of <strong>$total</strong> results";
         }
-
-
         $out .= "<table $options>";
         return $out;
     }
@@ -142,8 +132,7 @@ class DataTable extends \io\base\Widget{
     }
 
     public function pager(){
-        if($this->dataSet->pagination !== false){
-
+        if($this->pager !== false && $this->dataSet->pagination !== false){
             $options = $this->pager;
             $options['pagination'] = $this->dataSet->pagination;
             $options['query'] = $this->dataSet->query;
@@ -152,7 +141,6 @@ class DataTable extends \io\base\Widget{
     }
 
     public function tableEnd(){
-
         return "</table>";
     }
 }
