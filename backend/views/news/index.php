@@ -13,8 +13,8 @@ use io\web\Url;
 </div>
 <div class='container'>
     <div class='row row-btn'>
-        <?=Html::a('<i class="material-icons icon pull-left">&#xE145;</i> NEW NEWS CATEGORY', Url::to('/news/view-category'), ['class' => 'btn btn-icon btn-default success pull-right'] )?>
-        <?=Html::a('<i class="material-icons icon pull-left">&#xE145;</i> NEW NEWS ITEM', Url::to('/news/view-item'), ['class' => 'btn btn-icon btn-default success pull-right'] )?>
+        <?=Html::a('<i class="material-icons icon pull-left">&#xE145;</i> NEW CATEGORY', Url::to('/news/view-category'), ['class' => 'btn btn-icon btn-default success pull-right'] )?>
+        <?=Html::a('<i class="material-icons icon pull-left">&#xE145;</i> NEW ITEM', Url::to('/news/view-item'), ['class' => 'btn btn-icon btn-default success pull-right'] )?>
     </div>
 <?=DataTable::widget([
     'dataSet' => $dataSet,
@@ -65,7 +65,7 @@ use io\web\Url;
             ],
             'label' => '',
             'value' => function($model){
-                return "<a href='/news/view?id=$model->id'><i class='material-icons'>&#xE8B6;</i></a>";
+                return "<a href='/news/view-item?id=$model->id'><i class='material-icons'>&#xE8B6;</i></a>";
             }
         ]
     ],
@@ -84,13 +84,13 @@ $(document).on('click', '.delete', function(e){
         var tbody = $(this.parentNode.parentNode.parentNode);
         var checked = $(tbody.find('tr input[type="checkbox"]:checked'));
         if(checked.length == 0){
-            location.href = "/user/delete?id=" + this.parentNode.parentNode.getAttribute('datakey');
+            location.href = "/user/delete-item?id=" + this.parentNode.parentNode.getAttribute('datakey');
         } else {
             var ids = [];
             checked.each(function(index){
                 ids.push( this.value );
             });
-            location.href = "/user/delete?ids=" + JSON.stringify(ids);
+            location.href = "/user/delete-item?ids=" + JSON.stringify(ids);
         }
     }
 });

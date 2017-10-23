@@ -7,6 +7,7 @@ class NewsItem extends \io\web\User{
     public static $table = 'news_item';
 
     public $content_new = [];
+    public $content_old = [];
 
     public function rules(){
         return [
@@ -22,11 +23,12 @@ class NewsItem extends \io\web\User{
                 'news_item_id' => $this->id
             ],
         ]);
-
-        return \io\helpers\ArrayHelper::map( $query->all(), 'id', 'content' );
+        $query->orderBy(['sort_index' => 'asc']);
+        return $query;
     }
 
     public function saveContent(){
+        $i = 0;
         foreach($this->content_old as $id => $v){
             $newsContent = NewsContent::find()->where([
                 '=' => [
@@ -35,12 +37,7 @@ class NewsItem extends \io\web\User{
             ])->one();
             $newsContent->news_item_id = $this->id;
             $newsContent->content = $v;
-            $newsContent->save();
-        }
-        foreach($this->content_new as $id => $v){
-            $newsContent = new NewsContent();
-            $newsContent->news_item_id = $this->id;
-            $newsContent->content = $v;
+            $newsContent->sort_index = $i++;
             $newsContent->save();
         }
     }

@@ -22,7 +22,7 @@
 .row.row-btn .btn.pull-right{
     margin-left: 10px;
 }
-
+select.input.input-default,
 .input.input-default[type="email"],
 .input.input-default[type="search"],
 .input.input-default[type="password"],
@@ -34,6 +34,7 @@
     outline: 0;
     padding: 0 10px;
 }
+select.input.input-default:focus,
 .input.input-default[type="email"]:focus,
 .input.input-default[type="search"]:focus,
 .input.input-default[type="password"]:focus,

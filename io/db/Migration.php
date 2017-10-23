@@ -158,10 +158,9 @@ class Migration extends \io\base\Model{
         $sth = \IO::$app->dbConnector->pdo->prepare($command);
 
         foreach($columns as $attributeKey => $attributeValue){
+            if($attributeKey === 'id'){ continue; }
             $sth->bindValue(":$attributeKey", $attributeValue);
         }
-
-
         return $sth->execute();
     }
 

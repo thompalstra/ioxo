@@ -5,6 +5,8 @@ use io\data\DataSet;
 use io\helpers\Html;
 use io\helpers\ArrayHelper;
 
+use io\web\Auth;
+
 use io\widgets\Toolstrip;
 
 class UserSearch extends \common\models\User{
@@ -21,48 +23,6 @@ class UserSearch extends \common\models\User{
     public $is_enabled = -1;
     public $role = -1;
     public $page_size = 20;
-    public $filters = [
-        [
-            'className' => '\io\widgets\ToolstripList',
-            'attribute' => 'is_enabled',
-            'options' => [
-                'inputOptions' => [
-
-                ],
-                'options' => [
-                    'items' => [
-                        -1 =>   "Any",
-                        1 =>    "Enabled",
-                        0 =>    "Disabled"
-                    ]
-                ]
-            ]
-        ],
-        [
-            'className' => '\io\widgets\ToolstripList',
-            'attribute' => 'role',
-            'options' => [
-                'inputOptions' => [
-
-                ],
-                'options' => [
-                    'items' => [-1 => 'Any', 1 => 'Backend', 2 => 'Administrator']
-                ]
-            ]
-        ],
-        [
-            'className' => '\io\widgets\ToolstripList',
-            'attribute' => 'page_size',
-            'options' => [
-                'inputOptions' => [
-
-                ],
-                'options' => [
-                    'items' => [20 => '20', 50 => '50', 100 => '100']
-                ]
-            ]
-        ],
-    ];
 
     public function rules(){
         return [
@@ -70,11 +30,55 @@ class UserSearch extends \common\models\User{
         ];
     }
 
-    public function getDataList(){
+    public static function getDataList(){
         return ArrayHelper::map( self::find()->where(['=' => ['is_deleted' => 0]])->all(), 'id', 'username');
     }
 
     public function console(){
+
+        $this->filters = [
+            [
+                'className' => '\io\widgets\ToolstripList',
+                'attribute' => 'is_enabled',
+                'options' => [
+                    'inputOptions' => [
+
+                    ],
+                    'options' => [
+                        'items' => [
+                            -1 =>   "Any",
+                            1 =>    "Enabled",
+                            0 =>    "Disabled"
+                        ]
+                    ]
+                ]
+            ],
+            [
+                'className' => '\io\widgets\ToolstripList',
+                'attribute' => 'role',
+                'options' => [
+                    'inputOptions' => [
+
+                    ],
+                    'options' => [
+                        'items' => [-1=>"Any"] + Auth::getDataList()
+                    ]
+                ]
+            ],
+            [
+                'className' => '\io\widgets\ToolstripList',
+                'attribute' => 'page_size',
+                'options' => [
+                    'inputOptions' => [
+
+                    ],
+                    'options' => [
+                        'items' => [20 => '20', 50 => '50', 100 => '100']
+                    ]
+                ]
+            ],
+        ];
+
         $form = new \io\widgets\Form([
             'template' => '{input}',
             'templateOptions' => [

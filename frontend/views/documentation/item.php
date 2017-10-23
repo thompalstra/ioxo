@@ -29,9 +29,9 @@ use io\widgets\Breadcrumb;
 </div>
 </div>
 <div class='container'>
-    <?php foreach($newsItem->content as $content) { ?>
+    <?php foreach($newsItem->content->all() as $content) { ?>
         <div class='col xs12'>
-        <?php echo $content; ?>
+        <?php echo $content->content; ?>
         </div>
     <?php } ?>
 </div>

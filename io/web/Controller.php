@@ -74,21 +74,17 @@ class Controller{
 
     public function matchArguments($controller, $function, $arguments){
         $f = new \ReflectionMethod(get_class($controller), $function);
+        $closure = $f->getClosure($controller);
         $params = $f->getParameters();
 
         $result = [];
         $error = [];
+
         foreach($params as $param){
             $name = $param->name;
             if(isset($arguments[$name])){
                 $result[] = $arguments[$name];
-            } else {
-                $error[] = "Missing required parameter: $name";
             }
-        }
-
-        if(!empty($error)){
-            throw new \io\exceptions\HttpNotFoundException( implode("\n", $error) );
         }
         return $result;
     }
@@ -100,7 +96,11 @@ class Controller{
             if($this->allowed($id)){
                 $arg = $this->matchArguments($this, $fn, $args + $_GET);
                 if($this->beforeAction($id)){
-                    return call_user_func_array([$this, $fn], $arg);
+                    try {
+                        return call_user_func_array([$this, $fn], $arg);
+                    } catch (\ArgumentCountError $exception){
+                        throw new \io\exceptions\HttpNotFoundException($exception->getMessage());
+                    }
                 }
             } else {
                 throw new \io\exceptions\HttpNotFoundException('Permission denied');

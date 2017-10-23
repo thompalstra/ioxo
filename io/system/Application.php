@@ -18,6 +18,14 @@ class Application{
         include($this->root . DIRECTORY_SEPARATOR . 'io' . DIRECTORY_SEPARATOR . 'system' . DIRECTORY_SEPARATOR . 'autoloader.php');
 
         \IO::$app = $this;
+        $errorHandler = new \io\exceptions\ErrorHandler();
+
+        $reflectionClass = new \ReflectionClass($errorHandler);
+        $reflectionMethod = $reflectionClass->getMethod('handle');
+        $closure = $reflectionMethod->getClosure($errorHandler);
+
+
+        set_error_handler($closure);
 
         $this->request = new Request();
         $this->domain = new Domain();

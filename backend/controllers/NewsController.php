@@ -38,7 +38,7 @@ class NewsController extends \io\web\Controller{
             'dataSet' => $searchModel->dataSet
         ]);
     }
-    public function actionView($id = null){
+    public function actionViewItem($id = null){
         if($id){
             $model = NewsItem::find()->where([
                 '=' => [
@@ -53,7 +53,7 @@ class NewsController extends \io\web\Controller{
             return $this->redirect( Url::to('/news/view-news', ['id' => $model->id]) );
         }
 
-        return $this->render('view', [
+        return $this->render('view-item', [
             'model' => $model
         ]);
     }

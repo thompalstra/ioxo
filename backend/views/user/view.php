@@ -37,7 +37,7 @@ use io\widgets\Slidebox;
         <?=$form->field($model, 'username')->textInput([
             'behaviour' => 'active',
             'required' => '',
-            'pattern' => ".{6,24}",
+            'pattern' => ".{2,24}",
             'title' => 'Username must be between 6 and 24 characters long',
         ])?>
         <?=$form->field($model, 'email')->input([

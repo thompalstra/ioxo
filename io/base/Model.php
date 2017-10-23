@@ -288,7 +288,7 @@ class Model extends \io\db\Row{
                 return $this->$attribute();
             }
         }
-        // throw new \Exception("$attribute not found");
+        throw new \Exception("$attribute not found");
     }
 
     public function on($called){

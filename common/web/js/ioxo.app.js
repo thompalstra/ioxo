@@ -188,6 +188,7 @@ Element.prototype.when = function(argA, argB, argC, argD){
         });
 
         var elements = document.querySelectorAll(argB);
+
         for(var i = 0; i < elements.length; i++){
             elements[i].addEventListener(argA, argC);
         }
