@@ -1,6 +1,12 @@
 <?php
 namespace common\models;
+
+use io\traits\isDeletedTrait;
+
 class User extends \io\web\User{
+
+    use isDeletedTrait;
+
     public static $table = 'user';
     public function rules(){
         return [

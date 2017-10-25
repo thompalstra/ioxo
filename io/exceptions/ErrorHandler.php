@@ -17,8 +17,8 @@ class ErrorHandler{
                 case E_USER_ERROR:          throw new \Exception  ($err_msg, 0, $err_severity, $err_file, $err_line);
                 case E_USER_WARNING:        throw new \Exception  ($err_msg, 0, $err_severity, $err_file, $err_line);
                 case E_USER_NOTICE:         throw new \Exception  ($err_msg, 0, $err_severity, $err_file, $err_line);
-                case E_STRICT:              throw new \Exception  ($err_msg, 0, $err_severity, $err_file, $err_line);
-                case E_RECOVERABLE_ERROR:   throw new \Exception  ($err_msg, 0, $err_severity, $err_file, $err_line);
+                case E_STRICT:              throw new \ErrorException  ($err_msg, 0, $err_severity, $err_file, $err_line);
+                case E_RECOVERABLE_ERROR:   throw new \ErrorException  ($err_msg, 0, $err_severity, $err_file, $err_line);
                 case E_DEPRECATED:          throw new \Exception  ($err_msg, 0, $err_severity, $err_file, $err_line);
                 case E_USER_DEPRECATED:     throw new \Exception  ($err_msg, 0, $err_severity, $err_file, $err_line);
             }

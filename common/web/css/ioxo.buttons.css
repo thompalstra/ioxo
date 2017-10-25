@@ -29,6 +29,10 @@
     padding-left: 0;
     padding-right: 15px;
 }
+.btn.btn-only-icon{
+    padding-left: 0;
+    padding-right: 0;
+}
 .btn.btn-icon .icon{
     float: left;
     line-height: inherit;

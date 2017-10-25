@@ -110,7 +110,7 @@ class Model extends \io\db\Row{
     }
 
     public function delete(){
-        $result = $this->on('beforeDelete');
+        $this->on('beforeDelete');
         if(!$this->isNewModel){
             $result = $this->deleteModel();
         }

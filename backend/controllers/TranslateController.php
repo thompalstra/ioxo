@@ -5,7 +5,7 @@ use io\web\Auth;
 use io\web\Url;
 
 use io\base\Translate;
-use common\models\TranslateSearch;
+use common\models\search\TranslateSearch;
 
 class TranslateController extends \io\web\Controller{
 

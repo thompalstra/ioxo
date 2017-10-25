@@ -2,8 +2,14 @@
 namespace common\models;
 
 use common\models\NewsContent;
+use common\models\NewsCategory;
 
-class NewsItem extends \io\web\User{
+use io\traits\isDeletedTrait;
+
+class NewsItem extends \io\base\Model{
+
+    use isDeletedTrait;
+
     public static $table = 'news_item';
 
     public $content_new = [];
@@ -17,10 +23,29 @@ class NewsItem extends \io\web\User{
         ];
     }
 
+    public function getCategory(){
+        $query = NewsCategory::find()->where([
+            '=' => [
+                'id' => $this->news_category_id
+            ],
+        ]);
+        return $query->one();
+    }
+    public function getFirstContent(){
+        $query = NewsContent::find()->where([
+            '=' => [
+                'news_item_id' => $this->id,
+                'is_deleted' => 0
+            ],
+        ]);
+        $query->orderBy(['sort_index' => 'asc']);
+        return $query->one();
+    }
     public function getContent(){
         $query = NewsContent::find()->where([
             '=' => [
-                'news_item_id' => $this->id
+                'news_item_id' => $this->id,
+                'is_deleted' => 0
             ],
         ]);
         $query->orderBy(['sort_index' => 'asc']);
@@ -36,10 +61,13 @@ class NewsItem extends \io\web\User{
                 ],
             ])->one();
             $newsContent->news_item_id = $this->id;
+
             $newsContent->content = $v;
             $newsContent->sort_index = $i++;
             $newsContent->save();
         }
+
+        return true;
     }
 }
 ?>

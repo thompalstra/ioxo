@@ -5,25 +5,19 @@ use io\web\Url;
 ?>
 
 
-<div class='col xs12 header header-default theme user'>
+<div class='col xs12 header header-default'>
 <div class='container'>
-    <h1 class='title'>User <i class="material-icons icon pull-right">&#xE853;</i></h1>
+    <h1 class='title'>News Category <i class="material-icons icon pull-right">&#xE853;</i></h1>
     <?=$searchModel->console()?>
 </div>
 </div>
 <div class='container'>
     <div class='row row-btn'>
-        <?=Html::a('<i class="material-icons icon pull-left">&#xE145;</i> NIEUW', Url::to('/user/view', ['a' => 'b', 'c' => 'd']), ['class' => 'btn btn-icon btn-default success pull-right'] )?>
+        <?=Html::a('<i class="material-icons icon pull-left">&#xE145;</i> NEW CATEGORY', Url::to('/news/view-category'), ['class' => 'btn btn-icon btn-default success pull-right'] )?>
     </div>
 <?=DataTable::widget([
     'dataSet' => $dataSet,
-    'pager' => [
-        'range' => 2,
-        'first' => '<i class="material-icons icon">&#xE5DC;</i>',
-        'previous' => '<i class="material-icons icon">&#xE408;</i>',
-        'next' => '<i class="material-icons icon">&#xE409;</i>',
-        'last' => '<i class="material-icons icon">&#xE5DD;</i>'
-    ],
+    'pager' => false,
     'columns' => [
         '' => [
             'options' => [
@@ -36,23 +30,7 @@ use io\web\Url;
                 return Html::input("select[$model->id]", $model->id, ['type' => 'checkbox']);
             }
         ],
-        'username' => [
-            'value' => function($model){
-                return $model->username;
-            }
-        ],
-        'is_enabled' => [
-            'options' => [
-                'width' => '40',
-                'style' => [
-                    'text-align' => 'center'
-                ]
-            ],
-            'label' => '',
-            'value' => function($model){
-                return ($model->is_enabled) ? '<i class="material-icons">&#xE5CA;</i>' : '';
-            }
-        ],
+        'title',
         'trash' => [
             'options' => [
                 'width' => '40',
@@ -74,7 +52,7 @@ use io\web\Url;
             ],
             'label' => '',
             'value' => function($model){
-                return "<a href='/user/view?id=$model->id'><i class='material-icons'>&#xE8B6;</i></a>";
+                return "<a href='/news/view-category?id=$model->id'><i class='material-icons'>&#xE8B6;</i></a>";
             }
         ]
     ],
@@ -89,17 +67,17 @@ $js = <<<JS
 $(document).on('click', '.delete', function(e){
     e.preventDefault();
     e.stopPropagation();
-    if(confirm("Do you want to delete the selected this item(s)?")){
+    if(confirm("Do you want to delete the selected item(s)?")){
         var tbody = $(this.parentNode.parentNode.parentNode);
         var checked = $(tbody.find('tr input[type="checkbox"]:checked'));
         if(checked.length == 0){
-            location.href = "/user/delete?id=" + this.parentNode.parentNode.getAttribute('datakey');
+            location.href = "/news/delete-category?id=" + this.parentNode.parentNode.getAttribute('datakey');
         } else {
             var ids = [];
             checked.each(function(index){
                 ids.push( this.value );
             });
-            location.href = "/user/delete?ids=" + JSON.stringify(ids);
+            location.href = "/news/delete-category?ids=" + JSON.stringify(ids);
         }
     }
 });

@@ -3,14 +3,16 @@ namespace common\models;
 
 use io\helpers\ArrayHelper;
 
-class NewsCategory extends \io\web\User{
+use io\traits\isDeletedTrait;
+
+class NewsCategory extends \io\base\Model{
+
+    use isDeletedTrait;
+
     public static $table = 'news_category';
     public function rules(){
         return [
-            [['new_password'], 'passwordCreate', 'min' => 6, 'max' => 24],
-            [['username', 'password', 'email'], 'required'],
-            [['email'], 'email'],
-            [['username'], 'number'],
+            [['title', 'url'], 'required'],
             [['is_deleted'], 'tinyint', 'default' => 0],
             [['is_enabled'], 'tinyint', 'default' => 1]
         ];
@@ -23,6 +25,9 @@ class NewsCategory extends \io\web\User{
             $d = [];
         }
         return $d + ArrayHelper::map( self::find()->all(), 'id', 'title');
+    }
+    public function getItems(){
+
     }
 }
 ?>

@@ -17,9 +17,9 @@ class DataTable extends \io\base\Widget{
     public $rowOptions = [
         'class' => 'row',
     ];
-    public $pager = [
-        'range' => 2,
-    ];
+    public $pager = [];
+
+    public $summary = [];
 
     public $columns = [];
 
@@ -36,6 +36,7 @@ class DataTable extends \io\base\Widget{
 
         $out = $this->template;
         $out = str_replace('{pager}', $this->pager(), $out);
+        $out = str_replace('{summary}', $this->summary(), $out);
         $out = str_replace('{tableBegin}', $this->tableBegin($this->tableOptions), $out);
         $out = str_replace('{columns}', $this->columns($this->columnOptions), $out);
         $out = str_replace('{rows}', $this->rows($this->rowOptions), $out);
@@ -49,21 +50,16 @@ class DataTable extends \io\base\Widget{
 
         $out = '';
 
-        if($this->dataSet->pagination != false){
-            $total = $this->dataSet->query->count();
-            $page = $this->dataSet->pagination['page'] == 1 ? 0 : $this->dataSet->pagination['page'] - 1;
-            $pageSize = $this->dataSet->pagination['pageSize'];
-
-            $start = ($page * $pageSize) + $pageSize;
-
-            if($start > $total) {
-                $start = $total;
-            }
-
-            $out .= "Showing <strong>$start</strong> out of <strong>$total</strong> results";
-        }
         $out .= "<table $options>";
         return $out;
+    }
+
+    public function summary(){
+        $options = $this->summary;
+        $options['pagination'] = $this->dataSet->pagination;
+        $options['query'] = $this->dataSet->query;
+
+        return DataSummary::widget($options);
     }
 
     public function columns($options = []){

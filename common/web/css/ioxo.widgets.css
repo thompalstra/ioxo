@@ -61,10 +61,25 @@
 .slidebox > input[type="hidden"][value="false"] + .wrapper > .indicator{ left: 0%; }
 .slidebox > input[type="hidden"][value="true"] + .wrapper > .indicator{ left: 50%; }
 
-.pager.pager-default{
-    list-style: none;
+.summary.summary-default{
+    display: inline-block;
+    width: 100%;
     padding: 0;
-    margin: 0;
+    margin: 10px 0;
+    text-align: center;
+}
+
+.pager.pager-default{
+    display: inline-block;
+    width: 100%;
+    padding: 0;
+    margin: 10px 0;
+    list-style: none;
+    text-align: center;
+}
+
+.pager.pager-default a{
+    display: inline-block;
 }
 
 .pager.pager-default li {
@@ -74,6 +89,7 @@
     text-align: center;
     line-height: 40px;
     color: #555;
+    float: left;
 }
 
 .pager.pager-default li.active{

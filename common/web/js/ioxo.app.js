@@ -132,7 +132,7 @@ Element.prototype.removeFrom = function( index ){
 }
 
 document.body.addEventListener('DOMNodeRemoved', function (e) {
-  console.log('remove node');
+  // console.log('remove node');
 }, false);
 
 
@@ -144,27 +144,26 @@ document.addEventListener("DOMContentLoaded", function(event) {
         if(domManipulationTimeout){
             clearTimeout(domManipulationTimeout);
             domManipulationTimeout = null;
-        } else {
-            domManipulationTimeout = setTimeout(function(e){
-                console.log('restoring events...');
-                if(document.events){
-                    for(var i = 0; i < document.events.length; i++){
-                        // console.log('for loop');
-                        var ev = document.events[i];
-                        var elements = document.querySelectorAll(ev.argB);
-                        if(elements.length > 0){
-                            // console.log('elements length');
-                            for(var el = 0; el < elements.length; el++){
-                                // console.log('for elements length');
-                                var element = elements[el];
-                                element.addEventListener(ev.argA, ev.argC);
-                            }
+        }
+        domManipulationTimeout = setTimeout(function(e){
+            console.log('restoring events...');
+            if(document.events){
+                for(var i = 0; i < document.events.length; i++){
+                    // console.log('for loop');
+                    var ev = document.events[i];
+                    var elements = document.querySelectorAll(ev.argB);
+                    if(elements.length > 0){
+                        // console.log('elements length');
+                        for(var el = 0; el < elements.length; el++){
+                            // console.log('for elements length');
+                            var element = elements[el];
+                            element.addEventListener(ev.argA, ev.argC);
                         }
                     }
-
                 }
-            }, 500);
-        }
+
+            }
+        }, 10);
 
     }, false);
 });

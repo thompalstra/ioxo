@@ -4,7 +4,7 @@ namespace backend\controllers;
 use io\web\Auth;
 use io\web\Url;
 
-use common\models\AuthSearch;
+use common\models\search\AuthSearch;
 
 class AuthController extends \io\web\Controller{
 

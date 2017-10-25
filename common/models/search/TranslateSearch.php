@@ -1,5 +1,5 @@
 <?php
-namespace common\models;
+namespace common\models\search;
 
 use io\data\DataSet;
 use io\helpers\Html;
@@ -7,7 +7,7 @@ use io\helpers\ArrayHelper;
 
 use io\widgets\Toolstrip;
 
-class NewsSearch extends \common\models\NewsItem{
+class TranslateSearch extends \io\base\Translate{
 
     public function attributes(){
         return [
@@ -37,8 +37,8 @@ class NewsSearch extends \common\models\NewsItem{
         ],
     ];
 
-    public function getDataList(){
-        return [];
+    public static function getDataList($addEmpty = false){
+        return ArrayHelper::map( self::find()->all(), 'id', 'source_message');
     }
 
     public function console(){
@@ -86,24 +86,30 @@ class NewsSearch extends \common\models\NewsItem{
 
     public static function search($data){
 
-        $search = new self();
+        $authSearch = new self();
 
-        $search->load($data);
+        $authSearch->load($data);
 
-        $query = NewsItem::find();
+        $query = self::find();
 
-        if(!empty($search->search_value)){
-
+        if(!empty($authSearch->search_value)){
+            $query->where([
+                'LIKE' => [
+                    'source_message' => "%$authSearch->search_value%"
+                ],
+            ]);
         }
 
-        $search->dataSet = new DataSet([
+        $query->groupBy('source_message');
+
+        $authSearch->dataSet = new DataSet([
             'pagination' => [
                 'page' => (isset($_GET['page']) ? $_GET['page'] : 1),
-                'pageSize' => $search->page_size
+                'pageSize' => $authSearch->page_size
             ],
             'query' => $query
         ]);
-        return $search;
+        return $authSearch;
     }
 }
 ?>

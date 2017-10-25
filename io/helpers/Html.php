@@ -57,6 +57,7 @@ class Html{
     }
     public static function select($name, $value = null, $items = [], $options = []){
         $options = self::attributes($options + ['name' => $name]);
+
         $out = "<select $options>";
         foreach($items as $k => $v){
             $selected = '';

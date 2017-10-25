@@ -5,8 +5,10 @@ namespace backend\controllers;
 use io\web\Url;
 
 use common\models\NewsItem;
+use common\models\NewsCategory;
 use common\models\NewsContent;
-use common\models\NewsSearch;
+use common\models\search\NewsItemSearch;
+use common\models\search\NewsCategorySearch;
 
 class NewsController extends \io\web\Controller{
 
@@ -29,11 +31,11 @@ class NewsController extends \io\web\Controller{
         return true;
     }
 
-    public function actionIndex(){
+    public function actionIndexItem(){
 
-        $searchModel = NewsSearch::search( ($_POST) ? $_POST : [] );
+        $searchModel = NewsItemSearch::search( ($_POST) ? $_POST : [] );
 
-        return $this->render('index', [
+        return $this->render('index-item', [
             'searchModel' => $searchModel,
             'dataSet' => $searchModel->dataSet
         ]);
@@ -50,14 +52,42 @@ class NewsController extends \io\web\Controller{
             $model = new NewsItem();
         }
         if($_POST && $model->load($_POST) && $model->validate() && $model->save() && $model->saveContent()){
-            return $this->redirect( Url::to('/news/view-news', ['id' => $model->id]) );
+            return $this->redirect( Url::to('/news/view-item', ['id' => $model->id]) );
         }
 
         return $this->render('view-item', [
             'model' => $model
         ]);
     }
-    public function actionDelete($ids = []){
+
+    public function actionIndexCategory(){
+        $searchModel = NewsCategorySearch::search( ($_POST) ? $_POST : [] );
+
+        return $this->render('index-category', [
+            'searchModel' => $searchModel,
+            'dataSet' => $searchModel->dataSet
+        ]);
+    }
+
+    public function actionViewCategory($id = null){
+        if($id){
+            $model = NewsCategory::find()->where([
+                '=' => [
+                    'id' => $id
+                ],
+            ])->one();
+
+        } else {
+            $model = new NewsCategory();
+        }
+        if($_POST && $model->load($_POST) && $model->validate() && $model->save()){
+            return $this->redirect( Url::to('/news/view-category', ['id' => $model->id]) );
+        }
+        return $this->render('view-category', [
+            'model' => $model
+        ]);
+    }
+    public function actionDeleteItem($ids = []){
         $success = true;
         foreach(json_decode($ids) as $id){
             $model = NewsItem::find()->where([
@@ -73,9 +103,30 @@ class NewsController extends \io\web\Controller{
             }
         }
         if($success){
-            return $this->redirect('/news/index');
+            return $this->redirect('/news/index-item');
         }
     }
+    public function actionDeleteCategory($ids = []){
+        $success = true;
+        foreach(json_decode($ids) as $id){
+            $model = NewsCategory::find()->where([
+                '=' => [
+                    'id' => $id
+                ],
+            ])->one();
+            if($model && $model->delete()){
+                continue;
+            } else {
+                $success = false;
+                break;
+            }
+        }
+        if($success){
+            return $this->redirect('/news/index-category');
+        }
+    }
+
+
     public function actionNewContent(){
         if($_POST){
             $news_item_id = $_POST['news_item_id'];
@@ -85,6 +136,26 @@ class NewsController extends \io\web\Controller{
             $newsContent->type = $type;
             $newsContent->content = "";
             $newsContent->save();
+        }
+    }
+    public function actionRemoveContent(){
+        if($_POST){
+            $newsContent = NewsContent::find()->where([
+                '=' => [
+                    'id' => $_POST['news_content_id']
+                ],
+            ])->one();
+            if($newsContent){
+                $r = $newsContent->delete();
+            }
+        }
+    }
+    public function actionNewCategory(){
+        if($_POST){
+            $newsCategory = new NewsCategory();
+            $newsCategory->url = $_POST['url'];
+            $newsCategory->title = $_POST['title'];
+            $newsCategory->save();
         }
     }
 }

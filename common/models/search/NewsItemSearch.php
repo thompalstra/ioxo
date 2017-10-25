@@ -1,5 +1,5 @@
 <?php
-namespace common\models;
+namespace common\models\search;
 
 use io\data\DataSet;
 use io\helpers\Html;
@@ -7,7 +7,10 @@ use io\helpers\ArrayHelper;
 
 use io\widgets\Toolstrip;
 
-class TranslateSearch extends \io\base\Translate{
+use common\models\NewsItem;
+use common\models\NewsCategory;
+
+class NewsItemSearch extends NewsItem{
 
     public function attributes(){
         return [
@@ -17,28 +20,11 @@ class TranslateSearch extends \io\base\Translate{
     }
 
     public $search_value = '';
+    public $news_category_id = -1;
     public $page_size = 20;
-    public $filters = [
-        [
-            'className' => '\io\widgets\ToolstripList',
-            'attribute' => 'page_size',
-            'options' => [
-                'inputOptions' => [
 
-                ],
-                'options' => [
-                    'items' => [
-                        20 => '20',
-                        50 => '50',
-                        100 => '100'
-                    ]
-                ]
-            ]
-        ],
-    ];
-
-    public function getDataList(){
-        return ArrayHelper::map( self::find()->all(), 'id', 'source_message');
+    public function getDataList($addEmpty = false){
+        return [];
     }
 
     public function console(){
@@ -53,9 +39,43 @@ class TranslateSearch extends \io\base\Translate{
             'options' => [
                 'id' => 'form-search-form',
                 'class' => 'form form-default',
+                'autosubmit' => '',
                 'method' => 'POST'
             ]
         ]);
+
+
+        $this->filters = [
+            [
+                'className' => '\io\widgets\ToolstripList',
+                'attribute' => 'page_size',
+                'options' => [
+                    'inputOptions' => [
+
+                    ],
+                    'options' => [
+                        'items' => [
+                            20 => '20',
+                            50 => '50',
+                            100 => '100'
+                        ]
+                    ]
+                ]
+            ],
+            [
+                'className' => '\io\widgets\ToolstripList',
+                'attribute' => 'news_category_id',
+                'options' => [
+                    'inputOptions' => [
+
+                    ],
+                    'options' => [
+                        'items' => [-1 => 'Any'] + NewsCategory::getDataList()
+                    ]
+                ]
+            ]
+        ];
+
         $out = $form->begin();
         $out .= "<div class='row row-default col dt12 tb12 mb12 xs12'>";
         $out .= $form->field($this, 'search_value')->label(false)->iconInput('<i class="material-icons icon">search</i>', [
@@ -86,30 +106,36 @@ class TranslateSearch extends \io\base\Translate{
 
     public static function search($data){
 
-        $authSearch = new self();
+        $search = new self();
 
-        $authSearch->load($data);
+        $search->load($data);
 
-        $query = self::find();
+        $query = NewsItem::find();
 
-        if(!empty($authSearch->search_value)){
+        if(!empty($search->search_value)){
             $query->where([
                 'LIKE' => [
-                    'source_message' => "%$authSearch->search_value%"
-                ],
+                    'title' => "%$search->search_value%"
+                ]
             ]);
         }
 
-        $query->groupBy('source_message');
+        if(!empty($search->news_category_id) && $search->news_category_id != -1){
+            $query->where([
+                '=' => [
+                    'news_category_id' => $search->news_category_id
+                ]
+            ]);
+        }
 
-        $authSearch->dataSet = new DataSet([
+        $search->dataSet = new DataSet([
             'pagination' => [
                 'page' => (isset($_GET['page']) ? $_GET['page'] : 1),
-                'pageSize' => $authSearch->page_size
+                'pageSize' => $search->page_size
             ],
             'query' => $query
         ]);
-        return $authSearch;
+        return $search;
     }
 }
 ?>

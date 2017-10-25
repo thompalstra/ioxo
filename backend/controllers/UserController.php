@@ -5,7 +5,7 @@ namespace backend\controllers;
 use io\web\Url;
 
 use common\models\User;
-use common\models\UserSearch;
+use common\models\search\UserSearch;
 
 class UserController extends \io\web\Controller{
 
@@ -30,7 +30,7 @@ class UserController extends \io\web\Controller{
 
     public function actionIndex(){
 
-        $searchModel = UserSearch::search( ($_POST) ? $_POST : [] );
+        $searchModel = UserSearch::search( ($_POST) ? $_POST + $_GET : $_GET );
 
         return $this->render('index', [
             'searchModel' => $searchModel,

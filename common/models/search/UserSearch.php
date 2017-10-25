@@ -1,5 +1,5 @@
 <?php
-namespace common\models;
+namespace common\models\search;
 
 use io\data\DataSet;
 use io\helpers\Html;
@@ -30,7 +30,7 @@ class UserSearch extends \common\models\User{
         ];
     }
 
-    public static function getDataList(){
+    public static function getDataList($addEmpty = false){
         return ArrayHelper::map( self::find()->where(['=' => ['is_deleted' => 0]])->all(), 'id', 'username');
     }
 
@@ -164,6 +164,12 @@ class UserSearch extends \common\models\User{
                 ],
             ]);
         }
+
+
+        if(isset($_GET['pageSize'])){
+            $userSearch->page_size = $_GET['pageSize'];
+        }
+
         $query->groupBy('user.id');
         $userSearch->dataSet = new DataSet([
             'pagination' => [

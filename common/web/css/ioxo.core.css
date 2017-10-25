@@ -153,11 +153,10 @@ display: inline-block;
 .menu.menu-default > li.dropdown.toggled > ul{
     top: 5px;
 }
-.dropdown.pull-left > ul li,
+.dropdown > ul li,
 .menu.menu-default > li.dropdown > ul li{
     box-sizing: border-box;
     height: 40px;
-    float: left;
     min-width: 40px;
     line-height: 40px;
     position: relative;

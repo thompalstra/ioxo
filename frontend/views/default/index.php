@@ -29,7 +29,7 @@ use io\widgets\Breadcrumb;
                 </div>
             </div>
         </a>
-        <a href="/documentation/index">
+        <a href="/documentation">
             <div class='col dt4 tb4 mb12 xs12 element'>
                 <div class='inner info' behaviour="active">
                     <h2>Documentation</h2>

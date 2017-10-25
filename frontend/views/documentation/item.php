@@ -1,5 +1,6 @@
 <?php
 use io\widgets\Breadcrumb;
+use common\models\NewsContent;
 ?>
 <div class='col xs12 header header-default theme default'>
 <div class='container'>
@@ -10,11 +11,11 @@ use io\widgets\Breadcrumb;
                 'label' => 'Home'
             ],
             [
-                'url' => $newsCategory->url,
+                'url' => '/documentation/' . $newsCategory->url,
                 'label' => $newsCategory->title
             ],
             [
-                'url' => '/' . $newsCategory->url . '/' . $newsItem->url,
+                'url' => '/documentation/' . $newsCategory->url . '/' . $newsItem->url,
                 'label' => $newsItem->title
             ]
         ],
@@ -30,8 +31,15 @@ use io\widgets\Breadcrumb;
 </div>
 <div class='container'>
     <?php foreach($newsItem->content->all() as $content) { ?>
-        <div class='col xs12'>
-        <?php echo $content->content; ?>
+        <div class='article-block col xs12'>
+        <<?=NewsContent::$types[$content->type]?>>
+                    <?=$content->content?>
+        </<?=NewsContent::$types[$content->type]?>>
         </div>
     <?php } ?>
 </div>
+<style>
+    .article-block{
+        margin: 10px 0;
+    }
+</style>
