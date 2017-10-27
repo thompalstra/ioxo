@@ -18,6 +18,7 @@ class TranslateSearch extends \io\base\Translate{
 
     public $search_value = '';
     public $page_size = 20;
+    public $page = 1;
     public $filters = [
         [
             'className' => '\io\widgets\ToolstripList',
@@ -53,6 +54,7 @@ class TranslateSearch extends \io\base\Translate{
             'options' => [
                 'id' => 'form-search-form',
                 'class' => 'form form-default',
+                'autosubmit' => '',
                 'method' => 'POST'
             ]
         ]);
@@ -86,9 +88,9 @@ class TranslateSearch extends \io\base\Translate{
 
     public static function search($data){
 
-        $authSearch = new self();
+        $searchModel = new self();
 
-        $authSearch->load($data);
+        $searchModel->load($data);
 
         $query = self::find();
 
@@ -102,14 +104,17 @@ class TranslateSearch extends \io\base\Translate{
 
         $query->groupBy('source_message');
 
-        $authSearch->dataSet = new DataSet([
+        $searchModel->page_size =   isset($_GET['pageSize'])    ? $_GET['pageSize']   : $searchModel->page_size;
+        $searchModel->page =        isset($_GET['page'])        ? $_GET['page']       : $searchModel->page;
+
+        $searchModel->dataSet = new DataSet([
             'pagination' => [
-                'page' => (isset($_GET['page']) ? $_GET['page'] : 1),
-                'pageSize' => $authSearch->page_size
+                'page' => $searchModel->page,
+                'pageSize' => $searchModel->page_size
             ],
             'query' => $query
         ]);
-        return $authSearch;
+        return $searchModel;
     }
 }
 ?>

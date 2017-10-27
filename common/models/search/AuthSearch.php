@@ -18,6 +18,7 @@ class AuthSearch extends \io\web\Auth{
 
     public $search_value = '';
     public $page_size = 20;
+    public $page = 1;
     public $filters = [
         [
             'className' => '\io\widgets\ToolstripList',
@@ -53,6 +54,7 @@ class AuthSearch extends \io\web\Auth{
             'options' => [
                 'id' => 'form-search-form',
                 'class' => 'form form-default',
+                'autosubmit' => '',
                 'method' => 'POST'
             ]
         ]);
@@ -86,28 +88,31 @@ class AuthSearch extends \io\web\Auth{
 
     public static function search($data){
 
-        $authSearch = new self();
+        $searchModel = new self();
 
-        $authSearch->load($data);
+        $searchModel->load($data);
 
         $query = self::find();
 
-        if(!empty($authSearch->search_value)){
+        if(!empty($searchModel->search_value)){
             $query->where([
                 'LIKE' => [
-                    'username' => "%$authSearch->search_value%"
+                    'name' => "%$searchModel->search_value%"
                 ],
             ]);
         }
 
-        $authSearch->dataSet = new DataSet([
+        $searchModel->page_size =   isset($_GET['pageSize'])    ? $_GET['pageSize']   : $searchModel->page_size;
+        $searchModel->page =        isset($_GET['page'])        ? $_GET['page']       : $searchModel->page;
+
+        $searchModel->dataSet = new DataSet([
             'pagination' => [
-                'page' => (isset($_GET['page']) ? $_GET['page'] : 1),
-                'pageSize' => $authSearch->page_size
+                'page' => $searchModel->page,
+                'pageSize' => $searchModel->page_size
             ],
             'query' => $query
         ]);
-        return $authSearch;
+        return $searchModel;
     }
 }
 ?>

@@ -23,6 +23,7 @@ class UserSearch extends \common\models\User{
     public $is_enabled = -1;
     public $role = -1;
     public $page_size = 20;
+    public $page = 1;
 
     public function rules(){
         return [
@@ -73,7 +74,7 @@ class UserSearch extends \common\models\User{
 
                     ],
                     'options' => [
-                        'items' => [20 => '20', 50 => '50', 100 => '100']
+                        'items' => [1=>'1', 20 => '20', 50 => '50', 100 => '100']
                     ]
                 ]
             ],
@@ -124,14 +125,14 @@ class UserSearch extends \common\models\User{
 
     public static function search($data){
 
-        $userSearch = new self();
+        $searchModel = new self();
 
-        $userSearch->load($data);
+        $searchModel->load($data);
 
         $query = self::find();
 
 
-        if($userSearch->role != -1){
+        if($searchModel->role != -1){
             $query->leftJoin('auth_user', ['auth_user.user_id' => 'user.id']);
             $query->leftJoin('auth', ['auth.id' => 'auth_user.auth_id']);
         }
@@ -143,42 +144,40 @@ class UserSearch extends \common\models\User{
                 'is_deleted' => 0
             ]
         ]);
-        if($userSearch->is_enabled != -1){
+        if($searchModel->is_enabled != -1){
             $query->andWhere([
                 '=' => [
-                    'is_enabled' => $userSearch->is_enabled
+                    'is_enabled' => $searchModel->is_enabled
                 ]
             ]);
         }
-        if(!empty($userSearch->search_value)){
+        if(!empty($searchModel->search_value)){
             $query->andWhere([
                 'LIKE' => [
-                    'username' => "%$userSearch->search_value%"
+                    'username' => "%$searchModel->search_value%"
                 ],
             ]);
         }
-        if($userSearch->role != -1){
+        if($searchModel->role != -1){
             $query->andWhere([
                 '=' => [
-                    'auth.id' => $userSearch->role,
+                    'auth.id' => $searchModel->role,
                 ],
             ]);
         }
 
-
-        if(isset($_GET['pageSize'])){
-            $userSearch->page_size = $_GET['pageSize'];
-        }
+        $searchModel->page_size =   isset($_GET['pageSize'])    ? $_GET['pageSize']   : $searchModel->page_size;
+        $searchModel->page =        isset($_GET['page'])        ? $_GET['page']       : $searchModel->page;
 
         $query->groupBy('user.id');
-        $userSearch->dataSet = new DataSet([
+        $searchModel->dataSet = new DataSet([
             'pagination' => [
-                'page' => (isset($_GET['page']) ? $_GET['page'] : 1),
-                'pageSize' => $userSearch->page_size
+                'page' => $searchModel->page,
+                'pageSize' => $searchModel->page_size
             ],
             'query' => $query
         ]);
-        return $userSearch;
+        return $searchModel;
     }
 }
 ?>

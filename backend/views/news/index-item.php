@@ -85,7 +85,8 @@ use io\web\Url;
 
 <?php
 $js = <<<JS
-$(document).on('click', '.delete', function(e){
+console.log(Application);
+_(document).when('click', '.delete', function(e){
     e.preventDefault();
     e.stopPropagation();
     if(confirm("Do you want to delete the selected item(s)?")){

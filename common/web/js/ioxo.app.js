@@ -1,4 +1,5 @@
 /**declare application**/
+console.log('Initializing IO');
 var Application = function(query){
     if(typeof query == 'string'){
         if(query[0] == '<'){
@@ -23,6 +24,11 @@ var Element = function(arguments){
         this[i] = arguments[i];
     }
     this.length = arguments.length;
+    if(this[0] == document){
+        this.ready = function(callable){
+            document.addEventListener('DOMContentLoaded', callable);
+        }
+    }
 }
 var ioxoElement = ioElement = _Element = Element;
 /**extend element with DOM manipulation**/
@@ -131,13 +137,15 @@ Element.prototype.removeFrom = function( index ){
     }
 }
 
-document.body.addEventListener('DOMNodeRemoved', function (e) {
-  // console.log('remove node');
-}, false);
+// document.body.addEventListener('DOMNodeRemoved', function (e) {
+//   // console.log('remove node');
+// }, false);
 
 
 var domManipulationTimeout;
-
+// Element.prototype.ready = function(callable){
+//     document.addEventListener('DOMContentLoaded', callable);
+// }
 document.addEventListener("DOMContentLoaded", function(event) {
     document.body.addEventListener('DOMNodeInserted', function (e) {
 
@@ -200,6 +208,9 @@ Element.prototype.when = function(argA, argB, argC, argD){
 
     }
 }
+
+
+
 Element.prototype.each = function(callable){
     for(var i = 0; i < this.length; i++){
         callable.call(this[i], i);
@@ -305,4 +316,17 @@ Element.prototype.slideToggle = function(speed){
     } else {
         this.slideUp(speed);
     }
+}
+Element.prototype.value = function(value){
+    if(typeof value == 'undefined'){
+        return this[0].value;
+    } else {
+        this[0].value = value;
+    }
+}
+Element.prototype.trigger = function(eventType){
+
+    e = new Event(eventType);
+
+    this[0].dispatchEvent(e);
 }

@@ -31,7 +31,7 @@ class DataTable extends \io\base\Widget{
             $this->$k = $v;
         }
     }
-    public $template = '{tableBegin}{columns}{rows}{tableEnd}{pager}';
+    public $template = '{tableBegin}{summary}{columns}{rows}{tableEnd}{pager}';
     public function run(){
 
         $out = $this->template;

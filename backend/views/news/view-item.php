@@ -73,11 +73,11 @@ use common\models\NewsContent;
             <span class="dropdown btn btn-default btn-icon success pull-left">
                 <i class="icon material-icons">menu</i> NEW CONTENT
                 <ul>
-                    <li class='item' action='addNewsContent' params='datakey=<?=$model->id?>;type=1' behaviour='active'><span>Regular</span></li>
-                    <li class='item' action='addNewsContent' params='datakey=<?=$model->id?>;type=2' behaviour='active'><span>Code</span></li>
-                    <li class='item' action='addNewsContent' params='datakey=<?=$model->id?>;type=3' behaviour='active'><span>Quote</span></li>
-                    <li class='item' action='addNewsContent' params='datakey=<?=$model->id?>;type=4' behaviour='active'><span>Title</span></li>
-                    <li class='item' action='addNewsContent' params='datakey=<?=$model->id?>;type=5' behaviour='active'><span>Subtitle</span></li>
+                    <li class='item' io-method='addNewsContent' io-method-params='datakey=<?=$model->id?>;type=1' behaviour='active'><span>Regular</span></li>
+                    <li class='item' io-method='addNewsContent' io-method-params='datakey=<?=$model->id?>;type=2' behaviour='active'><span>Code</span></li>
+                    <li class='item' io-method='addNewsContent' io-method-params='datakey=<?=$model->id?>;type=3' behaviour='active'><span>Quote</span></li>
+                    <li class='item' io-method='addNewsContent' io-method-params='datakey=<?=$model->id?>;type=4' behaviour='active'><span>Title</span></li>
+                    <li class='item' io-method='addNewsContent' io-method-params='datakey=<?=$model->id?>;type=5' behaviour='active'><span>Subtitle</span></li>
                 </ul>
             </span>
         </div>
@@ -98,7 +98,7 @@ use common\models\NewsContent;
                             <span class='dropdown btn btn-icon pull-right'>
                                 <i class='icon material-icons'>more_vert</i>
                                 <ul>
-                                    <li class='item' action='removeNewsContent' params='datakey=<?=$content->id?>' behaviour='active'><span><i class='icon material-icons'>delete</i> Remove</span></li>
+                                    <li class='item' io-method='removeNewsContent' io-method-params='datakey=<?=$content->id?>' behaviour='active'><span><i class='icon material-icons'>delete</i> Remove</span></li>
                                 </ul>
                             </span>
                         </div>

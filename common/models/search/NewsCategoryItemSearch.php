@@ -19,6 +19,7 @@ class NewsCategoryItemSearch extends \common\models\NewsCategory{
 
     public $search_value = '';
     public $page_size = 20;
+    public $page = 1;
     public $filters = [
         [
             'className' => '\io\widgets\ToolstripList',
@@ -51,9 +52,12 @@ class NewsCategoryItemSearch extends \common\models\NewsCategory{
         $query = NewsItem::find();
         $query->leftJoin('news_category as nc', ['nc.id' => 'news_item.news_category_id']);
 
+        $searchModel->page_size =   isset($_GET['pageSize'])    ? $_GET['pageSize']   : $searchModel->page_size;
+        $searchModel->page =        isset($_GET['page'])        ? $_GET['page']       : $searchModel->page;
+
         $searchModel->dataSet = new DataSet([
             'pagination' => [
-                'page' => (isset($_GET['page']) ? $_GET['page'] : 1),
+                'page' => $searchModel->page,
                 'pageSize' => $searchModel->page_size
             ],
             'query' => $query

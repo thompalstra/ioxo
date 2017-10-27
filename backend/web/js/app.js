@@ -11,7 +11,7 @@ App.prototype.stringToParams = function( string ){
     }
     return out;
 }
-var actions = {
+var methods = {
     addNewsContent: function(params){
         params.e.preventDefault();
 
@@ -112,17 +112,17 @@ var actions = {
 
 
 
-App.prototype.actions = actions;
+App.prototype.methods = methods;
 
 
 var app = new App();
 
-_(document).when('click', '[action]', function(e){
+_(document).when('click', '[io-method]', function(e){
 
-    var action = this.getAttribute('action');
-    var params = app.stringToParams( this.getAttribute('params') );
+    var ioMethod = this.getAttribute('io-method');
+    var ioMethodParams = app.stringToParams( this.getAttribute('io-method-params') );
 
     params.e = e;
 
-    return app.actions[action].call(this, params );
+    return app.methods[ioMethod].call(this, ioMethodParams );
 });

@@ -5,23 +5,15 @@ use common\models\NewsItem;
 use common\models\search\NewsItemSearch;
 use common\models\NewsCategory;
 use common\models\search\NewsCategoryItemSearch;
+use common\models\search\NewsCategorySearch;
 
 class DocumentationController extends \io\web\Controller{
     public function actionIndex(){
-        // return $this->render('index');
-        // $newsCategory = NewsCategory::find()->where([
-        //     '=' => [
-        //         'url' => $category,
-        //     ],
-        // ])->one();
-        // if($newsCategory){
-        $searchModel = NewsItemSearch::search( ($_POST) ? $_POST : [] );
-        return $this->render('category', [
-            // 'newsCategory' => $newsCategory,
+        $searchModel = NewsCategorySearch::search( ($_POST) ? $_POST : [] );
+        return $this->render('category-index', [
             'searchModel' => $searchModel,
             'dataSet' => $searchModel->dataSet
         ]);
-        // }
     }
     public function actionCategory($category = null){
         $newsCategory = NewsCategory::find()->where([
@@ -31,7 +23,7 @@ class DocumentationController extends \io\web\Controller{
         ])->one();
         if($newsCategory){
             $searchModel = NewsCategoryItemSearch::search( ($_POST) ? $_POST : [] );
-            return $this->render('category', [
+            return $this->render('category-item-index', [
                 'newsCategory' => $newsCategory,
                 'searchModel' => $searchModel,
                 'dataSet' => $searchModel->dataSet
@@ -52,7 +44,7 @@ class DocumentationController extends \io\web\Controller{
                 ]
             ])->one();
             if($newsItem){
-                return $this->render('item', [
+                return $this->render('category-item-view', [
                     'newsItem' => $newsItem,
                     'newsCategory' => $newsCategory
                 ]);

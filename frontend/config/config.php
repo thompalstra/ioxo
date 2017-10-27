@@ -6,9 +6,10 @@ return [
                 'class' => '\io\web\Url',
                 ['a' => 'b']
             ],
-            '/documentation/<category:(.*)>/<item:(.*)>' => '/documentation/item',
+            '/documentation' => '/documentation/index',
             '/documentation/<category:(.*)>' => '/documentation/category',
-            '/documentation' => '/documentation/index'
+            '/documentation/<category:(.*)>/<item:(.*)>' => '/documentation/item'
+
         ],
     ],
     'language' => 'nl',

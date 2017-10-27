@@ -22,6 +22,7 @@ class NewsItemSearch extends NewsItem{
     public $search_value = '';
     public $news_category_id = -1;
     public $page_size = 20;
+    public $page =1;
 
     public function getDataList($addEmpty = false){
         return [];
@@ -106,36 +107,39 @@ class NewsItemSearch extends NewsItem{
 
     public static function search($data){
 
-        $search = new self();
+        $searchModel = new self();
 
-        $search->load($data);
+        $searchModel->load($data);
 
         $query = NewsItem::find();
 
-        if(!empty($search->search_value)){
+        if(!empty($searchModel->search_value)){
             $query->where([
                 'LIKE' => [
-                    'title' => "%$search->search_value%"
+                    'title' => "%$searchModel->search_value%"
                 ]
             ]);
         }
 
-        if(!empty($search->news_category_id) && $search->news_category_id != -1){
+        if(!empty($searchModel->news_category_id) && $searchModel->news_category_id != -1){
             $query->where([
                 '=' => [
-                    'news_category_id' => $search->news_category_id
+                    'news_category_id' => $searchModel->news_category_id
                 ]
             ]);
         }
 
-        $search->dataSet = new DataSet([
+        $searchModel->page_size =   isset($_GET['pageSize'])    ? $_GET['pageSize']   : $searchModel->page_size;
+        $searchModel->page =        isset($_GET['page'])        ? $_GET['page']       : $searchModel->page;
+
+        $searchModel->dataSet = new DataSet([
             'pagination' => [
-                'page' => (isset($_GET['page']) ? $_GET['page'] : 1),
-                'pageSize' => $search->page_size
+                'page' => $searchModel->page,
+                'pageSize' => $searchModel->page_size
             ],
             'query' => $query
         ]);
-        return $search;
+        return $searchModel;
     }
 }
 ?>

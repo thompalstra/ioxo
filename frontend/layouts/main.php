@@ -1,14 +1,13 @@
+<?php
+use common\assets\IoAsset;
+use frontend\assets\FrontAsset;
+$this->registerAsset(IoAsset::className());
+$this->registerAsset(FrontAsset::className());
+?>
 <html>
     <head>
-    <?=$this->head()?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
-    <link rel="stylesheet" href="/common/web/css/ioxo.core.css">
-    <link rel="stylesheet" href="/common/web/css/ioxo.theme.css">
-    <link rel="stylesheet" href="/common/web/css/ioxo.forms.css">
-    <link rel="stylesheet" href="/common/web/css/ioxo.buttons.css">
-    <link rel="stylesheet" href="/common/web/css/ioxo.widgets.css">
+    <?=$this->head()?>
     </head>
     <body>
         <ul class='menu menu-default'>
@@ -38,11 +37,6 @@
             </li>
         </ul>
         <?=$content?>
-        <script src="/common/web/js/ioxo.app.js"></script>
-        <script src="http://code.jquery.com/jquery-latest.js"></script>
-        <script src="/common/web/js/ioxo.core.js"></script>
-        <script src="/common/web/js/ioxo.forms.js"></script>
-
         <?=$this->footer()?>
     </body>
 </html>

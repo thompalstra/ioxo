@@ -2,6 +2,8 @@
 namespace io\web;
 
 class View{
+
+
     public function render($item, $data = []){
         $root = \IO::$app->root;
         $domain = \IO::$app->domain->name;
@@ -55,20 +57,20 @@ class View{
 
     public function head(){
         $head = "";
-        foreach($this->assets['head']['css'] as $k => $css){
+        foreach($this->assets[self::POS_HEAD]['css'] as $k => $css){
             $head .= $css;
         }
-        foreach($this->assets['head']['js'] as $k => $js){
+        foreach($this->assets[self::POS_HEAD]['js'] as $k => $js){
             $head .= $js;
         }
         return $head;
     }
     public function footer(){
         $footer = "";
-        foreach($this->assets['footer']['css'] as $k => $css){
+        foreach($this->assets[self::POS_FOOTER]['css'] as $k => $css){
             $footer .= $css;
         }
-        foreach($this->assets['footer']['js'] as $k => $js){
+        foreach($this->assets[self::POS_FOOTER]['js'] as $k => $js){
             $footer .= $js;
         }
         return $footer;
@@ -80,7 +82,38 @@ class View{
         } else {
             $this->assets[$pos]['js'][$id] = "<script id='$id'>$js</script>";
         }
+    }
+    public function registerCss($css, $pos = self::POS_FOOTER, $id = null){
+        if($id === null){
+            $this->assets[$pos]['css'][] = "<style>$css</style>";
+        } else {
+            $this->assets[$pos]['css'][$id] = "<style id='$id'>$css</style>";
+        }
+    }
+    public function registerJsFile($js, $pos = self::POS_HEAD, $id = null){
+        if($id === null){
+            $this->assets[$pos]['js'][] = "<script src='$js'></script>";
+        } else {
+            $this->assets[$pos]['js'][$id] = "<script id='$id' src='$js'></script";
+        }
+    }
+    public function registerCssFile($css, $pos = self::POS_HEAD, $id = null){
+        if($id === null){
+            $this->assets[$pos]['css'][] = "<link rel='stylesheet' href='$css'>";
+        } else {
+            $this->assets[$pos]['css'][$id] = "<link id='$id' rel='stylesheet' href='$css'>";
+        }
+    }
+    public function registerAsset($asset){
 
+        $asset = new $asset();
+
+        foreach($asset->js as $js){
+            $this->registerJsFile($js);
+        }
+        foreach($asset->css as $css){
+            $this->registerCssFile($css);
+        }
     }
 }
 ?>

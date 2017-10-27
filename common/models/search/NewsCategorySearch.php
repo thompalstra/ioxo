@@ -19,6 +19,7 @@ class NewsCategorySearch extends \common\models\NewsCategory{
     public $search_value = '';
     public $news_category_id = -1;
     public $page_size = 20;
+    public $page = 1;
 
     public static function getDataList($addEmpty = false){
         return [];
@@ -91,27 +92,30 @@ class NewsCategorySearch extends \common\models\NewsCategory{
 
     public static function search($data){
 
-        $search = new self();
+        $searchModel = new self();
         $query = self::find();
 
-        $search->load($data);
+        $searchModel->load($data);
 
-        if(!empty($search->search_value)){
+        if(!empty($searchModel->search_value)){
             $query->where([
                 'LIKE' => [
-                    'title' => "%$search->search_value%"
+                    'title' => "%$searchModel->search_value%"
                 ]
             ]);
         }
 
-        $search->dataSet = new DataSet([
+        $searchModel->page_size =   isset($_GET['pageSize'])    ? $_GET['pageSize']   : $searchModel->page_size;
+        $searchModel->page =        isset($_GET['page'])        ? $_GET['page']       : $searchModel->page;
+
+        $searchModel->dataSet = new DataSet([
             'pagination' => [
-                'page' => (isset($_GET['page']) ? $_GET['page'] : 1),
-                'pageSize' => $search->page_size
+                'page' => $searchModel->page,
+                'pageSize' => $searchModel->page_size
             ],
             'query' => $query
         ]);
-        return $search;
+        return $searchModel;
     }
 }
 ?>
