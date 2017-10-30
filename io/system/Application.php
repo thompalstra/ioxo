@@ -134,5 +134,19 @@ class Application{
     public function end(){
         exit();
     }
+    public function setFlash($message){
+        \IO::$app->session['_flash'] = $message;
+    }
+    public function hasFlash(){
+        return isset(\IO::$app->session['_flash']) && !empty(\IO::$app->session['_flash']);
+    }
+    public function getFlash(){
+        ob_start();
+        echo \IO::$app->session['_flash'];
+        $message = ob_get_contents();
+        ob_end_clean();
+        unset(\IO::$app->session['_flash']);
+        return $message;
+    }
 }
 ?>

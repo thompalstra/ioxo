@@ -35,7 +35,24 @@ $this->registerAsset(BackAsset::className());
                 </ul>
             </li>
         </ul>
-        <?=$content?>
-        <?=$this->footer()?>
+        <?php ?>
+
+        <?=$content;?>
+
+        <?php if(\IO::$app->hasFlash()){ ?>
+            <span id='flash-box' class='messagebox top-left hidden' io-hidetimeout='1000' io-title='title' io-message='<?=IO::$app->getFlash()?>' io-yes='ok' io-no='no'></span>
+<?php
+$js = <<<JS
+    var element =  _('#flash-box');
+    var messagebox = element.messagebox();
+    messagebox.show();
+JS;
+$this->registerJs($js);
+?>
+        <?php } ?>
+
+        <?=$this->footer();?>
+
+        <?php ?>
     </body>
 </html>

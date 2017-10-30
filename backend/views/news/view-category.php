@@ -7,6 +7,7 @@ use io\helpers\Html;
 use io\widgets\Slidebox;
 use common\models\NewsCategory;
 use common\models\NewsContent;
+
 ?>
 <div class='header header-default'>
     <div class='container'>

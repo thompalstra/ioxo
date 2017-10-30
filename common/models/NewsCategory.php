@@ -13,6 +13,7 @@ class NewsCategory extends \io\base\Model{
     public function rules(){
         return [
             [['title', 'url'], 'required'],
+            [['url'], 'url'],
             [['is_deleted'], 'tinyint', 'default' => 0],
             [['is_enabled'], 'tinyint', 'default' => 1]
         ];

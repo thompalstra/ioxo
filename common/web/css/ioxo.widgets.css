@@ -148,7 +148,6 @@
 .toolstrip.list ul li.active:before{
     content: "\E5CA";
 }
-
 .breadcrumb.breadcrumb-default{
     padding: 0;
     margin: 0;
@@ -162,4 +161,67 @@
 }
 .breadcrumb.breadcrumb-default .item:hover{
     text-decoration: underline;
+}
+
+.messagebox.reverse{
+    animation-fill-mode: backwards;
+}
+.messagebox{
+    position: fixed;
+    background-color: white;
+    border: 1px solid #ddd;
+    animation-duration: 350ms;
+    animation-fill-mode: forwards;
+
+    -webkit-box-shadow: 0px 1px 10px -2px rgba(80,80,80,.8);
+    -moz-box-shadow: 0px 1px 10px -2px rgba(80,80,80,.8);
+    box-shadow: 0px 1px 10px -2px rgba(80,80,80,.8);
+}
+
+
+.messagebox .title{
+    padding: 10px;
+}
+.messagebox .title h2{
+    margin: 0;
+}
+.messagebox .content{
+    padding: 10px;
+}
+
+.messagebox.top-left        {   animation-name: messageBoxTopLeft;      }
+.messagebox.top-right       {   animation-name: messageBoxTopRight;     }
+.messagebox.bottom-left     {   animation-name: messageBoxBottomLeft;   }
+.messagebox.bottom-right    {   animation-name: messageBoxBottomRight;  }
+@keyframes messageBoxTopLeft{
+    0%      {   left: 10px;     top: -100%;     }
+    100%    {   left: 10px;     top: 10px;      }
+}
+@keyframes messageBoxTopRight{
+    0%      {   right: 10px;    top: -100%;     }
+    100%    {   right: 10px;    top: 10px;      }
+}
+@keyframes messageBoxBottomLeft{
+    0%      {   left: 10px;     bottom: -100%;  }
+    100%    {   left: 10px;     bottom: 10px;   }
+}
+@keyframes messageBoxBottomRight{
+    0%      {   right: 10px;    bottom: -100%;  }
+    100%    {   right: 10px;    bottom: 10px;   }
+}
+@keyframes messageBoxTopLeft{
+    0%      {   left: 10px;     top: -100%;     }
+    100%    {   left: 10px;     top: 10px;      }
+}
+@keyframes messageBoxTopRight{
+    0%      {   right: 10px;    top: -100%;     }
+    100%    {   right: 10px;    top: 10px;      }
+}
+@keyframes messageBoxBottomLeft{
+    0%      {   left: 10px;     bottom: -100%;  }
+    100%    {   left: 10px;     bottom: 10px;   }
+}
+@keyframes messageBoxBottomRight{
+    0%      {   right: 10px;    bottom: -100%;  }
+    100%    {   right: 10px;    bottom: 10px;   }
 }

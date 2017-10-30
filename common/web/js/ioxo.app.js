@@ -1,5 +1,4 @@
 /**declare application**/
-console.log('Initializing IO');
 var Application = function(query){
     if(typeof query == 'string'){
         if(query[0] == '<'){

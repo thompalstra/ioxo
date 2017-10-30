@@ -51,8 +51,13 @@ class NewsController extends \io\web\Controller{
         } else {
             $model = new NewsItem();
         }
-        if($_POST && $model->load($_POST) && $model->validate() && $model->save() && $model->saveContent()){
-            return $this->redirect( Url::to('/news/view-item', ['id' => $model->id]) );
+        if($_POST){
+            if($model->load($_POST) && $model->validate() && $model->save() && $model->saveContent()){
+                \IO::$app->setFlash('Saved!');
+                return $this->redirect( Url::to('/news/view-item', ['id' => $model->id]) );
+            } else {
+                \IO::$app->setFlash('Could not save!');
+            }
         }
 
         return $this->render('view-item', [
@@ -80,9 +85,18 @@ class NewsController extends \io\web\Controller{
         } else {
             $model = new NewsCategory();
         }
-        if($_POST && $model->load($_POST) && $model->validate() && $model->save()){
-            return $this->redirect( Url::to('/news/view-category', ['id' => $model->id]) );
-        }
+        if($_POST){
+            $redirect = $model->isNewModel;
+            if($model->load($_POST) && $model->validate() && $model->save()){
+                \IO::$app->setFlash('Saved!');
+                if($redirect){
+                    return $this->redirect( Url::to('/news/view-category', ['id' => $model->id]) );
+                }
+
+            } else {
+                \IO::$app->setFlash('Could not save!');
+            }
+        }        
         return $this->render('view-category', [
             'model' => $model
         ]);
