@@ -136,43 +136,33 @@ Element.prototype.removeFrom = function( index ){
     }
 }
 
-// document.body.addEventListener('DOMNodeRemoved', function (e) {
-//   // console.log('remove node');
-// }, false);
+// var domManipulationTimeout;
+var rebinding = false;
 
-
-var domManipulationTimeout;
-// Element.prototype.ready = function(callable){
-//     document.addEventListener('DOMContentLoaded', callable);
-// }
 document.addEventListener("DOMContentLoaded", function(event) {
     document.body.addEventListener('DOMNodeInserted', function (e) {
+        rebind();
+    }, false);
 
-        if(domManipulationTimeout){
-            clearTimeout(domManipulationTimeout);
-            domManipulationTimeout = null;
-        }
-        domManipulationTimeout = setTimeout(function(e){
-            console.log('restoring events...');
+    function rebind(){
+        if(!rebinding){
+            console.log('binding events...');
             if(document.events){
                 for(var i = 0; i < document.events.length; i++){
-                    // console.log('for loop');
                     var ev = document.events[i];
                     var elements = document.querySelectorAll(ev.argB);
                     if(elements.length > 0){
-                        // console.log('elements length');
                         for(var el = 0; el < elements.length; el++){
-                            // console.log('for elements length');
                             var element = elements[el];
                             element.addEventListener(ev.argA, ev.argC);
                         }
                     }
                 }
-
             }
-        }, 10);
-
-    }, false);
+            rebinding = false;
+        }
+    }
+    rebind();
 });
 
 
@@ -214,6 +204,20 @@ Element.prototype.each = function(callable){
     for(var i = 0; i < this.length; i++){
         callable.call(this[i], i);
     }
+}
+Element.prototype.findParent = function(query){
+    var arr = [];
+    function up(node){
+        arr.push(node);
+        if(node && node.nodeType != 9){
+            if(node.matches(query)){
+                return arr;
+            } else {
+                return up(node.parentNode);
+            }
+        }
+    }
+    return up(this[0]).reverse();
 }
 Element.prototype.find = function(query){
     return this[0].querySelectorAll(query);

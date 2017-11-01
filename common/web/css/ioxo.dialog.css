@@ -1,0 +1,56 @@
+.dialog{
+    position: fixed;
+    /*left: 0; right: 0;*/
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    margin: auto;
+    background-color: white;
+
+    z-index: 10000;
+
+    display: none;
+
+    -webkit-box-shadow: 2px 2px 14px 2px rgba(0,0,0,0.3);
+    -moz-box-shadow: 2px 2px 14px 2px rgba(0,0,0,0.3);
+    box-shadow: 2px 2px 14px 2px rgba(0,0,0,0.3);
+}
+.dialog > .content{
+    padding: 10px;
+}
+
+.dialog[backdrop] ~ .dialog-backdrop{
+    position: fixed;
+    top: 0; right: 0; bottom: 0; left: 0;
+    background-color: rgba(0,0,0,.5);
+    z-index: 9999;
+    display: none;
+}
+
+.dialog[open]{
+    display: inherit;
+}
+.dialog[backdrop][open] ~ .dialog-backdrop{
+    display: inherit;
+}
+
+.dialog .row.btn-row{
+    text-align: right;
+    padding: 10px;
+}
+
+.btn.btn-dialog{
+    color: #008473;
+    background-color: white;
+    text-transform: uppercase;
+    font-weight: bold;
+
+    transition: all 150ms ease-in-out;
+    height: 40px;
+    min-width: 40px;
+    line-height: 40px;
+}
+
+.btn.btn-dialog:active{
+    background-color: #ddd;
+}
