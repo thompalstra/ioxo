@@ -35,20 +35,6 @@ $this->registerAsset(\common\assets\WidgetAsset::className());
                 </ul>
             </li>
         </ul>
-
-        <div id='my-dialog' class='dialog' dialog-ok='Ok' dialog-cancel='Cancel' backdrop>
-            <div class='content'>
-                <p><strong>Cookies</strong></p>
-                <p>To use this website to it's full extend, we need to know if you accept cookies and temporary files to let us store some temporary data</p>
-                <p>For example: <br>
-                    <ul>
-                        <li>When using a search form, some of the search values may be temporarily stored</li>
-                    </ul>
-                </p>
-            </div>
-        </div>
-        <div class='dialog-backdrop'></div>
-
         <?=$content?>
         <?=$this->footer()?>
     </body>

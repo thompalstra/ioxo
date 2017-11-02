@@ -34,6 +34,11 @@ select.input.input-default,
     outline: 0;
     padding: 0 10px;
 }
+select.input.input-default[multiple]{
+    min-height: 40px;
+    height: auto;
+    padding: 0;
+}
 select.input.input-default:focus,
 .input.input-default[type="email"]:focus,
 .input.input-default[type="search"]:focus,
@@ -41,6 +46,10 @@ select.input.input-default:focus,
 .input.input-default[type="number"]:focus,
 .input.input-default[type="text"]:focus{
     border: 1px solid #aaa;
+}
+
+.input.input-default[type="search"][for]{
+    border-bottom: 0;
 }
 
 textarea.input.input-default{

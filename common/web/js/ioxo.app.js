@@ -99,6 +99,13 @@ Element.prototype.property = function(key, value){
         }
     }
 }
+Element.prototype.value = function(value){
+    if(typeof value == 'undefined'){
+        return this[0].value;
+    } else {
+        this[0].value = value;
+    }
+}
 Element.prototype.html = function(value){
     if(this.length > 0){
         if (typeof value == 'undefined'){
@@ -141,20 +148,30 @@ var rebinding = false;
 
 document.addEventListener("DOMContentLoaded", function(event) {
     document.body.addEventListener('DOMNodeInserted', function (e) {
-        rebind();
+        rebind(e);
     }, false);
 
-    function rebind(){
+    function rebind(e){
         if(!rebinding){
-            console.log('binding events...');
-            if(document.events){
-                for(var i = 0; i < document.events.length; i++){
-                    var ev = document.events[i];
-                    var elements = document.querySelectorAll(ev.argB);
-                    if(elements.length > 0){
-                        for(var el = 0; el < elements.length; el++){
-                            var element = elements[el];
-                            element.addEventListener(ev.argA, ev.argC);
+            if(e){
+                if(document.events){
+                    for(var i = 0; i < document.events.length; i++){
+                        var ev = document.events[i];
+                        if(  e.target.matches(ev.argB) ){
+                            e.target.addEventListener(ev.argA, ev.argC);
+                        }
+                    }
+                }
+            } else {
+                if(document.events){
+                    for(var i = 0; i < document.events.length; i++){
+                        var ev = document.events[i];
+                        var elements = document.querySelectorAll(ev.argB);
+                        if(elements.length > 0){
+                            for(var el = 0; el < elements.length; el++){
+                                var element = elements[el];
+                                element.addEventListener(ev.argA, ev.argC);
+                            }
                         }
                     }
                 }
@@ -162,7 +179,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
             rebinding = false;
         }
     }
-    rebind();
+    rebind(null);
 });
 
 
@@ -182,23 +199,40 @@ Element.prototype.when = function(argA, argB, argC, argD){
             'argC': argC,
             'argD': argD
         });
-
-        var elements = document.querySelectorAll(argB);
-
-        for(var i = 0; i < elements.length; i++){
-            elements[i].addEventListener(argA, argC);
-        }
-
+        _(argB).bind(argA, argC);
     } else {
-        // direct
-        for(var i = 0; i < this.length; i++){
-            this[i].addEventListener(argA, argB);
-        }
-
+        this.bind(argA, argC);
     }
 }
 
+Element.prototype.bind = function( eventTypes, callback ){
+    var eventTypes = eventTypes.split(' ');
+    this.each(function(index){
+        for(var i in eventTypes){
+            this.addEventListener(eventTypes[i], callback);
+        }
+    });
+}
+Element.prototype.unbind = function( eventTypes, callback ){
+    var eventTypes = eventTypes.split(' ');
+    this.each(function(index){
+        for(var i in eventTypes){
+            this.removeEventListener(eventTypes[i], callback);
+        }
+    });
+}
+Element.prototype.trigger = function(eventType, cancelable){
 
+    if(typeof cancelable == 'undefined'){
+        cancelable = true;
+    }
+
+    this[0].dispatchEvent(new CustomEvent
+        ( eventType, {
+            cancelable: cancelable
+        })
+    );
+}
 
 Element.prototype.each = function(callable){
     for(var i = 0; i < this.length; i++){
@@ -319,17 +353,4 @@ Element.prototype.slideToggle = function(speed){
     } else {
         this.slideUp(speed);
     }
-}
-Element.prototype.value = function(value){
-    if(typeof value == 'undefined'){
-        return this[0].value;
-    } else {
-        this[0].value = value;
-    }
-}
-Element.prototype.trigger = function(eventType){
-
-    e = new Event(eventType);
-
-    this[0].dispatchEvent(e);
 }

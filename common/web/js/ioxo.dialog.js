@@ -22,16 +22,15 @@ var Dialog = function( element ){
             btnOk.setAttribute('dialog-event', 'ok');
             btnOk.innerHTML = dialogOk;
 
-            btnOk.addEventListener('click', function(e){
+            btnOk.addEventListener('click', function(){
 
                 var okEvent = new CustomEvent('ok', {cancelable: true});
-
-                dialog.element.dispatchEvent(okEvent);
+                this.element.dispatchEvent(okEvent);
                 if(!okEvent.defaultPrevented){
-                    dialog.hide();
-                }
-            });
+                     this.hide();
+                 }
 
+            }.bind(this));
             btnRow.append( btnOk );
         }
 
@@ -40,15 +39,15 @@ var Dialog = function( element ){
             btnCancel.className = 'btn btn-dialog cancel';
             btnCancel.setAttribute('dialog-event', 'cancel');
 
-            btnCancel.addEventListener('click', function(e){
+            btnCancel.addEventListener('click', function(){
 
                 var cancelEvent = new CustomEvent('cancel', {cancelable: true});
-
-                dialog.element.dispatchEvent(cancelEvent);
+                this.element.dispatchEvent(cancelEvent);
                 if(!cancelEvent.defaultPrevented){
-                    dialog.hide();
-                }
-            });
+                     this.hide();
+                 }
+
+            }.bind(this));
 
             btnCancel.innerHTML = dialogCancel;
 
@@ -64,6 +63,7 @@ Dialog.prototype.show = function( e ){
     this.element.dispatchEvent(beforeShowEvent);
 
     if(!beforeShowEvent.defaultPrevented){
+        this.element.removeAttribute('close');
         this.element.setAttribute('open', '');
     }
 
@@ -78,6 +78,7 @@ Dialog.prototype.hide = function( e ){
 
     if(!beforeHideEvent.defaultPrevented){
         this.element.removeAttribute('open');
+        this.element.setAttribute('close', '');
     }
 
     var afterHideEvent = new CustomEvent('afterHide', {cancelable: true});
@@ -91,21 +92,10 @@ Dialog.prototype.content = function( html ){
         this.element.innerHTML = html;
     }
 }
-_(document).when('ok', '#my-dialog', function(e){
-    console.log('ok');
-});
-_(document).when('cancel', '#my-dialog', function(e){
-    console.log('cancel');
-});
-_(document).when('beforeShow', '#my-dialog', function(e){
-    console.log('beforeShow');
-});
-_(document).when('afterShow', '#my-dialog', function(e){
-    console.log('afterShow');
-});
-_(document).when('beforeHide', '#my-dialog', function(e){
-    console.log('beforeHide');
-});
-_(document).when('afterHide', '#my-dialog', function(e){
-    console.log('afterHide');
+
+
+_(document).when('click', '.dialog-backdrop', function(e){
+    _('.dialog[open]').each(function(index){
+        new Dialog( this ).hide();
+    });
 });

@@ -1,70 +1,3 @@
-// toggle
-
-var Messagebox = function( element ){
-    this.element = element;
-    this.hideTimeout = null;
-
-    var ioTitle = element.getAttribute('io-title');
-    if(ioTitle){
-        var div = document.createElement('div');
-        div.classList.add('title');
-        var node = document.createElement('h2');
-        node.innerHTML = ioTitle;
-        div.appendChild( node );
-        this.element.appendChild( div );
-    }
-    var ioMessage = element.getAttribute('io-message');
-    if(ioMessage){
-        var div = document.createElement('div');
-        div.classList.add('content');
-        div.innerHTML = ioMessage;
-        this.element.appendChild( div );
-    }
-
-    var ioYes = element.getAttribute('io-yes');
-    var ioNo = element.getAttribute('io-no');
-    if(ioYes || ioNo){
-        var div = document.createElement('div');
-        div.className = 'row btn-row';
-
-        if(ioYes){
-            var btn = document.createElement('button');
-            btn.className = 'btn btn-default';
-            btn.innerHTML = ioYes;
-            div.appendChild(btn);
-        }
-
-        if(ioNo){
-            var btn = document.createElement('button');
-            btn.className = 'btn btn-default';
-            btn.innerHTML = ioNo;
-            div.appendChild(btn);
-        }
-
-        this.element.appendChild(div);
-    }
-
-    var hideTimeout = element.getAttribute('io-hidetimeout');
-    if(hideTimeout){
-        this.hideTimeout = setTimeout(function(e){
-            this.hide();
-        }.bind(this), hideTimeout);
-    }
-}
-Messagebox.prototype.show = function(){
-    _(this.element).removeClass('hidden');
-}
-Messagebox.prototype.hide = function(){
-    // _(this.element).addClass('hidden');
-    _(this.element).addClass('reverse');
-}
-
-Element.prototype.messagebox = function( ){
-    var msgbox = new Messagebox(this[0]);
-    return msgbox;
-}
-
-
 _(document).ready(function(e){
     _(document).when('click', '.toolstrip.list', function(e){
 
@@ -164,4 +97,25 @@ _(document).ready(function(e){
         }
         return input.value = 'true';
     });
+});
+
+_(document).when('input', 'input[type="search"][for]', function(e){
+    var forElement = this.getAttribute('for');
+    var searchValue = this.value;
+    var element = _( forElement )[0];
+
+    var tag = element.tagName.toLowerCase();
+
+    filterTargets = element.children;
+
+    for(var i = 0; i < filterTargets.length; i++){
+        var filterTarget = filterTargets[i];
+        if(filterTarget.innerHTML.toLowerCase().indexOf(searchValue.toLowerCase()) == -1){
+            filterTarget.classList.add('hidden');
+            filterTarget.checked = false;
+            filterTarget.selected = false;
+        } else {
+            filterTarget.classList.remove('hidden');
+        }
+    }
 });

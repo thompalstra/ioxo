@@ -1,0 +1,95 @@
+.alert,
+.alert *{
+    -webkit-transform-style: preserve-3d;
+    -webkit-transform: translateZ(0);
+    -moz-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    -o-transform: translateZ(0);
+    transform: translateZ(0);
+
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -ms-backface-visibility: hidden;
+    backface-visibility: hidden;
+
+    -webkit-perspective: 1000;
+    -moz-perspective: 1000;
+    -ms-perspective: 1000;
+    perspective: 1000;
+}
+
+.alert{
+    position: fixed;
+    /*left: 0; right: 0;*/
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    margin: auto;
+    background-color: white;
+
+    z-index: 10000;
+
+    display: none;
+
+    -webkit-box-shadow: 2px 2px 14px 2px rgba(0,0,0,0.3);
+    -moz-box-shadow: 2px 2px 14px 2px rgba(0,0,0,0.3);
+    box-shadow: 2px 2px 14px 2px rgba(0,0,0,0.3);
+}
+.alert > .content{
+    padding: 10px 10px 0 10px;
+}
+.alert .row.btn-row{
+    text-align: right;
+    padding: 0 10px 10px 10px;
+}
+
+.alert[backdrop] ~ .alert-backdrop{
+    position: fixed;
+    top: 0; right: 0; bottom: 0; left: 0;
+    background-color: rgba(0,0,0,.5);
+    z-index: 9999;
+    display: none;
+}
+
+.alert[open]{
+    display: inherit;
+}
+.alert[backdrop][open] ~ .alert-backdrop{
+    display: inherit;
+}
+
+
+
+.btn.btn-alert{
+    color: #008473;
+    background-color: white;
+    text-transform: uppercase;
+    font-weight: bold;
+
+    transition: all 150ms ease-in-out;
+    height: 40px;
+    min-width: 40px;
+    line-height: 40px;
+}
+.alert .alert-dismiss{
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: #ddd;
+    border: 0;
+    background-color: transparent;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 18px;
+    padding: 0;
+    margin: 0;
+}
+.alert .alert-dismiss:after{
+    content: "\E5CD";
+    font-family: "Material Icons";
+}
+
+.btn.btn-alert:active{
+    background-color: #ddd;
+}

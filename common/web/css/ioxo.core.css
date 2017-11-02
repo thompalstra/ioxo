@@ -17,8 +17,18 @@ body, html{
 
 .row.row-element{
     margin: 0 -10px;
-display: inline-block;
+    display: inline-block;
     width: 100%;
+}
+
+.row{
+    /*display: block;*/
+    /*float: left;*/
+    /*width: 100%;*/
+    /*box-sizing: border-box;*/
+}
+.prow{
+    padding: 10px 0;
 }
 
 .col{
