@@ -23,9 +23,8 @@ class DataPager extends \io\base\Widget{
     public $last = '<i class="material-icons icon">&#xE5DD;</i>';
 
     public function prepare($options = []){
-
         $this->urlParams = $_GET;
-        $this->url = \IO::$app->request->SCRIPT_URL;
+        $this->url = $_SERVER['REQUEST_URI'];
         foreach($options as $k => $v){
             $this->$k = $v;
         }

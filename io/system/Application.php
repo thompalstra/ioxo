@@ -74,6 +74,7 @@ class Application{
         }
 
         session_start();
+
         $sessionUser = $this->identity['class'];
 
         $this->session = &$_SESSION;

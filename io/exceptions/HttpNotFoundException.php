@@ -9,15 +9,15 @@ class HttpNotFoundException extends \Exception{
     public function __construct($message){
         // get default layout
         $defaultLayout = \IO::$app->root . DIRECTORY_SEPARATOR . \IO::$app->domain->name . DIRECTORY_SEPARATOR . 'layouts' . DIRECTORY_SEPARATOR . 'main.php';
-        if(!file_exists($defaultLayout)){
-            echo "Error! Default layout file missing: $defaultLayout"; \IO::$app->end();
-        }
+        // if(!file_exists($defaultLayout)){
+        //     echo "Error! Default layout file missing: $defaultLayout"; \IO::$app->end();
+        // }
 
         // get default error view
         $defaultView = \IO::$app->root . DIRECTORY_SEPARATOR . \IO::$app->domain->name . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'default' . DIRECTORY_SEPARATOR . 'error.php';
-        if(!file_exists($defaultView)){
-            echo "Error! Default view file missing: $defaultView"; \IO::$app->end();
-        }
+        // if(!file_exists($defaultView)){
+        //     echo "Error! Default view file missing: $defaultView"; \IO::$app->end();
+        // }
 
         if(\IO::$app->action->id != NULL && \IO::$app->action->id == 'error'){
             echo 'ERROR EXECUTING ERROR';

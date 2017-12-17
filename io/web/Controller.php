@@ -155,6 +155,11 @@ class Controller{
         return $view->render($item, $args);
     }
 
+    public function renderJson( $object ){
+        header('Content-Type: application/json');
+        echo json_encode( $object ); exit();
+    }
+
     public function redirect($url){
         header("Location: $url");
         \IO::$app->end();
