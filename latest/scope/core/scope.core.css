@@ -79,6 +79,20 @@
     background-color: transparent;
 }
 
+.info,
+.info.flat-to-default:active{
+    border: 1px solid #51BDCB;
+    background-color: #51BDCB;
+    color: #f2f2f2;
+}
+.info.flat-to-default,
+.info.default-to-flat:active,
+.info.flat{
+    border: 1px solid #51BDCB;
+    color: #51BDCB;
+    background-color: transparent;
+}
+
 
 
 
