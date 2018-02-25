@@ -1,3 +1,8 @@
+.swipe-gallery .next,
+.swipe-gallery .prev{
+    display: none;
+}
+
 @media (min-width: 0px){
     .swipe-gallery{
         position: relative;
@@ -17,7 +22,6 @@
         perspective: 1000px;
         margin: 35px 0 60px 0;
     }
-
 
     .swipe-gallery .item{
         width: 40%;
