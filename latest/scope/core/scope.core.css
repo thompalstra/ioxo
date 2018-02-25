@@ -1,0 +1,87 @@
+[widget-state="pending"]{
+    opacity: .2;
+}
+.btn{
+    box-sizing: border-box;
+    text-decoration: none;
+    display: inline-block;
+}
+.btn-small{
+    padding: 5px 7.5px;
+}
+.btn-default{
+    padding: 10px 15px;
+}
+.btn-large{
+    padding: 20px 30px;
+}
+.btn.flat-to-default{
+    transition: .3s;
+}
+
+.btn.default-to-flat{
+    transition: .3s;
+}
+
+.action,
+.action.flat-to-default:active{
+    border: 1px solid #3D8EB9;
+    background-color: #3D8EB9;
+    color: #f2f2f2;
+}
+.action.flat-to-default,
+.action.default-to-flat:active,
+.action.flat{
+    border: 1px solid #3D8EB9;
+    color: #3D8EB9;
+    background-color: transparent;
+}
+
+.epic,
+.epic.flat-to-default:active{
+    border: 1px solid #7E3661;
+    background-color: #7E3661;
+    color: #f2f2f2;
+}
+.epic.flat-to-default,
+.epic.default-to-flat:active,
+.epic.flat{
+    border: 1px solid #7E3661;
+    color: #7E3661;
+    background-color: transparent;
+}
+
+.success,
+.success.flat-to-default:active{
+    border: 1px solid #82C33C;
+    background-color: #82C33C;
+    color: #f2f2f2;
+}
+.success.flat-to-default,
+.success.default-to-flat:active,
+.success.flat{
+    border: 1px solid #82C33C;
+    color: #82C33C;
+    background-color: transparent;
+}
+
+.warning,
+.warning.flat-to-default:active{
+    border: 1px solid #D03400;
+    background-color: #D03400;
+    color: #f2f2f2;
+}
+.warning.flat-to-default,
+.warning.default-to-flat:active,
+.warning.flat{
+    border: 1px solid #D03400;
+    color: #D03400;
+    background-color: transparent;
+}
+
+
+
+
+.btn.wide{
+    width: 100%;
+}

@@ -1,0 +1,137 @@
+.scope-yt-player{
+    display: inline-block;
+    width: 100%;
+    position: relative;
+    font-family: "Roboto Regular";
+}
+.scope-yt-player .playlist-wrapper{
+    float: left;
+    position: absolute;
+    bottom: 0;
+    top: 0;
+    background-color: #222;
+    color: #f2f2f2;
+}
+.scope-yt-player .playlist-wrapper ul{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    background-color: #222;
+    color: #f2f2f2;
+    max-height: 100%;
+    overflow-y: scroll;
+}
+.scope-yt-player .playlist-wrapper ul::-webkit-scrollbar{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 5px;
+}
+.scope-yt-player .playlist-wrapper ul::-webkit-scrollbar-track{
+    background-color: #555;
+    width: 5px;
+}
+.scope-yt-player .playlist-wrapper ul::-webkit-scrollbar-thumb{
+    background-color: #111;
+}
+
+.scope-yt-player .playlist-wrapper ul li:hover{
+    background-color:rgba(255,255,255,.1);
+}
+.scope-yt-player .playlist-wrapper ul li{
+    display: inline-block;
+    padding: 0px 50px 0px 0;
+    width: 100%;
+    box-sizing: border-box;
+    position: relative;
+    cursor: pointer;
+}
+.scope-yt-player .playlist-wrapper ul li.active{
+    background-color: rgba(255,255,255,.15);
+}
+
+.scope-yt-player .playlist-wrapper ul li:after{
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto 0;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    color: transparent;
+
+    content: "\E037";
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-feature-settings: 'liga';
+    -webkit-font-smoothing: antialiased;
+}
+.scope-yt-player .playlist-wrapper ul li:hover:after{
+    color: #999;
+}
+.scope-yt-player .playlist-wrapper ul li.active:after{
+    color: white;
+}
+.scope-yt-player .playlist-wrapper ul li img{
+    width: 100px;
+    float: left;
+    margin-right: 10px;
+}
+.scope-yt-player .iframe-wrapper{
+    float: right;
+}
+.scope-yt-player .iframe-wrapper iframe{
+    min-width: 100%;
+}
+
+.scope-yt-player .playlist-wrapper .thumb{
+    width: 110px;
+    display: inline-block;
+    float: left;
+}
+.scope-yt-player .playlist-wrapper .content{
+    width: calc( 100% - 110px );
+    display: inline-block;
+    float: left;
+    box-sizing: border-box;
+    padding: 5px 0;
+}
+
+@media (min-width: 0px){
+    .scope-yt-player .playlist-wrapper,
+    .scope-yt-player .iframe-wrapper{
+        width: 100%;
+
+        display: inline-block;
+    }
+    .scope-yt-player .playlist-wrapper{
+        position: relative;
+    }
+    .scope-yt-player .playlist-wrapper ul{
+        max-height: 250px;
+    }
+}
+@media (min-width: 1080px){
+    .scope-yt-player .iframe-wrapper{
+        width: 60%;
+    }
+    .scope-yt-player .playlist-wrapper{
+        width: 40%;
+    }
+    .scope-yt-player .playlist-wrapper{
+        position: absolute;
+    }
+    .scope-yt-player .playlist-wrapper ul{
+        max-height: 100%;
+    }
+}
