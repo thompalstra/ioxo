@@ -305,6 +305,37 @@ extend( Element ).with({
         for(var i in args){
             this.style[i] = args[i];
         }
+    },
+    slideUp: function( speed ){
+        var height = this.offsetHeight;
+        this.style.height = height;
+
+        this.style.transition = speed + 'ms';
+        window.setTimeout(function(e){
+            this.style.height = '0px';
+            this.attr('sc-slided-up', '');
+            this.attr('sc-slided-down', null);
+        }.bind(this),10);
+    },
+    slideDown: function( speed ){
+        this.style.height = '';
+        var height = this.offsetHeight;
+        this.style.height = '0px';
+        this.style.transition = speed + 'ms';
+        window.setTimeout(function(e){
+            this.style.height = height;
+            this.attr('sc-slided-up', null);
+            this.attr('sc-slided-down', '');
+        }.bind(this),10);
+
+        console.log(height);
+    },
+    slideToggle: function( speed ){
+        if( parseInt( this.style.height ) == 0  ){
+            this.slideDown( speed );
+        } else {
+            this.slideUp( speed );
+        }
     }
 });
 
