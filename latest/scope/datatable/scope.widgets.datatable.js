@@ -145,6 +145,8 @@ extend( datatable ).with({
                 }));
 
                 tr.appendChild( th );
+            } else {
+                tr.appendChild( document.createElement('th') );
             }
             c++;
         }
