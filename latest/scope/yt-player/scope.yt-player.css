@@ -91,7 +91,7 @@
     float: right;
 }
 .scope-yt-player .iframe-wrapper iframe{
-    min-width: 100%;
+    width: 100%;
 }
 
 .scope-yt-player .playlist-wrapper .thumb{
