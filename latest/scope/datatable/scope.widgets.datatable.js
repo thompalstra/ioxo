@@ -183,7 +183,6 @@ extend( datatable ).with({
 
             li.listen('click', function(e){
                 this.datatable.pagination.page = parseFloat( this.element.attr('page') - 1 );
-
                 var active = this.element.closest('ul').findOne('li.active');
                 active.className = '';
                 this.element.className = 'active';
@@ -283,7 +282,7 @@ extend( datatable ).with({
         }
         span = this.element.appendChild( document.createElement('span') );
         span.className = 'summary';
-        span.innerHTML = start + "-" + ( this.dataSubset.length)
+        span.innerHTML = ( start + 1 ) + "-" + ( this.dataSubset.length)
     },
     matches: function( query, attribute ){
         if( attribute.toString().indexOf( query ) !== -1 ){
