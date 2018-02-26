@@ -1,18 +1,77 @@
-.swipe-gallery .next,
-.swipe-gallery .prev{
+.swipe-gallery .item{
+    transition: .3s;
+    box-sizing: border-box;
+}
+
+.swipe-gallery .prev,
+.swipe-gallery .next{
+    position: absolute;
+    display: inline-block;
+    background-color: #111;
+    color: #f2f2f2;
+    height: 80px;
+    width: 50px;
+    line-height: 80px;
+    text-align: center;
+    font-size: 50px;
+    margin: auto 0;
+    top: 0; bottom: 0;
+    z-index: 50;
+    cursor: pointer;
+
+    -webkit-user-select: none;  /* Chrome all / Safari all */
+    -moz-user-select: none;     /* Firefox all */
+    -ms-user-select: none;      /* IE 10+ */
+    user-select: none;          /* Likely future */
+}
+
+.swipe-gallery .prev:hover,
+.swipe-gallery .next:hover{
+    color: #ffcc00;
+    background-color: #333;
+}
+
+.swipe-gallery .prev[hide],
+.swipe-gallery .next[hide]{
     display: none;
+}
+.swipe-gallery .item .content{
+    top: 0; left: 0; right: 0; bottom: 0;
 }
 
 @media (min-width: 0px){
     .swipe-gallery{
         position: relative;
+        height: 250px;
+        overflow: hidden;
     }
+
 
     .swipe-gallery .item{
         display: block;
-        position: relative;
-        height: 250px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
         z-index: 1;
+    }
+
+    .swipe-gallery .item{
+        transform: translateX(-100%);
+    }
+    .swipe-gallery .item.active{
+        transform: translateX(0%);
+    }
+    .swipe-gallery .item.active ~ .item{
+        transform: translateX(100%);
+    }
+
+    .swipe-gallery .prev{
+        left: 10px;
+    }
+    .swipe-gallery .next{
+        right: 10px;
     }
 }
 @media (min-width: 1080px){
@@ -21,13 +80,13 @@
         height: 250px;
         perspective: 1000px;
         margin: 35px 0 60px 0;
+        overflow: visible;
     }
 
     .swipe-gallery .item{
         width: 40%;
         position: absolute;
         height: 100%;
-        transition: .3s;
         z-index: 0;
 
         margin: 0 auto;
@@ -35,6 +94,9 @@
         left: 0;
 
         transform: translateX(-40%) rotateY(45deg) translateZ(-200px);
+    }
+    .swipe-gallery .item .content{
+        top: 5px; right: 5px; bottom: 5px; left: 5px;
     }
     .swipe-gallery .item.active{
         z-index: 20;
@@ -46,39 +108,6 @@
     }
     .swipe-gallery .item.active + .item{
         z-index: 10;
-    }
-
-    .swipe-gallery .prev[hide],
-    .swipe-gallery .next[hide]{
-        display: none;
-    }
-
-    .swipe-gallery .prev,
-    .swipe-gallery .next{
-        position: absolute;
-        display: inline-block;
-        background-color: #111;
-        color: #f2f2f2;
-        height: 80px;
-        width: 50px;
-        line-height: 80px;
-        text-align: center;
-        font-size: 50px;
-        margin: auto 0;
-        top: 0; bottom: 0;
-        z-index: 50;
-        cursor: pointer;
-
-        -webkit-user-select: none;  /* Chrome all / Safari all */
-        -moz-user-select: none;     /* Firefox all */
-        -ms-user-select: none;      /* IE 10+ */
-        user-select: none;          /* Likely future */
-    }
-
-    .swipe-gallery .prev:hover,
-    .swipe-gallery .next:hover{
-        color: #ffcc00;
-        background-color: #333;
     }
 
     .swipe-gallery .prev{
@@ -106,7 +135,7 @@
 
 .swipe-gallery .item .content{
     position: absolute;
-    top: 5px; right: 5px; bottom: 5px; left: 5px;
+
     padding: 5px;
 
     color: #f2f2f2;
