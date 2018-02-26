@@ -305,12 +305,12 @@ extend( Scope.widgets ).with({
 
 
 
-<div>
-    <input id='w01-search' type="search"/>
-</div>
-<div id='w01' class='datatable'></div>
-
-<script>
+// <div>
+//     <input id='w01-search' type="search"/>
+// </div>
+// <div id='w01' class='datatable'></div>
+//
+// <script>
 
 //     // var ds = [
 //     //     {1: [1, 'brothom', 'user@username.com', 1, 0, 1]},
