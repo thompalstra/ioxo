@@ -102,6 +102,8 @@
     .ml8    {   width: 66.666667%;  }
     .ml7    {   width: 58.333334%;  }
     .ml6    {   width: 50%;         }
+    .pull-ml6{ margin-left: 25% }
+    .push-ml6{ margin-right: 25% }
     .ml5    {   width: 41.666667%;  }
     .ml4    {   width: 33.333334%;  }
     .ml3    {   width: 25%;         }
