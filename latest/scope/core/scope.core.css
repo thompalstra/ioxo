@@ -227,9 +227,20 @@
     background-color: transparent;
 }
 
-
-
-
 .btn.wide{
     width: 100%;
+}
+
+
+[sc-scroll-default]::-webkit-scrollbar{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 7.5px;
+}
+[sc-scroll-default]::-webkit-scrollbar-track{
+    background-color: transparent;
+}
+[sc-scroll-default]::-webkit-scrollbar-thumb{
+    background-color: rgba(0,0,0,.2);
 }

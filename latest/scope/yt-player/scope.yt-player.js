@@ -5,10 +5,10 @@ window['ScopeYTPlayer'] = function( arg ){
     this.apiKey = arg.apiKey;
     this.autoplayFirst = arg.autoplayFirst;
     this.autoplay = arg.autoplay;
+    this.title = arg.title || 'My playlist';
     this.source.children.forEach(function(el){
         this.list.push(el.innerHTML);
     }.bind(this));
-
     this.fetch( 0, this.list, function(){
         this.createWidget();
     }.bind(this) )
@@ -43,15 +43,13 @@ extend( ScopeYTPlayer ).with({
     createWidget: function( ){
         var wrapper = document.createElement('div');
         wrapper.className = 'scope-yt-player';
+        var topWrapper = wrapper.appendChild( document.createElement('div') );
+        topWrapper.className = 'top-wrapper';
 
-
-        var iframeWrapper = document.createElement('div');
+        var iframeWrapper = topWrapper.appendChild( document.createElement('div') );
         iframeWrapper.className = 'iframe-wrapper';
-        var iframe = document.createElement('iframe');
+        var iframe = iframeWrapper.appendChild( document.createElement('iframe') );
         iframe.attr('frameborder', '0');
-
-        iframeWrapper.appendChild(iframe);
-        wrapper.appendChild(iframeWrapper);
 
         this.source.parentNode.replaceChild( wrapper, this.source );
         this.element = wrapper;
@@ -60,9 +58,13 @@ extend( ScopeYTPlayer ).with({
             'height': iframe.offsetWidth * 9/16
         });
 
-        var listWrapper = document.createElement('div');
+        var listWrapper = topWrapper.appendChild( document.createElement('div') );
         listWrapper.className = 'playlist-wrapper';
+        var header = document.createElement('p');
+        header.className = 'playlist-header';
+        header.innerHTML = this.title;
         var list = document.createElement('ul');
+        list.attr('sc-scroll-default', '');
 
         for(var i in this.videos){
             var item = document.createElement('li');
@@ -73,15 +75,26 @@ extend( ScopeYTPlayer ).with({
             item.attr('title', this.videos[i].title);
             item = list.appendChild(item);
             item.listen('click', function(e){
-                // this.player.playId( this.element.attr('data-id') );
                 this.player.playIndex( this.element.index(), this.player.autoplay );
             }.bind({
                 player: this,
                 element: item
             }));
         }
+        listWrapper.appendChild(header);
         listWrapper.appendChild(list);
-        wrapper.appendChild(listWrapper);
+        // wrapper.appendChild(listWrapper);
+
+        var videoDetailWrapper = wrapper.appendChild( document.createElement('div') );
+        videoDetailWrapper.className = 'video-detail-wrapper';
+
+        var videoDetailTitle = videoDetailWrapper.appendChild( document.createElement('normal') );
+        videoDetailTitle.className = 'title';
+        videoDetailTitle.innerHTML = '';
+
+        var videoDetailChannel = videoDetailWrapper.appendChild( document.createElement('small') );
+        videoDetailChannel.className = 'channel';
+        videoDetailChannel.innerHTML = '';
 
         window.addEventListener('resize', function(e){
             this.element.findOne('iframe').css({
@@ -99,6 +112,14 @@ extend( ScopeYTPlayer ).with({
         })
         var item = items[index];
         item.addClass('active');
+
+        var videoDetailWrapper = this.element.findOne('.video-detail-wrapper');
+        var videoDetailTitle = videoDetailWrapper.findOne('.title');
+        var videoDetailChannel = videoDetailWrapper.findOne('.channel');
+
+        videoDetailTitle.innerHTML = this.videos[index].title;
+        videoDetailChannel.innerHTML = this.videos[index].channelTitle;
+
         this.setVideoId( item.attr('data-id'), autoplay );
     },
     setVideoId: function( videoId, autoplay ){
