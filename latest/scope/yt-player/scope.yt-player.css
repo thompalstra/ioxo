@@ -133,6 +133,12 @@
     .scope-yt-player .playlist-wrapper ul{
         max-height: 250px;
     }
+    .scope-yt-player .iframe-wrapper .video-detail-wrapper{
+        display: inline-block;
+    }
+    .scope-yt-player .video-detail-wrapper{
+        display: none;
+    }
 }
 @media (min-width: 1080px){
     .scope-yt-player .iframe-wrapper{
@@ -144,6 +150,13 @@
     }
     .scope-yt-player .playlist-wrapper ul{
         max-height: 100%;
+    }
+
+    .scope-yt-player .iframe-wrapper .video-detail-wrapper{
+        display: none;
+    }
+    .scope-yt-player .video-detail-wrapper{
+        display: inline-block;
     }
 }
 .scope-yt-player .playlist-header{

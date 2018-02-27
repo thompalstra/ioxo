@@ -83,7 +83,6 @@ extend( ScopeYTPlayer ).with({
         }
         listWrapper.appendChild(header);
         listWrapper.appendChild(list);
-        // wrapper.appendChild(listWrapper);
 
         var videoDetailWrapper = wrapper.appendChild( document.createElement('div') );
         videoDetailWrapper.className = 'video-detail-wrapper';
@@ -95,6 +94,8 @@ extend( ScopeYTPlayer ).with({
         var videoDetailChannel = videoDetailWrapper.appendChild( document.createElement('small') );
         videoDetailChannel.className = 'channel';
         videoDetailChannel.innerHTML = '';
+
+        iframeWrapper.appendChild( videoDetailWrapper.cloneNode(true) );
 
         window.addEventListener('resize', function(e){
             this.element.findOne('iframe').css({
@@ -113,12 +114,13 @@ extend( ScopeYTPlayer ).with({
         var item = items[index];
         item.addClass('active');
 
-        var videoDetailWrapper = this.element.findOne('.video-detail-wrapper');
-        var videoDetailTitle = videoDetailWrapper.findOne('.title');
-        var videoDetailChannel = videoDetailWrapper.findOne('.channel');
+        this.element.find('.video-detail-wrapper .title').forEach(function(el){
+            el.innerHTML = this.videos[index].title;
+        }.bind(this));
 
-        videoDetailTitle.innerHTML = this.videos[index].title;
-        videoDetailChannel.innerHTML = this.videos[index].channelTitle;
+        this.element.find('.video-detail-wrapper .channel').forEach(function(el){
+            el.innerHTML = this.videos[index].channelTitle;
+        }.bind(this));
 
         this.setVideoId( item.attr('data-id'), autoplay );
     },
