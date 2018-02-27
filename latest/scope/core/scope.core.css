@@ -23,10 +23,16 @@
     .xs8    {   width: 66.666667%;  }
     .xs7    {   width: 58.333334%;  }
     .xs6    {   width: 50%;         }
+    .right-xs6{ margin-right: 50% }
+    .left-xs6{ margin-left: 50% }
     .xs5    {   width: 41.666667%;  }
     .xs4    {   width: 33.333334%;  }
     .xs3    {   width: 25%;         }
+    .right-xs3{ margin-right: 25% }
+    .left-xs3{ margin-left: 25% }
     .xs2    {   width: 16.666667%;  }
+    .right-xs2{ margin-right: 16.666667% }
+    .left-xs2{ margin-left: 16.666667% }
     .xs1    {   width: 8.333334%;   }
 
     .wrapper{
