@@ -2,7 +2,7 @@
     display: inline-block;
     width: 100%;
     position: relative;
-    font-family: "Roboto Regular";
+    font-family: 'Roboto', sans-serif;
 }
 
 .scope-yt-player .top-wrapper{
@@ -160,8 +160,7 @@
     }
 }
 .scope-yt-player .playlist-header{
-    color: #111;
-    font-family: "Roboto Regular";
+    font-weight: bold;
     height: 40px;
     line-height: 40px;
     padding: 0 10px;

@@ -1,0 +1,42 @@
+<html>
+    <head>
+        <link rel="stylesheet"
+            href="http://www.ioxo.nl/latest/scope/scope.core.css"/>
+        <script type="text/javascript"
+            src="http://www.ioxo.nl/latest/scope/scope.core.js"></script>
+        <link rel="stylesheet"
+            href="http://www.ioxo.nl/latest/scope/widgets/yt-player/scope.widgets.yt-player.css"/>
+        <script type="text/javascript"
+            src="http://www.ioxo.nl/latest/scope/widgets/yt-player/scope.widgets.yt-player.js"></script>
+    </head>
+    <body>
+        <div id='yt-player-wrapper' class='wrapper'>
+            <datalist id='yt-player-1' widget-title="This is a custom title" widget-api-key="AIzaSyCoGIgRrd_XLHKlEYbaJXxzxDppabHC6O0" widget-autoplay-first="0" widget-autoplay="1" class='hidden'>
+                <option value="XwNkmeXja3I">
+                <option value="utrMljN0D9M">
+                <option value="Zr4JwPb99qU">
+            </datalist>
+        </div>
+        <script>
+            document.listen('ready', function(e){
+                var player1 = new Scope.widgets.YTPlayer('#yt-player-1');
+                var preview1 = document.findOne('#yt-player-1-preview');
+                Scope.get({
+                    url: location.href,
+                    onsuccess: function(xhr){
+                        var toggler = document.findOne('#yt-player-wrapper').appendChild( document.createElement('div') );
+                        var pre = document.findOne('#yt-player-wrapper').appendChild( document.createElement('pre') );
+                        pre.className = 'code-preview';
+                        pre.innerHTML = xhr.response.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+                        toggler.className = 'col xs12 code-toggle';
+                        toggler.innerHTML = 'toggle code';
+                        toggler.listen('click',function(e){
+                            document.findOne('#yt-player-wrapper .code-preview').slideToggle(300);
+                        });
+                    }
+                });
+            });
+        </script>
+    </body>
+</html>

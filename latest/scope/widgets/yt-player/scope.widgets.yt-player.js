@@ -1,14 +1,24 @@
-window['ScopeYTPlayer'] = function( arg ){
-    this.source = arg.source;
+window['ScopeYTPlayer'] = window['Scope']['widgets']['YTPlayer'] = function( querySelector ){
+    this.source = document.findOne( querySelector );
     this.list = [];
     this.videos = [];
-    this.apiKey = arg.apiKey;
-    this.autoplayFirst = arg.autoplayFirst;
-    this.autoplay = arg.autoplay;
-    this.title = arg.title || 'My playlist';
+    this.apiKey = this.source.attr('widget-api-key');
+    this.title = this.source.attr('widget-title');
+    this.autoplayFirst = this.source.attr('widget-autoplay-first') || true;
+    this.autoplay = this.source.attr('widget-autoplay') || true;
+
     this.source.children.forEach(function(el){
-        this.list.push(el.innerHTML);
+        this.list.push(el.value);
     }.bind(this));
+
+    var wrapper = document.createElement('div');
+
+    wrapper.className = 'scope-yt-player';
+    wrapper.attr('sc-widget-status', 'pending');
+
+    this.source.parentNode.replaceChild( wrapper, this.source );
+    this.element = wrapper;
+
     this.fetch( 0, this.list, function(){
         this.createWidget();
     }.bind(this) )
@@ -41,18 +51,14 @@ extend( ScopeYTPlayer ).with({
         }
     },
     createWidget: function( ){
-        var wrapper = document.createElement('div');
-        wrapper.className = 'scope-yt-player';
-        var topWrapper = wrapper.appendChild( document.createElement('div') );
+
+        var topWrapper = this.element.appendChild( document.createElement('div') );
         topWrapper.className = 'top-wrapper';
 
         var iframeWrapper = topWrapper.appendChild( document.createElement('div') );
         iframeWrapper.className = 'iframe-wrapper';
         var iframe = iframeWrapper.appendChild( document.createElement('iframe') );
         iframe.attr('frameborder', '0');
-
-        this.source.parentNode.replaceChild( wrapper, this.source );
-        this.element = wrapper;
 
         iframe.css({
             'height': iframe.offsetWidth * 9/16
@@ -84,7 +90,7 @@ extend( ScopeYTPlayer ).with({
         listWrapper.appendChild(header);
         listWrapper.appendChild(list);
 
-        var videoDetailWrapper = wrapper.appendChild( document.createElement('div') );
+        var videoDetailWrapper = this.element.appendChild( document.createElement('div') );
         videoDetailWrapper.className = 'video-detail-wrapper';
 
         var videoDetailTitle = videoDetailWrapper.appendChild( document.createElement('normal') );
@@ -104,6 +110,8 @@ extend( ScopeYTPlayer ).with({
         }.bind(this));
 
         this.playIndex(0,this.autoplayFirst);
+
+        this.element.attr('sc-widget-status', 'done');
     },
     playIndex: function( index, autoplay ){
         var frame = this.element.findOne('iframe');
@@ -132,7 +140,5 @@ extend( ScopeYTPlayer ).with({
         } else {
             frame.attr('src', 'https://www.youtube.com/embed/' + videoId);
         }
-
-
     }
 });

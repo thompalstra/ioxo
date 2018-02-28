@@ -309,10 +309,11 @@ extend( Element ).with({
     slideUp: function( speed ){
         var height = this.offsetHeight;
         this.style.height = height;
-
         this.style.transition = speed + 'ms';
         window.setTimeout(function(e){
             this.style.height = '0px';
+            this.style['padding-top'] = '0px';
+            this.style['padding-bottom'] = '0px';
             this.attr('sc-slided-up', '');
             this.attr('sc-slided-down', null);
         }.bind(this),10);
@@ -324,6 +325,8 @@ extend( Element ).with({
         this.style.transition = speed + 'ms';
         window.setTimeout(function(e){
             this.style.height = height;
+            this.style['padding-top'] = '';
+            this.style['padding-bottom'] = '';
             this.attr('sc-slided-up', null);
             this.attr('sc-slided-down', '');
         }.bind(this),10);
