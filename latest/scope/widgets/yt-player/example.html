@@ -10,8 +10,76 @@
             src="http://www.ioxo.nl/latest/scope/widgets/yt-player/scope.widgets.yt-player.js"></script>
     </head>
     <body>
+        <div class='wrapper'>
+            <ul class='breadcrumb'>
+                <a href="/">
+                    <li sc-icon-before="home">
+                        Home
+                    </li>
+                </a>
+                <a href="/latest/scope/widgets/index.php">
+                    <li>
+                        Widgets
+                    </li>
+                </a>
+            </ul>
+        </div>
         <div id='yt-player-wrapper' class='wrapper'>
             <datalist id='yt-player-1' widget-title="Awesome playlist" widget-api-key="AIzaSyCoGIgRrd_XLHKlEYbaJXxzxDppabHC6O0" widget-autoplay-first="0" widget-autoplay="1" class='hidden'>
+                <option value="XwNkmeXja3I">
+                <option value="utrMljN0D9M">
+                <option value="Zr4JwPb99qU">
+                <option value="XwNkmeXja3I">
+                <option value="utrMljN0D9M">
+                <option value="Zr4JwPb99qU">
+                <option value="XwNkmeXja3I">
+                <option value="utrMljN0D9M">
+                <option value="Zr4JwPb99qU">
+                <option value="XwNkmeXja3I">
+                <option value="utrMljN0D9M">
+                <option value="Zr4JwPb99qU">
+                <option value="XwNkmeXja3I">
+                <option value="utrMljN0D9M">
+                <option value="Zr4JwPb99qU">
+                <option value="XwNkmeXja3I">
+                <option value="utrMljN0D9M">
+                <option value="Zr4JwPb99qU">
+                <option value="XwNkmeXja3I">
+                <option value="utrMljN0D9M">
+                <option value="Zr4JwPb99qU">
+                <option value="XwNkmeXja3I">
+                <option value="utrMljN0D9M">
+                <option value="Zr4JwPb99qU">
+                <option value="XwNkmeXja3I">
+                <option value="utrMljN0D9M">
+                <option value="Zr4JwPb99qU">
+                <option value="XwNkmeXja3I">
+                <option value="utrMljN0D9M">
+                <option value="Zr4JwPb99qU">
+                <option value="XwNkmeXja3I">
+                <option value="utrMljN0D9M">
+                <option value="Zr4JwPb99qU">
+                <option value="XwNkmeXja3I">
+                <option value="utrMljN0D9M">
+                <option value="Zr4JwPb99qU">
+                <option value="XwNkmeXja3I">
+                <option value="utrMljN0D9M">
+                <option value="Zr4JwPb99qU">
+                <option value="XwNkmeXja3I">
+                <option value="utrMljN0D9M">
+                <option value="Zr4JwPb99qU">
+                <option value="XwNkmeXja3I">
+                <option value="utrMljN0D9M">
+                <option value="Zr4JwPb99qU">
+                <option value="XwNkmeXja3I">
+                <option value="utrMljN0D9M">
+                <option value="Zr4JwPb99qU">
+                <option value="XwNkmeXja3I">
+                <option value="utrMljN0D9M">
+                <option value="Zr4JwPb99qU">
+                <option value="XwNkmeXja3I">
+                <option value="utrMljN0D9M">
+                <option value="Zr4JwPb99qU">
                 <option value="XwNkmeXja3I">
                 <option value="utrMljN0D9M">
                 <option value="Zr4JwPb99qU">
@@ -34,8 +102,8 @@
         </div>
         <script>
             document.listen('ready', function(e){
-                var player1 = new Scope.widgets.YTPlayer('#yt-player-1');
-                
+                var player1 = new Scope.widgets.YTPlayer( document.findOne('#yt-player-1') );
+
                 Scope.get({
                     url: location.href,
                     onsuccess: function(xhr){

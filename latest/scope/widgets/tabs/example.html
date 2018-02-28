@@ -10,8 +10,22 @@
             src="http://www.ioxo.nl/latest/scope/widgets/tabs/scope.widgets.tabs.js"></script>
     </head>
     <body>
+        <div class='wrapper'>
+            <ul class='breadcrumb'>
+                <a href="/">
+                    <li sc-icon-before="home">
+                        Home
+                    </li>
+                </a>
+                <a href="/latest/scope/widgets/index.php">
+                    <li>
+                        Widgets
+                    </li>
+                </a>
+            </ul>
+        </div>
         <div id='tab-wrapper' class='wrapper'>
-            <div id="tc1" class="tabs" style="margin-top: 10px;">
+            <div id="w0-tabs-1" class="tabs" style="margin-top: 10px;">
                 <ul class="tabcontrols">
                     <li sc-target="#tab0" class="active">General</li>
                     <li disabled>Q&A</li>
@@ -40,7 +54,7 @@
         </div>
         <script>
             document.listen('ready', function(e){
-                var tabs = new Scope.widgets.Tabs( document.findOne('#tc1') );
+                var tabs = new Scope.widgets.Tabs( document.findOne('#w0-tabs-1') );
 
                 Scope.get({
                     url: location.href,

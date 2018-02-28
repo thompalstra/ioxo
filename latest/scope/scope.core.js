@@ -255,7 +255,23 @@ extend( Element, Document ).with({
         return this.querySelector( query );
     },
 });
-
+extend( Document ).with({
+    create: function( tagName, properties ){
+        if( typeof properties != 'undefined' ){
+            var node = document.createElement( tagName );
+            for(var i in properties ){
+                if( typeof node[i] == 'undefined' ){
+                    node.setAttribute(i, properties[i]);
+                } else {
+                    node[i] = properties[i];
+                }
+            }
+            return node;
+        } else {
+            return document.createElement( tagName );
+        }
+    }
+});
 extend( Element ).with({
     index: function(){
         for(i=0;i<this.parentNode.children.length;i++){

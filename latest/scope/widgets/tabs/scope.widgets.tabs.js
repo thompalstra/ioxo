@@ -1,26 +1,21 @@
 window['Tabs'] = window['Scope']['widgets']['Tabs'] = function( element ){
     this.element = element;
-
-    this.element.find('.tabcontrols [sc-target]').forEach(function(el){
-        el.listen('click', function(event){
-            this.tabcontrol.show( this.element.attr('sc-target') );
-        }.bind({
-            element: el,
-            tabcontrol: this
-        }));
-    }.bind(this));
+    
+    this.element.listen('click', '.tabcontrols [sc-target]', function(e){
+        var tabs = new Tabs( this.closest('.tabs') );
+        tabs.show( this.attr('sc-target') );
+    });
 }
 
 extend( Tabs ).with({
-    show: function( query ){
+    show: function( target ){
         this.element.find('.tabcontrols [sc-target]').forEach(function(el){
             el.removeClass('active');
         });
         this.element.find('.tabcontent li').forEach(function(el){
             el.removeClass('active');
-        })
-
-        this.element.findOne('[sc-target="'+query+'"]').addClass('active');
-        this.element.findOne(query).addClass('active');
+        });
+        this.element.findOne('[sc-target="'+target+'"]').addClass('active');
+        this.element.findOne(target).addClass('active');
     }
 })

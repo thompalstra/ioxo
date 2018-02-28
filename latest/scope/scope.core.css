@@ -187,6 +187,35 @@ html, body{
     transition: .3s;
 }
 
+.breadcrumb{
+    list-style: none;
+    padding: 10px;
+    margin: 0;
+    background-color: #f2f2f2;
+    color: #111;
+    overflow: auto;
+}
+.breadcrumb > a{
+    color: inherit;
+}
+.breadcrumb > a > li{
+    display: inline-block;
+    height: 50px;
+    line-height: 50px;
+    float: left;
+}
+.breadcrumb > a > li:not([sc-icon-before]){
+    margin-left: 10px;
+}
+.breadcrumb > a > li:after{
+    content: " | ";
+    margin-left: 10px;
+}
+
+.breadcrumb > a > li:hover{
+    text-decoration: underline;
+}
+
 .action,
 .action.flat-to-default:active{
     border: 1px solid #3D8EB9;
@@ -257,16 +286,37 @@ html, body{
     background-color: transparent;
 }
 
-.btn.wide{
-    width: 100%;
-}
-
 .hidden{
     display: none;
 }
 [disabled]{
     pointer-events: painted; /* must be set as painted to allow not-allowed cursor */
     cursor: not-allowed;
+}
+[sc-icon-before]:before,
+[sc-icon-after]:after{
+    font-family: "Material Icons";
+    text-rendering: optimizeLegibility;
+    font-feature-settings: 'liga' 1;
+    font-style: normal;
+    text-transform: none;
+    height: 50px;
+    width: 50px;
+    line-height: 50px;
+    font-size: 24px;
+    display: inline-block;
+    overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+    text-align: center;
+}
+[sc-icon-before]:before{
+    content: attr(sc-icon-before);
+    float: left;
+}
+
+[sc-icon-after]:after{
+    content: attr(sc-icon-after);
+    float: right;
 }
 
 [sc-scroll-default]::-webkit-scrollbar{

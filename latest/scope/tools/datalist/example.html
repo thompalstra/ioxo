@@ -1,0 +1,93 @@
+<html>
+    <head>
+        <link href="http://www.ioxo.nl/latest/scope/scope.core.css" rel="stylesheet"/>
+        <script src="http://www.ioxo.nl/latest/scope/scope.core.js" type="text/javascript"></script>
+        <link href="http://www.ioxo.nl/latest/scope/tools/datalist/scope.tools.datalist.css" rel="stylesheet"/>
+        <script src="http://www.ioxo.nl/latest/scope/tools/datalist/scope.tools.datalist.js" type="text/javascript"></script>
+    </head>
+    <body>
+        <div class='wrapper'>
+            <ul class='breadcrumb'>
+                <a href="/">
+                    <li sc-icon-before="home">
+                        Home
+                    </li>
+                </a>
+                <a href="/latest/scope/tools/index.php">
+                    <li>
+                        Tools
+                    </li>
+                </a>
+            </ul>
+        </div>
+        <div id='datalist-wrapper' class='wrapper'>
+            <h2>Default datalist</h2>
+            <ul class='datalist'>
+                <a href="">
+                    <li sc-icon-before="verified_user">Account</li>
+                </a>
+                <a href="">
+                    <li sc-icon-after="settings">Options</li>
+                </a>
+                <a href="">
+                    <li sc-icon-before="language" sc-icon-after="perm_identity">Locale</li>
+                </a>
+                <a href="">
+                    <li sc-icon-before="exit_to_app">Exit</li>
+                </a>
+            </ul>
+            <h2>Large datalist</h2>
+            <ul class='datalist large'>
+                <a href="">
+                    <li sc-icon-before="verified_user">Account</li>
+                </a>
+                <a href="">
+                    <li sc-icon-after="settings">Options</li>
+                </a>
+                <a href="">
+                    <li sc-icon-before="language" sc-icon-after="perm_identity">Locale</li>
+                </a>
+                <a href="">
+                    <li sc-icon-before="exit_to_app">Exit</li>
+                </a>
+            </ul>
+            <h2>Small datalist</h2>
+            <ul class='datalist small'>
+                <a href="">
+                    <li sc-icon-before="verified_user">Account</li>
+                </a>
+                <a href="">
+                    <li sc-icon-after="settings">Options</li>
+                </a>
+                <a href="">
+                    <li sc-icon-before="language" sc-icon-after="perm_identity">Locale</li>
+                </a>
+                <a href="">
+                    <li sc-icon-before="exit_to_app">Exit</li>
+                </a>
+            </ul>
+        </div>
+        <script>
+            document.listen('ready', function(e){
+                Scope.get({
+                    url: location.href,
+                    onsuccess: function(xhr){
+                        var toggler = document.findOne('#datalist-wrapper').appendChild( document.createElement('div') );
+                        var pre = document.findOne('#datalist-wrapper').appendChild( document.createElement('pre') );
+                        pre.className = 'code-preview';
+                        pre.style['height'] = '0px';
+                        pre.style['padding-top'] = '0px';
+                        pre.style['padding-bottom'] = '0px';
+                        pre.innerHTML = xhr.response.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+                        toggler.className = 'col xs12 code-toggle';
+                        toggler.innerHTML = 'toggle code';
+                        toggler.listen('click',function(e){
+                            document.findOne('#datalist-wrapper .code-preview').slideToggle(300);
+                        });
+                    }
+                });
+            });
+        </script>
+    </body>
+</html>
