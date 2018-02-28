@@ -1,4 +1,4 @@
-window['TabControl'] = function( element ){
+window['Tabs'] = window['Scope']['widgets']['Tabs'] = function( element ){
     this.element = element;
 
     this.element.find('.tabcontrols [sc-target]').forEach(function(el){
@@ -11,7 +11,7 @@ window['TabControl'] = function( element ){
     }.bind(this));
 }
 
-extend( TabControl ).with({
+extend( Tabs ).with({
     show: function( query ){
         this.element.find('.tabcontrols [sc-target]').forEach(function(el){
             el.removeClass('active');

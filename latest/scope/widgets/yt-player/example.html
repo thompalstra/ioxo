@@ -11,7 +11,22 @@
     </head>
     <body>
         <div id='yt-player-wrapper' class='wrapper'>
-            <datalist id='yt-player-1' widget-title="This is a custom title" widget-api-key="AIzaSyCoGIgRrd_XLHKlEYbaJXxzxDppabHC6O0" widget-autoplay-first="0" widget-autoplay="1" class='hidden'>
+            <datalist id='yt-player-1' widget-title="Awesome playlist" widget-api-key="AIzaSyCoGIgRrd_XLHKlEYbaJXxzxDppabHC6O0" widget-autoplay-first="0" widget-autoplay="1" class='hidden'>
+                <option value="XwNkmeXja3I">
+                <option value="utrMljN0D9M">
+                <option value="Zr4JwPb99qU">
+                <option value="XwNkmeXja3I">
+                <option value="utrMljN0D9M">
+                <option value="Zr4JwPb99qU">
+                <option value="XwNkmeXja3I">
+                <option value="utrMljN0D9M">
+                <option value="Zr4JwPb99qU">
+                <option value="XwNkmeXja3I">
+                <option value="utrMljN0D9M">
+                <option value="Zr4JwPb99qU">
+                <option value="XwNkmeXja3I">
+                <option value="utrMljN0D9M">
+                <option value="Zr4JwPb99qU">
                 <option value="XwNkmeXja3I">
                 <option value="utrMljN0D9M">
                 <option value="Zr4JwPb99qU">
@@ -20,13 +35,16 @@
         <script>
             document.listen('ready', function(e){
                 var player1 = new Scope.widgets.YTPlayer('#yt-player-1');
-                var preview1 = document.findOne('#yt-player-1-preview');
+                
                 Scope.get({
                     url: location.href,
                     onsuccess: function(xhr){
                         var toggler = document.findOne('#yt-player-wrapper').appendChild( document.createElement('div') );
                         var pre = document.findOne('#yt-player-wrapper').appendChild( document.createElement('pre') );
                         pre.className = 'code-preview';
+                        pre.style['height'] = '0px';
+                        pre.style['padding-top'] = '0px';
+                        pre.style['padding-bottom'] = '0px';
                         pre.innerHTML = xhr.response.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
                         toggler.className = 'col xs12 code-toggle';

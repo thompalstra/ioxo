@@ -8,7 +8,6 @@
 .tabcontent{
     float: left;
     width: 100%;
-    background-color: #f2f2f2;
 }
 
 .tabcontrols{
@@ -19,9 +18,8 @@
 .tabcontrols li{
     display: inline-block;
     padding: 20px 20px 15px 20px;
-    border-bottom: 5px solid transparent;
+
     float: left;
-    cursor: pointer;
 
     -webkit-user-select: none;  /* Chrome all / Safari all */
     -moz-user-select: none;     /* Firefox all */
@@ -32,26 +30,54 @@
     background-color: rgba(255,255,255,.05);
 }
 
-.tabcontrols li.active{
-    border-bottom: 5px solid #e5c100;
-}
-
 .tabcontent{
     list-style: none;
     padding: 0;
     margin: 0;
-
-}
-
-.tabcontent li:not(.active){
-    visibility: hidden;
-    pointer-events: none;
-    display: none;
 }
 
 .tabcontent li{
     padding: 10px;
-    display: inline-block;
     width: 100%;
     box-sizing: border-box;
+
+    visibility: hidden;
+    pointer-events: none;
+    display: none;
+}
+.tabcontent li.active{
+    visibility: visible;
+    pointer-events: all;
+    display: inline-block;
+}
+
+.tabcontrols li{
+    color: #333;
+    border-bottom: 5px solid transparent;
+}
+.tabcontrols li.active{
+    color: #111;
+    border-bottom: 5px solid #51BDCB;
+}
+.tabcontrols li:hover:not(.active):not([disabled]){
+    border-bottom-color: #51bdcb80;
+}
+
+.tabcontrols{
+    box-sizing: border-box;
+}
+.tabcontent li.active{
+    box-sizing: border-box;
+}
+
+.tabcontrols,
+.tabcontent{
+    background-color: #f2f2f2;
+}
+
+.tabcontrols li:not([disabled]){
+    cursor: pointer;
+}
+.tabcontrols li[disabled]{
+    color: #aaa;
 }

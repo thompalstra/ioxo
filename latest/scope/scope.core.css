@@ -8,6 +8,7 @@ html, body{
 .code-preview{
     width: 100%;
     margin: 0;
+    padding: 10px;
     box-sizing: border-box;
     border: 0;
     background-color: #333;
@@ -263,7 +264,10 @@ html, body{
 .hidden{
     display: none;
 }
-
+[disabled]{
+    pointer-events: painted; /* must be set as painted to allow not-allowed cursor */
+    cursor: not-allowed;
+}
 
 [sc-scroll-default]::-webkit-scrollbar{
     -webkit-appearance: none;
@@ -305,8 +309,6 @@ html, body{
 
     left: 0;
     bottom: 0;
-
-    /* width: 20%; */
     height: 5px;
 
     animation: ScWidgetStatusPendingAfter 3s infinite;
