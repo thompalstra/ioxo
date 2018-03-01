@@ -27,8 +27,6 @@ window['ScopeYTPlayer'] = window['Scope']['widgets']['YTPlayer'] = function( sou
         group = [];
     }
 
-    console.log(this.list);
-
     var wrapper = document.create('div', {
         className: 'scope-yt-player',
         'sc-widget-status': 'pending'
@@ -56,7 +54,7 @@ extend( ScopeYTPlayer ).with({
                 onsuccess: function( xhr ){
                     xhr.response.items.forEach(function(item){
                         this.videos.push({
-                            id: item.snippet.id,
+                            id: item.id,
                             channelTitle: item.snippet.channelTitle,
                             title: item.snippet.title,
                             thumbnail_medium: item.snippet.thumbnails.medium

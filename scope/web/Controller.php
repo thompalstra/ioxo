@@ -70,9 +70,13 @@ class Controller extends scope\core\Base{
         $controllerShortName = Html::toCamelCase( Scope::$app->web->defaultController ) . 'Controller';
         $controllerNamespaceName = Scope::$app->environment->controllerPath . DIRECTORY_SEPARATOR . '';
         $controllerName = $controllerNamespaceName . $controllerShortName;
-        return new $controllerName([
-            'controllerId' => Scope::$app->web->defaultController
-        ]);
+
+        if( class_exists( $controllerName ) ){
+            return new $controllerName([
+                'controllerId' => Scope::$app->web->defaultController
+            ]);
+        }
+        echo 'Page not found.'; exit();
     }
 
     public function runAction( $actionId ){

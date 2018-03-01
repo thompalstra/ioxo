@@ -2,23 +2,23 @@
 
 }
 
-.datatable table{
+.datatable{
     width: 100%;
     border-spacing: 0;
 }
 
-.datatable table th{
+.datatable th{
     text-align: left;
 }
 
-.datatable table th,
-.datatable table td{
+.datatable th,
+.datatable td{
     padding: 10px;
 }
-.datatable table thead tr{
+.datatable thead tr{
     background-color: #eee;
 }
-.datatable table tbody tr:nth-child(even) {
+.datatable tbody tr:nth-child(even) {
     background-color: #f2f2f2;
 }
 
@@ -32,17 +32,17 @@
     animation-delay: 4s;
     animation: errorFade 4s forwards;
 }
-.datatable ul.pagination{
+.datatable + ul.pagination{
     list-style: none;
     padding: 0;
     margin: 0;
 }
-.datatable ul.pagination li{
+.datatable + ul.pagination li{
     display: inline-block;
     padding: 10px 15px;
     cursor: pointer;
 }
-.datatable ul.pagination li.active{
+.datatable + ul.pagination li.active{
     background-color: #ddd;
     color: #f2f2f2;
 }

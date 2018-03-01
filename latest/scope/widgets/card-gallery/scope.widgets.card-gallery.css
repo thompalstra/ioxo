@@ -1,10 +1,10 @@
-.swipe-gallery .item{
+.card-gallery .item{
     transition: .3s;
     box-sizing: border-box;
 }
 
-.swipe-gallery .prev,
-.swipe-gallery .next{
+.card-gallery .prev,
+.card-gallery .next{
     position: absolute;
     display: inline-block;
     background-color: #111;
@@ -25,29 +25,29 @@
     user-select: none;          /* Likely future */
 }
 
-.swipe-gallery .prev:hover,
-.swipe-gallery .next:hover{
+.card-gallery .prev:hover,
+.card-gallery .next:hover{
     color: #ffcc00;
     background-color: #333;
 }
 
-.swipe-gallery .prev[hide],
-.swipe-gallery .next[hide]{
+.card-gallery .prev[hide],
+.card-gallery .next[hide]{
     display: none;
 }
-.swipe-gallery .item .content{
+.card-gallery .item .content{
     top: 0; left: 0; right: 0; bottom: 0;
 }
 
 @media (min-width: 0px){
-    .swipe-gallery{
+    .card-gallery{
         position: relative;
         height: 250px;
         overflow: hidden;
     }
 
 
-    .swipe-gallery .item{
+    .card-gallery .item{
         display: block;
         position: absolute;
         top: 0;
@@ -57,25 +57,25 @@
         z-index: 1;
     }
 
-    .swipe-gallery .item{
+    .card-gallery .item{
         transform: translateX(-100%);
     }
-    .swipe-gallery .item.active{
+    .card-gallery .item.active{
         transform: translateX(0%);
     }
-    .swipe-gallery .item.active ~ .item{
+    .card-gallery .item.active ~ .item{
         transform: translateX(100%);
     }
 
-    .swipe-gallery .prev{
+    .card-gallery .prev{
         left: 10px;
     }
-    .swipe-gallery .next{
+    .card-gallery .next{
         right: 10px;
     }
 }
 @media (min-width: 1080px){
-    .swipe-gallery{
+    .card-gallery{
         position: relative;
         height: 250px;
         perspective: 1000px;
@@ -83,7 +83,7 @@
         overflow: visible;
     }
 
-    .swipe-gallery .item{
+    .card-gallery .item{
         width: 40%;
         position: absolute;
         height: 100%;
@@ -95,36 +95,36 @@
 
         transform: translateX(-40%) rotateY(45deg) translateZ(-200px);
     }
-    .swipe-gallery .item .content{
+    .card-gallery .item .content{
         top: 5px; right: 5px; bottom: 5px; left: 5px;
     }
-    .swipe-gallery .item.active{
+    .card-gallery .item.active{
         z-index: 20;
         transform: translateX(0%) rotateY(0deg) translateZ(0px);
     }
 
-    .swipe-gallery .item.active ~ .item{
+    .card-gallery .item.active ~ .item{
         transform: translateX(40%) rotateY(-45deg) translateZ(-200px);
     }
-    .swipe-gallery .item.active + .item{
+    .card-gallery .item.active + .item{
         z-index: 10;
     }
 
-    .swipe-gallery .prev{
+    .card-gallery .prev{
         left: 25%;
     }
-    .swipe-gallery .next{
+    .card-gallery .next{
         right: 25%;
     }
 }
 
-.swipe-gallery ul{
+.card-gallery ul{
     list-style: none;
     margin: 0;
     padding: 0;
 }
 
-.swipe-gallery .item{
+.card-gallery .item{
     padding: 10px;
     background-color: #f2f2f2;
 
@@ -133,7 +133,7 @@
     box-shadow: 0px 0px 81px -12px rgba(0,0,0,0.3);
 }
 
-.swipe-gallery .item .content{
+.card-gallery .item .content{
     position: absolute;
 
     padding: 5px;
@@ -141,7 +141,7 @@
     color: #f2f2f2;
 }
 
-.swipe-gallery .item .background{
+.card-gallery .item .background{
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
     background-size: cover;

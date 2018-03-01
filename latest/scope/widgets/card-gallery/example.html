@@ -1,0 +1,70 @@
+<html>
+    <head>
+        <script type="text/javascript" src="http://www.ioxo.nl/script.js"></script>
+        <link rel="stylesheet" href="http://www.ioxo.nl/latest/scope/scope.core.css"/>
+        <script type="text/javascript" src="http://www.ioxo.nl/latest/scope/scope.core.js"></script>
+        <link rel="stylesheet" href="http://www.ioxo.nl/latest/scope/widgets/card-gallery/scope.widgets.card-gallery.css"/>
+        <script type="text/javascript" src="http://www.ioxo.nl/latest/scope/widgets/card-gallery/scope.widgets.card-gallery.js"></script>
+    </head>
+    <body>
+        <div class='wrapper'>
+            <ul class='breadcrumb'>
+                <a href="/">
+                    <li sc-icon-before="home">
+                        Home
+                    </li>
+                </a>
+            </ul>
+        </div>
+        <div id='card-gallery-wrapper' class='wrapper'>
+            <div id='card-gallery' class='card-gallery cards'>
+                <div class='inner'>
+                    <i class="material-icons prev">navigate_before</i>
+                    <i class="material-icons next">navigate_next</i>
+                    <ul>
+                        <li class='item'>
+                            <a href="">
+                                <div class='content'>
+                                    <div class='background' style='background-image: url( https://images.pexels.com/photos/36764/marguerite-daisy-beautiful-beauty.jpg?w=1260&h=750&auto=compress&cs=tinysrgb )'></div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class='item active'>
+                            <a href="">
+                                <div class='content'>
+                                    <div class='background' style='background-image: url( http://getwallpapers.com/wallpaper/full/d/f/9/90066.jpg )'></div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class='item'>
+                            <a href="">
+                                <div class='content'>
+                                    <div class='background' style='background-image: url( https://wallpaperstudio10.com/static/wpdb/wallpapers/1920x1080/170657.jpg )'></div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class='item'>
+                            <a href="">
+                                <div class='content'>
+                                    <div class='background' style='background-image: url( https://images.pexels.com/photos/33109/fall-autumn-red-season.jpg?w=1260&h=750&auto=compress&cs=tinysrgb )'></div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class='item'>
+                            <a href="">
+                                <div class='content'>
+                                    <div class='background' style='background-image: url( https://images.pexels.com/photos/68147/waterfall-thac-dray-nur-buon-me-thuot-daklak-68147.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb )'></div>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <script>
+            document.listen('ready', function(e){
+                showPageCode( '#card-gallery-wrapper', location.href );
+            });
+        </script>
+    </body>
+</html>

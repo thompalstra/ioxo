@@ -1,0 +1,60 @@
+<html>
+    <head>
+        <script type="text/javascript" src="http://www.ioxo.nl/script.js"></script>
+        <link rel="stylesheet" href="http://www.ioxo.nl/latest/scope/scope.core.css">
+        <script type="text/javascript" src="http://www.ioxo.nl/latest/scope/scope.core.js"></script>
+        <link rel="stylesheet" href="http://www.ioxo.nl/latest/scope/widgets/datatable/scope.widgets.datatable.css">
+        <script type="text/javascript" src="http://www.ioxo.nl/latest/scope/widgets/datatable/scope.widgets.datatable.js"></script>
+    </head>
+    <body>
+        <div class='wrapper'>
+            <ul class='breadcrumb'>
+                <a href="/">
+                    <li sc-icon-before="home">
+                        Home
+                    </li>
+                </a>
+            </ul>
+        </div>
+        <div id='datatable-wrapper' class='wrapper'>
+            <div id='w0-datatable-1'>
+
+            </div>
+        </div>
+        <script>
+            document.listen('ready', function(e){
+                var dataSource = [];
+                var i = 1;
+                while(i<=93){
+                    var obj = {};
+                    var isActive = Math.floor(Math.random() * (1 - 0 + 1)) + 0;
+                    var mailValidated = Math.floor(Math.random() * (1 - 0 + 1)) + 0;
+                    var mailSubscribed = Math.floor(Math.random() * (1 - 0 + 1)) + 0;
+                    var mails = ['gmail', 'yahoo', 'hotmail', 'outlook', 'live'];
+                    var mail = mails [ Math.floor(Math.random()*( ( mails.length -1 ) - ( 0 ) +1)+( 0 )) ];
+
+                    obj[i] = [i, 'username_' + i, 'email@' +mail+ '.com', isActive, mailValidated, mailSubscribed];
+                    dataSource.push(obj);
+                    i++;
+                }
+
+                var dt = new Scope.widgets.Datatable({
+                    element: document.findOne('#w0-datatable-1'),
+                    dataSource: dataSource,
+                    dataColumns: {
+                        id: '#',
+                        username: 'user',
+                        email: 'mail',
+                        is_active: 'active',
+                        is_mail_validated: 'validated',
+                        is_mail_subscribed: 'subscribed'
+                    },
+                    searchColumns: ['id', 'username', 'email']
+                });
+                dt.construct();
+
+                showPageCode( '#datatable-wrapper', location.href );
+            });
+        </script>
+    </body>
+</html>

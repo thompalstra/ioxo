@@ -12,6 +12,26 @@
             <li id='w0-tabs-widgets'>
                 <h2>Widgets</h2>
                 <ul class='datalist'>
+                    <a href="/latest/scope/widgets/card-gallery/example.html">
+                        <li>
+                            Card Gallery
+                        </li>
+                    </a>
+                    <a href="/latest/scope/widgets/cjax/example.html">
+                        <li>
+                            CJAX
+                        </li>
+                    </a>
+                    <a href="/latest/scope/widgets/datatable/example.html">
+                        <li>
+                            Datatable
+                        </li>
+                    </a>
+                    <a href="/latest/scope/widgets/datatable/sidebar.html">
+                        <li>
+                            Sidebar
+                        </li>
+                    </a>
                     <a href="/latest/scope/widgets/tabs/example.html">
                         <li>
                             Tabs
@@ -25,11 +45,6 @@
                     <a href="/latest/scope/widgets/slide/example.html">
                         <li>
                             Slide
-                        </li>
-                    </a>
-                    <a href="/latest/scope/widgets/cjax/example.html">
-                        <li>
-                            CJAX
                         </li>
                     </a>
                 </ul>
