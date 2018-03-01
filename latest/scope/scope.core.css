@@ -44,24 +44,53 @@ html, body{
 }
 
 @media (min-width: 0px){
-    .xs12   {   width: 100%;        }
-    .xs11   {   width: 91.666667%;  }
-    .xs10   {   width: 83.333334%;  }
-    .xs9    {   width: 75%;         }
-    .xs8    {   width: 66.666667%;  }
-    .xs7    {   width: 58.333334%;  }
-    .xs6    {   width: 50%;         }
-    .right-xs6{ margin-right: 50% }
-    .left-xs6{ margin-left: 50% }
-    .xs5    {   width: 41.666667%;  }
-    .xs4    {   width: 33.333334%;  }
-    .xs3    {   width: 25%;         }
-    .right-xs3{ margin-right: 25% }
-    .left-xs3{ margin-left: 25% }
-    .xs2    {   width: 16.666667%;  }
-    .right-xs2{ margin-right: 16.666667% }
-    .left-xs2{ margin-left: 16.666667% }
-    .xs1    {   width: 8.333334%;   }
+    .xs12           {   width: 100%;    }
+    .left-xs12      {   margin-left: 100%;  }
+    .right-xs12     {   margin-right: 100%       }
+
+    .xs11           {   width: 91.666667%;  }
+    .left-xs11      {   margin-left: 91.666667%;    }
+    .right-xs11     {   margin-right: 91.666667%;   }
+
+    .xs10           {   width: 83.333334%;  }
+    .left-xs10      {   margin-left: 83.333334%;  }
+    .right-xs10     {   margin-right: 83.333334%;  }
+
+    .xs9            {   width: 75%; }
+    .left-xs9       {   margin-left: 75%;   }
+    .right-xs9      {   margin-right: 75%;  }
+
+    .xs8            {   width: 66.666667%;  }
+    .left-xs8       {   margin-left: 66.666667%;  }
+    .right-xs8      {   margin-right: 66.666667%;  }
+
+    .xs7            {   width: 58.333334%;  }
+    .left-xs7       {   margin-left: 58.333334%;  }
+    .right-xs7      {   margin-right: 58.333334%;  }
+
+    .xs6            {   width: 50%;         }
+    .left-xs6       {   margin-left: 50% }
+    .right-xs6      {   margin-right: 50% }
+
+    .xs5            {   width: 41.666667%;  }
+    .left-xs5       {   margin-left: 41.666667%;  }
+    .right-xs5      {   margin-right: 41.666667%;  }
+
+    .xs4            {   width: 33.333334%;  }
+    .left-xs4       {   margin-left: 33.333334%;  }
+    .right-xs4      {   margin-right: 33.333334%;  }
+
+    .xs3            {   width: 25%; }
+    .left-xs3       {   margin-left: 25%   }
+    .right-xs3      {   margin-right: 25%   }
+
+    .xs2            {   width: 16.666667%;  }
+    .left-xs2       {   margin-left: 16.666667% }
+    .right-xs2      {   margin-right: 16.666667% }
+
+    .xs1            {   width: 8.333334%;   }
+    .left-xs1       {   margin-left: 8.333334%;   }
+    .right-xs1      {   margin-right: 8.333334%;   }
 
     .wrapper{
         display: block;
@@ -69,96 +98,261 @@ html, body{
     }
 }
 @media (min-width: 320px){
-    .s12   {   width: 100%;        }
-    .s11   {   width: 91.666667%;  }
-    .s10   {   width: 83.333334%;  }
-    .s9    {   width: 75%;         }
-    .s8    {   width: 66.666667%;  }
-    .s7    {   width: 58.333334%;  }
-    .s6    {   width: 50%;         }
-    .s5    {   width: 41.666667%;  }
-    .s4    {   width: 33.333334%;  }
-    .s3    {   width: 25%;         }
-    .s2    {   width: 16.666667%;  }
-    .s1    {   width: 8.333334%;   }
+    .s12           {   width: 100%;    }
+    .left-s12      {   margin-left: 100%;   }
+    .right-s12     {   margin-right: 100%       }
+
+    .s11           {   width: 91.666667%;   }
+    .left-s11      {   margin-left: 91.666667%;    }
+    .right-s11     {   margin-right: 91.666667%;   }
+
+    .s10           {   width: 83.333334%;   }
+    .left-s10      {   margin-left: 83.333334%; }
+    .right-s10     {   margin-right: 83.333334%;    }
+
+    .s9            {   width: 75%; }
+    .left-s9       {   margin-left: 75%;   }
+    .right-s9      {   margin-right: 75%;  }
+
+    .s8            {   width: 66.666667%;  }
+    .left-s8       {   margin-left: 66.666667%; }
+    .right-s8      {   margin-right: 66.666667%;    }
+
+    .s7            {   width: 58.333334%;  }
+    .left-s7       {   margin-left: 58.333334%;  }
+    .right-s7      {   margin-right: 58.333334%;  }
+
+    .s6            {   width: 50%;         }
+    .left-s6       {   margin-left: 50% }
+    .right-s6      {   margin-right: 50% }
+
+    .s5            {   width: 41.666667%;  }
+    .left-s5       {   margin-left: 41.666667%;  }
+    .right-s5      {   margin-right: 41.666667%;  }
+
+    .s4            {   width: 33.333334%;  }
+    .left-s4       {   margin-left: 33.333334%;  }
+    .right-s4      {   margin-right: 33.333334%;  }
+
+    .s3            {   width: 25%; }
+    .left-s3       {   margin-left: 25%   }
+    .right-s3      {   margin-right: 25%   }
+
+    .s2            {   width: 16.666667%;  }
+    .left-s2       {   margin-left: 16.666667% }
+    .right-s2      {   margin-right: 16.666667% }
+
+    .s1            {   width: 8.333334%;   }
+    .left-s1       {   margin-left: 8.333334%;   }
+    .right-s1      {   margin-right: 8.333334%;   }
 }
 @media (min-width: 640px){
-    .sm12   {   width: 100%;        }
-    .sm11   {   width: 91.666667%;  }
-    .sm10   {   width: 83.333334%;  }
-    .sm9    {   width: 75%;         }
-    .sm8    {   width: 66.666667%;  }
-    .sm7    {   width: 58.333334%;  }
-    .sm6    {   width: 50%;         }
-    .sm5    {   width: 41.666667%;  }
-    .sm4    {   width: 33.333334%;  }
-    .sm3    {   width: 25%;         }
-    .sm2    {   width: 16.666667%;  }
-    .sm1    {   width: 8.333334%;   }
+    .sm12           {   width: 100%;    }
+    .left-sm12      {   margin-left: 100%;  }
+    .right-sm12     {   margin-right: 100%       }
+
+    .sm11           {   width: 91.666667%;  }
+    .left-sm11      {   margin-left: 91.666667%;    }
+    .right-sm11     {   margin-right: 91.666667%;   }
+
+    .sm10           {   width: 83.333334%;  }
+    .left-sm10      {   margin-left: 83.333334%;  }
+    .right-sm10     {   margin-right: 83.333334%;  }
+
+    .sm9            {   width: 75%; }
+    .left-sm9       {   margin-left: 75%;   }
+    .right-sm9      {   margin-right: 75%;  }
+
+    .sm8            {   width: 66.666667%;  }
+    .left-sm8       {   margin-left: 66.666667%;  }
+    .right-sm8      {   margin-right: 66.666667%;  }
+
+    .sm7            {   width: 58.333334%;  }
+    .left-sm7       {   margin-left: 58.333334%;  }
+    .right-sm7      {   margin-right: 58.333334%;  }
+
+    .sm6            {   width: 50%;         }
+    .left-sm6       {   margin-left: 50% }
+    .right-sm6      {   margin-right: 50% }
+
+    .sm5            {   width: 41.666667%;  }
+    .left-sm5       {   margin-left: 41.666667%;  }
+    .right-sm5      {   margin-right: 41.666667%;  }
+
+    .sm4            {   width: 33.333334%;  }
+    .left-sm4       {   margin-left: 33.333334%;  }
+    .right-sm4      {   margin-right: 33.333334%;  }
+
+    .sm3            {   width: 25%; }
+    .left-sm3       {   margin-left: 25%   }
+    .right-sm3      {   margin-right: 25%   }
+
+    .sm2            {   width: 16.666667%;  }
+    .left-sm2       {   margin-left: 16.666667% }
+    .right-sm2      {   margin-right: 16.666667% }
+
+    .sm1            {   width: 8.333334%;   }
+    .left-sm1       {   margin-left: 8.333334%;   }
+    .right-sm1      {   margin-right: 8.333334%;   }
 
     .wrapper{
         width: 640px;
     }
 }
 @media (min-width: 720px){
-    .m12   {   width: 100%;        }
-    .m11   {   width: 91.666667%;  }
-    .m10   {   width: 83.333334%;  }
-    .m9    {   width: 75%;         }
-    .m8    {   width: 66.666667%;  }
-    .m7    {   width: 58.333334%;  }
-    .m6    {   width: 50%;         }
-    .m5    {   width: 41.666667%;  }
-    .m4    {   width: 33.333334%;  }
-    .m3    {   width: 25%;         }
-    .left-m3{ margin-left: 25%; }
-    .right-m3{ margin-right: 25%; }
-    .m2    {   width: 16.666667%;  }
-    .left-m2{ margin-left: 16.666667%; }
-    .right-m2{ margin-right: 16.666667%; }
-    .m1    {   width: 8.333334%;   }
+    .m12           {   width: 100%;    }
+    .left-m12      {   margin-left: 100%;  }
+    .right-m12     {   margin-right: 100%       }
+
+    .m11           {   width: 91.666667%;  }
+    .left-m11      {   margin-left: 91.666667%;    }
+    .right-m11     {   margin-right: 91.666667%;   }
+
+    .m10           {   width: 83.333334%;  }
+    .left-m10      {   margin-left: 83.333334%;  }
+    .right-m10     {   margin-right: 83.333334%;  }
+
+    .m9            {   width: 75%; }
+    .left-m9       {   margin-left: 75%;   }
+    .right-m9      {   margin-right: 75%;  }
+
+    .m8            {   width: 66.666667%;  }
+    .left-m8       {   margin-left: 66.666667%;  }
+    .right-m8      {   margin-right: 66.666667%;  }
+
+    .m7            {   width: 58.333334%;  }
+    .left-m7       {   margin-left: 58.333334%;  }
+    .right-m7      {   margin-right: 58.333334%;  }
+
+    .m6            {   width: 50%;         }
+    .left-m6       {   margin-left: 50% }
+    .right-m6      {   margin-right: 50% }
+
+    .m5            {   width: 41.666667%;  }
+    .left-m5       {   margin-left: 41.666667%;  }
+    .right-m5      {   margin-right: 41.666667%;  }
+
+    .m4            {   width: 33.333334%;  }
+    .left-m4       {   margin-left: 33.333334%;  }
+    .right-m4      {   margin-right: 33.333334%;  }
+
+    .m3            {   width: 25%; }
+    .left-m3       {   margin-left: 25%   }
+    .right-m3      {   margin-right: 25%   }
+
+    .m2            {   width: 16.666667%;  }
+    .left-m2       {   margin-left: 16.666667% }
+    .right-m2      {   margin-right: 16.666667% }
+
+    .m1            {   width: 8.333334%;   }
+    .left-m1       {   margin-left: 8.333334%;   }
+    .right-m1      {   margin-right: 8.333334%;   }
 
     .wrapper{
         width: 720px;
     }
 }
 @media (min-width: 1080px){
-    .ml12   {   width: 100%;        }
-    .ml11   {   width: 91.666667%;  }
-    .ml10   {   width: 83.333334%;  }
-    .ml9    {   width: 75%;         }
-    .ml8    {   width: 66.666667%;  }
-    .ml7    {   width: 58.333334%;  }
-    .ml6    {   width: 50%;         }
-    .left-ml6{ margin-left: 25% }
-    .right-ml6{ margin-right: 25% }
-    .ml5    {   width: 41.666667%;  }
-    .ml4    {   width: 33.333334%;  }
-    .ml3    {   width: 25%;         }
-    .left-ml3{ margin-left: 25%; }
-    .right-ml3{ margin-right: 25%; }
-    .ml2    {   width: 16.666667%;  }
-    .left-ml2{ margin-left: 16.666667%; }
-    .right-ml2{ margin-right: 16.666667%; }
-    .ml1    {   width: 8.333334%;   }
+    .ml12           {   width: 100%;    }
+    .left-ml12      {   margin-left: 100%;  }
+    .right-ml12     {   margin-right: 100%       }
+
+    .ml11           {   width: 91.666667%;  }
+    .left-ml11      {   margin-left: 91.666667%;    }
+    .right-ml11     {   margin-right: 91.666667%;   }
+
+    .ml10           {   width: 83.333334%;  }
+    .left-ml10      {   margin-left: 83.333334%;  }
+    .right-ml10     {   margin-right: 83.333334%;  }
+
+    .ml9            {   width: 75%; }
+    .left-ml9       {   margin-left: 75%;   }
+    .right-ml9      {   margin-right: 75%;  }
+
+    .ml8            {   width: 66.666667%;  }
+    .left-ml8       {   margin-left: 66.666667%;  }
+    .right-ml8      {   margin-right: 66.666667%;  }
+
+    .ml7            {   width: 58.333334%;  }
+    .left-ml7       {   margin-left: 58.333334%;  }
+    .right-ml7      {   margin-right: 58.333334%;  }
+
+    .ml6            {   width: 50%;         }
+    .left-ml6       {   margin-left: 50% }
+    .right-ml6      {   margin-right: 50% }
+
+    .ml5            {   width: 41.666667%;  }
+    .left-ml5       {   margin-left: 41.666667%;  }
+    .right-ml5      {   margin-right: 41.666667%;  }
+
+    .ml4            {   width: 33.333334%;  }
+    .left-ml4       {   margin-left: 33.333334%;  }
+    .right-ml4      {   margin-right: 33.333334%;  }
+
+    .ml3            {   width: 25%; }
+    .left-ml3       {   margin-left: 25%   }
+    .right-ml3      {   margin-right: 25%   }
+
+    .ml2            {   width: 16.666667%;  }
+    .left-ml2       {   margin-left: 16.666667% }
+    .right-ml2      {   margin-right: 16.666667% }
+
+    .ml1            {   width: 8.333334%;   }
+    .left-ml1       {   margin-left: 8.333334%;   }
+    .right-ml1      {   margin-right: 8.333334%;   }
 
     .wrapper{
         width: 1080px;
     }
 }
 @media (min-width: 1440px){
-    .l12   {   width: 100%;        }
-    .l11   {   width: 91.666667%;  }
-    .l10   {   width: 83.333334%;  }
-    .l9    {   width: 75%;         }
-    .l8    {   width: 66.666667%;  }
-    .l7    {   width: 58.333334%;  }
-    .l6    {   width: 50%;         }
-    .l5    {   width: 41.666667%;  }
-    .l4    {   width: 33.333334%;  }
-    .l3    {   width: 25%;         }
-    .l2    {   width: 16.666667%;  }
-    .l1    {   width: 8.333334%;   }
+    .l12           {   width: 100%;    }
+    .left-l12      {   margin-left: 100%;  }
+    .right-l12     {   margin-right: 100%       }
+
+    .l11           {   width: 91.666667%;  }
+    .left-l11      {   margin-left: 91.666667%;    }
+    .right-l11     {   margin-right: 91.666667%;   }
+
+    .l10           {   width: 83.333334%;  }
+    .left-l10      {   margin-left: 83.333334%;  }
+    .right-l10     {   margin-right: 83.333334%;  }
+
+    .l9            {   width: 75%; }
+    .left-l9       {   margin-left: 75%;   }
+    .right-l9      {   margin-right: 75%;  }
+
+    .l8            {   width: 66.666667%;  }
+    .left-l8       {   margin-left: 66.666667%;  }
+    .right-l8      {   margin-right: 66.666667%;  }
+
+    .l7            {   width: 58.333334%;  }
+    .left-l7       {   margin-left: 58.333334%;  }
+    .right-l7      {   margin-right: 58.333334%;  }
+
+    .l6            {   width: 50%;         }
+    .left-l6       {   margin-left: 50% }
+    .right-l6      {   margin-right: 50% }
+
+    .l5            {   width: 41.666667%;  }
+    .left-l5       {   margin-left: 41.666667%;  }
+    .right-l5      {   margin-right: 41.666667%;  }
+
+    .l4            {   width: 33.333334%;  }
+    .left-l4       {   margin-left: 33.333334%;  }
+    .right-l4      {   margin-right: 33.333334%;  }
+
+    .l3            {   width: 25%; }
+    .left-l3       {   margin-left: 25%   }
+    .right-l3      {   margin-right: 25%   }
+
+    .l2            {   width: 16.666667%;  }
+    .left-l2       {   margin-left: 16.666667% }
+    .right-l2      {   margin-right: 16.666667% }
+
+    .l1            {   width: 8.333334%;   }
+    .left-l1       {   margin-left: 8.333334%;   }
+    .right-l1      {   margin-right: 8.333334%;   }
 
     .wrapper{
         width: 1440px;
