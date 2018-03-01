@@ -1,0 +1,44 @@
+.sc-checkbox{
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    width: 25px;
+    height: 25px;
+    outline: 0;
+    position: relative;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+.sc-checkbox:after{
+    content: "";
+    font-family: "Material Icons";
+
+    font-weight: bold;
+
+    height: 65px;
+    width: 65px;
+    line-height: 65px;
+    text-align: center;
+    position: absolute;
+    transform: scale(0.1);
+    transition: .3s;
+    top: -20px; left: -20px; right: -20px; bottom: -20px;
+    border-radius: 100%;
+}
+.sc-checkbox:checked:after{
+    content: "\E5CA";
+    transform: scale(1);
+}
+
+.sc-checkbox.action:checked:after{
+    background-color: #3D8EB9;
+}
+.sc-checkbox.action{
+    background-color: transparent;
+    border: 1px solid #3D8EB9;
+    transition: .3s;
+}
+.sc-checkbox.action:checked{
+    border: 1px solid transparent;
+}

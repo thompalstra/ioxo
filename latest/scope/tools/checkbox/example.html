@@ -1,0 +1,54 @@
+<html>
+    <head>
+        <link rel="stylesheet"
+            href="http://www.ioxo.nl/latest/scope/scope.core.css"/>
+        <script type="text/javascript"
+            src="http://www.ioxo.nl/latest/scope/scope.core.js"></script>
+        <link rel="stylesheet" href="http://www.ioxo.nl/latest/scope/tools/checkbox/scope.tools.checkbox.css"/>
+    </head>
+    <body>
+        <div class='wrapper'>
+            <ul class='breadcrumb'>
+                <a href="/">
+                    <li sc-icon-before="home">
+                        Home
+                    </li>
+                </a>
+            </ul>
+        </div>
+        <div id='checkbox-wrapper' class='wrapper'>
+            <div id='w0-checkbox-1' style='background-color: #f2f2f2; padding: 10px;'>
+                <label>
+                    <input type="checkbox" class='sc-checkbox action'/>
+                    check me
+                </label>
+                    <!-- <input id='w0-cb' class='sc-checkbox' type="checkbox"/>
+                    <label for='w0-cb'>check me</label> -->
+                </label>
+            </div>
+        </div>
+        <script>
+            document.listen('ready', function(e){
+
+                Scope.get({
+                    url: location.href,
+                    onsuccess: function(xhr){
+                        var toggler = document.findOne('#checkbox-wrapper').appendChild( document.createElement('div') );
+                        var pre = document.findOne('#checkbox-wrapper').appendChild( document.createElement('pre') );
+                        pre.className = 'code-preview';
+                        pre.style['height'] = '0px';
+                        pre.style['padding-top'] = '0px';
+                        pre.style['padding-bottom'] = '0px';
+                        pre.innerHTML = xhr.response.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+                        toggler.className = 'col xs12 code-toggle';
+                        toggler.innerHTML = 'toggle code';
+                        toggler.listen('click',function(e){
+                            document.findOne('#slide-wrapper .code-preview').slideToggle(300);
+                        });
+                    }
+                });
+            });
+        </script>
+    </body>
+</html>

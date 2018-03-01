@@ -1,0 +1,61 @@
+<html>
+    <head>
+        <link rel="stylesheet"
+            href="http://www.ioxo.nl/latest/scope/scope.core.css"/>
+        <script type="text/javascript"
+            src="http://www.ioxo.nl/latest/scope/scope.core.js"></script>
+        <link rel="stylesheet"
+            href="http://www.ioxo.nl/latest/scope/widgets/slide/scope.widgets.slide.css"/>
+        <script type="text/javascript"
+            src="http://www.ioxo.nl/latest/scope/widgets/slide/scope.widgets.slide.js"></script>
+    </head>
+    <body>
+        <div class='wrapper'>
+            <ul class='breadcrumb'>
+                <a href="/">
+                    <li sc-icon-before="home">
+                        Home
+                    </li>
+                </a>
+            </ul>
+        </div>
+        <div id='slide-wrapper' class='wrapper'>
+            <div id='w0-slide-1' class='scope slide'>
+                <div class='wrapper'>
+                    <ul>
+                        <li style="background-image: url( http://getwallpapers.com/wallpaper/full/d/f/9/90066.jpg )"></li>
+                        <li style="background-image: url( https://wallpaperstudio10.com/static/wpdb/wallpapers/1920x1080/170657.jpg )"></li>
+                        <li style="background-image: url( https://images.pexels.com/photos/33109/fall-autumn-red-season.jpg?w=1260&h=750&auto=compress&cs=tinysrgb )"></li>
+                        <li style="background-image: url( https://images.pexels.com/photos/68147/waterfall-thac-dray-nur-buon-me-thuot-daklak-68147.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb )"></li>
+                        <li style="background-image: url( https://images.pexels.com/photos/36764/marguerite-daisy-beautiful-beauty.jpg?w=1260&h=750&auto=compress&cs=tinysrgb )"></li>
+                        <li style="background-image: url( https://images.pexels.com/photos/33045/lion-wild-africa-african.jpg?w=1260&h=750&auto=compress&cs=tinysrgb )"></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <script>
+            document.listen('ready', function(e){
+                var slide = new Scope.widgets.Slide( document.findOne('#w0-slide-1') );
+
+                Scope.get({
+                    url: location.href,
+                    onsuccess: function(xhr){
+                        var toggler = document.findOne('#slide-wrapper').appendChild( document.createElement('div') );
+                        var pre = document.findOne('#slide-wrapper').appendChild( document.createElement('pre') );
+                        pre.className = 'code-preview';
+                        pre.style['height'] = '0px';
+                        pre.style['padding-top'] = '0px';
+                        pre.style['padding-bottom'] = '0px';
+                        pre.innerHTML = xhr.response.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+                        toggler.className = 'col xs12 code-toggle';
+                        toggler.innerHTML = 'toggle code';
+                        toggler.listen('click',function(e){
+                            document.findOne('#slide-wrapper .code-preview').slideToggle(300);
+                        });
+                    }
+                });
+            });
+        </script>
+    </body>
+</html>

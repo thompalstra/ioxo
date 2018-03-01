@@ -1,28 +1,31 @@
-.scope.slide{
+.slide{
     display: inline-block;
     width: 100%;
 }
 
-.scope.slide .wrapper{
+.slide .wrapper{
     width: 100%;
+    margin: 0;
+    padding: 0;
     height: 400px;
     overflow: hidden;
 }
 
-.scope.slide ul{
+.slide .wrapper ul{
     padding: 0;
     margin: 0;
     list-style: none;
 }
 
 
-.scope.slide ul{
+.slide .wrapper ul{
     height: 100%;
     transition: .5s;
 }
 
-.scope.slide ul li{
+.slide .wrapper ul li{
     height: 100%;
+    width: 100%;
     float: left;
 
     background-position: center;

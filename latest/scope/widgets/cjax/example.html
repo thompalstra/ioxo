@@ -1,0 +1,54 @@
+<html>
+    <head>
+        <link rel="stylesheet"
+            href="http://www.ioxo.nl/latest/scope/scope.core.css"/>
+        <script type="text/javascript"
+            src="http://www.ioxo.nl/latest/scope/scope.core.js"></script>
+        <link rel="stylesheet"
+            href="http://www.ioxo.nl/latest/scope/widgets/cjax/scope.widgets.cjax.css"/>
+        <script type="text/javascript"
+            src="http://www.ioxo.nl/latest/scope/widgets/cjax/scope.widgets.cjax.js"></script>
+    </head>
+    <body>
+        <div class='wrapper'>
+            <ul class='breadcrumb'>
+                <a href="/">
+                    <li sc-icon-before="home">
+                        Home
+                    </li>
+                </a>
+            </ul>
+        </div>
+        <div id='cjax-wrapper' class='wrapper'>
+            <div id='w0-cjax-container' sc-cjax>
+
+            </div>
+        </div>
+        <script>
+            document.listen('ready', function(e){
+
+                var sc = new Scope.widgets.Cjax( document.findOne('#w0-cjax-container') );
+                sc.load('library.html');
+
+                Scope.get({
+                    url: location.href,
+                    onsuccess: function(xhr){
+                        var toggler = document.findOne('#cjax-wrapper').appendChild( document.createElement('div') );
+                        var pre = document.findOne('#cjax-wrapper').appendChild( document.createElement('pre') );
+                        pre.className = 'code-preview';
+                        pre.style['height'] = '0px';
+                        pre.style['padding-top'] = '0px';
+                        pre.style['padding-bottom'] = '0px';
+                        pre.innerHTML = xhr.response.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+                        toggler.className = 'col xs12 code-toggle';
+                        toggler.innerHTML = 'toggle code';
+                        toggler.listen('click',function(e){
+                            document.findOne('#cjax-wrapper .code-preview').slideToggle(300);
+                        });
+                    }
+                });
+            });
+        </script>
+    </body>
+</html>

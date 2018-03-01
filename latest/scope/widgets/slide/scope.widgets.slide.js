@@ -1,41 +1,76 @@
-window['scope.slide'] = function( element ){
+window['Slide'] = window['Scope']['widgets']['Slide'] = function( element ){
     this.element = element;
+
+    this.element.attr('sc-widget-status', 'pending');
+
     this.ul = this.element.findOne('ul');
     this.wrapper = this.element.findOne('.wrapper');
+    this.images = [];
     this.index = 1;
 
     var count = this.ul.children.length;
+    var itemWidth = ( 100 / count ).toFixed(6) + "%";
 
     this.ul.css({
         'width': ( 100 * count ) + "%"
     } );
 
     this.ul.children.forEach(function(el){
-        el.css({
-            width: ( 100 / count ) + '%'
-        });
-    });
+        this.images.push( el.style['background-image'] );
+        el.style['width'] = itemWidth;
+        el.style['background-image'] = '';
+    }.bind(this));
 
-    this.ul.listen('swipeleft', function(e){
-        e.preventDefault();
-        e.stopImmediatePropagation();
-        this.slidePrevious();
-    }.bind(this))
+    lazyload.call(this, null);
 
-    this.ul.listen('longpress', function(e){
-        console.log('longpress');
-    }.bind(this))
+    function lazyload(){
+        var imageCount = this.images.length;
+        var index = 0;
 
-    this.ul.listen('swiperight', function(e){
-        e.preventDefault();
-        e.stopImmediatePropagation();
-        this.slideNext();
-    }.bind(this))
+        next.call(this, index);
 
-    this.element.attr('widget-state', 'complete');
+        function next( index ){
+            var img = document.createElement('img');
+            url = this.images[index];
+
+            url = url.substring(5, url.length - 2);
+            img.src = url;
+
+            var onload = function(){
+                this.ul.children[index].style['background-image'] = this.images[index];
+                if( (index + 1) < imageCount ){
+                    next.call( this, ++index );
+                } else {
+                    finish.call( this );
+                }
+            }.bind(this)
+
+            img.onload = onload;
+        }
+    }
+
+    function finish(){
+        this.ul.listen('swipeleft', function(e){
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            this.slidePrevious();
+        }.bind(this));
+
+        this.ul.listen('longpress', function(e){
+            console.log('longpress');
+        }.bind(this))
+
+        this.ul.listen('swiperight', function(e){
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            this.slideNext();
+        }.bind(this));
+
+        this.element.attr('sc-widget-status', 'done');
+    }
 }
 
-extend( window['scope.slide'] ).with({
+extend( window['Scope']['widgets']['Slide'] ).with({
     slideNext: function(){
         var currentIndex = this.getIndex();
         var newIndex = currentIndex + 1;
