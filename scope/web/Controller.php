@@ -69,7 +69,8 @@ class Controller extends scope\core\Base{
 
         $controllerShortName = Html::toCamelCase( Scope::$app->_web->defaultController ) . 'Controller';
         $controllerNamespaceName = Scope::$app->environment->controllerPath . DIRECTORY_SEPARATOR . '';
-        $controllerName = $controllerNamespaceName . $controllerShortName;
+        $controllerName =  str_replace('/', '\\', $controllerNamespaceName . $controllerShortName);
+
         return new $controllerName([
             'controllerId' => Scope::$app->_web->defaultController
         ]);
