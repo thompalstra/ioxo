@@ -12,7 +12,7 @@
                     IOXO is the home of <strong>Scope</strong>.
                 </p>
                 <p>
-                    <strong>Scope</strong> is a collection of tools that are designed to broaden the functionality of native functions and is available as a full <strong><a href="https://www.php.net">PHP</a></strong> framework or as seperate <strong><a href="">Javascript</a></strong> modules.
+                    <strong>Scope</strong> is a collection of tools that are designed to broaden the functionality of native functions and is available as a full <strong><a href="https://www.php.net">PHP</a></strong> framework or as separate <strong><a href="">Javascript</a></strong> modules.
                 </p>
                 <h2>ScopeJS</h2>
                 <p>
