@@ -20,12 +20,13 @@ $app = new Application([
             'frontend', 'backend'
         ]
     ],
-    '_db' => [
-        'dsn' => 'mysql:dbname=sample_db;host=127.0.0.1',
-        'username' => 'root',
-        'password' => '',
-        'options' => []
-    ]
+    '_db' => false,
+    // '_db' => [
+    //     'dsn' => 'mysql:dbname=sample_db;host=127.0.0.1',
+    //     'username' => 'root',
+    //     'password' => '',
+    //     'options' => []
+    // ]
 ]);
 echo $app->run(); exit();
 ?>

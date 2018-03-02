@@ -38,11 +38,13 @@ class Application{
             'request' => \scope\web\Request::parse( $_SERVER )
         ];
 
-        $this->db = (object) [
-            'conn' => new \PDO( $this->_db->dsn, $this->_db->username, $this->_db->password, [
-                \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION
-            ] )
-        ];
+        if( $this->_db !== false ){
+            $this->db = (object) [
+                'conn' => new \PDO( $this->_db->dsn, $this->_db->username, $this->_db->password, [
+                    \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION
+                ] )
+            ];
+        }
     }
     public function run(){
 
