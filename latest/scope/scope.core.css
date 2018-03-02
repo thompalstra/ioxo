@@ -33,6 +33,7 @@ html, body{
 
 .wrapper{
     margin: 0 auto;
+    overflow: auto;
 }
 .col{
     min-height: 10px;
@@ -367,6 +368,7 @@ html, body{
     box-sizing: border-box;
     text-decoration: none;
     display: inline-block;
+    cursor: pointer;
 }
 .btn-small{
     padding: 5px 7.5px;
@@ -416,7 +418,7 @@ html, body{
 
 .action,
 .action.flat-to-default:active{
-    border: 1px solid #3D8EB9;
+    /* border: 1px solid #3D8EB9; */
     background-color: #3D8EB9;
     color: #f2f2f2;
 }
@@ -430,56 +432,56 @@ html, body{
 
 .epic,
 .epic.flat-to-default:active{
-    border: 1px solid #7E3661;
+    /* border: 1px solid #7E3661; */
     background-color: #7E3661;
     color: #f2f2f2;
 }
 .epic.flat-to-default,
 .epic.default-to-flat:active,
 .epic.flat{
-    border: 1px solid #7E3661;
+    /* border: 1px solid #7E3661; */
     color: #7E3661;
     background-color: transparent;
 }
 
 .success,
 .success.flat-to-default:active{
-    border: 1px solid #82C33C;
+    /* border: 1px solid #82C33C; */
     background-color: #82C33C;
     color: #f2f2f2;
 }
 .success.flat-to-default,
 .success.default-to-flat:active,
 .success.flat{
-    border: 1px solid #82C33C;
+    /* border: 1px solid #82C33C; */
     color: #82C33C;
     background-color: transparent;
 }
 
 .warning,
 .warning.flat-to-default:active{
-    border: 1px solid #D03400;
+    /* border: 1px solid #D03400; */
     background-color: #D03400;
     color: #f2f2f2;
 }
 .warning.flat-to-default,
 .warning.default-to-flat:active,
 .warning.flat{
-    border: 1px solid #D03400;
+    /* border: 1px solid #D03400; */
     color: #D03400;
     background-color: transparent;
 }
 
 .info,
 .info.flat-to-default:active{
-    border: 1px solid #51BDCB;
+    /* border: 1px solid #51BDCB; */
     background-color: #51BDCB;
     color: #f2f2f2;
 }
 .info.flat-to-default,
 .info.default-to-flat:active,
 .info.flat{
-    border: 1px solid #51BDCB;
+    /* border: 1px solid #51BDCB; */
     color: #51BDCB;
     background-color: transparent;
 }

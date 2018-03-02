@@ -12,9 +12,32 @@
         <script src="/web/js/script.js" type="text/javascript"></script>
         <script src="/common/web/js/script.js" type="text/javascript"></script>
 
+        <link href="/web/css/style.css" rel="stylesheet"/>
+        <link href="/common/web/css/style.css" rel="stylesheet"/>
+
         <title>IOXO home</title>
     </head>
     <body>
+        <div class='wrapper'>
+            <div class='nav'>
+                <span class='brand large'>
+                    <span>I</span>
+                    <span>O</span>
+                    <span>X</span>
+                    <span>O</span>
+                </span>
+            </div>
+        </div>
         <?=$view?>
+        <div class='wrapper'>
+            <div class='footer'>
+                <span class='brand'>
+                    <span>I</span>
+                    <span>O</span>
+                    <span>X</span>
+                    <span>O</span>
+                </span> connecting with love
+            </div>
+        </div>
     </body>
 </html>

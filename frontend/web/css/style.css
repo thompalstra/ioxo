@@ -1,0 +1,38 @@
+/* style.css */
+.wrapper .footer{
+    background-color: #ddd;
+    color: #111;
+    overflow: auto;
+    padding: 10px;
+    text-align: center;
+}
+.wrapper .nav{
+
+}
+
+.brand span{
+    height: 19px;
+    width: 19px;
+    line-height: 19px;
+    text-align: center;
+    display: inline-block;
+}
+
+.brand.large span{
+    height: 50px;
+    width: 50px;
+    line-height: 50px;
+    font-size: 40px;
+}
+
+.brand span:nth-child(1),
+.brand span:nth-child(2){
+    background-color: #111;
+    color: #f2f2f2;
+}
+
+.brand span:nth-child(3),
+.brand span:nth-child(4){
+    background-color: #f2f2f2;
+    color: #111;
+}

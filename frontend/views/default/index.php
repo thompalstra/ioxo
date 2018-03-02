@@ -1,3 +1,33 @@
+<style>
+    .code-wrapper{
+        background-color: #333;
+        margin: 0;
+        padding: 10px;
+        color: #f2f2f2;
+        display: inline-block;
+        width: 100%;
+        box-sizing: border-box;
+
+        overflow: hidden;
+
+        webkit-box-shadow: inset 0px 0px 100px -5px rgba(0,0,0,1);
+        -moz-box-shadow: inset 0px 0px 100px -5px rgba(0,0,0,1);
+        box-shadow: inset 0px 0px 100px -5px rgba(0,0,0,1);
+    }
+
+    .code-wrapper > .col{
+        padding: 10px;
+    }
+
+    .code-wrapper code{
+        white-space: pre-wrap;
+    }
+
+    #w0-tabs-about-ioxo h4{
+        margin: 5px 0;
+    }
+</style>
+
 <div class='wrapper'>
     <div id='w0-tabs' class='tabs'>
         <ul class="tabcontrols">
@@ -15,6 +45,7 @@
                     <strong>Scope</strong> is a collection of tools that are designed to broaden the functionality of native functions and is available as a full <strong><a href="https://www.php.net">PHP</a></strong> framework or as separate <strong><a href="">Javascript</a></strong> modules.
                 </p>
                 <h2>ScopeJS</h2>
+
                 <p>
                     <strong>ScopeJS</strong> is by definition an extension of the current HTML-standards.<br/>
                     By extending the standard HTML classes, defined by <strong><a href="https://www.w3.org">W3</a></strong>, and therefore adding functionality.<br/>
@@ -23,103 +54,155 @@
                     Compared to other frameworks, ScopeJS does not declare new classes and does nu use wrapper-classes around element. </br>
                     An example (using jQuery) would be as such:
                 </p>
-                <p>
-                    <h2 id='toggle-jquery-vs-scope' class='code-toggle col xs12' style='margin: 0;'>jQuery vs ScopeJS</h2>
-                    <pre class='col xs12' style='background-color: #333; margin: 0; color: #f2f2f2; padding-top: 0; padding-bottom: 0; height: 0; overflow: hidden;'><code>
-                <strong>Casting</strong>
+                <h4>Basics <a class='toggle-code-wrapper btn btn-small flat-to-default epic' sc-target='#cw-casting'>show</a></h4>
+                <div id='cw-casting' class='code-wrapper' style='height: 0px; padding-top: 0; padding-bottom: 0;'>
+                    <div class='col xs6'>
+                    <strong>ScopeJS</strong>
+                        <pre><code>
+var myDiv = sc('.my-div');
 
-                    var myDiv = $('.my-div');
+<span style='color: #8BC34A'>/*
+    returns an object of the NodeList class, which is the native wrapper standard
+    finding elements don't get wrapped so when dealing with large amounts of elements, queries will be quicker
+*/</span>
+                        </code></pre>
+                    </div>
+                    <div class='col xs6'>
+                    <strong>jQuery</strong>
+                        <pre><code>
+var myDiv = $('.my-div');
 
-                    <span style='color: #8BC34A'>// returns a jQuery object which servers as a wrapper for one or more native elements.
-                    // Matched elements get wrapped inside a jQuery object which has it's own functionality
-                    // this means each element inside the wrapper does NOT support any of the functions and
-                    // are required to be casted back to jQuery like: $( HTMLElement ) or $( jQueryElements[0] )</span>
+<span style='color: #8BC34A'>/*
+    returns a jQuery object which servers as a wrapper for one or more native elements.
+    matched elements get wrapped inside a jQuery object which has it's own functionality
+    this means each element inside the wrapper does NOT support any of the functions and
+    are required to be casted back to jQuery like: $( HTMLElement ) or $( jQueryElements[0] )
+*/</span>
+                        </code></pre>
+                    </div>
+                </div>
 
-                    var myDiv = document.find('.my-div');
+                <h4>Searches <a class='toggle-code-wrapper btn btn-small flat-to-default epic' sc-target='#cw-queries' >show</a></h4>
+                <div id='cw-queries' class='code-wrapper' style='height: 0px; padding-top: 0; padding-bottom: 0;'>
+                    <div class='col xs6'>
+                    <strong>ScopeJS</strong>
+                        <pre><code>
+<span style='color: #8BC34A'>/*
+    getting a single element in ScopeJS is done by using the <strong>findOne</strong> method
+*/</span>
 
-                    <span style='color: #8BC34A'>// returns an object of the NodeList class, which is the native wrapper standard
-                    // finding elements don't get wrapped so when dealing with large amounts of elements, queries will be quicker</span>
+var myDiv = document.findOne('.my-div');
+                        </code></pre>
+                    </div>
+                    <div class='col xs6'>
+                    <strong>jQuery</strong>
+                        <pre><code>
+<span style='color: #8BC34A'>/*
+    accessing the native/first element in jQuery could be done as
+*/</span>
 
-                <strong>Document queries</strong>
+var myDiv = $('.my-div');
 
-                    <span style='color: #8BC34A'>// accessing the native/first element in jQuery could be done as</span>
+var myNativeDiv = myDiv[0] || myDiv.element();
 
-                    var myNativeDiv = myDiv[0];
+<span style='color: #8BC34A'>/*
+    this means you cannot simply query a single element and will ALWAYS query the full document, resulting in unwanted delays when dealing with largely populated DOMs
+*/</span>
+                        </code></pre>
+                    </div>
+                </div>
 
-                    <span style='color: #8BC34A'>// or</span>
+                <h4>Internal functions <a class='toggle-code-wrapper btn btn-small flat-to-default epic' sc-target='#cw-internal' >show</a></h4>
+                <div id='cw-internal' class='code-wrapper' style='height: 0px; padding-top: 0; padding-bottom: 0;'>
+                    <div class='col xs6'>
+                    <strong>ScopeJS</strong>
+                        <pre><code>
+<span style='color: #8BC34A'>/*
+    ScopeJS uses native methods to perform simple tasks, such as adding a class
+*/</span>
 
-                    var myNativeDiv = myDiv.element();
+HTMLElement.protoype.addClass = function( className ){
+    this.classList.add( className );
+}
+                        </code></pre>
+                    </div>
+                    <div class='col xs6'>
+                    <strong>jQuery</strong>
+                        <pre><code>
+<span style='color: #8BC34A'>/*
+    whereas jQuery uses a more "compatible" mode to make sure all platforms support the method
+    as a result however, will be that simple procedures require too much time/space/code
+    to support "all" platforms
+*/</span>
 
-                    <span style='color: #8BC34A'>// getting a single element in ScopeJS is done by using a different find method</span>
+jQuery.fn.addClass = function( value ) {
+    var classes, elem, cur, clazz, j, finalValue,
+        i = 0,
+        len = this.length,
+        proceed = typeof value === "string" && value;
 
-                    var myDiv = document.findOne('.my-div');
+    if ( jQuery.isFunction( value ) ) {
+        return this.each(function( j ) {
+            jQuery( this ).addClass( value.call( this, j, this.className ) );
+        });
+    }
 
-                    <span style='color: #8BC34A'>// this means you can shorten the times it takes to query drastically,
-                    // because this means the browser can decide to return only one element, as opposed to ALL element matching</span>
+    if ( proceed ) {
+        // The disjunction here is for better compressibility (see removeClass)
+        classes = ( value || "" ).match( rnotwhite ) || [];
 
-                <strong>Internal functions</strong>
+        for ( ; i < len; i++ ) {
+            elem = this[ i ];
+            cur = elem.nodeType === 1 && ( elem.className ?
+                ( " " + elem.className + " " ).replace( rclass, " " ) :
+                " "
+            );
 
-                    <strong>addClass</strong>
-
-                    <span style='color: #8BC34A'>// ScopeJS uses native methods to perform simple tasks, such as adding a class</span>
-
-                    HTMLElement.protoype.addClass = function( className ){
-                        this.classList.add( className );
+            if ( cur ) {
+                j = 0;
+                while ( (clazz = classes[j++]) ) {
+                    if ( cur.indexOf( " " + clazz + " " ) < 0 ) {
+                        cur += clazz + " ";
                     }
-
-                    <span style='color: #8BC34A'>// whereas jQuery uses a more "compatible" mode</span>
-
-                    jQuery.fn.addClass = function( value ) {
-                		var classes, elem, cur, clazz, j, finalValue,
-                			i = 0,
-                			len = this.length,
-                			proceed = typeof value === "string" && value;
-
-                		if ( jQuery.isFunction( value ) ) {
-                			return this.each(function( j ) {
-                				jQuery( this ).addClass( value.call( this, j, this.className ) );
-                			});
-                		}
-
-                		if ( proceed ) {
-                			// The disjunction here is for better compressibility (see removeClass)
-                			classes = ( value || "" ).match( rnotwhite ) || [];
-
-                			for ( ; i < len; i++ ) {
-                				elem = this[ i ];
-                				cur = elem.nodeType === 1 && ( elem.className ?
-                					( " " + elem.className + " " ).replace( rclass, " " ) :
-                					" "
-                				);
-
-                				if ( cur ) {
-                					j = 0;
-                					while ( (clazz = classes[j++]) ) {
-                						if ( cur.indexOf( " " + clazz + " " ) < 0 ) {
-                							cur += clazz + " ";
-                						}
-                					}
-
-                					// only assign if different to avoid unneeded rendering.
-                					finalValue = jQuery.trim( cur );
-                					if ( elem.className !== finalValue ) {
-                						elem.className = finalValue;
-                					}
-                				}
-                			}
-                		}
-
-                		return this;
                 }
 
-                <strong>Conclusion</strong>
+                // only assign if different to avoid unneeded rendering.
+                finalValue = jQuery.trim( cur );
+                if ( elem.className !== finalValue ) {
+                    elem.className = finalValue;
+                }
+            }
+        }
+    }
 
-                    <span style='color: #8BC34A'>// whilst ScopeJS utilizes native methodology that is the current <a href="https://html.spec.whatwg.org/dev/" style='color: white'>Living Standard</a>,
-                    // it might not be compatible with "very old" platforms.
-                    // Always be sure to check the platforms you're building for, to see what is the <a href="https://html.spec.whatwg.org/dev/" style='color: white'>Living Standard</a> for that platform.</span>
+    return this;
+}
+                        </code></pre>
+                    </div>
+                </div>
 
-                </code></pre>
-                </p>
+
+                <h4>Conclusion <a class='toggle-code-wrapper btn btn-small flat-to-default epic' sc-target='#cw-conclusion'>show</a></h4>
+                <div id='cw-conclusion' class='code-wrapper' style='height: 0px; padding-top: 0; padding-bottom: 0;'>
+                    <div class='col xs12'>
+                        <pre><code>
+<span style='color: #8BC34A'>/*
+    whilst ScopeJS utilizes native methodology that is the current <a href="https://html.spec.whatwg.org/dev/" style='color: white'>Living Standard</a>,
+    it might not be compatible with "old" platforms.
+    always be sure to check the platforms you're building for, to see what is the <a href="https://html.spec.whatwg.org/dev/" style='color: white'>Living Standard</a> for that platform
+*/</span>
+
+<span style='color: #8BC34A'>/*
+    interested in the using ScopeJS?
+    if you're using <span style='color: white;'>Chrome</span>, <span style='color: white;'>Firefox</span>, <span style='color: white;'>Internet Explorer</span> or <span style='color: white;'>Opera</span>: press <span style='color: white;'>F12</span>, go to <span style='color: white;'>console</span> and try typing the following:
+
+    <span style='color: white;'>document.find('div').describeAll();</span>
+    <span style='color: white;'>document.findOne('div').describeAll();</span>
+    <span style='color: white;'>document.findOne('div').children.describeAll();</span>
+*/</span>
+                        </code></pre>
+                    </div>
+                </div>
             </li>
             <li id='w0-tabs-widgets'>
                 <h2>Widgets</h2>
@@ -182,7 +265,26 @@
 <script>
     var w0tabs = new Tabs( document.findOne('#w0-tabs') );
 
-    sc('#toggle-jquery-vs-scope').listen('click', function(e){
-        sc('#toggle-jquery-vs-scope + pre')[0].slideToggle(1000);
-    })
+    sc('.toggle-code-wrapper').listen('click', function(e){
+        var target = this.attr('sc-target');
+
+        sc('.code-wrapper').forEach(function(el){
+            if( !el.matches( target ) ){
+                el.slideUp( 1000 );
+                document.findOne( '[sc-target="#'+el.id+'"]' ).innerHTML = 'show';
+            }
+        });
+
+        var target = document.findOne( target );
+
+        console.log( parseFloat( target.style['height'] ) );
+
+        if( parseFloat( target.style['height'] ) == 0 ){
+            this.innerHTML = 'hide';
+        } else {
+            this.innerHTML = 'show';
+        }
+
+        target.slideToggle( 1000 );
+    });
 </script>

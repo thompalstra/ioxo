@@ -190,10 +190,6 @@ extend( Scope ).with({
     },
 }, true);
 
-console.log( window['Scope']['ajax'] );
-
-// window['Scope']['browser'] = Scope.getUserAgent()
-
 extend( Element, Document, Window ).with({
     listen: function( a, b, c ){
         var split = a.split(' ');
