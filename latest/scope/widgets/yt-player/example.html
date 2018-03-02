@@ -1,13 +1,10 @@
 <html>
     <head>
-        <link rel="stylesheet"
-            href="http://www.ioxo.nl/latest/scope/scope.core.css"/>
-        <script type="text/javascript"
-            src="http://www.ioxo.nl/latest/scope/scope.core.js"></script>
-        <link rel="stylesheet"
-            href="http://www.ioxo.nl/latest/scope/widgets/yt-player/scope.widgets.yt-player.css"/>
-        <script type="text/javascript"
-            src="http://www.ioxo.nl/latest/scope/widgets/yt-player/scope.widgets.yt-player.js"></script>
+        <script type="text/javascript" src="http://www.ioxo.nl/script.js"></script>
+        <link rel="stylesheet" href="http://www.ioxo.nl/latest/scope/scope.core.css"/>
+        <script type="text/javascript" src="http://www.ioxo.nl/latest/scope/scope.core.js"></script>
+        <link rel="stylesheet" href="http://www.ioxo.nl/latest/scope/widgets/yt-player/scope.widgets.yt-player.css"/>
+        <script type="text/javascript" src="http://www.ioxo.nl/latest/scope/widgets/yt-player/scope.widgets.yt-player.js"></script>
     </head>
     <body>
         <div class='wrapper'>
@@ -15,20 +12,6 @@
                 <a href="/">
                     <li sc-icon-before="home">
                         Home
-                    </li>
-                </a>
-            </ul>
-        </div>
-        <div class='wrapper'>
-            <ul class='breadcrumb'>
-                <a href="/">
-                    <li sc-icon-before="home">
-                        Home
-                    </li>
-                </a>
-                <a href="/latest/scope/widgets/index.php">
-                    <li>
-                        Widgets
                     </li>
                 </a>
             </ul>
@@ -113,24 +96,7 @@
             document.listen('ready', function(e){
                 var player1 = new Scope.widgets.YTPlayer( document.findOne('#yt-player-1') );
 
-                Scope.get({
-                    url: location.href,
-                    onsuccess: function(xhr){
-                        var toggler = document.findOne('#yt-player-wrapper').appendChild( document.createElement('div') );
-                        var pre = document.findOne('#yt-player-wrapper').appendChild( document.createElement('pre') );
-                        pre.className = 'code-preview';
-                        pre.style['height'] = '0px';
-                        pre.style['padding-top'] = '0px';
-                        pre.style['padding-bottom'] = '0px';
-                        pre.innerHTML = xhr.response.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-
-                        toggler.className = 'col xs12 code-toggle';
-                        toggler.innerHTML = 'toggle code';
-                        toggler.listen('click',function(e){
-                            document.findOne('#yt-player-wrapper .code-preview').slideToggle(300);
-                        });
-                    }
-                });
+                showPageCode( '#yt-player-wrapper', location.href );
             });
         </script>
     </body>

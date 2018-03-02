@@ -1,10 +1,4 @@
-if( !Scope.hasOwnProperty('widgets') ){
-    extend( Scope ).with({
-        widgets: {}
-    });
-}
-
-window['datatable'] = function( arg ){
+window['Datatable'] = window['Scope']['widgets']['Datatable'] = function( arg ){
     this.element = null;
     this.dataColumns = [];
     this.searchColumns = [];
@@ -102,14 +96,16 @@ window['datatable'] = function( arg ){
     }.bind(this))
 }
 
-extend( datatable ).with({
+extend( Datatable ).with({
     construct: function(){
         this.createTable();
         this.data();
         this.display();
     },
     createTable: function(){
-        var table = document.createElement('table');
+        var table = document.create('table', {
+            className: 'datatable'
+        });
         var thead = table.appendChild( document.createElement('thead') );
         var tbody = table.appendChild( document.createElement('tbody') );
 
@@ -154,8 +150,8 @@ extend( datatable ).with({
         this.element.appendChild( table );
     },
     createPagination: function( length ){
-
-        this.pages = parseInt( Math.round( length / this.pagination.pageSize ) );
+        console.log( length / this.pagination.pageSize );
+        this.pages = parseInt( Math.ceil( length / this.pagination.pageSize ) );
 
         var ul = this.element.findOne('ul.pagination');
         if( !ul ){
@@ -239,7 +235,6 @@ extend( datatable ).with({
         }
     },
     display: function(){
-
         if( this.pagination !== false ){
             var start = this.pagination.pageSize * this.pagination.page;
             var index = start;
@@ -261,7 +256,6 @@ extend( datatable ).with({
             var key = Object.keys(item)[0];
             var dataItem = item[key];
             var tr = tbody.appendChild( document.createElement('tr') );
-
             tr.attr('data-id', key);
 
             var columnCount = 0;
@@ -300,9 +294,9 @@ extend( datatable ).with({
     }
 });
 
-extend( Scope.widgets ).with({
-    datatable: datatable
-});
+// extend( Scope.widgets ).with({
+//     datatable: datatable
+// });
 
 
 

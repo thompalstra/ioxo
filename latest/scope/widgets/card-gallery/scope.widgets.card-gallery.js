@@ -1,12 +1,12 @@
 window['CardGallery'] = function( element ){
     this.element = element;
 }
-document.listen('click', '.swipe-gallery .next', function(event){
-    var cg = new CardGallery( this.closest('.swipe-gallery') );
+document.listen('click', '.card-gallery .next', function(event){
+    var cg = new CardGallery( this.closest('.card-gallery') );
      cg.next();
 });
-document.listen('click', '.swipe-gallery .prev', function(event){
-    var cg = new CardGallery( this.closest('.swipe-gallery') );
+document.listen('click', '.card-gallery .prev', function(event){
+    var cg = new CardGallery( this.closest('.card-gallery') );
      cg.previous();
 });
 

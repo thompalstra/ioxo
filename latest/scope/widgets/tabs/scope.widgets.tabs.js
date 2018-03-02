@@ -1,6 +1,6 @@
 window['Tabs'] = window['Scope']['widgets']['Tabs'] = function( element ){
     this.element = element;
-    
+
     this.element.listen('click', '.tabcontrols [sc-target]', function(e){
         var tabs = new Tabs( this.closest('.tabs') );
         tabs.show( this.attr('sc-target') );
@@ -15,7 +15,22 @@ extend( Tabs ).with({
         this.element.find('.tabcontent li').forEach(function(el){
             el.removeClass('active');
         });
-        this.element.findOne('[sc-target="'+target+'"]').addClass('active');
-        this.element.findOne(target).addClass('active');
+
+
+
+        targetTabs = this.element.findOne(target);
+        targetControl = this.element.findOne('[sc-target="'+target+'"]');
+
+        if( targetTabs ){
+            targetTabs.addClass('active');
+        } else {
+            console.warn('unknown element');
+        }
+
+        if( targetControl ){
+            targetControl.addClass('active');
+        } else {
+            console.warn('unknown element');
+        }
     }
 })
