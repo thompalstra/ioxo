@@ -21,15 +21,12 @@ class Application{
         \Scope::$app = $this;
 
         foreach( $arg as $k => $v ){
-            $this->$k = (object) $v;
+            if( $v === true || $v === false ){
+                $this->$k = (bool) $v;
+            } else {
+                $this->$k = (object) $v;
+            }
         }
-
-        $this->_web = (object) $this->_web;
-        $this->_session = (object) $this->_session;
-        $this->_environment = (object) $this->_environment;
-        $this->_db = (object) $this->_db;
-
-
 
         $this->root = dirname( __DIR__ ) . DIRECTORY_SEPARATOR;
 
@@ -37,7 +34,6 @@ class Application{
         $this->web = ( object ) [
             'request' => \scope\web\Request::parse( $_SERVER )
         ];
-
         if( $this->_db !== false ){
             $this->db = (object) [
                 'conn' => new \PDO( $this->_db->dsn, $this->_db->username, $this->_db->password, [
