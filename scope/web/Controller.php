@@ -9,16 +9,16 @@ class Controller extends scope\core\Base{
         foreach( $arg as $k => $v ){
             $this->$k = $v;
         }
-        $this->layout = Scope::$app->web->defaultLayout;
+        $this->layout = Scope::$app->_web->defaultLayout;
     }
     public static function parse( $route ){
         $path = trim( $route[0], '/' );
 
         $parts = explode( '/', $path );
 
-        $controllerId = Scope::$app->web->defaultController;
+        $controllerId = Scope::$app->_web->defaultController;
         $path = '';
-        $actionId = Scope::$app->web->defaultAction;
+        $actionId = Scope::$app->_web->defaultAction;
 
         if( count($parts) > 0 ){
 
@@ -27,7 +27,7 @@ class Controller extends scope\core\Base{
             }
             array_pop($parts);
         } else {
-            $actionId = Scope::$app->web->defaultAction;
+            $actionId = Scope::$app->_web->defaultAction;
         }
 
         if( count( $parts ) > 0 ){
@@ -67,11 +67,11 @@ class Controller extends scope\core\Base{
     public static function getDefaultController(){
         $environmentName = Scope::$app->environment->name;
 
-        $controllerShortName = Html::toCamelCase( Scope::$app->web->defaultController ) . 'Controller';
+        $controllerShortName = Html::toCamelCase( Scope::$app->_web->defaultController ) . 'Controller';
         $controllerNamespaceName = Scope::$app->environment->controllerPath . DIRECTORY_SEPARATOR . '';
         $controllerName = $controllerNamespaceName . $controllerShortName;
         return new $controllerName([
-            'controllerId' => Scope::$app->web->defaultController
+            'controllerId' => Scope::$app->_web->defaultController
         ]);
     }
 
@@ -81,7 +81,7 @@ class Controller extends scope\core\Base{
         if( method_exists( $this, $actionName ) ){
             return call_user_func_array( [ $this, $actionName ], [] );
         } else {
-            $controllerName = $this->getClassName();
+            $controllerName = $this->className();
             return $this->render( $actionId );
         }
     }
@@ -89,7 +89,7 @@ class Controller extends scope\core\Base{
     public function runError( $message ){
         $exception = new \Exception($message, 404);
 
-        $actionName = 'action' . Html::toCamelCase( Scope::$app->web->defaultError );
+        $actionName = 'action' . Html::toCamelCase( Scope::$app->_web->defaultError );
         if( method_exists( $this, $actionName ) ){
             return call_user_func_array( [ $this, $actionName ], [ $exception ] );
         } else {

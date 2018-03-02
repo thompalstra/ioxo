@@ -14,12 +14,12 @@ class Environment extends \scope\core\Base{
             // unsets domain name
             unset( $parts[ count($parts) -1 ] );
         } else {
-            $parts = [Scope::$app->env->default];
+            $parts = [Scope::$app->_environment->default];
         }
 
         $environment->name = implode('.', $parts);
-        if( !in_array( $environment->name, Scope::$app->env->supported ) ){
-            $environment->name = Scope::$app->env->default;
+        if( !in_array( $environment->name, Scope::$app->_environment->supported ) ){
+            $environment->name = Scope::$app->_environment->default;
         }
 
         $environment->basePath = Scope::$app->root . $environment->name . DIRECTORY_SEPARATOR;

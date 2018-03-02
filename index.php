@@ -1,7 +1,7 @@
 <?php
 include( __DIR__ . DIRECTORY_SEPARATOR . 'scope' . DIRECTORY_SEPARATOR . 'Application.php' );
 $app = new Application([
-    'web' => [
+    '_web' => [
         'controllerClass' => '\scope\web\Controller',
         'routeManagerClass' => '\scope\web\RouteManager',
         'defaultAction' => 'index',
@@ -9,11 +9,22 @@ $app = new Application([
         'defaultError' => 'error',
         'defaultLayout' => 'main'
     ],
-    'env' => [
+    '_session' => [
+        'identity' => [
+            'identityClass' => '\scope\identity\User'
+        ]
+    ],
+    '_environment' => [
         'default' => 'frontend',
         'supported' => [
             'frontend', 'backend'
         ]
+    ],
+    '_db' => [
+        'dsn' => 'mysql:dbname=sample_db;host=127.0.0.1',
+        'username' => 'root',
+        'password' => '',
+        'options' => []
     ]
 ]);
 echo $app->run(); exit();

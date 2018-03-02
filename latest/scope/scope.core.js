@@ -47,17 +47,17 @@
 
 
 
-window.extend = function(){
+window['extend'] = function(){
     return new Extender( arguments );
 }
 
 Extender = function( collection ){
     this.collection = collection;
 }
-Extender.prototype.with = function( args ){
+Extender.prototype.with = function( args, forceVariable ){
     for(i=0;i<this.collection.length;i++){
         var item = this.collection[i];
-        if( item.hasOwnProperty('prototype') ){
+        if( item.hasOwnProperty('prototype') && forceVariable !== true ){
             for(var b in args){
                 item.prototype[b] = args[b];
             }
@@ -69,7 +69,7 @@ Extender.prototype.with = function( args ){
     }
 }
 
-window.serialize = function( obj, prefix ){
+window['serialize'] = function( obj, prefix ){
     var str = [], p;
 
     if( typeof prefix == 'undefined' ){
@@ -87,16 +87,15 @@ window.serialize = function( obj, prefix ){
     return str.join("&");
 }
 
-window.Scope = function(){
-
-    this.browser = this.getUserAgent();
-
-    console.log( "Successfully initialize Scope.js" );
+window['Scope'] = function( arg ){
+    return document.find( arg );
 }
 
-window.Scope.extend = function( arguments ){
-    this.collection = arguments;
-    return this;
+if( typeof window['sc'] == 'undefined'  ){
+    window['sc'] = window['Scope'];
+}
+if( typeof window['_'] == 'undefined'  ){
+    window['_'] = window['Scope'];
 }
 
 extend( Scope ).with({
@@ -105,7 +104,6 @@ extend( Scope ).with({
             name: 'netscape',
             ua: window.navigator.userAgent
         };
-
         var ua = window.navigator.userAgent.toLowerCase();
 
         if( ua.indexOf('.net') !== -1 ){
@@ -120,6 +118,7 @@ extend( Scope ).with({
 
         return data;
     },
+    widgets: {},
     request: {
         validate: function( obj ){
             if( !obj.hasOwnProperty('method') ){
@@ -189,30 +188,12 @@ extend( Scope ).with({
     ajax: function( obj ){
         return window.Scope.request.send( obj );
     },
-    widgets: function(){
+}, true);
 
-        if( typeof window['widgets'] == 'undefined' ){
-            window['widgets'] = [];
-        }
+console.log( window['Scope']['ajax'] );
 
-        document.find('[widget][widget-state="pending"]').forEach(function(el){
-            var widgetClass = el.attr('widget-class');
-            if( typeof window[widgetClass] === 'function' ){
-                var id = el.attr('id');
+// window['Scope']['browser'] = Scope.getUserAgent()
 
-                if( id == null ){
-                    id = new Date().valueOf();
-                }
-
-                if( typeof window['widgets'][widgetClass] == 'undefined' ){
-                    window['widgets'][widgetClass] = [];
-                }
-
-                window['widgets'][widgetClass][ 'w' + id ] = new window[widgetClass]( el );
-            }
-        });
-    }
-});
 extend( Element, Document, Window ).with({
     listen: function( a, b, c ){
         var split = a.split(' ');
@@ -247,6 +228,7 @@ extend( Element, Document, Window ).with({
         return event;
     }
 });
+
 extend( Element, Document ).with({
     find: function( query ){
         return this.querySelectorAll( query );
@@ -355,7 +337,7 @@ extend( Element ).with({
         } else {
             this.slideUp( speed );
         }
-    }
+    },
 });
 
 extend( HTMLCollection, NodeList ).with({
@@ -376,7 +358,7 @@ extend( HTMLCollection, NodeList ).with({
         for(i=0;i<this.length;i++){
             this[i].dispatch( a );
         }
-    }
+    },
 });
 
 extend( HTMLCollection ).with({
@@ -384,10 +366,108 @@ extend( HTMLCollection ).with({
         for(i=0;i<this.length;i++){
             callable.call( this, this[i] );
         }
-    }
+    },
 });
 
-var Scope = new Scope();
+Scope.documentation = {
+    getUserAgent: "\
+Gets the current useragent\n\n\
+%cScope.getUserAgent()",
+    request: "\
+Sends an XMLHttpRequest with the given properties\n\n\
+%cScope.request.send( obj )",
+    get: "\
+Sends an XMLHttpRequest with the GET method and the given properties\n\n\
+%cScope.get( obj )",
+    post: "\
+Sends an XMLHttpRequest with the POST method and the given properties\n\n\
+%cScope.post( obj )",
+    ajax: "\
+Send an AJAX request with the given properties.\n\n\
+%cScope.ajax( obj )",
+    create: "\
+Creates an element of the given tagname and optional options\n\n\
+%cdocument.create( 'div', {\n\
+    className: 'my-div is-awesome'\n\
+    'data-id': 22\n\
+} )",
+    index: "\
+Returns the index of this element's child index in the given class\n\n\
+%cx.index()",
+    addClass: "\
+Adds the given class\n\n\
+%cx.addClass( className )",
+    removeClass: "\
+Removes the given class\n\n\
+%cx.removeClass( className )",
+    toggleClass: "\
+Sets the given class when it is not set, or unsets when it is\n\n\
+%cx.toggleClass( className )",
+    replaceClass: "\
+Replaces the given class with another\n\n\
+%cx.replaceClass( oldClass , newClass )",
+    load: "\
+Replaces the content of the current element, with data from the given url.\n\n\
+%cx.load({ url: url })",
+    attr: "\
+Sets, unsets or returns an attribute\n\n\
+%cx.attr( key ) // returns value \n\
+x.attr( key , value ) // sets \n\
+x.attr( key , null) // unsets",
+    css: "\
+Sets one or more css attributes.\n\n\
+%cx.css({ 'height': '250px', 'background-color': 'red' })",
+    slideUp:  "\
+Slides up the element until reaching it's '0' height.\n\n\
+%cx.slideUp( speedInMs )",
+    slideDown:  "\
+Slides down the element until reaching it's 'natural' height.\n\n\
+%cx.slideDown( speedInMs )",
+    slideToggle: "\
+Toggles between slideUp and slideDown, depending on the current state.\n\n\
+%cx.slideToggle( speedInMs )\
+",
+    forEach: "\
+Adds forEach support, the argument in it's callback is always the iterated element.\n\n\
+%cx.forEach(function(item){console.log(item)})",
+    listen: "\
+Listens for an event of the given type (and of the optionally matching query) and executes the supplied callback.\n\n\
+%cx.listen('click', query, callback) or x.listen('click', callback)",
+    dispatch: "\
+Dispatches an event of the supplied type.\n\n\
+%cx.dispatch('click')"
+}
+
+
+extend( Document, Element, NodeList, HTMLCollection ).with({
+    describe: function( property ){
+        if( typeof Scope['documentation'] != 'undefined' && typeof Scope['documentation'][property] == 'string' ){
+            var name = ( this.constructor.prototype.hasOwnProperty( property ) ) ? this.constructor.name.toString() : 'this';
+            var documentation = Scope.documentation[property];
+            console.log( "%c" +name + "%c.%c" + property + "%c\n" + documentation, "color:blue;", "color: black;", "color:blue;", "color:black;", "color:#999" );
+        }
+    },
+    describeAll: function(){
+        for (var property in this ) {
+            this.describe( property );
+        }
+    }
+})
+
+extend( Scope ).with({
+    describe: function( property ){
+        if( typeof Scope['documentation'] != 'undefined' && typeof Scope['documentation'][property] == 'string' ){
+            var name = ( this.constructor.prototype.hasOwnProperty( property ) ) ? this.constructor.name.toString() : 'this';
+            var documentation = Scope.documentation[property];
+            console.log( "%c" +name + "%c.%c" + property + "%c\n" + documentation, "color:blue;", "color: black;", "color:blue;", "color:black;", "color:#999" );
+        }
+    },
+    describeAll: function(){
+        for (var property in this ) {
+            this.describe( property );
+        }
+    }
+}, true)
 
 document.listen('DOMContentLoaded', function(e){
     document.dispatch('ready');

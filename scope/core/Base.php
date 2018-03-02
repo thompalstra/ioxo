@@ -15,11 +15,11 @@ class Base{
         }
     }
 
-    public static function getClassName(){
+    public static function className(){
         $reflection = new \ReflectionClass( get_called_class() );
         return $reflection->getName();
     }
-    public static function getShortName(){
+    public static function shortName(){
         $reflection = new \ReflectionClass( get_called_class() );
         return $reflection->getShortName();
     }
@@ -59,7 +59,7 @@ class Base{
     }
 
     public function load( $arg ){
-        if( isset( $arg[ self::getShortName() ] ) && $data = $arg[ self::getShortName() ] ){
+        if( isset( $arg[ self::shortName() ] ) && $data = $arg[ self::shortName() ] ){
             foreach( $data as $k => $v ){
                 $this->$k = $v;
             }

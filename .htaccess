@@ -13,8 +13,6 @@ RewriteCond %{HTTP_HOST}        ^([^\.]+)\.([^\.]+)\.([^\.]+)$
 RewriteCond %{DOCUMENT_ROOT}/%1/$1 -f
 RewriteRule ^(.*)$ %1/$1 [L]
 
-
-
 RewriteCond %{DOCUMENT_ROOT}/common/$1 -f
 RewriteRule ^(.*)$ common/$1 [L]
 
