@@ -37,6 +37,10 @@ class Query extends Scope\core\Base{
         return $this;
     }
 
+    public function leftJoin( $join ){
+        $this->arguments[] = "LEFT JOIN $join";
+    }
+
     public function limit( $limit ){
         $this->limit = $limit;
     }
@@ -105,9 +109,13 @@ class Query extends Scope\core\Base{
         }
 
         foreach( $this->arguments as $argument ){
-            foreach( $argument as $type => $data ){
-                if( in_array( strtoupper( $type ), ['WHERE', "AND", "OR", "SET"] ) ){
-                    $lines[] = strtoupper( $type ) . ' ' . $this->createWhere( $data );
+            if( is_string( $argument ) ){
+                $lines[] = $argument;
+            } else if( is_array( $argument ) ){
+                foreach( $argument as $type => $data ){
+                    if( in_array( strtoupper( $type ), ['WHERE', "AND", "OR", "SET"] ) ){
+                        $lines[] = strtoupper( $type ) . ' ' . $this->createWhere( $data );
+                    }
                 }
             }
         }
@@ -168,6 +176,12 @@ class Query extends Scope\core\Base{
             return 'NULL';
         } else if( is_string($value) ){
             return Scope::$app->db->conn->quote( $value );
+        } else if( is_array( $value ) ){
+            $values = [];
+            foreach( $value as $v ){
+                $values[] = Scope::$app->db->conn->quote( $v );
+            }
+            return "( " . implode( ',', $values ) . " )";
         }
         return $value;
     }

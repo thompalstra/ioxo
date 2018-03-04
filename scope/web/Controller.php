@@ -49,11 +49,10 @@ class Controller extends scope\core\Base{
         $controllerNamespaceName = Scope::$app->environment->controllerPath . DIRECTORY_SEPARATOR . $path;
         $controllerName =  str_replace('/', '\\', $controllerNamespaceName . $controllerShortName);
 
-        // var_dump($actionId); die;
-
         if( class_exists( $controllerName ) ){
 
             Scope::$app->controller = new $controllerName([
+                'path' => $path,
                 'controllerId' => $controllerId
             ]);
             return Scope::$app->controller->runAction( $actionId );
@@ -72,6 +71,7 @@ class Controller extends scope\core\Base{
         $controllerName =  str_replace('/', '\\', $controllerNamespaceName . $controllerShortName);
 
         return new $controllerName([
+            'path' => '',
             'controllerId' => Scope::$app->_web->defaultController
         ]);
     }
@@ -103,10 +103,15 @@ class Controller extends scope\core\Base{
         }
     }
 
-    public function render( $view, $data = [] ){
+    public function render( $_view, $data = [] ){
+        $view = new View();
+
+        $content = $view->renderFile($_view, $data );
+
         $layoutPath = DIRECTORY_SEPARATOR . Scope::$app->environment->layoutPath . DIRECTORY_SEPARATOR . $this->layout . '.php';
-        return View::renderFile( $layoutPath, [
-            'view' => View::renderFile($view, $data )
+
+        return $view->renderFile( $layoutPath, [
+            'view' => $content
         ] );
     }
 }

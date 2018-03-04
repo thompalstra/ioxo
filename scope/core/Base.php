@@ -9,9 +9,16 @@ class Base{
     protected $_oldAttributes = [];
     protected $_errors = [];
 
-    public function __construct( $arg = [] ){
-        foreach( $arg as $k => $v ){
+    public function __construct( $args = [] ){
+        foreach( $args as $k => $v){
             $this->$k = $v;
+        }
+        foreach( $this as $k => $v ){
+            if( $k[0] == '_' || strtolower($k) == 'isnewrecord' ){
+                continue;
+            }
+            $this->_oldAttributes[$k] = $this->_attributes[$k] = $v;
+            $this->$k = &$this->_attributes[$k];
         }
     }
 
@@ -64,7 +71,7 @@ class Base{
                 $this->$k = $v;
             }
         }
-    }
+    }    
 
     public function validate(){
         $reflectionProperties = (new \ReflectionObject($this))->getProperties(\ReflectionProperty::IS_PUBLIC);;

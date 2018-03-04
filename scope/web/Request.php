@@ -18,7 +18,7 @@ class Request extends \scope\core\Base{
     public static function parseUrl( $request_uri ){
         $request_uri = trim( $request_uri, '/' );
 
-        if( ( $pos = strpos( $request_uri, '?' ) ) != false ){
+        if( ( $pos = strpos( $request_uri, '?' ) ) !== false ){
             $request_uri = substr( $request_uri, 0, $pos );
         }
 

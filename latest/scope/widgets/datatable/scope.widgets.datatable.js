@@ -112,6 +112,7 @@ extend( Datatable ).with({
         var tr = thead.appendChild( document.createElement('tr') );
         for(var i in this.dataColumns){
             var th = document.createElement('th');
+            th.attr('data-name', i);
             th.innerHTML = this.dataColumns[i];
             tr.appendChild( th );
         }

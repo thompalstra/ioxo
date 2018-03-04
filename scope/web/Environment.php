@@ -18,6 +18,7 @@ class Environment extends \scope\core\Base{
         }
 
         $environment->name = implode('.', $parts);
+
         if( !in_array( $environment->name, Scope::$app->_environment->supported ) ){
             $environment->name = Scope::$app->_environment->default;
         }

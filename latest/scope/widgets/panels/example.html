@@ -1,0 +1,66 @@
+<html>
+    <head>
+        <script type="text/javascript" src="http://www.ioxo.nl/script.js"></script>
+        <link rel="stylesheet" href="http://www.ioxo.nl/latest/scope/scope.core.css"/>
+        <script type="text/javascript" src="http://www.ioxo.nl/latest/scope/scope.core.js"></script>
+        <link rel="stylesheet" href="http://www.ioxo.nl/latest/scope/widgets/panels/scope.widgets.panels.css"/>
+        <script type="text/javascript" src="http://www.ioxo.nl/latest/scope/widgets/panels/scope.widgets.panels.js"></script>
+    </head>
+    <body>
+        <div class='wrapper'>
+            <ul class='breadcrumb'>
+                <a href="/">
+                    <li sc-icon-before="home">
+                        Home
+                    </li>
+                </a>
+            </ul>
+        </div>
+        <div id='panels-wrapper' class='wrapper'>
+            <table id='w0-panels-1' class='panels' height=510>
+                <tr height=200>
+                    <td class='column' style='background-color: blue'>
+                        <table id='w0-panels-1' class='panels' height=510>
+                            <tr>
+                                <td class='column'>
+
+                                </td>
+                            </tr>
+                            <tr height=10>
+                                <td class='column divider horizontal'></td>
+                            </tr>
+                            <tr height=300>
+                                <td class='column' style='background-color:purple'>
+
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td class='column divider vertical' width=10></td>
+                    <td class='column' style='background-color: blue'>
+
+                    </td>
+                    <td class='column divider vertical' width=10></td>
+                    <td class='column' width=80% style='background-color: green;'>
+
+                    </td>
+                </tr>
+                <tr height=10>
+                    <td colspan=5 class='column divider horizontal'></td>
+                </tr>
+                <tr height=300>
+                    <td  colspan=5 class='column' style='background-color:purple'>
+
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <script>
+            document.listen('ready', function(e){
+                var panels1 = new Scope.widgets.Panels( document.findOne('#w0-panels-1') );
+
+                showPageCode( '#panels-wrapper', location.href );
+            });
+        </script>
+    </body>
+</html>
