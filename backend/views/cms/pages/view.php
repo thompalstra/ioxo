@@ -60,6 +60,11 @@ header('X-XSS-Protection: 0');
         font-size: 25px;
     }
 
+    .page-editor iframe{
+        width: 100%;
+        height: 100%;
+    }
+
     .page-editor .code textarea{
         height: calc( 100% - 50px );
         width: 100%;
@@ -83,6 +88,17 @@ header('X-XSS-Protection: 0');
         <div id='w0-page-editor' class='page-editor' mode='code'>
             <ul class='page-editor-actions'>
                 <li class='page-editor-action' page-editor-action='save' icon='save'></li>
+                <li>
+                    <?php foreach( Scope::$app->_language->supported as $lang ) { ?>
+                        <input name='Page[title][<?=$lang?>]' value='<?=$model->title[$language]?>'  class='<?=( ( $lang !== $language ) ? "hidden" : "" )?>'/>
+                    <?php } ?>
+                </li>
+                <li>
+                    <?php foreach( Scope::$app->_language->supported as $lang ) { ?>
+                        <input name='Page[url][<?=$lang?>]' value='<?=$model->url[$language]?>'  class='<?=( ( $lang !== $language ) ? "hidden" : "" )?>'/>
+                    <?php } ?>
+                </li>
+
             </ul>
 
             <table id='w0-panels-1' class='panels' style='height: calc( 100% - 50px ); width: 100%'>
@@ -122,9 +138,7 @@ header('X-XSS-Protection: 0');
                     <td class='column divider vertical' width=10>
                     </td>
                     <td class='column'>
-                        <div>
-                            <iframe id='iframe' src="http://ioxo.nl/scope-cms-page/scope-cms-page-preview?id=<?=$model->id?>&language=<?=$language?>" frameborder=0></iframe>
-                        </div>
+                        <iframe id='iframe' src="http://ioxo.nl/scope-cms-page/scope-cms-page-preview?id=<?=$model->id?>&language=<?=$language?>" frameborder=0></iframe>
                     </td>
                 </tr>
         </div>

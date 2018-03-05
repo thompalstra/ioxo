@@ -1,5 +1,4 @@
 <?php
-\Scope::$app->language = 'en';
 $this->title = Scope::$app->context->page->getTitle();
 ?>
 

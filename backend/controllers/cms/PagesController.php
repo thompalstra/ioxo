@@ -15,8 +15,10 @@ class PagesController extends \scope\web\Controller{
         }
 
         $language = isset( $_GET['language'] ) ? $_GET['language'] : Scope::$app->language;
-
-        if( $_POST && $page->load($_POST) && $page->save() ){
+        
+        if( $_POST ){
+            $page->load($_POST);
+            $page->save();
             $url = $_SERVER['REQUEST_URI'];
             header("Location: $url");
             $page->load($_POST);

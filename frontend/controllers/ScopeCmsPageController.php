@@ -19,7 +19,7 @@ class ScopeCmsPageController extends \scope\web\Controller{
         ])->one();
 
         Scope::$app->context->page = $model;
-
+        
         return $this->render('scope-cms-page-view', [
             'page' => Scope::$app->context->page
         ] );

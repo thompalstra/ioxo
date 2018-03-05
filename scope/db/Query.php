@@ -13,6 +13,21 @@ class Query extends Scope\core\Base{
 
     public $arguments = [];
 
+    public function showColumns( $tableName ){
+        $command = "SHOW COLUMNS FROM " . $tableName;
+
+        $sth = Scope::$app->db->conn->prepare( $command );
+        $sth->execute();
+        $columns = $sth->fetchAll();
+        $columnNames = [];
+        foreach( $columns as $column ){
+            if( isset( $column['Field'] ) ){
+                $columnNames[] = $column['Field'];
+            }
+        }
+        return $columnNames;
+    }
+
     public function select( $argument ){
         $this->select = $argument;
     }

@@ -1,33 +1,3 @@
-<style>
-    .code-wrapper{
-        background-color: #333;
-        margin: 0;
-        padding: 10px;
-        color: #f2f2f2;
-        display: inline-block;
-        width: 100%;
-        box-sizing: border-box;
-
-        overflow: hidden;
-
-        webkit-box-shadow: inset 0px 0px 100px -5px rgba(0,0,0,1);
-        -moz-box-shadow: inset 0px 0px 100px -5px rgba(0,0,0,1);
-        box-shadow: inset 0px 0px 100px -5px rgba(0,0,0,1);
-    }
-
-    .code-wrapper > .col{
-        padding: 10px;
-    }
-
-    .code-wrapper code{
-        white-space: pre-wrap;
-    }
-
-    #w0-tabs-about-ioxo h4{
-        margin: 5px 0;
-    }
-</style>
-
 <div class='wrapper'>
     <div id='w0-tabs' class='tabs'>
         <ul class="tabcontrols">

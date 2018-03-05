@@ -4,16 +4,23 @@ namespace scope\base;
 use Scope;
 
 class Model extends \scope\core\Base{
+
+    public $isNewRecord = true;
+
     public function __construct( $args = [] ){
+
         foreach( $args as $k => $v){
             $this->$k = $v;
         }
-        foreach( $this as $k => $v ){
-            if( $k[0] == '_' || strtolower($k) == 'isnewrecord' ){
-                continue;
+
+        if( method_exists( $this, 'tableName' ) ){
+            foreach( $this->showColumns() as $columnName ){
+                if( !property_exists( $this, $columnName ) ){
+                    $this->$columnName = null;
+                }
+                $this->_oldAttributes[$columnName] = $this->_attributes[$columnName] = $this->$columnName;
+                $this->$columnName = &$this->_attributes[$columnName];
             }
-            $this->_oldAttributes[$k] = $this->_attributes[$k] = $v;
-            $this->$k = &$this->_attributes[$k];
         }
 
         if( isset( $args['isNewRecord'] ) && $args['isNewRecord'] == false ){
@@ -21,9 +28,8 @@ class Model extends \scope\core\Base{
         }
     }
 
-    public static function tableName(){
-        $shortName = self::shortName();
-        echo "Missing $shortName::tableName()"; exit();
+    public function showColumns(){
+        return Scope::query()->showColumns( $this->tableName() );
     }
 
     public function onAfterFind(){
@@ -49,6 +55,33 @@ class Model extends \scope\core\Base{
             return $this->createRecord();
         } else {
             return $this->updateRecord();
+        }
+    }
+    public function createRecord(){
+
+        $lines = [];
+
+        $tableName = $this->tableName();
+
+        $lines[] = "INSERT INTO $tableName";
+
+        $columns = [];
+        $values = [];
+
+        foreach( $this->_attributes as $k => $v ){
+            $columns[] = $k;
+            $values[] = Scope::query()->createValue( $v );
+        }
+
+        $lines[] = "( " . implode(', ', $columns) . " )";
+        $lines[] = "VALUES ( " . implode(', ', $values) . " )";
+
+        $command = implode(' ', $lines);
+
+        $sth = Scope::$app->db->conn->prepare( $command );
+        $r = $sth->execute();
+        if( $r == true ){
+            $this->id = Scope::$app->db->conn->lastInsertId();
         }
     }
     public function updateRecord(){

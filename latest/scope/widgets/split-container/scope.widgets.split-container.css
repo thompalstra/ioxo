@@ -1,0 +1,23 @@
+.splitter{
+    -webkit-user-select: none;  /* Chrome all / Safari all */
+    -moz-user-select: none;     /* Firefox all */
+    -ms-user-select: none;      /* IE 10+ */
+    user-select: none;          /* Likely future */
+}
+
+.splitter.vertical,
+.splitter.horizontal td{
+    background-color: #f2f2f2;
+    color: #111;
+}
+.splitter.vertical{
+    width: 10;
+    cursor: col-resize;
+}
+.splitter.horizontal{
+    height: 10;
+    cursor: row-resize;
+}
+.split-container{
+    border-spacing: 0;
+}
