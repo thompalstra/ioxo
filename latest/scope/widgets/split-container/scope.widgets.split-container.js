@@ -8,22 +8,38 @@ extend( SplitContainer ).with({
     registerListeners: function(e){
         this.element.listen('mousedown', function(e){
             if( e.target.matches('.splitter.vertical') || e.target.parentNode.matches('.splitter.horizontal') ){
-
                 if( e.target.matches('.splitter.vertical') ){
                     this.splitter = e.target;
                 } else if( e.target.parentNode.matches('.splitter.horizontal') ){
                     this.splitter = e.target.parentNode;
                 }
 
+                this.element.attr('resizing', '');
+
                 if( this.splitter.matches('.vertical') ){
                     node = this.splitter.previousElementSibling;
+
+                    node.find('.column').forEach(function(el){
+                        el.width = '';
+                    });
+
+                    this.splitter.nextElementSibling.removeAttribute('width');
+
                     while( node = node.previousElementSibling ){
+
                         if( node.matches('.column') ){
                             node.width = node.offsetWidth;
                         }
                     }
                 } else if( this.splitter.matches('.horizontal') ){
                     node = this.splitter.previousElementSibling;
+
+                    node.find('.row').forEach(function(el){
+                        el.removeAttribute('height');
+                    });
+
+                    this.splitter.nextElementSibling.removeAttribute('height');
+
                     while( node = node.previousElementSibling ){
                         if( node.matches('.row') ){
                             node.setAttribute('height', node.offsetHeight);
@@ -51,8 +67,11 @@ extend( SplitContainer ).with({
             }
         }.bind(this))
         this.element.listen('mouseup mouseleave', function(e){
-            console.log(e.type);
+            if( this.splitter ){
+                this.element.dispatch('afterresize');
+            }
             this.splitter = null;
+            this.element.attr('resizing', null);
         }.bind(this))
     }
 })

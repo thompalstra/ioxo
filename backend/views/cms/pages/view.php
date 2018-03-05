@@ -48,6 +48,16 @@ header('X-XSS-Protection: 0');
         color: #111;
     }
 
+    .page-editor .page-editor-action input{
+        height: 50px;
+        width: 200px;
+        padding: 0 10px;
+        margin: 0 10px;
+        border: 0;
+        background-color: #f2f2f2;
+        color: #111;
+    }
+
     .page-editor .page-editor-action[icon]:after,
     .page-editor .code-action[icon]:after{
         content: attr(icon);
@@ -70,6 +80,12 @@ header('X-XSS-Protection: 0');
         width: 100%;
     }
 
+    .page-editor textarea{
+        background-color: #333;
+        color: #f2f2f2;
+        resize: none;
+    }
+
 
     .page-editor[code-text-wrap="1"] textarea{
         white-space: nowrap;
@@ -81,51 +97,69 @@ header('X-XSS-Protection: 0');
         -ms-user-select: none;      /* IE 10+ */
         user-select: none;          /* Likely future */
     }
+
+    .page-editor[mode="code"] #c2-tr2{
+        display: none;
+    }
+    .page-editor[mode="content"] #c2-tr1{
+        display: none;
+    }
+    .page-editor[mode="content"] #w1-split-container-2 .splitter,
+    .page-editor[mode="code"] #w1-split-container-2 .splitter{
+        display: none;
+    }
+
+    .split-container[resizing] td,
+    .split-container[resizing] tr,
+    .split-container[resizing] iframe,
+    .split-container[resizing] [contenteditable]{
+        pointer-events: none;
+    }
 </style>
 
-    <form method='POST' id='w0-form'>
-
+    <form method='POST' id='w0-form' style='margin-bottom: 0;'>
         <div id='w0-page-editor' class='page-editor' mode='code'>
             <ul class='page-editor-actions'>
                 <li class='page-editor-action' page-editor-action='save' icon='save'></li>
-                <li>
+                <li class='page-editor-action' page-editor-action='modeCode' icon='code'></li>
+                <li class='page-editor-action' page-editor-action='modeBoth' icon='create'></li>
+                <li class='page-editor-action' page-editor-action='modeContent' icon='pageview'></li>
+                <li class='page-editor-action'>
                     <?php foreach( Scope::$app->_language->supported as $lang ) { ?>
-                        <input name='Page[title][<?=$lang?>]' value='<?=$model->title[$language]?>'  class='<?=( ( $lang !== $language ) ? "hidden" : "" )?>'/>
+                        <input title="This page's title" name='Page[title][<?=$lang?>]' value='<?=$model->title[$language]?>'  class='<?=( ( $lang !== $language ) ? "hidden" : "" )?>'/>
                     <?php } ?>
                 </li>
-                <li>
+                <li class='page-editor-action'>
                     <?php foreach( Scope::$app->_language->supported as $lang ) { ?>
-                        <input name='Page[url][<?=$lang?>]' value='<?=$model->url[$language]?>'  class='<?=( ( $lang !== $language ) ? "hidden" : "" )?>'/>
+                        <input title="This page's url" name='Page[url][<?=$lang?>]' value='<?=$model->url[$language]?>'  class='<?=( ( $lang !== $language ) ? "hidden" : "" )?>'/>
                     <?php } ?>
                 </li>
-
             </ul>
-
-            <table id='w0-panels-1' class='panels' style='height: calc( 100% - 50px ); width: 100%'>
-                <tr>
-                    <td class='column' width=50%>
-                        <table id='w0-panels-1' class='panels' height=100% width=100%>
+            <table id='w0-split-container-1' class='split-container' style='height: calc( 100% - 50px ); width: 100%'>
+                <tr class='row'>
+                    <td id='c1-td1' class='column' width=200>
+                        <table id='w1-split-container-2' class='split-container' height=100% width=100%>
                             <!-- <tr height="50%"> -->
-                            <tr id='code'>
-                                <td>
+                            <tr id='c2-tr1' class='row'>
+                                <td id='c2-td1' class='column'>
                                     <div class='code'>
                                         <ul class='code-actions'>
-                                            <li class='code-action' code-action='toggleTextWrap' icon='wrap_text'>
-                                            </li>
+                                            <li class='code-action' code-action='toggleTextWrap' icon='wrap_text'></li>
                                         </ul>
-                                        <?php foreach( Scope::$app->_language->supported as $lang ) { ?>
-                                            <textarea name='Page[content][<?=$lang?>]' class='<?=( ( $lang !== $language ) ? "hidden" : "" )?>' >
-                                                <?=$model->content[$lang]?>
-                                            </textarea>
-                                        <?php } ?>
+                                        <?php foreach( Scope::$app->_language->supported as $lang ) {
+                                            $content = $model->content[$lang];
+                                            $name = "Page[content][$lang]";
+                                            $class = ( $lang !== $language ) ? "hidden" : "";
+                                            echo "<textarea name='$name' class='$class'>$content</textarea>";
+                                        } ?>
                                     </div>
                                 </td>
                             </tr>
-                            <tr>
-                                <td class='column divider horizontal' height=10></td>
+                            <tr class='splitter horizontal' height=10>
+                                <td></td>
                             </tr>
-                            <tr>
-                                <td>
+                            <tr id='c2-tr2' class='row'>
+                                <td id='c2-td2' class='column'>
                                     <div class='content'>
                                         <div contenteditable="true">
                                             <?=$model->content[$lang]?>
@@ -135,38 +169,113 @@ header('X-XSS-Protection: 0');
                             </tr>
                         </table>
                     </td>
-                    <td class='column divider vertical' width=10>
+                    <td class='splitter vertical' width=10>
                     </td>
-                    <td class='column'>
+                    <td id='c1-td2' class='column'>
                         <iframe id='iframe' src="http://ioxo.nl/scope-cms-page/scope-cms-page-preview?id=<?=$model->id?>&language=<?=$language?>" frameborder=0></iframe>
                     </td>
                 </tr>
+            </table>
         </div>
     </form>
 <script>
 
-sc("[name^='Page[content]']").forEach(function(el){
-    el.onscroll = function(e){
-        localStorage.setItem( 'scroll_' + el.name, el.scrollTop );
-    }
-    el.scrollTop = localStorage.getItem( 'scroll_' + el.name );
-})
+
 
 window['PageEditor'] = window['Scope']['widgets']['PageEditor'] = function( element ){
     this.element = element;
 
-    var panels1 = new Scope.widgets.Panels( document.findOne('#w0-panels-1') );
+    var splitContainer = new Scope.widgets.SplitContainer( document.findOne('#w0-split-container-1') );
+    var splitContainer2 = new Scope.widgets.SplitContainer( document.findOne('#w1-split-container-2') );
+
+    document.findOne('#w0-split-container-1').listen('afterresize', this.savePanelSizes );
+    document.findOne('#w1-split-container-2').listen('afterresize', this.savePanelSizes );
 
     this.registerListeners();
+    this.restoreScrolling();
+    this.restorePanelSizes();
 }
 
 extend( window['PageEditor'] ).with({
+    restorePanelSizes: function(){
+        sc("tr.row").forEach(function(el){
+            var id = el.id;
+            if( id ){
+                var saved = JSON.parse( localStorage.getItem( el.id ) );
+                if( saved ){
+                    el.setAttribute('height', saved.offsetHeight);
+                }
+            }
+        })
+        sc("td.column").forEach(function(el){
+            var id = el.id;
+            if( id ){
+                var saved = JSON.parse( localStorage.getItem( el.id ) );
+                if( saved ){
+                    el.width = saved.offsetWidth;
+                    console.log( el, saved, el.offsetWidth );
+                }
+            }
+        })
+
+        var mode = localStorage.getItem('mode');
+
+        if( mode ){
+            switch( mode ){
+                case 'code':
+                    this.editorActions.modeCode.call( this, null );
+                break;
+                case 'both':
+                    this.editorActions.modeBoth.call( this, null );
+                break;
+                case 'content':
+                    this.editorActions.modeContent.call( this, null );
+                break;
+            }
+        }
+    },
+    savePanelSizes: function(){
+        sc("tr.row").forEach(function(el){
+            var id = el.id;
+            if( id ){
+                localStorage.setItem( id, JSON.stringify( {
+                    offsetHeight: el.offsetHeight
+                } ) );
+            }
+        })
+        sc("td.column").forEach(function(el){
+            var id = el.id;
+            if( id ){
+                localStorage.setItem( id, JSON.stringify( {
+                    offsetWidth: el.offsetWidth
+                } ) );
+            }
+        })
+    },
     editorActions: {
         save: function(){
-            console.log(this.element);
-             // this.element.closest('form').submit();
              document.findOne('#w0-form').submit();
+        },
+        modeCode: function(e){
+            this.element.attr('mode', 'code');
+            localStorage.setItem('mode',  'code');
+        },
+        modeBoth: function(e){
+            this.element.attr('mode', 'both');
+            localStorage.setItem('mode',  'both');
+        },
+        modeContent: function(e){
+            this.element.attr('mode', 'content');
+            localStorage.setItem('mode',  'content');
         }
+    },
+    restoreScrolling: function(){
+        sc("[name^='Page[content]']").forEach(function(el){
+            el.onscroll = function(e){
+                localStorage.setItem( 'scroll_' + el.name, el.scrollTop );
+            }
+            el.scrollTop = localStorage.getItem( 'scroll_' + el.name );
+        })
     },
     codeActions: {
         toggleTextWrap: function( target ){
