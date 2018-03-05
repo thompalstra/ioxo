@@ -11,18 +11,20 @@ header('X-XSS-Protection: 0');
         width: 100%;
         height: 100%;
     }
-
-    .page-editor .preview,
-    .page-editor .preview iframe,
-    .page-editor .content,
-    .page-editor .content [contenteditable="true"]{
-        width: 100%;
-        height: 100%;
+    .page-editor .split-container .column{
+        position: relative;
+        padding: 0;
+    }
+    .page-editor .split-container .inner{
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
     }
 
-    .page-editor .code{
-        width: 100%;
+    .page-editor .split-container .inner iframe#iframe{
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
         height: 100%;
+        width: 100%;
     }
 
     .page-editor .page-editor-actions,
@@ -30,7 +32,15 @@ header('X-XSS-Protection: 0');
         list-style: none;
         padding: 0;
         margin: 0;
+        /* height: 50px; */
+    }
+
+    .page-editor .page-editor-actions{
         height: 50px;
+    }
+
+    .page-editor .code-actions{
+        height: 25px;
     }
 
     .page-editor .page-editor-action,
@@ -40,6 +50,8 @@ header('X-XSS-Protection: 0');
         line-height: 50px;
         display: inline-block;
         float: left;
+        color: #ddd;
+        box-sizing: border-box;
     }
 
     .page-editor .page-editor-action.in,
@@ -49,10 +61,10 @@ header('X-XSS-Protection: 0');
     }
 
     .page-editor .page-editor-action input{
-        height: 50px;
+        height: 25px;
         width: 200px;
         padding: 0 10px;
-        margin: 0 10px;
+        margin: 12.5px 10px;
         border: 0;
         background-color: #f2f2f2;
         color: #111;
@@ -70,14 +82,10 @@ header('X-XSS-Protection: 0');
         font-size: 25px;
     }
 
-    .page-editor iframe{
-        width: 100%;
-        height: 100%;
-    }
-
     .page-editor .code textarea{
-        height: calc( 100% - 50px );
+        height: calc( 100% - 25px );
         width: 100%;
+        border: 0;
     }
 
     .page-editor textarea{
@@ -115,6 +123,48 @@ header('X-XSS-Protection: 0');
     .split-container[resizing] [contenteditable]{
         pointer-events: none;
     }
+
+    .page-editor .page-editor-action[icon][page-editor-action="save"]:after{
+        background-color: green;
+        color: white;
+    }
+
+    .page-editor-action[page-editor-action="modeCode"],
+    .page-editor-action[page-editor-action="modeBoth"],
+    .page-editor-action[page-editor-action="modeContent"]{
+        margin: 12.5px 0;
+        height: 25px;
+        line-height: 25px;
+        border: 1px solid #ddd;
+    }
+    .page-editor .page-editor-action[icon][page-editor-action="modeCode"]:after,
+    .page-editor .page-editor-action[icon][page-editor-action="modeBoth"]:after,
+    .page-editor .page-editor-action[icon][page-editor-action="modeContent"]:after{
+        line-height: 25px;
+        height: 25px;
+        width: 50px;
+    }
+    .page-editor .page-editor-action[icon][page-editor-action="modeCode"]{
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+        border-right: 0;
+        margin-left: 12.5px;
+    }
+    .page-editor .page-editor-action[icon][page-editor-action="modeContent"]{
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+        border-left: 0;
+        margin-right: 12.5px;
+    }
+    .page-editor .code-action{
+        height: 25px;
+        line-height: 25px;
+    }
+
+    .page-editor .code-action[icon]:after{
+        height: 25px;
+        line-height: 25px;
+    }
 </style>
 
     <form method='POST' id='w0-form' style='margin-bottom: 0;'>
@@ -142,16 +192,18 @@ header('X-XSS-Protection: 0');
                             <!-- <tr height="50%"> -->
                             <tr id='c2-tr1' class='row'>
                                 <td id='c2-td1' class='column'>
-                                    <div class='code'>
-                                        <ul class='code-actions'>
-                                            <li class='code-action' code-action='toggleTextWrap' icon='wrap_text'></li>
-                                        </ul>
-                                        <?php foreach( Scope::$app->_language->supported as $lang ) {
-                                            $content = $model->content[$lang];
-                                            $name = "Page[content][$lang]";
-                                            $class = ( $lang !== $language ) ? "hidden" : "";
-                                            echo "<textarea name='$name' class='$class'>$content</textarea>";
-                                        } ?>
+                                    <div class='inner'>
+                                        <div class='code'>
+                                            <ul class='code-actions'>
+                                                <li class='code-action' code-action='toggleTextWrap' icon='wrap_text'></li>
+                                            </ul>
+                                            <?php foreach( Scope::$app->_language->supported as $lang ) {
+                                                $content = $model->content[$lang];
+                                                $name = "Page[content][$lang]";
+                                                $class = ( $lang !== $language ) ? "hidden" : "";
+                                                echo "<textarea name='$name' class='$class'>$content</textarea>";
+                                            } ?>
+                                        </div>
                                     </div>
                                 </td>
                             </tr>
@@ -160,9 +212,11 @@ header('X-XSS-Protection: 0');
                             </tr>
                             <tr id='c2-tr2' class='row'>
                                 <td id='c2-td2' class='column'>
-                                    <div class='content'>
-                                        <div contenteditable="true">
-                                            <?=$model->content[$lang]?>
+                                    <div class='inner'>
+                                        <div class='content'>
+                                            <div contenteditable="true">
+                                                <?=$model->content[$lang]?>
+                                            </div>
                                         </div>
                                     </div>
                                 </td>
@@ -172,7 +226,9 @@ header('X-XSS-Protection: 0');
                     <td class='splitter vertical' width=10>
                     </td>
                     <td id='c1-td2' class='column'>
-                        <iframe id='iframe' src="http://ioxo.nl/scope-cms-page/scope-cms-page-preview?id=<?=$model->id?>&language=<?=$language?>" frameborder=0></iframe>
+                        <div class='inner'>
+                            <iframe id='iframe' src="http://ioxo.nl/scope-cms-page/scope-cms-page-preview?id=<?=$model->id?>&language=<?=$language?>" frameborder=0></iframe>
+                        </div>
                     </td>
                 </tr>
             </table>
@@ -259,12 +315,39 @@ extend( window['PageEditor'] ).with({
         modeCode: function(e){
             this.element.attr('mode', 'code');
             localStorage.setItem('mode',  'code');
+            this.element.find('[page-editor-action="modeCode"]').forEach(function(el){
+                el.addClass('in');
+            });
+            this.element.find('[page-editor-action="modeBoth"]').forEach(function(el){
+                el.removeClass('in');
+            });
+            this.element.find('[page-editor-action="modeContent"]').forEach(function(el){
+                el.removeClass('in');
+            });
         },
         modeBoth: function(e){
             this.element.attr('mode', 'both');
             localStorage.setItem('mode',  'both');
+            this.element.find('[page-editor-action="modeCode"]').forEach(function(el){
+                el.removeClass('in');
+            });
+            this.element.find('[page-editor-action="modeBoth"]').forEach(function(el){
+                el.addClass('in');
+            });
+            this.element.find('[page-editor-action="modeContent"]').forEach(function(el){
+                el.removeClass('in');
+            });
         },
         modeContent: function(e){
+            this.element.find('[page-editor-action="modeCode"]').forEach(function(el){
+                el.removeClass('in');
+            });
+            this.element.find('[page-editor-action="modeBoth"]').forEach(function(el){
+                el.removeClass('in');
+            });
+            this.element.find('[page-editor-action="modeContent"]').forEach(function(el){
+                el.addClass('in');
+            });
             this.element.attr('mode', 'content');
             localStorage.setItem('mode',  'content');
         }
