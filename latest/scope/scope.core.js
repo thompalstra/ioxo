@@ -22,7 +22,6 @@
     }
 })();
 (function () {
-
     if( typeof Element.closest === 'remove' ) return false;
 
     Element.prototype.remove = function() {
@@ -97,8 +96,53 @@ if( typeof window['sc'] == 'undefined'  ){
 if( typeof window['_'] == 'undefined'  ){
     window['_'] = window['Scope'];
 }
+var scCounter = 0;
+class ScopeWidget extends HTMLElement{
+    constructor(){
+        super();
+        console.log('new scope widget');
+    }
+    connectedCallback(){
+        console.log('connected');
+        var widget = this.getAttribute('widget');
+        var list = widget.split('.');
+        var instance = null;
+        for(var i in list){
+            if( instance == null ){
+                instance = window[ list[i] ];
+            } else if( instance[ list[i] ] ) {
+                instance = instance[ list[i] ];
+            }
+        }
+
+        this.setAttribute('sc-widget-status', 'pending');
+
+        var instance = new instance( this );
+
+        if( instance['beforeload'] ){
+            instance['beforeload'].call( this, null );
+        }
+
+        if( instance['afterload'] ){
+            instance['afterload'].call( this, null );
+        }
+        if( this.id.length == 0 ){
+            this.id = "w" + ( ++scCounter ) + '-' + widget.replace(/\./g, '-').toLowerCase();
+        }
+        this.removeAttribute('widget');
+        this.removeAttribute('sc-widget-status');
+    }
+    disconnectedCallback(){
+        console.log('disconnected');
+    }
+}
+
+customElements.define('sc-widget', ScopeWidget);
 
 extend( Scope ).with({
+    nav: {},
+    tools: {},
+    widgets: {},
     getUserAgent: function(){
         var data = {
             name: 'netscape',
@@ -118,7 +162,6 @@ extend( Scope ).with({
 
         return data;
     },
-    widgets: {},
     request: {
         validate: function( obj ){
             if( !obj.hasOwnProperty('method') ){
@@ -130,6 +173,7 @@ extend( Scope ).with({
             if( !obj.hasOwnProperty('onerror') ){
                 obj['onerror'] = function(){};
             }
+
             if( !obj.hasOwnProperty('data') ){
                 obj['data'] = {};
             }
@@ -215,11 +259,19 @@ extend( Element, Document, Window ).with({
             }
         }
     },
-    dispatch: function( eventType ){
+    dispatch: function( eventType, arguments ){
         var event = new CustomEvent( eventType, {
             cancelable: true,
             bubbles: true
         } );
+
+        if( typeof arguments == 'object' ){
+            event.params = {};
+            for(var i in arguments){
+                event.params[i] = arguments[i];
+            }
+        }
+
         this.dispatchEvent( event );
         return event;
     }
@@ -263,6 +315,9 @@ extend( Element ).with({
     },
     removeClass: function( className ){
         this.classList.remove( className );
+    },
+    hasClass: function( className ){
+        return this.classList.contains( className );
     },
     toggleClass: function( className ){
         this.classList.toggle( className );
@@ -324,8 +379,6 @@ extend( Element ).with({
             this.attr('sc-slided-up', null);
             this.attr('sc-slided-down', '');
         }.bind(this),10);
-
-        console.log(height);
     },
     slideToggle: function( speed ){
         if( parseInt( this.style.height ) == 0  ){
@@ -337,15 +390,15 @@ extend( Element ).with({
 });
 
 extend( HTMLCollection, NodeList ).with({
-    listen: function( a, b, c ){
+    listen: function( a, b, c, d ){
         var split = a.split(' ');
         for( var i in split ){
             var event = split[i];
             for(i=0;i<this.length;i++){
                 if( typeof c == 'undefined' ){
-                    this[i].listen( event, b );
-                } else {
                     this[i].listen( event, b, c );
+                } else {
+                    this[i].listen( event, b, c, d );
                 }
             }
         }
@@ -393,6 +446,9 @@ Returns the index of this element's child index in the given class\n\n\
     addClass: "\
 Adds the given class\n\n\
 %cx.addClass( className )",
+    hasClass: "\
+Returns a boolean indiciating the element contains the given class\n\n\
+%cx.hasClass( className )",
     removeClass: "\
 Removes the given class\n\n\
 %cx.removeClass( className )",
@@ -469,6 +525,16 @@ document.listen('DOMContentLoaded', function(e){
     document.dispatch('ready');
 });
 
+document.listen('click', '[sc-on="click"]', function(e){
+    var target = this.attr('sc-for');
+    var event = this.attr('sc-trigger');
+    if( target ){
+        document.findOne(target).dispatch(event);
+    } else {
+        this.dispatch(event);
+    }
+});
+
 document.listen('touchstart mousedown', '*', function( event ){
     this.isMouseDown = true;
 
@@ -482,7 +548,6 @@ document.listen('touchstart mousedown', '*', function( event ){
     }.bind( this ), 1500 );
 });
 document.listen('touchmove mousemove', '*', function( event ){
-
     if( this.isMouseDown ){
 
         var startX = ( this[ ( event.type == 'touchmove' ? 'touchstart' : 'mousedown' ) ] ).x;

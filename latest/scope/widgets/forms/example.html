@@ -1,0 +1,43 @@
+<html>
+    <head>
+        <script type="text/javascript" src="http://www.ioxo.nl/script.js"></script>
+        <link rel="stylesheet" href="http://www.ioxo.nl/latest/scope/scope.core.css"/>
+        <script type="text/javascript" src="http://www.ioxo.nl/latest/scope/scope.core.js"></script>
+        <link rel="stylesheet" href="http://www.ioxo.nl/latest/scope/widgets/forms/scope.widgets.forms.css"/>
+        <script src="http://www.ioxo.nl/latest/scope/widgets/forms/scope.widgets.forms.js" type="text/javascript"></script>
+    </head>
+    <body>
+        <div class='wrapper'>
+            <ul class='breadcrumb'>
+                <a href="/">
+                    <li sc-icon-before="home">
+                        Home
+                    </li>
+                </a>
+            </ul>
+        </div>
+        <style>
+            form[submitted="true"] input:invalid{
+                border: 1px solid red;
+            }
+            input{
+                outline: 0;
+            }
+        </style>
+        <div id='forms-wrapper' class='wrapper'>
+            <form id='form-1' novalidate>
+                <input title="Gebruikersnaam moet tussen de 4 en 20 karakters zijn." name="username" type="text" pattern=".{4,20}" required/>
+                <input title="Wachtwoord moet tussen de 5 en 10 karakters zijn." name="password" type="password" pattern=".{5,10}" required/>
+                <button id='forms1-submit' type="submit">save</button>
+            </form>
+        </div>
+        <script>
+            document.listen('ready', function(e){
+
+                var forms1 = new Scope.widgets.Form( document.findOne('#form-1') );
+
+                showPageCode( '#forms-wrapper', location.href );
+            });
+        </script>
+    </body>
+</html>

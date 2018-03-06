@@ -1,0 +1,93 @@
+<html>
+    <head>
+        <script type="text/javascript" src="http://www.ioxo.nl/script.js"></script>
+        <link rel="stylesheet" href="http://www.ioxo.nl/latest/scope/scope.core.css"/>
+        <script type="text/javascript" src="http://www.ioxo.nl/latest/scope/scope.core.js"></script>
+        <link rel="stylesheet" href="http://www.ioxo.nl/latest/scope/nav/sidebar/scope.nav.sidebar.css"/>
+        <script type="text/javascript" src="http://www.ioxo.nl/latest/scope/nav/sidebar/scope.nav.sidebar.js"></script>
+    </head>
+    <body>
+        <sc-widget widget='Scope.nav.Sidebar' id='sidebar1' class='nav-sidebar left' has-backdrop>
+            <ul>
+                <li icon='home' sc-on='click' sc-for='#sidebar1' sc-trigger='toggle' sc-icon-before='arrow_back'>
+                    Hide
+                </li>
+                <li is-dropdown>
+                    Collections
+                    <ul id='sidebar-list-1'>
+                        <a href="">
+                            <li sc-icon-before='insert_photo' sc-icon-after='navigate_next'>
+                                Collection 1
+                            </li>
+                        </a>
+                        <a href="">
+                            <li sc-icon-before='insert_photo' sc-icon-after='navigate_next'>
+                                Collection 2
+                            </li>
+                        </a>
+                        <a href="">
+                            <li sc-icon-before='insert_photo' sc-icon-after='navigate_next'>
+                                Collection 3
+                            </li>
+                        </a>
+                    </ul>
+                </li>
+                <a href="">
+                    <li sc-icon-before='settings' sc-icon-after='navigate_next'>
+                        Settings
+                    </li>
+                </a>
+            </ul>
+        </sc-widget>
+        <sc-widget widget='Scope.nav.Sidebar' id='sidebar2' class='nav-sidebar right' has-backdrop>
+            <ul>
+                <li icon='home' sc-on='click' sc-for='#sidebar2' sc-trigger='toggle' sc-icon-after='arrow_forward'>
+                    Hide
+                </li>
+                <li is-dropdown>
+                    Collections
+                    <ul id='sidebar-list-1'>
+                        <a href="">
+                            <li sc-icon-before='insert_photo' sc-icon-before='navigate_prev'>
+                                Collection 1
+                            </li>
+                        </a>
+                        <a href="">
+                            <li sc-icon-before='insert_photo' sc-icon-before='navigate_next'>
+                                Collection 2
+                            </li>
+                        </a>
+                        <a href="">
+                            <li sc-icon-before='insert_photo' sc-icon-before='navigate_next'>
+                                Collection 3
+                            </li>
+                        </a>
+                    </ul>
+                </li>
+                <a href="">
+                    <li sc-icon-before='settings' sc-icon-after='navigate_next'>
+                        Settings
+                    </li>
+                </a>
+            </ul>
+        </sc-widget>
+        <div class='wrapper'>
+            <ul class='breadcrumb'>
+                <a href="/">
+                    <li sc-icon-before="home">
+                        Home
+                    </li>
+                </a>
+            </ul>
+        </div>
+        <div id='sidebar-wrapper' class='wrapper'>
+            <button class='btn btn-default flat-to-default action' sc-on='click' sc-for='#sidebar1' sc-trigger='toggle'>toggle left</button>
+            <button class='btn btn-default flat-to-default action' sc-on='click' sc-for='#sidebar2' sc-trigger='toggle'>toggle right</button>
+        </div>
+        <script>
+            document.listen('ready', function(e){
+                showPageCode( '#sidebar-wrapper', location.href );
+            });
+        </script>
+    </body>
+</html>

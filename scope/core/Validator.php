@@ -6,17 +6,19 @@ class Validator extends \scope\core\Base{
         $fn = 'as' . ucwords( $validator );
         if( method_exists( get_called_class(), $fn ) ){
             call_user_func_array( [ get_called_class(), $fn ], [ $attribute, $validatorOptions, $baseModel ] );
-        } else if( method_exists( $baseModel, $fn ) ) {
-            call_user_func_array( [ $baseModel, $fn ], [ $attribute, $validatorOptions, $baseModel ] );
+        } else if( method_exists( $baseModel, $validator ) ) {
+            call_user_func_array( [ $baseModel, $validator ], [ $attribute, $validatorOptions, $baseModel ] );
         } else {
             echo "Validator::$fn is not a valid method."; exit();
         }
     }
     public static function asString( $attribute, $options = [], $baseModel ){
+
         $value = (string)$baseModel->$attribute;
         if( is_string( $value ) ){
             if( isset( $options['minLength'] ) ){
                 $minLength = $options['minLength'];
+
                 if( strlen( $value ) < $minLength ){
                     $attributeLabel = $baseModel->getAttributeLabel($attribute);
                     $baseModel->addError($attribute, "$attributeLabel must be larger than or equal to $minLength." );
@@ -56,6 +58,12 @@ class Validator extends \scope\core\Base{
         } else {
             $attributeLabel = $baseModel->getAttributeLabel($attribute);
             $baseModel->addError($attribute, "$attributeLabel is not a valid string." );
+        }
+    }
+    public static function asRequired( $attribute, $options = [], $baseModel ){
+        $value = $baseModel->$attribute;
+        if( $value == null || empty($value) ){
+            $baseModel->addError($attribute, "$attributeLabel cannot be empty." );
         }
     }
 }

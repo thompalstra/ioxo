@@ -12,6 +12,9 @@
         <link href="http://www.ioxo.nl/latest/scope/widgets/datatable/scope.widgets.datatable.css" rel="stylesheet"/>
         <script src="http://www.ioxo.nl/latest/scope/widgets/datatable/scope.widgets.datatable.js" type="text/javascript"></script>
 
+        <link href="http://www.ioxo.nl/latest/scope/widgets/forms/scope.widgets.forms.css" rel="stylesheet"/>
+        <script src="http://www.ioxo.nl/latest/scope/widgets/forms/scope.widgets.forms.js" type="text/javascript"></script>
+
         <script src="http://www.ioxo.nl/latest/scope/widgets/cjax/scope.widgets.cjax.js" type="text/javascript"></script>
 
         <script src="/web/js/script.js" type="text/javascript"></script>

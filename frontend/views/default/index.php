@@ -4,6 +4,7 @@
             <li sc-target="#w0-tabs-about-ioxo" class="active">About <strong>IOXO</strong></li>
             <li sc-target="#w0-tabs-widgets">Widgets</li>
             <li sc-target="#w0-tabs-tools">Tools</li>
+            <li sc-target="#w0-tabs-nav">Nav</li>
         </ul>
         <ul class="tabcontent">
             <li id='w0-tabs-about-ioxo' class="active">
@@ -177,6 +178,11 @@ jQuery.fn.addClass = function( value ) {
             <li id='w0-tabs-widgets'>
                 <h2>Widgets</h2>
                 <ul class='datalist'>
+                    <a href="/latest/scope/widgets/forms/example.html">
+                        <li>
+                            Forms
+                        </li>
+                    </a>
                     <a href="/latest/scope/widgets/card-gallery/example.html">
                         <li>
                             Card Gallery
@@ -225,6 +231,21 @@ jQuery.fn.addClass = function( value ) {
                     <a href="/latest/scope/tools/checkbox/example.html">
                         <li>
                             Checkbox
+                        </li>
+                    </a>
+                    <a href="/latest/scope/tools/pop-over/example.html">
+                        <li>
+                            Popover
+                        </li>
+                    </a>
+                </ul>
+            </li>
+            <li id='w0-tabs-nav'>
+                <h2>Nav</h2>
+                <ul class='datalist'>
+                    <a href="/latest/scope/nav/sidebar/example.html">
+                        <li>
+                            sidebar
                         </li>
                     </a>
                 </ul>

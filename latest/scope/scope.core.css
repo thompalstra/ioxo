@@ -33,7 +33,7 @@ html, body{
 
 .wrapper{
     margin: 0 auto;
-    overflow: auto;
+    /* overflow: auto; */
 }
 .col{
     min-height: 10px;
@@ -418,13 +418,14 @@ html, body{
 }
 
 .action,
-.action.flat-to-default:active{
-    /* border: 1px solid #3D8EB9; */
+.action.flat-to-default:active,
+.action.flat-to-default:focus{
     background-color: #3D8EB9;
     color: #f2f2f2;
 }
 .action.flat-to-default,
 .action.default-to-flat:active,
+.action.default-to-flat:focus,
 .action.flat{
     border: 1px solid #3D8EB9;
     color: #3D8EB9;
@@ -432,58 +433,77 @@ html, body{
 }
 
 .epic,
-.epic.flat-to-default:active{
-    /* border: 1px solid #7E3661; */
+.epic.flat-to-default:active,
+.epic.flat-to-default:focus{
     background-color: #7E3661;
     color: #f2f2f2;
 }
 .epic.flat-to-default,
 .epic.default-to-flat:active,
+.epic.default-to-flat:focus,
 .epic.flat{
-    /* border: 1px solid #7E3661; */
     color: #7E3661;
     background-color: transparent;
 }
 
 .success,
-.success.flat-to-default:active{
-    /* border: 1px solid #82C33C; */
+.success.flat-to-default:active,
+.success.flat-to-default:focus{
     background-color: #82C33C;
     color: #f2f2f2;
 }
 .success.flat-to-default,
 .success.default-to-flat:active,
+.success.default-to-flat:focus,
 .success.flat{
-    /* border: 1px solid #82C33C; */
     color: #82C33C;
     background-color: transparent;
 }
 
 .warning,
-.warning.flat-to-default:active{
-    /* border: 1px solid #D03400; */
+.warning.flat-to-default:active,
+.warning.flat-to-default:focus{
     background-color: #D03400;
     color: #f2f2f2;
 }
 .warning.flat-to-default,
 .warning.default-to-flat:active,
+.warning.default-to-flat:focus,
 .warning.flat{
-    /* border: 1px solid #D03400; */
     color: #D03400;
     background-color: transparent;
 }
 
 .info,
-.info.flat-to-default:active{
-    /* border: 1px solid #51BDCB; */
+.info.flat-to-default:active,
+.info.flat-to-default:focus{
     background-color: #51BDCB;
     color: #f2f2f2;
 }
 .info.flat-to-default,
 .info.default-to-flat:active,
+.info.default-to-flat:focus,
 .info.flat{
-    /* border: 1px solid #51BDCB; */
     color: #51BDCB;
+    background-color: transparent;
+}
+
+.sky,
+.sky.flat-to-default:active,
+.sky.flat-to-default:focus{
+    background-color: #f2f2f2;
+    color: #111;
+}
+
+.sky.bordered{
+    border: 1px solid #f2f2f2;
+}
+
+.sky.flat-to-default,
+.sky.default-to-flat:active,
+.sky.default-to-flat:focus,
+.sky.flat{
+    color: #111;
     background-color: transparent;
 }
 

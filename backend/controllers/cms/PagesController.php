@@ -6,6 +6,21 @@ use Scope;
 use common\models\scope\cms\Page;
 
 class PagesController extends \scope\web\Controller{
+
+    public function rules(){
+        return [
+            [
+                ['view'],
+                'allow' => !Scope::$app->identity->isGuest,
+                'deny' => Scope::$app->identity->isGuest,
+                'onDeny' => function(  $actionId, $rule  ){
+                    header("Location: /login");
+                    exit();
+                }
+            ]
+        ];
+    }
+
     public function actionView(){
 
         if( isset( $_GET['id'] ) ){
@@ -15,7 +30,7 @@ class PagesController extends \scope\web\Controller{
         }
 
         $language = isset( $_GET['language'] ) ? $_GET['language'] : Scope::$app->language;
-        
+
         if( $_POST ){
             $page->load($_POST);
             $page->save();
