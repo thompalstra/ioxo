@@ -50,11 +50,13 @@ class Controller extends scope\core\Base{
         $controllerName =  str_replace('/', '\\', $controllerNamespaceName . $controllerShortName);
 
         if( class_exists( $controllerName ) ){
+
             Scope::$app->controller = new $controllerName([
                 'path' => $path,
                 'controllerId' => $controllerId
             ]);
             return Scope::$app->controller->runAction( $actionId );
+
         } else {
             Scope::$app->controller = Controller::getDefaultController();
             return Scope::$app->controller->runError( "Page not found" );
@@ -78,33 +80,11 @@ class Controller extends scope\core\Base{
         $this->actionId = $actionId;
         $actionName = 'action' . Html::toCamelCase( $actionId );
         if( method_exists( $this, $actionName ) ){
-            if( $this->canRunAction( $actionId ) ){
-                return call_user_func_array( [ $this, $actionName ], [] );
-            }
+            return call_user_func_array( [ $this, $actionName ], [] );
         } else {
             $controllerName = $this->className();
             return $this->render( $actionId );
         }
-    }
-    public function canRunAction( $actionId ){
-        foreach( $this->rules() as $rule ){
-            $actionIds = $rule[0];
-            if( in_array( $actionId, $actionIds ) ){
-                if( isset( $rule['allow'] ) && $rule['allow'] == true ){
-                    if( isset( $rule['onAllow'] ) ){
-                        return $rule['onAllow']( $actionId, $rule );
-                    }
-                    return true;
-                }
-                if( isset($rule['deny']) && $rule['deny'] == true ){
-                    if( isset( $rule['onDeny'] ) ){
-                        return $rule['onDeny']( $actionId, $rule );
-                    }
-                    return false;
-                }
-            }
-        }
-        return true;
     }
 
     public function runError( $message ){
@@ -123,10 +103,6 @@ class Controller extends scope\core\Base{
         }
     }
 
-    public function rules(){
-        return [];
-    }
-
     public function render( $_view, $data = [] ){
         $view = new View();
 
@@ -137,11 +113,6 @@ class Controller extends scope\core\Base{
         return $view->renderFile( $layoutPath, [
             'view' => $content
         ] );
-    }
-
-    public function json( $data ){
-        echo json_encode( $data );
-        exit();
     }
 }
 ?>

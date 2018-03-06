@@ -43,7 +43,7 @@ class Base{
         }
     }
     public function hasErrors(){
-        return ( empty( $this->_errors ) ? false : true );
+        return ( empty( $this->_errors ) );
     }
     public function getErrors( $attribute = null ){
         if( $attribute ){
@@ -53,21 +53,11 @@ class Base{
         }
 
     }
-    public function addError( $attribute, $message = null ){
-
-        if( empty( $message ) ){
-            if( !isset( $this->_errors['_model']) ){
-                $this->_errors['_model'] = [];
-            }
-            $this->_errors['_model'][] = $attribute;
-        } else {
-            if( !isset( $this->_errors[$attribute]) ){
-                $this->_errors[$attribute] = [];
-            }
-            $this->_errors[$attribute][] = $message;
+    public function addError( $attribute, $message ){
+        if( !isset( $this->_errors[$attribute]) ){
+            $this->_errors[$attribute] = [];
         }
-
-
+        $this->_errors[$attribute][] = $message;
     }
     public function addErrors( $arg ){
         foreach( $arg as $attribute => $message ){
@@ -80,27 +70,28 @@ class Base{
             foreach( $data as $k => $v ){
                 $this->$k = $v;
             }
-            return true;
         }
-        return false;
-    }
+    }    
 
     public function validate(){
-        foreach( $this->attributes() as $attributeRules ){
-            $attributes = $attributeRules[0];
-            unset($attributeRules[0]);
-            $validator = $attributeRules['as'];
-            unset($attributeRules['as']);
-            $validatorOptions = $attributeRules;
-            foreach( $attributes as $attribute ){
-                call_user_func_array( [ '\scope\core\Validator', 'validateAttribute'], [$attribute, $validator, $validatorOptions, $this] );
-                // if( method_exists( Validator::className(), $validator ) ){
-                //     call_user_func_array( ['\scope\core\Validator', $validator], [$attribute, $validator, $validatorOptions, $this] );
-                // } else if( method_exists( $this, $validator ) ){
-                //     call_user_func_array( [$this, $validator], [$attribute, $validator, $validatorOptions, $this] );
-                // }
+        $reflectionProperties = (new \ReflectionObject($this))->getProperties(\ReflectionProperty::IS_PUBLIC);;
+        foreach( $reflectionProperties as $reflectionProperty ){
+            $reflectionPropertyName = $reflectionProperty->name;
+            $attributeValue = $this->$reflectionPropertyName;
+            foreach( $this->attributes() as $attributeRules ){
+                $attributes = $attributeRules[0];
+                unset($attributeRules[0]);
+                $validator = $attributeRules['as'];
+                unset($attributeRules['as']);
+                $validatorOptions = $attributeRules;
+
+                $r = array_search( $reflectionPropertyName, $attributes );
+                if( $index = array_search( $reflectionPropertyName, $attributes ) !== false ){
+                    \scope\core\Validator::validateAttribute( $reflectionPropertyName, $validator, $validatorOptions, $this );
+                }
             }
         }
+
         return empty( $this->_errors );
     }
 }
