@@ -7,9 +7,9 @@
         <script type="text/javascript" src="http://www.ioxo.nl/latest/scope/nav/sidebar/scope.nav.sidebar.js"></script>
     </head>
     <body>
-        <sc-widget widget='Scope.nav.Sidebar' id='sidebar1' class='nav-sidebar left' has-backdrop>
+        <sc-widget id='nav-sidebar-1' widget="Scope.nav.Sidebar" class="nav-sidebar left" backdrop="1">
             <ul>
-                <li icon='home' sc-on='click' sc-for='#sidebar1' sc-trigger='toggle' sc-icon-before='arrow_back'>
+                <li icon='home' sc-on='click' sc-trigger='toggle' sc-icon-before='arrow_back'>
                     Hide
                 </li>
                 <li is-dropdown>
@@ -39,9 +39,12 @@
                 </a>
             </ul>
         </sc-widget>
-        <sc-widget widget='Scope.nav.Sidebar' id='sidebar2' class='nav-sidebar right' has-backdrop>
+        <sc-widget id='nav-sidebar-2' widget="Scope.nav.Sidebar" class="nav-sidebar right" backdrop="1">
+            <param>
+
+            </options>
             <ul>
-                <li icon='home' sc-on='click' sc-for='#sidebar2' sc-trigger='toggle' sc-icon-after='arrow_forward'>
+                <li icon='home' sc-on='click' sc-trigger='toggle' sc-icon-after='arrow_forward'>
                     Hide
                 </li>
                 <li is-dropdown>
@@ -81,8 +84,8 @@
             </ul>
         </div>
         <div id='sidebar-wrapper' class='wrapper'>
-            <button class='btn btn-default flat-to-default action' sc-on='click' sc-for='#sidebar1' sc-trigger='toggle'>toggle left</button>
-            <button class='btn btn-default flat-to-default action' sc-on='click' sc-for='#sidebar2' sc-trigger='toggle'>toggle right</button>
+            <button class='btn btn-default flat-to-default action' sc-on='click' sc-for='#nav-sidebar-1' sc-trigger='toggle'>toggle left</button>
+            <button class='btn btn-default flat-to-default action' sc-on='click' sc-for='#nav-sidebar-2' sc-trigger='toggle'>toggle right</button>
         </div>
         <script>
             document.listen('ready', function(e){

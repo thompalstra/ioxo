@@ -1,0 +1,116 @@
+.nav-nav{
+
+}
+
+.nav-nav.fixed{
+    position: fixed;
+}
+
+.nav-nav.top{
+    top: 0;
+}
+.nav-nav.right{
+    right: 0;
+}
+.nav-nav.bottom{
+    bottom: 0;
+}
+.nav-nav.left{
+    left: 0;
+}
+
+.nav-nav ul{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.nav-nav li ul{
+    margin: 0 -10px;
+}
+
+.nav-nav ul li{
+    padding: 0 10px;
+    display: inline-block;
+
+    height: 50px;
+    line-height: 50px;
+    min-width: 50px;
+}
+
+.nav-nav li ul li{
+    display: block;
+}
+.nav-nav ul li[is-dropdown] ul{
+    display: none;
+}
+.nav-nav > ul > li[is-dropdown] > ul{
+    position: absolute;
+}
+
+.nav-nav ul li[is-dropdown][show] > ul{
+    display: block;
+}
+.nav-nav ul li[is-dropdown]:after{
+    content: "\E5C5";
+}
+.nav-nav ul li[is-dropdown][show]:after{
+    content: "\E5C7";
+}
+
+
+.nav-nav > ul > li > ul{
+    -webkit-box-shadow: 0px 0px 20px -5px rgba(0,0,0,0.5);
+    -moz-box-shadow: 0px 0px 20px -5px rgba(0,0,0,0.5);
+    box-shadow: 0px 0px 20px -5px rgba(0,0,0,0.5);
+}
+
+.nav-nav.top.right.left li ul{
+    left: 100%;
+    top: 100%;
+}
+
+.nav-nav.right.bottom.left li ul{
+    left: 0%;
+    bottom: 100%;
+}
+.nav-nav ul li[sc-icon-before]{
+    padding-left: 0;
+}
+
+.nav-nav ul li[sc-icon-after]{
+    padding-right: 0;
+}
+}
+.nav-nav li[sc-icon-before] > ul{
+    margin-left: 0;
+}
+.nav-nav li[sc-icon-after] > ul{
+    margin-right: 0;
+}
+
+.nav-nav ul li ul li[sc-icon-after]{
+    position: relative;
+}
+
+.nav-nav ul li ul li[sc-icon-after]:after{
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+
+
+.nav-nav{
+    background-color: #f2f2f2;
+    color: #111;
+    display: block;
+}
+
+.nav-nav ul ul{
+    background-color: rgba(0,0,0,.05);
+}
+
+.nav-nav > ul > li > ul{
+    background-color: #f2f2f2;
+    color: #111;
+}

@@ -118,6 +118,7 @@ extend( Scope ).with({
 
         return data;
     },
+    nav: {},
     widgets: {},
     request: {
         validate: function( obj ){
@@ -257,6 +258,12 @@ extend( Element ).with({
                 return i;
             }
         }
+    },
+    show: function(){
+        this.style['display'] = '';
+    },
+    hide: function(){
+        this.style['display'] = 'none';
     },
     addClass: function( className ){
         this.classList.add( className );
@@ -463,11 +470,61 @@ extend( Scope ).with({
             this.describe( property );
         }
     }
+}, true);
+
+extend( Scope ).with({
+    widgetCount: 0
 }, true)
+
+class ScopeWidget extends HTMLElement{
+    constructor(){
+        super();
+    }
+    connectedCallback(){
+        var widget = this.getAttribute('widget');
+        var list = widget.split('.');
+        var instance = null;
+        for(var i in list){
+            if( instance == null ){
+                instance = window[ list[i] ];
+            } else {
+                instance = instance[ list[i] ];
+            }
+        }
+        if( !this.id ){
+            this.id = "w" + ( ++Scope.widgetCount ) + widget.replace(/\./g, '_');
+        }
+        var beforeload = this.dispatch('beforeload');
+        if( !beforeload.defaultPrevented ){
+            window[ this.id ] = new instance( this );
+            this.dispatch('afterload');
+        }
+
+    }
+}
+
+customElements.define('sc-widget', ScopeWidget );
 
 document.listen('DOMContentLoaded', function(e){
     document.dispatch('ready');
 });
+
+document.listen('click', '[sc-on="click"]', function(e){
+    var target = this.attr('sc-for');
+    var trigger = this.attr('sc-trigger');
+
+    if( target ){
+        var target = document.findOne( target );
+        if( target ){
+            target.dispatch( trigger );
+        } else {
+            console.error('Trying to trigger "' + trigger + '" on unknown element "' + target + '".');
+        }
+
+    } else {
+        this.dispatch( trigger );
+    }
+} )
 
 document.listen('touchstart mousedown', '*', function( event ){
     this.isMouseDown = true;
