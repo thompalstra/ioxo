@@ -1,0 +1,70 @@
+.popover{
+    position: relative;
+    text-decoration: underline;
+}
+
+.popover .pop{
+    position: absolute;
+}
+
+.popover .pop .title{
+    margin: 0;
+    padding: 10px;
+    display: block;
+}
+.popover .pop .content{
+    margin: 0;
+    padding: 10px;
+    display: block;
+}
+
+.popover.left .pop{
+    right: 100%;
+}
+.popover.right .pop{
+    left: 100%;
+}
+.popover.center .pop{
+    left: 50%;
+    transform: translate(-50%);
+}
+
+.popover.top .pop{
+    bottom: 100%;
+}
+.popover.bottom .pop{
+    top: 100%;
+}
+.popover.middle .pop{
+    top: 50%;
+    transform: translate(0%, -50%);
+}
+
+.popover:hover .pop,
+.popover:active .pop,
+.popover:focus .pop{
+    opacity: 1;
+    visibility: visible;
+    pointer-events: all;
+}
+
+.popover .pop{
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: .6s;
+    -webkit-box-shadow: 0px 0px 30px -4px rgba(0,0,0,0.5);
+    -moz-box-shadow: 0px 0px 30px -4px rgba(0,0,0,0.5);
+    box-shadow: 0px 0px 30px -4px rgba(0,0,0,0.5);
+}
+
+.popover .pop{
+    background-color: #f2f2f2;
+    color: #111;
+    cursor: pointer;
+}
+
+.popover .pop .content{
+    min-width: 200px;
+    max-width: 250px;
+}

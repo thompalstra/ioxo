@@ -1,5 +1,6 @@
 <html>
     <head>
+        <script type="text/javascript" src="http://www.ioxo.nl/script.js"></script>
         <link href="http://www.ioxo.nl/latest/scope/scope.core.css" rel="stylesheet"/>
         <script src="http://www.ioxo.nl/latest/scope/scope.core.js" type="text/javascript"></script>
         <link href="http://www.ioxo.nl/latest/scope/tools/pop-over/scope.tools.pop-over.css" rel="stylesheet"/>
@@ -16,11 +17,12 @@
             </ul>
         </div>
         <div id='pop-over-wrapper' class='wrapper'>
-                Sed ut <sc-widget data-widget='Scope.tools.PopOver'>perspiciatis</sc-widget> unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?
+                Sed ut <sc-widget class='popover bottom center' data-widget='Scope.tools.PopOver' data-title="Perspiciatis" data-content="A grammatical person that indicates the person or group that one is speaking to. Examples are the English pronouns you and thou.">perspiciatis</sc-widget> unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?
         </div>
         <script>
-            document.listen('ready', function(e){
-            });
+        document.listen('ready', function(e){
+            showPageCode( '#pop-over-wrapper', location.href );
+        });
         </script>
     </body>
 </html>

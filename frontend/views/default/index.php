@@ -193,9 +193,19 @@ jQuery.fn.addClass = function( value ) {
                             Datatable
                         </li>
                     </a>
+                    <a href="/latest/scope/widgets/dialog/example.html">
+                        <li>
+                            Dialog
+                        </li>
+                    </a>
                     <a href="/latest/scope/widgets/form/example.html">
                         <li>
                             Form
+                        </li>
+                    </a>
+                    <a href="/latest/scope/widgets/notification/example.html">
+                        <li>
+                            Notification
                         </li>
                     </a>
                     <a href="/latest/scope/widgets/datatable/sidebar.html">
