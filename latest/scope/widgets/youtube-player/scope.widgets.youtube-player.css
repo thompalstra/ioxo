@@ -1,23 +1,23 @@
-.scope-yt-player{
+.youtube-player{
     display: inline-block;
     width: 100%;
     position: relative;
     font-family: 'Roboto', sans-serif;
 }
 
-.scope-yt-player .top-wrapper{
+.youtube-player .top-wrapper{
     position: relative;
     display: inline-block;
     width: 100%;
 }
 
-.scope-yt-player .playlist-wrapper{
+.youtube-player .playlist-wrapper{
     position: absolute;
     bottom: 0;
     top: 0;
     right: 0;
 }
-.scope-yt-player .playlist-wrapper ul{
+.youtube-player .playlist-wrapper ul{
     list-style: none;
     padding: 0;
     margin: 0;
@@ -25,7 +25,7 @@
     overflow-y: scroll;
 }
 
-.scope-yt-player .playlist-wrapper ul li{
+.youtube-player .playlist-wrapper ul li{
     display: inline-block;
     padding: 0px 0px 0px 24px;
     width: 100%;
@@ -36,13 +36,13 @@
 
 
 
-.scope-yt-player .playlist-wrapper ul{
+.youtube-player .playlist-wrapper ul{
     counter-reset: (ctr);
 }
-.scope-yt-player .playlist-wrapper ul li{
+.youtube-player .playlist-wrapper ul li{
     counter-increment: ctr;
 }
-.scope-yt-player .playlist-wrapper ul li:after{
+.youtube-player .playlist-wrapper ul li:after{
     content: counter(ctr);
     position: absolute;
     left: 0;
@@ -57,7 +57,7 @@
     font-size: 12px;
 
 }
-.scope-yt-player .playlist-wrapper ul li.active:after{
+.youtube-player .playlist-wrapper ul li.active:after{
     content: "\E037";
     font-family: 'Material Icons';
     font-weight: normal;
@@ -72,24 +72,24 @@
     -webkit-font-feature-settings: 'liga';
     -webkit-font-smoothing: antialiased;
 }
-.scope-yt-player .playlist-wrapper ul li img{
+.youtube-player .playlist-wrapper ul li img{
     width: 100px;
     float: left;
     margin: 5px 5px 0px 0px;
 }
-.scope-yt-player .iframe-wrapper{
+.youtube-player .iframe-wrapper{
     float: left;
 }
-.scope-yt-player .iframe-wrapper iframe{
+.youtube-player .iframe-wrapper iframe{
     width: 100%;
 }
 
-.scope-yt-player .playlist-wrapper .thumb{
+.youtube-player .playlist-wrapper .thumb{
     width: 110px;
     display: inline-block;
     float: left;
 }
-.scope-yt-player .playlist-wrapper .content{
+.youtube-player .playlist-wrapper .content{
     width: calc( 100% - 110px );
     display: inline-block;
     float: left;
@@ -97,11 +97,11 @@
     padding: 5px 0;
 }
 
-.scope-yt-player .playlist-wrapper .content normal{
+.youtube-player .playlist-wrapper .content normal{
     font-weight: bold;
 }
 
-.scope-yt-player .video-detail-wrapper{
+.youtube-player .video-detail-wrapper{
     float: left;
     display: inline-block;
     width: 100%;
@@ -109,57 +109,57 @@
     padding: 10px 0 10px 0;
 }
 
-.scope-yt-player .video-detail-wrapper .title,
-.scope-yt-player .video-detail-wrapper .channel{
+.youtube-player .video-detail-wrapper .title,
+.youtube-player .video-detail-wrapper .channel{
     display: inline-block;
     width: 100%;
     padding: 0 10px;
     box-sizing: border-box;
 }
 
-.scope-yt-player .video-detail-wrapper .title{
+.youtube-player .video-detail-wrapper .title{
     font-weight: bold;
 }
 @media (min-width: 0px){
-    .scope-yt-player .playlist-wrapper,
-    .scope-yt-player .iframe-wrapper{
+    .youtube-player .playlist-wrapper,
+    .youtube-player .iframe-wrapper{
         width: 100%;
 
         display: inline-block;
     }
-    .scope-yt-player .playlist-wrapper{
+    .youtube-player .playlist-wrapper{
         position: relative;
     }
-    .scope-yt-player .playlist-wrapper ul{
+    .youtube-player .playlist-wrapper ul{
         max-height: 250px;
     }
-    .scope-yt-player .iframe-wrapper .video-detail-wrapper{
+    .youtube-player .iframe-wrapper .video-detail-wrapper{
         display: inline-block;
     }
-    .scope-yt-player .video-detail-wrapper{
+    .youtube-player .video-detail-wrapper{
         display: none;
     }
 }
 @media (min-width: 1080px){
-    .scope-yt-player .iframe-wrapper{
+    .youtube-player:not([data-playlist="0"]) .iframe-wrapper{
         width: 60%;
     }
-    .scope-yt-player .playlist-wrapper{
+    .youtube-player .playlist-wrapper{
         width: 40%;
         position: absolute;
     }
-    .scope-yt-player .playlist-wrapper ul{
+    .youtube-player .playlist-wrapper ul{
         max-height: 100%;
     }
 
-    .scope-yt-player .iframe-wrapper .video-detail-wrapper{
+    .youtube-player .iframe-wrapper .video-detail-wrapper{
         display: none;
     }
-    .scope-yt-player .video-detail-wrapper{
+    .youtube-player .video-detail-wrapper{
         display: inline-block;
     }
 }
-.scope-yt-player .playlist-header{
+.youtube-player .playlist-header{
     font-weight: bold;
     height: 40px;
     line-height: 40px;
@@ -167,16 +167,16 @@
     margin: 0;
 }
 
-.scope-yt-player{
+.youtube-player{
     background-color: #eeeeee;
     color: #111;
     margin: 0;
 }
 
-.scope-yt-player .playlist-wrapper ul li:last-child{
+.youtube-player .playlist-wrapper ul li:last-child{
     margin-bottom: 5px;
 }
 
-.scope-yt-player .playlist-wrapper ul li{
+.youtube-player .playlist-wrapper ul li{
     background-color: #f5f5f5;
 }

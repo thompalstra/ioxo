@@ -17,13 +17,13 @@
             </ul>
         </div>
         <div id='tab-wrapper' class='wrapper'>
-            <div id="w0-tabs-1" class="tabs" style="margin-top: 10px;">
+            <sc-widget data-widget='Scope.widgets.Tabs' id="w0-tabs-1" class="tabs" style="margin-top: 10px;">
                 <ul class="tabcontrols">
-                    <li sc-target="#tab0" class="active">General</li>
+                    <li data-target="#tab0" class="active">General</li>
                     <li disabled>Q&A</li>
-                    <li sc-target="#tab2">Games</li>
-                    <li sc-target="#tab3">Gallery</li>
-                    <li sc-target="#tab4">Location</li>
+                    <li data-target="#tab2">Games</li>
+                    <li data-target="#tab3">Gallery</li>
+                    <li data-target="#tab4">Location</li>
                 </ul>
                 <ul class="tabcontent">
                     <li id="tab0" class="active">
@@ -42,12 +42,11 @@
                         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3025.306202756848!2d-74.04668908425435!3d40.68925344694296!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25090129c363d%3A0x40c6a5770d25022b!2sVrijheidsbeeld!5e0!3m2!1snl!2snl!4v1519820249264" width="50%" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
                     </li>
                 </ul>
-            </div>
+            </sc-widget>
         </div>
         <script>
             document.listen('ready', function(e){
-                var tabs = new Scope.widgets.Tabs( document.findOne('#w0-tabs-1') );
-
+                // var tabs = new Scope.widgets.Tabs( document.findOne('#w0-tabs-1') );
                 showPageCode( '#tab-wrapper', location.href );
             });
         </script>

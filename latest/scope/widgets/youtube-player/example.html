@@ -3,8 +3,8 @@
         <script type="text/javascript" src="http://www.ioxo.nl/script.js"></script>
         <link rel="stylesheet" href="http://www.ioxo.nl/latest/scope/scope.core.css"/>
         <script type="text/javascript" src="http://www.ioxo.nl/latest/scope/scope.core.js"></script>
-        <link rel="stylesheet" href="http://www.ioxo.nl/latest/scope/widgets/yt-player/scope.widgets.yt-player.css"/>
-        <script type="text/javascript" src="http://www.ioxo.nl/latest/scope/widgets/yt-player/scope.widgets.yt-player.js"></script>
+        <link rel="stylesheet" href="http://www.ioxo.nl/latest/scope/widgets/youtube-player/scope.widgets.youtube-player.css"/>
+        <script type="text/javascript" src="http://www.ioxo.nl/latest/scope/widgets/youtube-player/scope.widgets.youtube-player.js"></script>
     </head>
     <body>
         <div class='wrapper'>
@@ -16,8 +16,8 @@
                 </a>
             </ul>
         </div>
-        <div id='yt-player-wrapper' class='wrapper'>
-            <datalist id='yt-player-1' widget-title="Awesome playlist" widget-api-key="AIzaSyCoGIgRrd_XLHKlEYbaJXxzxDppabHC6O0" widget-autoplay-first="0" widget-autoplay="1" class='hidden'>
+        <div id='youtube-player-wrapper' class='wrapper'>
+            <sc-widget data-widget='Scope.widgets.YouTubePlayer' id='youtube-player-1' data-playlist='1' data-title="Awesome playlist" data-api-key="AIzaSyCoGIgRrd_XLHKlEYbaJXxzxDppabHC6O0" data-autoplay-first="0" data-autoplay="1" class='hidden'>
                 <option value="XwNkmeXja3I">
                 <option value="utrMljN0D9M">
                 <option value="Zr4JwPb99qU">
@@ -90,13 +90,11 @@
                 <option value="XwNkmeXja3I">
                 <option value="utrMljN0D9M">
                 <option value="Zr4JwPb99qU">
-            </datalist>
+            </sc-widget>
         </div>
         <script>
             document.listen('ready', function(e){
-                var player1 = new Scope.widgets.YTPlayer( document.findOne('#yt-player-1') );
-
-                showPageCode( '#yt-player-wrapper', location.href );
+                showPageCode( '#youtube-player-wrapper', location.href );
             });
         </script>
     </body>

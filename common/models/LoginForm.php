@@ -32,11 +32,16 @@ class LoginForm extends User{
                 if( password_verify( $this->password, $dbUser->password ) ){
                     $this->user = $dbUser;
                     return true;
+                } else {
+                    $this->addError('Incorrect credentials.');
                 }
+            } else {
+                $this->addError('No user found matching these credentials.');
             }
+        } else {
+            $this->addError('No user found matching these credentials.');
         }
 
-        $this->addError('No user found matching these credentials.');
         return false;
     }
 }

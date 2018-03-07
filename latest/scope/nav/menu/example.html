@@ -3,8 +3,8 @@
         <script type="text/javascript" src="http://www.ioxo.nl/script.js"></script>
         <link rel="stylesheet" href="http://www.ioxo.nl/latest/scope/scope.core.css"/>
         <script type="text/javascript" src="http://www.ioxo.nl/latest/scope/scope.core.js"></script>
-        <link rel="stylesheet" href="http://www.ioxo.nl/latest/scope/nav/nav/scope.nav.nav.css"/>
-        <script type="text/javascript" src="http://www.ioxo.nl/latest/scope/nav/nav/scope.nav.nav.js"></script>
+        <link rel="stylesheet" href="http://www.ioxo.nl/latest/scope/nav/menu/scope.nav.menu.css"/>
+        <script type="text/javascript" src="http://www.ioxo.nl/latest/scope/nav/menu/scope.nav.menu.js"></script>
         <style>
             html, body{
                 margin: 0;
@@ -16,23 +16,23 @@
     </head>
     <body>
 
-        <sc-widget id='nav-nav-1' widget="Scope.nav.Nav" class="nav-nav">
+        <sc-widget id='nav-menu-1' data-widget="Scope.nav.Menu" class="nav-menu">
             <ul>
                 <a href="">
                     <li>
                         Home
                     </li>
                 </a>
-                <li sc-icon-after is-dropdown>
+                <li is-dropdown sc-icon-after>
                     Settings
                     <ul>
                         <a href="">
-                            <li sc-icon-before="edit_location">
+                            <li >
                                 Location
                             </li>
                         </a>
                         <a href="">
-                            <li sc-icon-before="edit">
+                            <li>
                                 Username
                             </li>
                         </a>
@@ -40,12 +40,12 @@
                             Other
                             <ul>
                                 <a href="">
-                                    <li sc-icon-before="edit_location">
+                                    <li>
                                         Location
                                     </li>
                                 </a>
                                 <a href="">
-                                    <li sc-icon-before="edit">
+                                    <li>
                                         Username
                                     </li>
                                 </a>
@@ -55,23 +55,23 @@
                 </li>
             </ul>
         </sc-widget>
-        <sc-widget id='nav-nav-2' widget="Scope.nav.Nav" class="nav-nav fixed top right left" style='display: none;'>
+        <sc-widget id='nav-menu-2' data-widget="Scope.nav.Menu" class="nav-menu fixed top right left" style='display: none;'>
             <ul>
                 <a href="">
                     <li>
                         Home
                     </li>
                 </a>
-                <li sc-icon-after is-dropdown>
+                <li is-dropdown sc-icon-after>
                     Settings
                     <ul>
                         <a href="">
-                            <li sc-icon-before="edit_location">
+                            <li >
                                 Location
                             </li>
                         </a>
                         <a href="">
-                            <li sc-icon-before="edit">
+                            <li>
                                 Username
                             </li>
                         </a>
@@ -79,12 +79,12 @@
                             Other
                             <ul>
                                 <a href="">
-                                    <li sc-icon-before="edit_location">
+                                    <li>
                                         Location
                                     </li>
                                 </a>
                                 <a href="">
-                                    <li sc-icon-before="edit">
+                                    <li>
                                         Username
                                     </li>
                                 </a>
@@ -94,23 +94,23 @@
                 </li>
             </ul>
         </sc-widget>
-        <sc-widget id='nav-nav-3' widget="Scope.nav.Nav" class="nav-nav fixed right bottom left" style='display: none;'>
+        <sc-widget id='nav-menu-3' data-widget="Scope.nav.Menu" class="nav-menu fixed right bottom left" style='display: none;'>
             <ul>
                 <a href="">
                     <li>
                         Home
                     </li>
                 </a>
-                <li sc-icon-after is-dropdown>
+                <li is-dropdown sc-icon-after>
                     Settings
                     <ul>
                         <a href="">
-                            <li sc-icon-before="edit_location">
+                            <li >
                                 Location
                             </li>
                         </a>
                         <a href="">
-                            <li sc-icon-before="edit">
+                            <li>
                                 Username
                             </li>
                         </a>
@@ -118,12 +118,12 @@
                             Other
                             <ul>
                                 <a href="">
-                                    <li sc-icon-before="edit_location">
+                                    <li>
                                         Location
                                     </li>
                                 </a>
                                 <a href="">
-                                    <li sc-icon-before="edit">
+                                    <li sc-icon-before="settings">
                                         Username
                                     </li>
                                 </a>
@@ -140,19 +140,19 @@
         </div>
         <script>
             document.findOne( '.btn-toggle-default' ).listen('click', function(e){
-                document.findOne('#nav-nav-1').show();
-                document.findOne('#nav-nav-2').hide();
-                document.findOne('#nav-nav-3').hide();
+                document.findOne('#nav-menu-1').show();
+                document.findOne('#nav-menu-2').hide();
+                document.findOne('#nav-menu-3').hide();
             })
             document.findOne( '.btn-toggle-top-right-left' ).listen('click', function(e){
-                document.findOne('#nav-nav-1').hide();
-                document.findOne('#nav-nav-2').show();
-                document.findOne('#nav-nav-3').hide();
+                document.findOne('#nav-menu-1').hide();
+                document.findOne('#nav-menu-2').show();
+                document.findOne('#nav-menu-3').hide();
             })
             document.findOne( '.btn-toggle-right-left' ).listen('click', function(e){
-                document.findOne('#nav-nav-1').hide();
-                document.findOne('#nav-nav-2').hide();
-                document.findOne('#nav-nav-3').show()
+                document.findOne('#nav-menu-1').hide();
+                document.findOne('#nav-menu-2').hide();
+                document.findOne('#nav-menu-3').show()
             })
             document.listen('ready', function(e){
                 showPageCode( '#nav-wrapper', location.href );

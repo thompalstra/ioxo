@@ -11,6 +11,11 @@ class Controller extends scope\core\Base{
         }
         $this->layout = Scope::$app->_web->defaultLayout;
     }
+
+    public function rules(){
+        return [];
+    }
+
     public static function parse( $route ){
         $path = trim( $route[0], '/' );
 
@@ -80,11 +85,36 @@ class Controller extends scope\core\Base{
         $this->actionId = $actionId;
         $actionName = 'action' . Html::toCamelCase( $actionId );
         if( method_exists( $this, $actionName ) ){
-            return call_user_func_array( [ $this, $actionName ], [] );
+            if( $this->allowedAction( $actionId ) ){
+                return call_user_func_array( [ $this, $actionName ], [] );
+            }
+
         } else {
             $controllerName = $this->className();
             return $this->render( $actionId );
         }
+    }
+    public function allowedAction( $actionId ){
+        foreach( $this->rules() as $rule ){
+            $actionIds = $rule[0];
+            if( in_array( $actionId, $actionIds ) ){
+                if( isset( $rule['deny'] ) && $rule['deny'] == true ){
+                    if( isset($rule['onDeny']) ){
+                        $fn = $rule['onDeny'];
+                        $fn( $actionId, $rule ) ;
+                    }
+                    return false;
+                }
+                if( isset( $rule['allow'] ) && $rule['allow'] == true ){
+                    if( isset($rule['onAllow']) ){
+                        $fn = $rule['onAllow'];
+                        $fn( $actionId, $rule ) ;
+                    }
+                    return true;
+                }
+            }
+        }
+        return true;
     }
 
     public function runError( $message ){
@@ -113,6 +143,11 @@ class Controller extends scope\core\Base{
         return $view->renderFile( $layoutPath, [
             'view' => $content
         ] );
+    }
+
+    public function json( $data ){
+        echo json_encode( $data );
+        exit();
     }
 }
 ?>

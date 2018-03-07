@@ -1,14 +1,19 @@
-window['CardGallery'] = function( element ){
+window['CardGallery'] = window['Scope']['widgets']['CardGallery'] = function( element ){
     this.element = element;
+    this.element.attr('sc-widget-status', 'pending');
+
+    document.listen('ready', function(e){
+        this.element.findOne('.next', function( event ){
+            this.next()();
+        }.bind(this));
+        this.element.findOne('.prev', function( event ){
+            this.previous();
+        }.bind(this));
+
+
+        this.element.attr('sc-widget-status', null);
+    }.bind(this));
 }
-document.listen('click', '.card-gallery .next', function(event){
-    var cg = new CardGallery( this.closest('.card-gallery') );
-     cg.next();
-});
-document.listen('click', '.card-gallery .prev', function(event){
-    var cg = new CardGallery( this.closest('.card-gallery') );
-     cg.previous();
-});
 
 extend( CardGallery ).with({
     getActiveItem: function(){

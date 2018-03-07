@@ -1,1 +1,2 @@
-<?=$exception->getMessage()?>
+<?php
+echo $exception->getMessage();

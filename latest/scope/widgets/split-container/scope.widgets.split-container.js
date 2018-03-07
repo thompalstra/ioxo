@@ -1,5 +1,8 @@
 window['SplitContainer'] = window['Scope']['widgets']['SplitContainer'] = function( element ){
     this.element = element;
+    this.table = this.element.findOne('table');
+
+    this.element.attr('sc-widget-status', 'pending');
 
     this.registerListeners();
 }
@@ -65,13 +68,15 @@ extend( SplitContainer ).with({
                     this.splitter.previousElementSibling.setAttribute('height', height);
                 }
             }
-        }.bind(this))
+        }.bind(this));
         this.element.listen('mouseup mouseleave', function(e){
             if( this.splitter ){
                 this.element.dispatch('afterresize');
             }
             this.splitter = null;
             this.element.attr('resizing', null);
-        }.bind(this))
+        }.bind(this));
+
+        this.element.attr('sc-widget-status', null);
     }
 })

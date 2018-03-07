@@ -1,10 +1,10 @@
 <div class='wrapper'>
-    <div id='w0-tabs' class='tabs'>
+    <sc-widget data-widget='Scope.widgets.Tabs' id='w0-tabs' class='tabs'>
         <ul class="tabcontrols">
-            <li sc-target="#w0-tabs-about-ioxo" class="active">About <strong>IOXO</strong></li>
-            <li sc-target="#w0-tabs-widgets">Widgets</li>
-            <li sc-target="#w0-tabs-tools">Tools</li>
-            <li sc-target="#w0-tabs-nav">Nav</li>
+            <li data-target="#w0-tabs-about-ioxo" class="active">About <strong>IOXO</strong></li>
+            <li data-target="#w0-tabs-widgets">Widgets</li>
+            <li data-target="#w0-tabs-tools">Tools</li>
+            <li data-target="#w0-tabs-nav">Nav</li>
         </ul>
         <ul class="tabcontent">
             <li id='w0-tabs-about-ioxo' class="active">
@@ -25,7 +25,7 @@
                     Compared to other frameworks, ScopeJS does not declare new classes and does nu use wrapper-classes around element. </br>
                     An example (using jQuery) would be as such:
                 </p>
-                <h4>Basics <a class='toggle-code-wrapper btn btn-small flat-to-default epic' sc-target='#cw-casting'>show</a></h4>
+                <h4>Basics <a class='toggle-code-wrapper btn btn-small flat-to-default epic' data-target='#cw-casting'>show</a></h4>
                 <div id='cw-casting' class='code-wrapper' style='height: 0px; padding-top: 0; padding-bottom: 0;'>
                     <div class='col xs6'>
                     <strong>ScopeJS</strong>
@@ -53,7 +53,7 @@ var myDiv = $('.my-div');
                     </div>
                 </div>
 
-                <h4>Searches <a class='toggle-code-wrapper btn btn-small flat-to-default epic' sc-target='#cw-queries' >show</a></h4>
+                <h4>Searches <a class='toggle-code-wrapper btn btn-small flat-to-default epic' data-target='#cw-queries' >show</a></h4>
                 <div id='cw-queries' class='code-wrapper' style='height: 0px; padding-top: 0; padding-bottom: 0;'>
                     <div class='col xs6'>
                     <strong>ScopeJS</strong>
@@ -83,7 +83,7 @@ var myNativeDiv = myDiv[0] || myDiv.element();
                     </div>
                 </div>
 
-                <h4>Internal functions <a class='toggle-code-wrapper btn btn-small flat-to-default epic' sc-target='#cw-internal' >show</a></h4>
+                <h4>Internal functions <a class='toggle-code-wrapper btn btn-small flat-to-default epic' data-target='#cw-internal' >show</a></h4>
                 <div id='cw-internal' class='code-wrapper' style='height: 0px; padding-top: 0; padding-bottom: 0;'>
                     <div class='col xs6'>
                     <strong>ScopeJS</strong>
@@ -153,7 +153,7 @@ jQuery.fn.addClass = function( value ) {
                 </div>
 
 
-                <h4>Conclusion <a class='toggle-code-wrapper btn btn-small flat-to-default epic' sc-target='#cw-conclusion'>show</a></h4>
+                <h4>Conclusion <a class='toggle-code-wrapper btn btn-small flat-to-default epic' data-target='#cw-conclusion'>show</a></h4>
                 <div id='cw-conclusion' class='code-wrapper' style='height: 0px; padding-top: 0; padding-bottom: 0;'>
                     <div class='col xs12'>
                         <pre><code>
@@ -178,11 +178,6 @@ jQuery.fn.addClass = function( value ) {
             <li id='w0-tabs-widgets'>
                 <h2>Widgets</h2>
                 <ul class='datalist'>
-                    <a href="/latest/scope/widgets/forms/example.html">
-                        <li>
-                            Forms
-                        </li>
-                    </a>
                     <a href="/latest/scope/widgets/card-gallery/example.html">
                         <li>
                             Card Gallery
@@ -198,9 +193,24 @@ jQuery.fn.addClass = function( value ) {
                             Datatable
                         </li>
                     </a>
+                    <a href="/latest/scope/widgets/form/example.html">
+                        <li>
+                            Form
+                        </li>
+                    </a>
                     <a href="/latest/scope/widgets/datatable/sidebar.html">
                         <li>
-                            Sidebar
+                            Sidebar <strong style='color: red;'>(deprecated)</strong>
+                        </li>
+                    </a>
+                    <a href="/latest/scope/widgets/slide/example.html">
+                        <li>
+                            Slide
+                        </li>
+                    </a>
+                    <a href="/latest/scope/widgets/split-container/example.html">
+                        <li>
+                            SplitContainer
                         </li>
                     </a>
                     <a href="/latest/scope/widgets/tabs/example.html">
@@ -211,11 +221,6 @@ jQuery.fn.addClass = function( value ) {
                     <a href="/latest/scope/widgets/yt-player/example.html">
                         <li>
                             Youtube player
-                        </li>
-                    </a>
-                    <a href="/latest/scope/widgets/slide/example.html">
-                        <li>
-                            Slide
                         </li>
                     </a>
                 </ul>
@@ -245,7 +250,12 @@ jQuery.fn.addClass = function( value ) {
                 <ul class='datalist'>
                     <a href="/latest/scope/nav/sidebar/example.html">
                         <li>
-                            sidebar
+                            Sidebar
+                        </li>
+                    </a>
+                    <a href="/latest/scope/nav/menu/example.html">
+                        <li>
+                            Menu
                         </li>
                     </a>
                 </ul>
@@ -257,12 +267,12 @@ jQuery.fn.addClass = function( value ) {
     var w0tabs = new Tabs( document.findOne('#w0-tabs') );
 
     sc('.toggle-code-wrapper').listen('click', function(e){
-        var target = this.attr('sc-target');
+        var target = this.attr('data-target');
 
         sc('.code-wrapper').forEach(function(el){
             if( !el.matches( target ) ){
                 el.slideUp( 1000 );
-                document.findOne( '[sc-target="#'+el.id+'"]' ).innerHTML = 'show';
+                document.findOne( '[data-target="#'+el.id+'"]' ).innerHTML = 'show';
             }
         });
 

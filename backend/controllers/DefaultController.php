@@ -29,6 +29,10 @@ class DefaultController extends \scope\web\Controller{
                     header("Location: /");
                     exit();
                 }
+            ],
+            [
+                ['logout'],
+                'allow' => !Scope::$app->identity->isGuest,
             ]
         ];
     }
@@ -40,6 +44,12 @@ class DefaultController extends \scope\web\Controller{
         return $this->render('error', [
             'exception' => $exception
         ]);
+    }
+
+    public function actionLogout(){
+        Scope::$app->identity->logout();
+        header("Location: /");
+        exit();
     }
 
     public function actionLogin(){
@@ -63,7 +73,6 @@ class DefaultController extends \scope\web\Controller{
                     foreach( $attributes as $k => $v ){
                         $errors[] = $v;
                     }
-
                 }
                 $message = implode("\n", $errors);
             }

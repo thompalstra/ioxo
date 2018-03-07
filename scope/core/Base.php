@@ -43,7 +43,7 @@ class Base{
         }
     }
     public function hasErrors(){
-        return ( empty( $this->_errors ) );
+        return ( !empty( $this->_errors ) );
     }
     public function getErrors( $attribute = null ){
         if( $attribute ){
@@ -53,11 +53,21 @@ class Base{
         }
 
     }
-    public function addError( $attribute, $message ){
-        if( !isset( $this->_errors[$attribute]) ){
-            $this->_errors[$attribute] = [];
+    public function addError( $attribute, $message = null ){
+
+        if( $message != null ){
+            if( !isset( $this->_errors[$attribute]) ){
+                $this->_errors[$attribute] = [];
+            }
+            $this->_errors[$attribute][] = $message;
+        } else {
+            if( !isset( $this->_errors['_model']) ){
+                $this->_errors['_model'] = [];
+            }
+            $this->_errors['_model'][] = $attribute;
         }
-        $this->_errors[$attribute][] = $message;
+
+
     }
     public function addErrors( $arg ){
         foreach( $arg as $attribute => $message ){
@@ -70,8 +80,10 @@ class Base{
             foreach( $data as $k => $v ){
                 $this->$k = $v;
             }
+            return true;
         }
-    }    
+        return false;
+    }
 
     public function validate(){
         $reflectionProperties = (new \ReflectionObject($this))->getProperties(\ReflectionProperty::IS_PUBLIC);;

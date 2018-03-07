@@ -1,0 +1,49 @@
+.status-label{
+    display: block;
+    padding: 10px;
+}
+.status-label[data-status]:before{
+    content: attr(data-status);
+    font-size: 18px;
+    font-weight: bold;
+    display: block;
+}
+
+.form .input{
+    outline: 0;
+    transition: .6s;
+}
+.form .input:not(.bordered){
+    border: 0;
+}
+
+.form .input.large{
+    height: 75px;
+    padding: 0 15px;
+}
+.form .input{
+    height: 50px;
+    padding: 0 10px;
+}
+.form .input.small{
+    height: 25px;
+    padding: 0 5px;
+}
+
+.form .input:focus{
+    -webkit-box-shadow: 0px 0px 20px -5px rgba(0,0,0,0.5);
+    -moz-box-shadow: 0px 0px 20px -5px rgba(0,0,0,0.5);
+    box-shadow: 0px 0px 20px -5px rgba(0,0,0,0.5);
+}
+
+.form.vertical{
+
+}
+
+.form .row{
+    margin-bottom: 10px;
+}
+
+.form .input{
+    width: 100%;
+}

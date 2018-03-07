@@ -8,7 +8,7 @@ class User extends \scope\identity\Identity{
     public $username;
 
     public static function tableName(){
-        return "user";
+        return "scope_cms_user";
     }
 }
 ?>

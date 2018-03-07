@@ -1,4 +1,4 @@
-window['Nav'] = window['Scope']['nav']['Nav'] = function( element ){
+window['Nav'] = window['Scope']['nav']['Menu'] = function( element ){
     this.element = element;
 
     this.element.listen('click', 'li[is-dropdown]', function(e){
@@ -13,15 +13,13 @@ window['Nav'] = window['Scope']['nav']['Nav'] = function( element ){
     });
 }
 
-
-
 extend( Nav ).with({
 
 });
 
 document.listen('click', '*', function(e){
     if( !e.target.closest('[is-dropdown]') ){
-        document.find('.nav-nav li[show]').forEach(function(el){
+        document.find('.nav-menu li[show]').forEach(function(el){
             el.attr('show', null);
         })
     }

@@ -1,3 +1,7 @@
+.card-gallery{
+    display: block;
+}
+
 .card-gallery .item{
     transition: .3s;
     box-sizing: border-box;

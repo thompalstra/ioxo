@@ -33,42 +33,44 @@
         }
         </style>
         <div class='wrapper'>
-            <table id='w0-split-container-1' height="500px" width="100%" class='split-container' >
-                <tr class='row' height="500px">
-                    <td class='column cyan'>
-                        <table id='w1-split-container-2' height="100%" width="100%" class='split-container'>
-                            <tr class='row' height="50%">
-                                <td class='column green'></td>
-                            </tr>
-                            <tr class='splitter horizontal' height=10>
-                                <td></td>
-                            </tr>
-                            <tr class='row'>
-                                <td class='column blue'></td>
-                            </tr>
-                            <tr class='splitter horizontal' height=10>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td class='column yellow'></td>
-                            </tr>
-                        </table>
-                    </td>
-                    <td class='splitter vertical'></td>
-                    <td class='column red'>
+            <sc-widget data-widget='Scope.widgets.SplitContainer'>
+                <table id='w0-split-container-1' height="500px" width="100%" class='split-container' >
+                    <tr class='row' height="500px">
+                        <td class='column cyan'>
+                            <table id='w1-split-container-2' height="100%" width="100%" class='split-container'>
+                                <tr class='row' height="50%">
+                                    <td class='column green'></td>
+                                </tr>
+                                <tr class='splitter horizontal' height=10>
+                                    <td></td>
+                                </tr>
+                                <tr class='row'>
+                                    <td class='column blue'></td>
+                                </tr>
+                                <tr class='splitter horizontal' height=10>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td class='column yellow'></td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td class='splitter vertical'></td>
+                        <td class='column red'>
 
-                    </td>
-                    <td class='splitter vertical'></td>
-                    <td class='column green'>
+                        </td>
+                        <td class='splitter vertical'></td>
+                        <td class='column green'>
 
-                    </td>
-                </tr>
-            </table>
+                        </td>
+                    </tr>
+                </table>
+            </sc-widget>
         </div>
         <script>
             document.listen('ready', function(e){
-                var splitContainer = new Scope.widgets.SplitContainer( document.findOne('#w0-split-container-1') );
-                var splitContainer2 = new Scope.widgets.SplitContainer( document.findOne('#w1-split-container-2') );
+                // var splitContainer = new Scope.widgets.SplitContainer( document.findOne('#w0-split-container-1') );
+                // var splitContainer2 = new Scope.widgets.SplitContainer( document.findOne('#w1-split-container-2') );
             });
         </script>
     </body>

@@ -21,7 +21,7 @@ window['Sidebar'] = window['Scope']['nav']['Sidebar'] = function( element ){
         }
     });
 
-    if( this.element.attr('backdrop') == true ){
+    if( this.element.attr('data-backdrop') == true ){
         var backdrop = this.element.parentNode.insertBefore( document.create( 'backdrop', {}) , this.element.nextSibling);
         backdrop.listen('click', function(e){
             this.hide();
