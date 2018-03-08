@@ -14,10 +14,11 @@
 
     CustomEvent.prototype = window.Event.prototype;
 
-    window.CustomEvent = CustomEvent;
+    window.prototype.CustomEvent = CustomEvent;
 })();
 (function() {
-    if (typeof Element.closest === 'function') return false;
+
+    if (typeof Element.prototype.closest === 'function') return false;
 
     Element.prototype.matches = function(selector) {
         var node = this,
@@ -28,7 +29,7 @@
     }
 })();
 (function() {
-    if (typeof Element.closest === 'remove') return false;
+    if (typeof Element.prototype.remove === 'function') return false;
 
     Element.prototype.remove = function() {
         if (this.parentNode) {
@@ -106,7 +107,11 @@ if (typeof window['_'] == 'undefined') {
     window['_'] = window['Scope'];
 }
 
-extend(Scope).with({
+extend( Scope ).with({
+    widgetCount: 0,
+    nav: {},
+    tools: {},
+    widgets: {},
     getUserAgent: function() {
         var data = {
             name: 'netscape',
@@ -126,9 +131,6 @@ extend(Scope).with({
 
         return data;
     },
-    nav: {},
-    tools: {},
-    widgets: {},
     request: {
         validate: function(obj) {
             if (!obj.hasOwnProperty('method')) {
@@ -286,6 +288,9 @@ extend(Element).with({
     addClass: function(className) {
         this.classList.add(className);
     },
+    hasClass: function(className){
+        return this.classList.contains(className);
+    },
     removeClass: function(className) {
         this.classList.remove(className);
     },
@@ -380,15 +385,20 @@ extend(HTMLCollection, NodeList).with({
             this[i].dispatch(a);
         }
     },
-});
-
-extend(HTMLCollection).with({
     forEach: function(callable) {
         for (i = 0; i < this.length; i++) {
             callable.call(this, this[i]);
         }
     },
 });
+
+// extend(HTMLCollection).with({
+//     forEach: function(callable) {
+//         for (i = 0; i < this.length; i++) {
+//             callable.call(this, this[i]);
+//         }
+//     },
+// });
 
 Scope.documentation = {
     getUserAgent: "\
@@ -475,30 +485,17 @@ extend(Document, Element, NodeList, HTMLCollection).with({
     }
 })
 
-extend(Scope).with({
-    describe: function(property) {
-        if (typeof Scope['documentation'] != 'undefined' && typeof Scope['documentation'][property] == 'string') {
-            var name = (this.constructor.prototype.hasOwnProperty(property)) ? this.constructor.name.toString() : 'this';
-            var documentation = Scope.documentation[property];
-            console.log("%c" + name + "%c.%c" + property + "%c\n" + documentation, "color:blue;", "color: black;", "color:blue;", "color:black;", "color:#999");
-        }
-    },
-    describeAll: function() {
-        for (var property in this) {
-            this.describe(property);
-        }
-    }
+extend( Scope ).with({
+    describe: Document.prototype.describe,
+    describeAll: Document.prototype.describeAll,
 }, true);
-
-extend(Scope).with({
-    widgetCount: 0
-}, true)
 
 class ScopeWidget extends HTMLElement {
     constructor() {
         super();
     }
     connectedCallback() {
+
         var widget = this.getAttribute('data-widget');
         var list = widget.split('.');
         var instance = null;
@@ -510,7 +507,11 @@ class ScopeWidget extends HTMLElement {
             }
         }
         if (!this.id) {
-            this.id = "w" + (++Scope.widgetCount) + widget.replace(/\./g, '_');
+            var c = (++Scope.widgetCount);
+            var widgetName = widget.toLowerCase();
+            widgetName = widgetName.replace(/\./g, '-');
+            widgetName = widgetName.replace(/_/g, '-');
+            this.id ='w' + c + '-' + widgetName;
         }
         var beforeload = this.dispatch('beforeload');
         if (!beforeload.defaultPrevented) {

@@ -5,8 +5,37 @@
         <script type="text/javascript" src="http://www.ioxo.nl/latest/scope/scope.core.js"></script>
         <link rel="stylesheet" href="http://www.ioxo.nl/latest/scope/widgets/dialog/scope.widgets.dialog.css"/>
         <script type="text/javascript" src="http://www.ioxo.nl/latest/scope/widgets/dialog/scope.widgets.dialog.js"></script>
+
+        <link rel="stylesheet" href="http://www.ioxo.nl/latest/scope/tools/checkbox/scope.tools.checkbox.css"/>
+        <script src="http://www.ioxo.nl/latest/scope/tools/checkbox/scope.tools.checkbox.js" type="text/javascript"></script>
     </head>
     <body>
+
+        <sc-widget class='dialog' data-widget='Scope.widgets.Dialog' data-backdrop='1' data-backdrop-dismiss='1'>
+            <div class='title'>
+                Info
+            </div>
+            <div class='content'>
+                My dialog content, it can contain anything really.
+            </div>
+            <div class='actions'>
+                <button class='btn btn-default flat-to-default alert pull-left' sc-on='click' sc-trigger='help'>HELP</button>
+                <button class='btn btn-default flat-to-default turqoise pull-right' sc-on='click' sc-trigger='ok'>OK</button>
+                <button class='btn btn-default flat-to-default turqoise pull-right' sc-on='click' sc-trigger='dismiss'>CANCEL</button>
+            </div>
+        </sc-widget>
+        <sc-widget class='dialog' data-widget='Scope.widgets.Dialog' data-backdrop='1' data-backdrop-dismiss='0'>
+            <div class='title'>
+                Help
+            </div>
+            <div class='content'>
+                I'm sorry, but we can't help you
+            </div>
+            <div class='actions'>
+                <button class='btn btn-default flat-to-default turqoise pull-right' sc-on='click' sc-trigger='ok'>OK</button>
+            </div>
+        </sc-widget>
+
         <div class='wrapper'>
             <ul class='breadcrumb'>
                 <a href="/">
@@ -17,8 +46,36 @@
             </ul>
         </div>
         <div id='dialog-wrapper' class='wrapper'>
+            <a href="/" id='show-dialog-1' class='btn btn-default flat-to-default action'>show dialog</a>
+            <label class='col xs12'>
+                <input id='cb1' type="checkbox" class='sc-checkbox pull-left action'/>
+                prevent "ok" event
+            </label>
         </div>
         <script>
             showPageCode( '#dialog-wrapper', location.href );
+
+            var dialog = document.findOne('#show-dialog-1');
+
+            dialog.listen('click', function(event){
+                event.preventDefault();
+                document.findOne('#w1-scope-widgets-dialog').dispatch('show');
+            })
+
+            document.findOne('#w1-scope-widgets-dialog').listen('help', function(event){
+                document.findOne('#w1-scope-widgets-dialog').dispatch('dismiss');
+                document.findOne('#w2-scope-widgets-dialog').dispatch('show');
+            })
+
+            document.findOne('#w1-scope-widgets-dialog [sc-trigger="ok"]').listen('ok', function(event){
+                if( document.findOne('#cb1').checked ){
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+            })
+
+            document.findOne('#w2-scope-widgets-dialog').listen('ok', function(event){
+                document.findOne('#w1-scope-widgets-dialog').dispatch('show');
+            });
         </script>
     </div>

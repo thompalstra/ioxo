@@ -8,6 +8,7 @@
     outline: 0;
     position: relative;
     box-sizing: border-box;
+    transition: .3s;
 }
 
 .sc-checkbox:before{
@@ -57,10 +58,10 @@
     z-index: 100;
 }
 .sc-checkbox[checked="true"]:before{
-    animation: checkboxCheckedBefore .3s forwards;
+    animation: checkboxCheckedBefore .5s forwards;
 }
 .sc-checkbox[checked="false"]:before{
-    animation: checkboxUncheckedBefore .3s forwards;
+    animation: checkboxUncheckedBefore .5s forwards;
 }
 @keyframes checkboxCheckedBefore {
     0% {
@@ -84,6 +85,10 @@
         opacity: 0;
     }
 }
+.sc-checkbox.flat-to-default:not(:checked),
+.sc-checkbox.default-to-flat:checked{
+    background-color: transparent;
+}
 
 .sc-checkbox.action:before{
     background-color: #3D8EB9;
@@ -99,4 +104,10 @@
 }
 .sc-checkbox.info:before{
     background-color: #51BDCB;
+}
+.sc-checkbox.sky:before{
+    background-color: #f2f2f2;
+}
+.sc-checkbox.turqoise:before{
+    background-color: #009688;
 }

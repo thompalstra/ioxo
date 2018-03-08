@@ -1,0 +1,70 @@
+.dialog{
+
+}
+.dialog + backdrop{
+    position: fixed;
+    top: 0; right: 0; bottom: 0; left: 0;
+
+    background-color: rgba(0,0,0,.5);
+
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden;
+
+    transition: .6s;
+}
+
+
+.dialog{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.dialog[show]{
+    z-index: 1050;
+}
+
+.dialog[show] + backdrop{
+    opacity: 1;
+    pointer-events: all;
+    visibility: visible;
+    z-index: 1000;
+}
+
+.dialog{
+    transform: translate(-50%, -100%);
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden;
+
+    transition: .6s;
+}
+.dialog[show]{
+    transform: translate(-50%, -50%);
+    opacity: 1;
+    pointer-events: all;
+    visibility: visible;
+}
+
+.dialog .title{
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+.dialog .content{
+    margin-bottom: 10px;
+}
+
+.dialog .actions{
+}
+
+.dialog{
+    min-width: 30%;
+    padding: 10px;
+    background-color: white;
+    color: #111;
+}
+.dialog .actions button{
+    font-weight: bold;
+}

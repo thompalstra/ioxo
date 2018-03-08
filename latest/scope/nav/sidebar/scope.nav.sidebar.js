@@ -24,9 +24,16 @@ window['Sidebar'] = window['Scope']['nav']['Sidebar'] = function( element ){
     if( this.element.attr('data-backdrop') == true ){
         var backdrop = this.element.parentNode.insertBefore( document.create( 'backdrop', {}) , this.element.nextSibling);
         backdrop.listen('click', function(e){
-            this.hide();
+            this.element.dispatch( 'dismiss' );
         }.bind(this));
     }
+
+    this.element.listen( 'dismiss', function(e){
+        this.dismiss();
+    }.bind(this) );
+    this.element.listen( 'show', function(e){
+        this.show();
+    }.bind(this) );
 }
 
 extend( Sidebar ).with({
@@ -43,12 +50,12 @@ extend( Sidebar ).with({
     },
     toggle: function( speedInMs ){
         if( typeof this.element.attr('show') == 'string' ){
-            this.hide( speedInMs );
+            this.dismiss( speedInMs );
         } else {
             this.show( speedInMs );
         }
     },
-    hide: function( speedInMs ){
+    dismiss: function( speedInMs ){
         this.setSpeed( speedInMs );
         this.element.attr('show', null);
     },

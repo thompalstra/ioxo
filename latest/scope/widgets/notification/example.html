@@ -16,9 +16,78 @@
                 </a>
             </ul>
         </div>
+
+        <sc-widget data-widget='Scope.widgets.Notification' class='notification top left'></sc-widget>
+        <sc-widget data-widget='Scope.widgets.Notification' class='notification top right'></sc-widget>
+        <sc-widget data-widget='Scope.widgets.Notification' class='notification bottom left'></sc-widget>
+        <sc-widget data-widget='Scope.widgets.Notification' class='notification bottom right'></sc-widget>
+
         <div id='notification-wrapper' class='wrapper'>
+            <select id='select-where'>
+                <option value='0'>top left</option>
+                <option value='1'>top right</option>
+                <option value='2'>bottom left</option>
+                <option value='3'>bottom right</option>
+            </select>
+            <button id='btn1' class='btn btn-default action flat-to-default'>add notification</button>
+            <button id='btn2' class='btn btn-default action flat-to-default'>add dismissable notification</button>
         </div>
         <script>
             showPageCode( '#notification-wrapper', location.href );
+
+            document.findOne('#btn1').listen('click', function(e){
+                switch( document.findOne('#select-where').value ){
+                    case "0":
+                        window['w1-scope-widgets-notification'].add( 'Created a new notification', {
+                            className: 'message action'
+                        } );
+                    break;
+                    case "1":
+                        window['w2-scope-widgets-notification'].add( 'Created a new notification', {
+                            className: 'message action'
+                        } );
+                    break;
+                    case "2":
+                        window['w3-scope-widgets-notification'].add( 'Created a new notification', {
+                            className: 'message action'
+                        } );
+                    break;
+                    case "3":
+                        window['w4-scope-widgets-notification'].add( 'Created a new notification', {
+                            className: 'message action'
+                        } );
+                    break;
+                }
+            });
+
+            document.findOne('#btn2').listen('click', function(e){
+                console.log('click');
+                switch( document.findOne('#select-where').value ){
+                    case "0":
+                        window['w1-scope-widgets-notification'].add( 'Created a new dismissable notification', {
+                            className: 'message action',
+                            'data-dismissable': ''
+                        } );
+                    break;
+                    case "1":
+                        window['w2-scope-widgets-notification'].add( 'Created a new dismissable notification', {
+                            className: 'message action',
+                            'data-dismissable': ''
+                        } );
+                    break;
+                    case "2":
+                        window['w3-scope-widgets-notification'].add( 'Created a new dismissable notification', {
+                            className: 'message action',
+                            'data-dismissable': ''
+                        } );
+                    break;
+                    case "3":
+                        window['w4-scope-widgets-notification'].add( 'Created a new dismissable notification', {
+                            className: 'message action',
+                            'data-dismissable': ''
+                        } );
+                    break;
+                }
+            });
         </script>
     </div>
