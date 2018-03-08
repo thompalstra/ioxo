@@ -53,6 +53,9 @@
     margin: 0 -50px 0 -10px;
     padding: 0;
 }
+.nav-menu > ul > li[is-dropdown] > ul{
+    margin-left: 0;
+}
 
 .nav-menu ul li[is-dropdown]:after{
     content: "\E5C5";
@@ -67,12 +70,12 @@
 .nav-menu.bottom ul li[is-dropdown][show]:after{
     content: "\E5C5";
 }
-
 .nav-menu > ul > li > ul{
     position: absolute;
     top: 100%;
     left: 0;
     width: 200px;
+    margin: 0;
 }
 
 .nav-menu.bottom > ul > li > ul{
