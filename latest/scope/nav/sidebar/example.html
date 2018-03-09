@@ -5,6 +5,11 @@
         <script type="text/javascript" src="http://www.ioxo.nl/latest/scope/scope.core.js"></script>
         <link rel="stylesheet" href="http://www.ioxo.nl/latest/scope/nav/sidebar/scope.nav.sidebar.css"/>
         <script type="text/javascript" src="http://www.ioxo.nl/latest/scope/nav/sidebar/scope.nav.sidebar.js"></script>
+        <script>
+            document.on('ready', function(e){
+                showPageCode( '#wrapper', location.href );
+            });
+        </script>
     </head>
     <body>
         <sc-widget id='nav-sidebar-1' data-widget="Scope.nav.Sidebar" class="nav-sidebar left" data-backdrop="1">
@@ -83,14 +88,9 @@
                 </a>
             </ul>
         </div>
-        <div id='sidebar-wrapper' class='wrapper'>
+        <div id='wrapper' class='wrapper'>
             <button class='btn btn-default flat-to-default action' sc-on='click' sc-for='#nav-sidebar-1' sc-trigger='toggle'>toggle left</button>
             <button class='btn btn-default flat-to-default action' sc-on='click' sc-for='#nav-sidebar-2' sc-trigger='toggle'>toggle right</button>
         </div>
-        <script>
-            document.listen('ready', function(e){
-                showPageCode( '#sidebar-wrapper', location.href );
-            });
-        </script>
     </body>
 </html>

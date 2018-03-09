@@ -1,35 +1,35 @@
-document.listen('dragstart', '.page-modules .toolbox li', function( event ){
+document.on('dragstart', '.page-modules .toolbox li', function( event ){
     var modules = this.closest('.page-modules');
     modules.dragging = this;
 });
-document.listen('dragstart', '.page-modules .content *', function( event ){
+document.on('dragstart', '.page-modules .content *', function( event ){
     var modules = this.closest('.page-modules');
     modules.dragging = this;
 });
-document.listen('dragover', '.page-modules .content', function( event ){
+document.on('dragover', '.page-modules .content', function( event ){
     var modules = this.closest('.page-modules');
     if( modules.dragging ){
         event.preventDefault();
     }
 });
 
-document.listen('dragenter', '.page-modules .content', function( event ){
+document.on('dragenter', '.page-modules .content', function( event ){
     var target = event.target;
     if( target.attr('sc-allow-children') == true ){
         target.attr('focus', '')
     }
 });
-document.listen('dragleave', '.page-modules .content', function( event ){
+document.on('dragleave', '.page-modules .content', function( event ){
     event.target.attr('focus', null);
 });
 
-document.listen('keydown keyup mouseleave', '.page-modules .content', function( event ){
+document.on('keydown keyup mouseleave', '.page-modules .content', function( event ){
     var modules = this.closest('.page-modules');
     var textarea = modules.findOne('textarea');
     textarea.innerHTML = this.innerHTML;
 });
 
-document.listen('drop', '.page-modules .content', function( event ){
+document.on('drop', '.page-modules .content', function( event ){
     var modules = this.closest('.page-modules');
     if( modules.dragging ){
         var nodeType = modules.dragging.attr('sc-node-type');

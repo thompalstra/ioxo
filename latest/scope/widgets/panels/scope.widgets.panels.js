@@ -6,7 +6,7 @@ window['Panels'] = window['Scope']['widgets']['Panels'] = function( element ){
 
 extend( Panels ).with({
     registerListeners: function(){
-        this.element.listen('mousedown', function(e){
+        this.element.on('mousedown', function(e){
             if( e.target.matches('.divider') ){
 
                 var relX = e.pageX - e.target.parentNode.offsetLeft;
@@ -17,7 +17,7 @@ extend( Panels ).with({
             }
         });
 
-        this.element.listen('mouseup', function(e){
+        this.element.on('mouseup', function(e){
             this.find('.divider[is-mousedown="1"]').forEach(function(divider){
                 divider.removeAttribute('is-mousedown');
                 console.log(this);
@@ -25,7 +25,7 @@ extend( Panels ).with({
             }.bind(this))
         });
 
-        this.element.listen('mousemove', function(e){
+        this.element.on('mousemove', function(e){
             var divider = this.findOne('.divider[is-mousedown="1"]');
             if(divider){
 

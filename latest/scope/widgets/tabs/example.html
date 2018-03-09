@@ -45,7 +45,7 @@
             </sc-widget>
         </div>
         <script>
-            document.listen('ready', function(e){
+            document.on('ready', function(e){
                 // var tabs = new Scope.widgets.Tabs( document.findOne('#w0-tabs-1') );
                 showPageCode( '#tab-wrapper', location.href );
             });

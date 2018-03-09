@@ -3,8 +3,13 @@
         <script type="text/javascript" src="http://www.ioxo.nl/script.js"></script>
         <link href="http://www.ioxo.nl/latest/scope/scope.core.css" rel="stylesheet"/>
         <script src="http://www.ioxo.nl/latest/scope/scope.core.js" type="text/javascript"></script>
-        <link href="http://www.ioxo.nl/latest/scope/tools/pop-over/scope.tools.pop-over.css" rel="stylesheet"/>
-        <script src="http://www.ioxo.nl/latest/scope/tools/pop-over/scope.tools.pop-over.js" type="text/javascript"></script>
+        <link href="http://www.ioxo.nl/latest/scope/tools/scope.tools.css" rel="stylesheet"/>
+        <script src="http://www.ioxo.nl/latest/scope/tools/scope.tools.js" type="text/javascript"></script>
+        <script>
+            document.on('ready', function(e){
+                showPageCode( '#wrapper', location.href );
+            });
+        </script>
     </head>
     <body>
         <div class='wrapper'>
@@ -16,13 +21,40 @@
                 </a>
             </ul>
         </div>
-        <div id='pop-over-wrapper' class='wrapper'>
+        <div id='wrapper' class='wrapper'>
+            <div class='col xs12'>
+                <h2>Click a button to change the popover's class</h2>
+                <p>By changing the class you can easily change the orientation</p>
+                <button id='btn-top-left'>top left</button>
+                <button id='btn-top-right'>top right</button>
+                <button id='btn-top-center'>top center</button>
+                <button id='btn-bottom-left'>bottom left</button>
+                <button id='btn-bottom-right'>bottom right</button>
+                <button id='btn-bottom-center'>bottom center</button>
+            </div>
+            <div class='col xs12'>
                 Sed ut <sc-widget class='popover bottom center' data-widget='Scope.tools.PopOver' data-title="Perspiciatis" data-content="A grammatical person that indicates the person or group that one is speaking to. Examples are the English pronouns you and thou.">perspiciatis</sc-widget> unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?
+            </div>
         </div>
         <script>
-        document.listen('ready', function(e){
-            showPageCode( '#pop-over-wrapper', location.href );
-        });
+            sc('#btn-top-left').on('click', function(e){
+                sc('#w1-scope-tools-popover', true).className = 'popover top left';
+            });
+            sc('#btn-top-right').on('click', function(e){
+                sc('#w1-scope-tools-popover', true).className = 'popover top right';
+            });
+            sc('#btn-top-center').on('click', function(e){
+                sc('#w1-scope-tools-popover', true).className = 'popover top center';
+            });
+            sc('#btn-bottom-left').on('click', function(e){
+                sc('#w1-scope-tools-popover', true).className = 'popover bottom left';
+            });
+            sc('#btn-bottom-right').on('click', function(e){
+                sc('#w1-scope-tools-popover', true).className = 'popover bottom right';
+            });
+            sc('#btn-bottom-center').on('click', function(e){
+                sc('#w1-scope-tools-popover', true).className = 'popover bottom center';
+            });
         </script>
     </body>
 </html>

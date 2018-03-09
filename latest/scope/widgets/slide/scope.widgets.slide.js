@@ -3,7 +3,7 @@ window['Slide'] = window['Scope']['widgets']['Slide'] = function( element ){
 
     this.element.attr('sc-widget-status', 'pending');
 
-    document.listen('ready', function(e){
+    document.on('ready', function(e){
         this.ul = this.element.findOne('ul');
         this.wrapper = this.element.findOne('.wrapper');
         this.images = [];
@@ -51,17 +51,17 @@ window['Slide'] = window['Scope']['widgets']['Slide'] = function( element ){
         }
 
         function finish(){
-            this.ul.listen('swipeleft', function(e){
+            this.ul.on('swipeleft', function(e){
                 e.preventDefault();
                 e.stopImmediatePropagation();
                 this.slidePrevious();
             }.bind(this));
 
-            this.ul.listen('longpress', function(e){
+            this.ul.on('longpress', function(e){
                 console.log('longpress');
             }.bind(this))
 
-            this.ul.listen('swiperight', function(e){
+            this.ul.on('swiperight', function(e){
                 e.preventDefault();
                 e.stopImmediatePropagation();
                 this.slideNext();

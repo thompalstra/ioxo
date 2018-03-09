@@ -1,5 +1,5 @@
 <div class='wrapper'>
-    <form id='login-form' class='form' method='POST' data-ajax="1" >
+    <form id='login-form' class='form' method='POST' data-ajax >
         <div class='col xs12'>
             <label id='login-form-status-label' data-status="Error" class='warning hidden'></label>
         </div>
@@ -33,7 +33,7 @@
 
 <script>
     var loginForm = new Scope.widgets.Form( document.findOne('#login-form') );
-    loginForm.element.listen('afterajax', function(event){
+    loginForm.element.on('afterajax', function(event){
         var statusLabel = document.findOne('#login-form-status-label');
         statusLabel.className = 'hidden';
         if( event.params.xhr.response.success == true ){

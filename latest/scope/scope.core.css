@@ -48,6 +48,19 @@ html, body{
     float: right;
 }
 
+.pad{
+    padding: 10px;
+}
+
+.hpad{
+    padding-right: 10px;
+    padding-left: 10px;
+}
+.vpad{
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
 @media (min-width: 0px){
     .xs12           {   width: 100%;    }
     .left-xs12      {   margin-left: 100%;  }
@@ -368,7 +381,7 @@ html, body{
 .breadcrumb{
     list-style: none;
     padding: 10px;
-    margin: 0;
+    margin: 0 0 10px 0;
     background-color: #f2f2f2;
     color: #111;
     overflow: auto;
@@ -472,7 +485,7 @@ html, body{
 
 .warning,
 .warning.flat-to-default:active,
-.warning.default-to-flat:checked{
+.warning.flat-to-default:checked{
     background-color: #D03400;
     color: #f2f2f2;
 }

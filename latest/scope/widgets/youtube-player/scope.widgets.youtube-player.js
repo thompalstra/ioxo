@@ -13,7 +13,7 @@ window['ScopeYTPlayer'] = window['Scope']['widgets']['YouTubePlayer'] = function
     var ctr = 0;
     var group = [];
 
-    document.listen('ready', function(event){
+    document.on('ready', function(event){
         this.source.children.forEach(function(el){
             if( ctr == 20 ){
                 group.push( el.value );
@@ -122,7 +122,7 @@ extend( ScopeYTPlayer ).with({
                 });
 
                 item = list.appendChild(item);
-                item.listen('click', function(e){
+                item.on('click', function(e){
                     this.player.playIndex( this.element.index(), this.player.autoplay );
                 }.bind({
                     player: this,

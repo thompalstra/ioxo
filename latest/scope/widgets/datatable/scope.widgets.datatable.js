@@ -32,7 +32,7 @@ window['Datatable'] = window['Scope']['widgets']['Datatable'] = function( arg ){
     }
     this.searchColumns = searchColumns;
 
-    this.element.listen('dblclick', 'tr td',function(e){
+    this.element.on('dblclick', 'tr td',function(e){
         var td = e.target.closest('td');
         td.removeClass('error');
         td.removeClass('fade');
@@ -47,7 +47,7 @@ window['Datatable'] = window['Scope']['widgets']['Datatable'] = function( arg ){
 
         input.focus();
     }.bind(this))
-    this.element.listen('focusout', 'tr td input',function(e){
+    this.element.on('focusout', 'tr td input',function(e){
         var input = e.target.closest('input');
         var tr = e.target.closest('tr');
         var td = e.target.closest('td');
@@ -126,7 +126,7 @@ extend( Datatable ).with({
                 input.attr('name', 'search['+c+']' );
                 input.attr('type', 'search');
 
-                input.listen('input',function(e){
+                input.on('input',function(e){
                     var inputs = this.datatable.element.find('input[type="search"]');
                     var search = {};
                     for(i=0;i<inputs.length;i++){
@@ -180,7 +180,7 @@ extend( Datatable ).with({
                 li.className = 'active';
             }
 
-            li.listen('click', function(e){
+            li.on('click', function(e){
                 this.datatable.pagination.page = parseFloat( this.element.attr('page') - 1 );
                 var active = this.element.closest('ul').findOne('li.active');
                 active.className = '';
@@ -353,7 +353,7 @@ extend( Datatable ).with({
 //
 //
 //
-//     document.listen('ready', function(e){
+//     document.on('ready', function(e){
 //         dt = new Scope.widgets.datatable( {
 //             element: document.findOne('#w01'),
 //             updateUrl: 'http://scope.php',
@@ -368,7 +368,7 @@ extend( Datatable ).with({
 //         } );
 //         dt.construct();
 //
-//         document.findOne('#w01-search').listen('input', function(e){
+//         document.findOne('#w01-search').on('input', function(e){
 //             if( this.value.length > 0 ){
 //                 dt.search( {
 //                     1: this.value

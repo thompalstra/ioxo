@@ -1,15 +1,30 @@
 window['Form'] = window['Scope']['widgets']['Form'] = function( element ){
     this.element = element;
+    this.validateOnInput = false
+    this.validateOnChange = false;
+    this.ajax = false;
+
+    if( typeof this.element.attr('data-validate-on-input') === 'string' ){
+        this.validateOnInput = true;
+    }
+
+    if( typeof this.element.attr('data-validate-on-change') === 'string' ){
+        this.validateOnChange = true;
+    }
+
+    if( typeof this.element.attr('data-ajax') === 'string' ){
+        this.ajax = true;
+    }
 
     this.registerListeners();
 }
 
 extend( Form ).with({
     registerListeners: function(){
-        if( this.element.attr('data-ajax') == true ){
-            this.element.listen('submit', function( event ){
+        if( this.ajax ){
+            this.element.on('submit', function( event ){
                 event.preventDefault();
-                var beforeajax = this.element.dispatch('beforeajax');
+                var beforeajax = this.element.do('beforeajax');
                 if( !beforeajax.defaultPrevented ){
                     var url = location.href;
 
@@ -25,12 +40,12 @@ extend( Form ).with({
                         responseType: 'json',
                         data: data,
                         onsuccess: function( xhr ){
-                            this.element.dispatch( 'afterajax', {
+                            this.element.do( 'afterajax', {
                                 xhr: xhr
                             } );
                         }.bind(this),
                         onerror: function( err ){
-                            this.element.dispatch( 'afterajax', {
+                            this.element.do( 'afterajax', {
                                 xhr: xhr
                             } );
                         }.bind(this)
@@ -38,6 +53,32 @@ extend( Form ).with({
                 }
             }.bind(this));
         }
+
+        var on = [];
+
+        if( this.validateOnInput ){
+            on.push('input');
+        }
+        if( this.validateOnChange ){
+            on.push('change');
+        }
+
+
+
+        if( on.length > 0 ){
+            on = on.join(' ');
+            this.element.on(on, '*', function(event){
+                if( !this.checkValidity() ){
+                    this.attr('data-error', '');
+                    this.attr('data-no-error', null);
+                } else {
+                    this.attr('data-error', null);
+                    this.attr('data-no-error', '');
+                }
+            })
+        }
+
+
     }
 })
 

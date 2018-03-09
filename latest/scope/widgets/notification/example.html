@@ -35,8 +35,8 @@
         <script>
             showPageCode( '#notification-wrapper', location.href );
 
-            document.findOne('#btn1').listen('click', function(e){
-                switch( document.findOne('#select-where').value ){
+            sc('#btn1').on('click', function(e){
+                switch( sc('#select-where', true).value ){
                     case "0":
                         window['w1-scope-widgets-notification'].add( 'Created a new notification', {
                             className: 'message action'
@@ -60,9 +60,9 @@
                 }
             });
 
-            document.findOne('#btn2').listen('click', function(e){
+            sc('#btn2').on('click', function(e){
                 console.log('click');
-                switch( document.findOne('#select-where').value ){
+                switch( sc('#select-where', true).value ){
                     case "0":
                         window['w1-scope-widgets-notification'].add( 'Created a new dismissable notification', {
                             className: 'message action',

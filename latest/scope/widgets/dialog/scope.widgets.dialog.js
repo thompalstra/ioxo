@@ -5,8 +5,8 @@ window['Dialog'] = window['Scope']['widgets']['Dialog'] = function( element ){
         var backdrop = this.element.parentNode.insertBefore( document.create( 'backdrop', {}) , this.element.nextSibling);
 
         if( this.element.attr('data-backdrop-dismiss') == true ){
-            backdrop.listen('click', function(e){
-                this.element.dispatch( 'dismiss' );
+            backdrop.on('click', function(e){
+                this.element.do( 'dismiss' );
             }.bind(this));
         }
     }
@@ -16,17 +16,17 @@ window['Dialog'] = window['Scope']['widgets']['Dialog'] = function( element ){
 
 extend( Dialog ).with({
     registerListeners: function(){
-        this.element.listen('show', function(e){
+        this.element.on('show', function(e){
             this.show();
         }.bind(this));
-        this.element.listen('dismiss', function(e){
+        this.element.on('dismiss', function(e){
             this.dismiss();
         }.bind(this));
-        this.element.listen('ok', function(e){
+        this.element.on('ok', function(e){
             console.log('native ok');
             this.dismiss();
         }.bind(this));
-        this.element.listen('toggle', function(e){
+        this.element.on('toggle', function(e){
             this.toggle();
         }.bind(this));
     },

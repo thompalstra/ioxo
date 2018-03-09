@@ -3,8 +3,16 @@
         <script type="text/javascript" src="http://www.ioxo.nl/script.js"></script>
         <link rel="stylesheet" href="http://www.ioxo.nl/latest/scope/scope.core.css"/>
         <script type="text/javascript" src="http://www.ioxo.nl/latest/scope/scope.core.js"></script>
-        <link rel="stylesheet" href="http://www.ioxo.nl/latest/scope/tools/checkbox/scope.tools.checkbox.css"/>
-        <script src="http://www.ioxo.nl/latest/scope/tools/checkbox/scope.tools.checkbox.js" type="text/javascript"></script>
+        <link href="http://www.ioxo.nl/latest/scope/tools/scope.tools.css" rel="stylesheet"/>
+        <script src="http://www.ioxo.nl/latest/scope/tools/scope.tools.js" type="text/javascript"></script>
+
+        <link href="http://www.ioxo.nl/latest/scope/widgets/form/scope.widgets.form.css" rel="stylesheet"/>
+        <script src="http://www.ioxo.nl/latest/scope/widgets/form/scope.widgets.form.js" type="text/javascript"></script>
+        <script>
+            document.on('ready', function(e){
+                showPageCode( '#wrapper', location.href );
+            });
+        </script>
     </head>
     <body>
         <div class='wrapper'>
@@ -16,56 +24,122 @@
                 </a>
             </ul>
         </div>
-        <div id='checkbox-wrapper' class='wrapper'>
-            <div id='w0-checkbox-1' class='col xs12' style='background-color: #f2f2f2; padding: 10px;'>
-                <div class='col xs12'>
-                    <label>
-                        <input type="checkbox" class='sc-checkbox pull-left action flat bordered'/>
+        <div id='wrapper' class='wrapper' style='background-color: #f2f2f2; padding: 10px;'>
+            <div class='col xs12'>
+                <button id='btn-large'>large</button>
+                <button id='btn-default'>default</button>
+                <button id='btn-small'>small</button>
+            </div>
+            <div class='col xs12'>
+                <button id='btn-style-default'>style default</button>
+                <button id='btn-style-flat'>style flat</button>
+                <button id='btn-style-flat-to-default'>style flat to default</button>
+                <button id='btn-style-default-to-flat'>style default to flat</button>
+            </div>
+            <form class='form'>
+                <div class='row'>
+                    <label class='sc-checkbox'>
+                        <input type="checkbox" class='pull-left action flat bordered'/>
                         action checkbox
                     </label>
                 </div>
-                <div class='col xs12'>
-                    <label>
-                        <input type="checkbox" class='sc-checkbox pull-left epic flat bordered'/>
+                <div class='row'>
+                    <label class='sc-checkbox'>
+                        <input type="checkbox" class='pull-left epic flat bordered'/>
                         epic checkbox
                     </label>
                 </div>
-                <div class='col xs12'>
-                    <label>
-                        <input type="checkbox" class='sc-checkbox pull-left success flat bordered'/>
+                <div class='row'>
+                    <label class='sc-checkbox'>
+                        <input type="checkbox" class='pull-left success flat bordered'/>
                         success checkbox
                     </label>
                 </div>
-                <div class='col xs12'>
-                    <label>
-                        <input type="checkbox" class='sc-checkbox pull-left warning flat bordered'/>
+                <div class='row'>
+                    <label class='sc-checkbox'>
+                        <input type="checkbox" class='pull-left warning flat bordered'/>
                         warning checkbox
                     </label>
                 </div>
-                <div class='col xs12'>
-                    <label>
-                        <input type="checkbox" class='sc-checkbox pull-left info flat bordered'/>
+                <div class='row'>
+                    <label class='sc-checkbox'>
+                        <input type="checkbox" class='pull-left info flat bordered'/>
                         info checkbox
                     </label>
                 </div>
-                <div class='col xs12'>
-                    <label>
-                        <input type="checkbox" class='sc-checkbox pull-left sky flat bordered'/>
+                <div class='row'>
+                    <label class='sc-checkbox'>
+                        <input type="checkbox" class='pull-left sky flat bordered'/>
                         sky checkbox
                     </label>
                 </div>
-                <div class='col xs12'>
-                    <label>
-                        <input type="checkbox" class='sc-checkbox pull-left turqoise flat bordered'/>
+                <div class='row'>
+                    <label class='sc-checkbox'>
+                        <input type="checkbox" class='pull-left turqoise flat bordered'/>
                         turqoise checkbox
                     </label>
                 </div>
-            </div>
+            </form>
         </div>
         <script>
-            document.listen('ready', function(e){
-                showPageCode( '#checkbox-wrapper', location.href );
+            sc('#btn-large').on('click', function(e){
+                sc('.sc-checkbox').forEach(function(el){
+                    el.className = 'sc-checkbox large';
+                    var input = el.findOne('input');
+                })
+            })
+            sc('#btn-default').on('click', function(e){
+                sc('.sc-checkbox').forEach(function(el){
+                    el.className = 'sc-checkbox';
+                    var input = el.findOne('input');
+                })
+            })
+            sc('#btn-small').on('click', function(e){
+                sc('.sc-checkbox').forEach(function(el){
+                    el.className = 'sc-checkbox small';
+                    var input = el.findOne('input');
+                })
+            })
+
+            sc('#btn-style-default').on('click', function(e){
+                sc('.sc-checkbox').forEach(function(el){
+                    var input = el.findOne('input');
+                    input.removeClass('default');
+                    input.removeClass('flat');
+                    input.removeClass('flat-to-default');
+                    input.removeClass('default-to-flat');
+                })
             });
+
+            sc('#btn-style-flat').on('click', function(e){
+                sc('.sc-checkbox').forEach(function(el){
+                    var input = el.findOne('input');
+                    input.removeClass('default');
+                    input.addClass('flat');
+                    input.removeClass('flat-to-default');
+                    input.removeClass('default-to-flat');
+                })
+            });
+
+            sc('#btn-style-flat-to-default').on('click', function(e){
+                sc('.sc-checkbox').forEach(function(el){
+                    var input = el.findOne('input');
+                    input.removeClass('default');
+                    input.removeClass('flat');
+                    input.addClass('flat-to-default');
+                    input.removeClass('default-to-flat');
+                })
+            });
+            sc('#btn-style-default-to-flat').on('click', function(e){
+                sc('.sc-checkbox').forEach(function(el){
+                    var input = el.findOne('input');
+                    input.removeClass('default');
+                    input.removeClass('flat');
+                    input.removeClass('flat-to-default');
+                    input.addClass('default-to-flat');
+                })
+            });
+
         </script>
     </body>
 </html>

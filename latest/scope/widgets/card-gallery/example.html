@@ -5,6 +5,11 @@
         <script type="text/javascript" src="http://www.ioxo.nl/latest/scope/scope.core.js"></script>
         <link rel="stylesheet" href="http://www.ioxo.nl/latest/scope/widgets/card-gallery/scope.widgets.card-gallery.css"/>
         <script type="text/javascript" src="http://www.ioxo.nl/latest/scope/widgets/card-gallery/scope.widgets.card-gallery.js"></script>
+        <script>
+            document.on('ready', function(e){
+                showPageCode( '#wrapper', location.href );
+            });
+        </script>
     </head>
     <body>
         <div class='wrapper'>
@@ -16,7 +21,7 @@
                 </a>
             </ul>
         </div>
-        <div id='card-gallery-wrapper' class='wrapper'>
+        <div id='wrapper' class='wrapper'>
             <sc-widget id='card-gallery' data-widget='Scope.widgets.CardGallery' class='card-gallery cards'>
                 <div class='inner'>
                     <i class="material-icons prev">navigate_before</i>
@@ -62,9 +67,6 @@
             </div>
         </div>
         <script>
-            document.listen('ready', function(e){
-                showPageCode( '#card-gallery-wrapper', location.href );
-            });
         </script>
     </body>
 </html>

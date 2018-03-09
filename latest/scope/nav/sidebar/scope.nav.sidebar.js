@@ -1,17 +1,17 @@
 window['Sidebar'] = window['Scope']['nav']['Sidebar'] = function( element ){
     this.element = element;
 
-    this.element.listen('toggle', function(e){
+    this.element.on('toggle', function(e){
         this.toggle( this.element.attr('speed') );
     }.bind(this));
-    this.element.listen('hide', function(e){
+    this.element.on('hide', function(e){
         this.hide( this.element.attr('speed') );
     }.bind(this));
-    this.element.listen('show', function(e){
+    this.element.on('show', function(e){
         this.show( this.element.attr('speed') );
     }.bind(this));
 
-    this.element.listen('click', 'li', function(e){
+    this.element.on('click', 'li', function(e){
         if( this.matches('[is-dropdown]') ){
             if( typeof this.attr('show') == 'string' ){
                 this.attr('show', null);
@@ -23,15 +23,15 @@ window['Sidebar'] = window['Scope']['nav']['Sidebar'] = function( element ){
 
     if( this.element.attr('data-backdrop') == true ){
         var backdrop = this.element.parentNode.insertBefore( document.create( 'backdrop', {}) , this.element.nextSibling);
-        backdrop.listen('click', function(e){
-            this.element.dispatch( 'dismiss' );
+        backdrop.on('click', function(e){
+            this.element.do( 'dismiss' );
         }.bind(this));
     }
 
-    this.element.listen( 'dismiss', function(e){
+    this.element.on( 'dismiss', function(e){
         this.dismiss();
     }.bind(this) );
-    this.element.listen( 'show', function(e){
+    this.element.on( 'show', function(e){
         this.show();
     }.bind(this) );
 }

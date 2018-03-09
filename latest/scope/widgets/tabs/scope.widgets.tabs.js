@@ -1,9 +1,9 @@
 window['Tabs'] = window['Scope']['widgets']['Tabs'] = function( element ){
     this.element = element;
 
-    document.listen( 'ready', function(e){
+    document.on( 'ready', function(e){
         this.element.find('[data-target]').forEach(function(el){
-            el.listen('click', function(event){
+            el.on('click', function(event){
                 this.show( event.target.attr('data-target') );
             }.bind(this));
         }.bind(this));

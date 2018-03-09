@@ -1,13 +1,18 @@
 <html>
     <head>
-        <link rel="stylesheet"
-            href="http://www.ioxo.nl/latest/scope/scope.core.css"/>
-        <script type="text/javascript"
-            src="http://www.ioxo.nl/latest/scope/scope.core.js"></script>
-        <link rel="stylesheet"
-            href="http://www.ioxo.nl/latest/scope/widgets/cjax/scope.widgets.cjax.css"/>
-        <script type="text/javascript"
-            src="http://www.ioxo.nl/latest/scope/widgets/cjax/scope.widgets.cjax.js"></script>
+        <script type="text/javascript" src="http://www.ioxo.nl/script.js"></script>
+        <link rel="stylesheet" href="http://www.ioxo.nl/latest/scope/scope.core.css"/>
+        <script type="text/javascript" src="http://www.ioxo.nl/latest/scope/scope.core.js"></script>
+        <link rel="stylesheet" href="http://www.ioxo.nl/latest/scope/widgets/cjax/scope.widgets.cjax.css"/>
+        <script type="text/javascript" src="http://www.ioxo.nl/latest/scope/widgets/cjax/scope.widgets.cjax.js"></script>
+
+        <link rel="stylesheet" href="http://www.ioxo.nl/latest/scope/tools/scope.tools.css"/>
+        <script src="http://www.ioxo.nl/latest/scope/tools/scope.tools.js" type="text/javascript"></script>
+        <script>
+            document.on('ready', function(e){
+                showPageCode( '#wrapper', location.href );
+            });
+        </script>
     </head>
     <body>
         <div class='wrapper'>
@@ -19,36 +24,40 @@
                 </a>
             </ul>
         </div>
-        <div id='cjax-wrapper' class='wrapper'>
-            <div id='w0-cjax-container' sc-cjax>
+        <div id='wrapper' class='wrapper'>
 
+            <div class='col xs12'>
+                <label class='sc-checkbox'>
+                    <input id='allow-javascript' checked type="checkbox" class='pull-left action flat bordered'/>
+                    allow javascript
+                </label>
             </div>
+
+            <sc-widget data-widget='Scope.widgets.Cjax' data-url="library.html" data-js></sc-widget>
+            <pre>
+                <div id='log' style='width: 100%' rows=10></div>
+            </pre>
         </div>
         <script>
-            document.listen('ready', function(e){
-
-                var sc = new Scope.widgets.Cjax( document.findOne('#w0-cjax-container') );
-                sc.load('library.html');
-
-                Scope.get({
-                    url: location.href,
-                    onsuccess: function(xhr){
-                        var toggler = document.findOne('#cjax-wrapper').appendChild( document.createElement('div') );
-                        var pre = document.findOne('#cjax-wrapper').appendChild( document.createElement('pre') );
-                        pre.className = 'code-preview';
-                        pre.style['height'] = '0px';
-                        pre.style['padding-top'] = '0px';
-                        pre.style['padding-bottom'] = '0px';
-                        pre.innerHTML = xhr.response.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-
-                        toggler.className = 'col xs12 code-toggle';
-                        toggler.innerHTML = 'toggle code';
-                        toggler.listen('click',function(e){
-                            document.findOne('#cjax-wrapper .code-preview').slideToggle(300);
-                        });
-                    }
-                });
+            sc('#allow-javascript').on('click', function(e){
+                if( this.checked ){
+                    sc('#w1-scope-widgets-cjax').attr('data-js', '');
+                } else {
+                    sc('#w1-scope-widgets-cjax').attr('data-js', null);
+                }
+            })
+            sc('#w1-scope-widgets-cjax').on('beforeload', function(e){
+                sc('#log', true).innerHTML += e.type + " url = <a href='" + e.params.url + "'>" + e.params.url + "</a>\n";
             });
+            sc('#w1-scope-widgets-cjax').on('afterload', function(e){
+                sc('#log', true).innerHTML += e.type + "\n";
+            })
+            sc('#w1-scope-widgets-cjax').on('beforeeval', function(e){
+                sc('#log', true).innerHTML += e.type + "\n";
+            });
+            sc('#w1-scope-widgets-cjax').on('aftereval', function(e){
+                sc('#log', true).innerHTML += e.type + "\n";
+            })
         </script>
     </body>
 </html>

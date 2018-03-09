@@ -9,7 +9,7 @@ window['SplitContainer'] = window['Scope']['widgets']['SplitContainer'] = functi
 
 extend( SplitContainer ).with({
     registerListeners: function(e){
-        this.element.listen('mousedown', function(e){
+        this.element.on('mousedown', function(e){
             if( e.target.matches('.splitter.vertical') || e.target.parentNode.matches('.splitter.horizontal') ){
                 if( e.target.matches('.splitter.vertical') ){
                     this.splitter = e.target;
@@ -51,7 +51,7 @@ extend( SplitContainer ).with({
                 }
             }
         }.bind(this));
-        this.element.listen('mousemove', function(e){
+        this.element.on('mousemove', function(e){
             if( this.splitter ){
                 if( this.splitter.matches('.vertical') ){
                     splitterLeft = this.splitter.offsetLeft - 10;
@@ -69,9 +69,9 @@ extend( SplitContainer ).with({
                 }
             }
         }.bind(this));
-        this.element.listen('mouseup mouseleave', function(e){
+        this.element.on('mouseup mouseleave', function(e){
             if( this.splitter ){
-                this.element.dispatch('afterresize');
+                this.element.do('afterresize');
             }
             this.splitter = null;
             this.element.attr('resizing', null);

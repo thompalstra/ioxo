@@ -276,7 +276,7 @@ jQuery.fn.addClass = function( value ) {
 <script>
     var w0tabs = new Tabs( document.findOne('#w0-tabs') );
 
-    sc('.toggle-code-wrapper').listen('click', function(e){
+    sc('.toggle-code-wrapper').on('click', function(e){
         var target = this.attr('data-target');
 
         sc('.code-wrapper').forEach(function(el){

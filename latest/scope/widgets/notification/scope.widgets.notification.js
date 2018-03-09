@@ -45,7 +45,7 @@ window['NotificationMessage'] = window['Scope']['widgets']['NotificationMessage'
             innerHTML: '<i class="material-icons">&#xE5CD;</i>'
         } ) );
 
-        dismiss.listen('click', function(e){
+        dismiss.on('click', function(e){
             this.dismiss( );
         }.bind(this))
     }

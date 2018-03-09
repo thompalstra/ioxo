@@ -28,7 +28,7 @@
     ?>
 </div>
 <script>
-    document.listen('ready', function(e){
+    document.on('ready', function(e){
         var dataSource = [];
         var i = 1;
         while(i<=99){

@@ -244,10 +244,10 @@ window['PageEditor'] = window['Scope']['widgets']['PageEditor'] = function( elem
     var splitContainer = new Scope.widgets.SplitContainer( document.findOne('#w0-split-container-1') );
     var splitContainer2 = new Scope.widgets.SplitContainer( document.findOne('#w1-split-container-2') );
 
-    document.findOne('#w0-split-container-1').listen('afterresize', this.savePanelSizes );
-    document.findOne('#w1-split-container-2').listen('afterresize', this.savePanelSizes );
+    document.findOne('#w0-split-container-1').on('afterresize', this.savePanelSizes );
+    document.findOne('#w1-split-container-2').on('afterresize', this.savePanelSizes );
 
-    this.registerListeners();
+    this.registeroners();
     this.restoreScrolling();
     this.restorePanelSizes();
 }
@@ -375,7 +375,7 @@ extend( window['PageEditor'] ).with({
             }
         }
     },
-    registerListeners: function(){
+    registeroners: function(){
         if( localStorage.getItem( 'code_text_wrap' ) == 'true' ){
             this.element.attr('code-text-wrap', '1')
             this.element.find('[code-action="toggleTextWrap"]').forEach(function(el){
@@ -385,26 +385,26 @@ extend( window['PageEditor'] ).with({
 
         }
 
-        this.element.listen('keydown', function(e){
+        this.element.on('keydown', function(e){
             if( e.ctrlKey == true && e.keyCode == 83 ){
                 e.preventDefault();
                 var textarea = this.element.findOne('textarea');
                 this.editorActions['save'].call(this, e.target);
             }
         }.bind(this));
-        this.element.find('[contenteditable="true"]').listen('input', function(e){
+        this.element.find('[contenteditable="true"]').on('input', function(e){
             var textarea = this.closest('#w0-page-editor').findOne('.code textarea:not(.hidden)');
             textarea.innerHTML = this.innerHTML;
         });
 
-        this.element.find('.code-actions .code-action').listen('click', function(e){
+        this.element.find('.code-actions .code-action').on('click', function(e){
             var action = e.target.attr('code-action');
             if( typeof this.codeActions[action] == 'function' ){
                 this.codeActions[action].call(this, e.target);
             }
         }.bind(this))
 
-        this.element.find('.page-editor-actions .page-editor-action').listen('click', function(e){
+        this.element.find('.page-editor-actions .page-editor-action').on('click', function(e){
             var action = e.target.attr('page-editor-action');
 
             if( typeof this.editorActions[action] == 'function' ){

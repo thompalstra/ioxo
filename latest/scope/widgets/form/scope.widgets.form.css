@@ -9,9 +9,13 @@
     display: block;
 }
 
+.form{
+    margin: 0;
+}
+
 .form .input{
     outline: 0;
-    transition: .6s;
+    transition: background-color .6s linear, border-color .6s linear, color .6s linear;
 }
 .form .input:not(.bordered){
     border: 0;
@@ -46,4 +50,16 @@
 
 .form .input{
     width: 100%;
+}
+
+.form [data-error]:not(.bordered),
+.form [data-error]{
+    color: red;
+    border-left: 5px solid red;
+}
+
+.form [data-no-error]:not(.bordered),
+.form [data-no-error]{
+    color: #82C33C;
+    border-left: 5px solid #82C33C;
 }

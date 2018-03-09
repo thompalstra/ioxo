@@ -1,84 +1,147 @@
+// compatibility
 (function() {
-    if (typeof window.CustomEvent === "function") return false; //If not IE
+    if( typeof window.CustomEvent !== "function" ) {
+        function CustomEvent(event, params) {
+            params = params || {
+                bubbles: false,
+                cancelable: false,
+                detail: undefined
+            };
+            var evt = document.createEvent('CustomEvent');
+            evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
+            return evt;
+        }
 
-    function CustomEvent(event, params) {
-        params = params || {
-            bubbles: false,
-            cancelable: false,
-            detail: undefined
+        CustomEvent.prototype = window.Event.prototype;
+
+        window.prototype.CustomEvent = CustomEvent;
+    }
+
+    if (typeof Element.prototype.matches !== 'function'){
+        Element.prototype.matches = function(selector) {
+            var node = this,
+                nodes = (node.parentNode || node.document).querySelectorAll(selector),
+                i = -1;
+            while (nodes[++i] && nodes[i] != node);
+            return !!nodes[i];
+        }
+    }
+
+    if( typeof Element.prototype.closest !== 'function' ){
+        Element.prototype.closest = function(query) {
+            if (this.matches(query)) {
+                return this;
+            }
+            if (!this.parentElement) {
+                return false;
+            } else if (this.parentElement.matches(query)) {
+                return this.parentElement;
+            }
+            return this.parentElement.closest(query);
         };
-        var evt = document.createEvent('CustomEvent');
-        evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
-        return evt;
     }
 
-    CustomEvent.prototype = window.Event.prototype;
-
-    window.prototype.CustomEvent = CustomEvent;
-})();
-(function() {
-
-    if (typeof Element.prototype.closest === 'function') return false;
-
-    Element.prototype.matches = function(selector) {
-        var node = this,
-            nodes = (node.parentNode || node.document).querySelectorAll(selector),
-            i = -1;
-        while (nodes[++i] && nodes[i] != node);
-        return !!nodes[i];
-    }
-})();
-(function() {
-    if (typeof Element.prototype.remove === 'function') return false;
-
-    Element.prototype.remove = function() {
-        if (this.parentNode) {
-            this.parentNode.removeChild(this);
-        }
-    };
-})();
-(function() {
-    if (typeof Element.closest === 'function') return false;
-    Element.prototype.closest = function(query) {
-        if (this.matches(query)) {
-            return this;
-        }
-        if (!this.parentElement) {
-            return false;
-        } else if (this.parentElement.matches(query)) {
-            return this.parentElement;
-        }
-        return this.parentElement.closest(query);
-    };
-})();
-
-
-
-window['extend'] = function() {
-    return new Extender(arguments);
-}
-
-Extender = function(collection) {
-    this.collection = collection;
-}
-Extender.prototype.with = function(args, forceVariable) {
-    for (i = 0; i < this.collection.length; i++) {
-        var item = this.collection[i];
-        if (item.hasOwnProperty('prototype') && forceVariable !== true) {
-            for (var b in args) {
-                item.prototype[b] = args[b];
+    if (typeof Element.prototype.remove !== 'function'){
+        Element.prototype.remove = function() {
+            if (this.parentNode) {
+                this.parentNode.removeChild(this);
             }
+        };
+    }
+})();
+
+class Base{
+
+}
+
+class Definitions extends Base{
+    add( as, obj ){
+        if( typeof as === 'string' ){
+            window[as] = obj;
         } else {
-            for (var b in args) {
-                item[b] = args[b];
+            for(var i in as){
+                if( typeof window[ as[i] ] === 'undefined' ){
+                    window[as[i]] = obj;
+                } else {
+                    console.log( 'window[' + as[i] + '] is already in use. Skipping.' );
+                }
             }
         }
     }
 }
 
-window['serialize'] = function(obj, prefix) {
+class ScopeWidget extends HTMLElement {
+    constructor() {
+        super();
+    }
+    connectedCallback() {
+        var widget = this.getAttribute('data-widget');
+        var list = widget.split('.');
+        var instance = null;
+        for (var i in list) {
+            if (instance == null) {
+                instance = window[list[i]];
+            } else {
+                instance = instance[list[i]];
+            }
+        }
+        if (!this.id) {
+            var c = (++Scope.widgetCount);
+            var widgetName = widget.toLowerCase();
+            widgetName = widgetName.replace(/\./g, '-');
+            widgetName = widgetName.replace(/_/g, '-');
+            this.id ='w' + c + '-' + widgetName;
+        }
+        var beforeload = this.do('beforeload');
+        if (!beforeload.defaultPrevented) {
+            window[this.id] = new instance(this);
+            this.do('afterload');
+        }
+    }
+}
+
+customElements.define('sc-widget', ScopeWidget);
+
+window['extend'] = function(){
+    this.collection = arguments
+    this.with = function( args, forceProperty ){
+        for (var i = 0; i < this.collection.length; i++) {
+            var item = this.collection[i];
+            if (item.hasOwnProperty('prototype') && forceProperty !== true) {
+                for (var b in args) {
+                    item.prototype[b] = args[b];
+                }
+            } else {
+                for (var b in args) {
+                    item[b] = args[b];
+                }
+            }
+        }
+    }
+    return this;
+}
+
+window['define'] = function( as, obj ){
+    if( typeof as == 'string' ){
+        if( typeof window[ as ] == 'undefined' ){
+            window[ as ] = obj;
+        } else {
+            console.warn("window[" + as + "] is already in use");
+        }
+    } else {
+        for(var i in as){
+            if( typeof window[ as[i] ] == 'undefined' ){
+                window[ as[i] ] = obj;
+            } else {
+                console.warn("window[" + as[i] + "] is already in use");
+            }
+        }
+    }
+}
+
+window['serialize'] = function(obj,prefix){
     var str = [],
-        p;
+    p;
 
     if (typeof prefix == 'undefined') {
         prefix = '';
@@ -96,16 +159,15 @@ window['serialize'] = function(obj, prefix) {
     return str.join("&");
 }
 
-window['Scope'] = function(arg) {
-    return document.find(arg);
+window['Scope'] = function( query, forceSingle ){
+    if( forceSingle === true ){
+        return document.querySelector( query );
+    } else {
+        return document.querySelectorAll( query );
+    }
 }
 
-if (typeof window['sc'] == 'undefined') {
-    window['sc'] = window['Scope'];
-}
-if (typeof window['_'] == 'undefined') {
-    window['_'] = window['Scope'];
-}
+define( ['sc', '_'], window['Scope'] );
 
 extend( Scope ).with({
     widgetCount: 0,
@@ -128,7 +190,6 @@ extend( Scope ).with({
         } else if (ua.indexOf('firefox') !== -1) {
             data.name = 'ff';
         }
-
         return data;
     },
     request: {
@@ -151,11 +212,9 @@ extend( Scope ).with({
             if (!obj.hasOwnProperty('headers')) {
                 obj['headers'] = [];
             }
-
             if (obj.method.toUpperCase() == 'POST') {
                 obj.headers['Content-Type'] = 'application/x-www-form-urlencoded';
             }
-
             return obj;
         },
         send: function(obj) {
@@ -163,7 +222,6 @@ extend( Scope ).with({
             xhr.obj = this.validate(obj);
 
             xhr.open(xhr.obj.method, xhr.obj.url);
-
 
             xhr.responseType = obj.responseType;
 
@@ -203,7 +261,7 @@ extend( Scope ).with({
 }, true);
 
 extend(Element, Document, Window).with({
-    listen: function(a, b, c) {
+    on: function(a, b, c) {
         var split = a.split(' ');
         for (var i in split) {
             var event = split[i];
@@ -227,7 +285,7 @@ extend(Element, Document, Window).with({
             }
         }
     },
-    dispatch: function(eventType, params) {
+    do: function(eventType, params) {
         var event = new CustomEvent(eventType, {
             cancelable: true,
             bubbles: true
@@ -367,38 +425,80 @@ extend(Element).with({
 });
 
 extend(HTMLCollection, NodeList).with({
-    listen: function(a, b, c) {
-        var split = a.split(' ');
-        for (var i in split) {
-            var event = split[i];
-            for (i = 0; i < this.length; i++) {
-                if (typeof c == 'undefined') {
-                    this[i].listen(event, b);
-                } else {
-                    this[i].listen(event, b, c);
-                }
-            }
-        }
-    },
-    dispatch: function(a) {
-        for (i = 0; i < this.length; i++) {
-            this[i].dispatch(a);
-        }
-    },
     forEach: function(callable) {
         for (i = 0; i < this.length; i++) {
             callable.call(this, this[i]);
         }
     },
+    delegate: function( fn, args ){
+        for (i = 0; i < this.length; i++) {
+            this[i][fn].apply( this[i], args );
+        }
+    },
+    on: function() {
+        this.delegate( 'on', arguments );
+    },
+    do: function() {
+        this.delegate( 'do', arguments );
+    },
+    attr: function(){
+        this.delegate( 'attr', arguments );
+    },
+    addClass: function(){
+        this.delegate( 'addClass', arguments );
+    },
+    removeClass: function(){
+        this.delegate( 'addClass', arguments );
+    }
 });
 
-// extend(HTMLCollection).with({
-//     forEach: function(callable) {
-//         for (i = 0; i < this.length; i++) {
-//             callable.call(this, this[i]);
-//         }
-//     },
-// });
+extend( Event ).with({
+    prev: Event.prototype.preventDefault,
+    stop: Event.prototype.stopPropagation
+})
+
+
+
+extend(Document, Element, NodeList, HTMLCollection).with({
+    describe: function(property) {
+        if (typeof Scope['documentation'] != 'undefined' && typeof Scope['documentation'][property] == 'string') {
+            var name = (this.constructor.prototype.hasOwnProperty(property)) ? this.constructor.name.toString() : 'this';
+            var documentation = Scope.documentation[property];
+            console.log("%c" + name + "%c.%c" + property + "%c\n" + documentation, "color:blue;", "color: black;", "color:blue;", "color:black;", "color:#999");
+        }
+    },
+    describeAll: function() {
+        for (var property in this) {
+            this.describe(property);
+        }
+    }
+})
+
+extend( Scope ).with({
+    describe: Document.prototype.describe,
+    describeAll: Document.prototype.describeAll,
+}, true);
+
+document.on('DOMContentLoaded', function(e) {
+    document.do('ready');
+});
+
+document.on('click', '[sc-on="click"]', function(e) {
+    var target = this.attr('sc-for');
+    var trigger = this.attr('sc-trigger');
+
+    if (target) {
+        var target = document.findOne(target);
+        if (target) {
+            target.do(trigger);
+        } else {
+            console.error('Trying to trigger "' + trigger + '" on unknown element "' + target + '".');
+        }
+
+    } else {
+        this.do(trigger);
+    }
+})
 
 Scope.documentation = {
     getUserAgent: "\
@@ -461,157 +561,10 @@ Toggles between slideUp and slideDown, depending on the current state.\n\n\
     forEach: "\
 Adds forEach support, the argument in it's callback is always the iterated element.\n\n\
 %cx.forEach(function(item){console.log(item)})",
-    listen: "\
-Listens for an event of the given type (and of the optionally matching query) and executes the supplied callback.\n\n\
-%cx.listen('click', query, callback) or x.listen('click', callback)",
-    dispatch: "\
-Dispatches an event of the supplied type.\n\n\
-%cx.dispatch('click')"
+    on: "\
+ons for an event of the given type (and of the optionally matching query) and executes the supplied callback.\n\n\
+%cx.on('click', query, callback) or x.on('click', callback)",
+    do: "\
+does an event of the supplied type.\n\n\
+%cx.do('click')"
 }
-
-
-extend(Document, Element, NodeList, HTMLCollection).with({
-    describe: function(property) {
-        if (typeof Scope['documentation'] != 'undefined' && typeof Scope['documentation'][property] == 'string') {
-            var name = (this.constructor.prototype.hasOwnProperty(property)) ? this.constructor.name.toString() : 'this';
-            var documentation = Scope.documentation[property];
-            console.log("%c" + name + "%c.%c" + property + "%c\n" + documentation, "color:blue;", "color: black;", "color:blue;", "color:black;", "color:#999");
-        }
-    },
-    describeAll: function() {
-        for (var property in this) {
-            this.describe(property);
-        }
-    }
-})
-
-extend( Scope ).with({
-    describe: Document.prototype.describe,
-    describeAll: Document.prototype.describeAll,
-}, true);
-
-class ScopeWidget extends HTMLElement {
-    constructor() {
-        super();
-    }
-    connectedCallback() {
-
-        var widget = this.getAttribute('data-widget');
-        var list = widget.split('.');
-        var instance = null;
-        for (var i in list) {
-            if (instance == null) {
-                instance = window[list[i]];
-            } else {
-                instance = instance[list[i]];
-            }
-        }
-        if (!this.id) {
-            var c = (++Scope.widgetCount);
-            var widgetName = widget.toLowerCase();
-            widgetName = widgetName.replace(/\./g, '-');
-            widgetName = widgetName.replace(/_/g, '-');
-            this.id ='w' + c + '-' + widgetName;
-        }
-        var beforeload = this.dispatch('beforeload');
-        if (!beforeload.defaultPrevented) {
-            window[this.id] = new instance(this);
-            this.dispatch('afterload');
-        }
-    }
-}
-
-customElements.define('sc-widget', ScopeWidget);
-
-document.listen('DOMContentLoaded', function(e) {
-    document.dispatch('ready');
-});
-
-document.listen('click', '[sc-on="click"]', function(e) {
-    var target = this.attr('sc-for');
-    var trigger = this.attr('sc-trigger');
-
-    if (target) {
-        var target = document.findOne(target);
-        if (target) {
-            target.dispatch(trigger);
-        } else {
-            console.error('Trying to trigger "' + trigger + '" on unknown element "' + target + '".');
-        }
-
-    } else {
-        this.dispatch(trigger);
-    }
-})
-
-document.listen('touchstart mousedown', '*', function(event) {
-    this.isMouseDown = true;
-
-    this[event.type] = {
-        x: (event.type == 'mousedown' ? event.pageX : event.touches[0].pageX) - this.offsetLeft,
-        y: (event.type == 'mousedown' ? event.pageY : event.touches[0].pageY) - this.offsetTop
-    };
-
-    this.longpressTimeout = window.setTimeout(function() {
-        this.dispatch('longpress');
-    }.bind(this), 1500);
-});
-document.listen('touchmove mousemove', '*', function(event) {
-
-    if (this.isMouseDown) {
-
-        var startX = (this[(event.type == 'touchmove' ? 'touchstart' : 'mousedown')]).x;
-        var startY = (this[(event.type == 'touchmove' ? 'touchstart' : 'mousedown')]).y;
-
-        var currentX = (event.type == 'mousemove' ? event.pageX : event.touches[0].pageX) - this.offsetLeft;
-        var currentY = (event.type == 'mousemove' ? event.pageY : event.touches[0].pageY) - this.offsetTop;
-
-        var diffX = Math.abs(startX - currentX);
-        var diffY = Math.abs(startY - currentY);
-
-        this['swiping'] = {
-            x: {
-                start: startX,
-                current: currentX,
-                diff: diffX
-            },
-            y: {
-                start: startY,
-                current: currentY,
-                diff: diffY
-            },
-        };
-
-        var swiping = this.dispatch('swiping');
-
-        if (diffX > 0 || diffY > 0) {
-            window.clearTimeout(this.longpressTimeout);
-        }
-
-        if (swiping.defaultPrevented) {
-            this.isMouseDown = false;
-            return;
-        }
-
-        if (startX > currentX) {
-            if (diffX > 15) {
-                var swipright = this.dispatch('swiperight');
-                if (swipright.defaultPrevented) {
-                    this.isMouseDown = false
-                }
-            }
-        } else if (startX < currentX) {
-            if (diffX > 15) {
-                var swipeleft = this.dispatch('swipeleft');
-                if (swipeleft.defaultPrevented) {
-                    this.isMouseDown = false
-                }
-            }
-        }
-    }
-});
-
-document.listen('touchend mouseup', '*', function(event) {
-    window.clearTimeout(this.longpressTimeout);
-    this.isMouseDown = false;
-});

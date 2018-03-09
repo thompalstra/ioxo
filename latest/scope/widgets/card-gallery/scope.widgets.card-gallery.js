@@ -2,7 +2,7 @@ window['CardGallery'] = window['Scope']['widgets']['CardGallery'] = function( el
     this.element = element;
     this.element.attr('sc-widget-status', 'pending');
 
-    document.listen('ready', function(e){
+    document.on('ready', function(e){
         this.element.findOne('.next', function( event ){
             this.next()();
         }.bind(this));
