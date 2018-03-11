@@ -5,6 +5,9 @@ window['YouTubePlayer'] = window['Scope']['widgets']['YouTubePlayer'] = function
     this.videos = [];
 
     this.apiKey = this.source.attr('data-api-key');
+
+
+
     this.title = this.source.attr('data-title') || 'My title';
     this.playlist = this.source.attr('data-playlist') || true;
     this.autoplayFirst = this.source.attr('data-autoplay-first') || true;
@@ -13,37 +16,35 @@ window['YouTubePlayer'] = window['Scope']['widgets']['YouTubePlayer'] = function
     var ctr = 0;
     var group = [];
 
-    document.on('ready', function(event){
-        this.source.children.forEach(function(el){
-            if( ctr == 20 ){
-                group.push( el.value );
-                this.list.push( group.join(',') );
-                group = [];
-                ctr = 0;
-            } else {
-                group.push( el.value );
-                ctr++;
-            }
-        }.bind(this));
-
-        if( group.length > 0 ){
+    this.source.children.forEach(function(el){
+        if( ctr == 20 ){
+            group.push( el.value );
             this.list.push( group.join(',') );
             group = [];
+            ctr = 0;
+        } else {
+            group.push( el.value );
+            ctr++;
         }
-
-        var wrapper = document.create('div', {
-            className: 'youtube-player',
-            'sc-widget-status': 'pending',
-            'data-playlist': this.playlist == true ? '1' : '0'
-        });
-
-        this.source.parentNode.replaceChild( wrapper, this.source );
-        this.element = wrapper;
-
-        this.fetch( 0, this.list, function(){
-            this.createWidget();
-        }.bind(this) )
     }.bind(this));
+
+    if( group.length > 0 ){
+        this.list.push( group.join(',') );
+        group = [];
+    }
+
+    var wrapper = document.create('div', {
+        className: 'youtube-player',
+        'sc-widget-status': 'pending',
+        'data-playlist': this.playlist == true ? '1' : '0'
+    });
+
+    this.source.parentNode.replaceChild( wrapper, this.source );
+    this.element = wrapper;
+
+    this.fetch( 0, this.list, function(){
+        this.createWidget();
+    }.bind(this) )
 }
 
 extend( YouTubePlayer ).with({

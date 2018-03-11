@@ -3,8 +3,6 @@ window['CardGallery'] = window['Scope']['widgets']['CardGallery'] = function( el
     this.element.attr('sc-widget-status', 'pending');
 
     this.registerListeners();
-
-
 }
 
 extend( CardGallery ).with({
