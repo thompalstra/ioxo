@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', function(e){
                 instance = instance[list[i]];
             }
         }
-        if (!this.id) {
+        if (!element.id) {
             var c = (++Scope.widgetCount);
             var widgetName = widget.toLowerCase();
             widgetName = widgetName.replace(/\./g, '-');
