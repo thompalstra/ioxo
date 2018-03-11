@@ -1,4 +1,4 @@
-window['ScopeYTPlayer'] = window['Scope']['widgets']['YouTubePlayer'] = function( source ){
+window['YouTubePlayer'] = window['Scope']['widgets']['YouTubePlayer'] = function( source ){
     this.element = null;
     this.source = source;
     this.list = [];
