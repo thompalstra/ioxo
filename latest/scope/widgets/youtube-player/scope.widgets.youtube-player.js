@@ -71,7 +71,6 @@ extend( ScopeYTPlayer ).with({
                     this.fetch( newIndex, list, complete );
                 }.bind(this),
                 onerror: function(){
-                    console.log('error');
                 }
             });
         } else {
@@ -79,8 +78,6 @@ extend( ScopeYTPlayer ).with({
         }
     },
     createWidget: function( ){
-        console.log('create widget');
-
         var topWrapper = this.element.appendChild( document.create('div', {
             className: 'top-wrapper'
         } ) );
@@ -108,8 +105,6 @@ extend( ScopeYTPlayer ).with({
             });
 
             for(var i in this.videos){
-                console.log('create video li');
-
                 var content = "\
                     <div class='thumb'><img src='"+this.videos[i].thumbnail_medium.url+"'/></a></div>\
                     <div class='content'><normal>" + this.videos[i].title+ "</normal>" + "</br><small>" + this.videos[i].channelTitle + "</small></div>\
