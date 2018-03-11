@@ -50,63 +50,40 @@
     }
 })();
 
-class Base{
-
-}
-
-class Definitions extends Base{
-    add( as, obj ){
-        if( typeof as === 'string' ){
-            window[as] = obj;
-        } else {
-            for(var i in as){
-                if( typeof window[ as[i] ] === 'undefined' ){
-                    window[as[i]] = obj;
-                } else {
-                    console.log( 'window[' + as[i] + '] is already in use. Skipping.' );
-                }
-            }
-        }
-    }
-}
-
-
-if( typeof customElements !== 'undefined' ){
-
-    class ScopeWidget extends HTMLElement {
-        constructor() {
-            super();
-        }
-        connectedCallback() {
-            var widget = this.getAttribute('data-widget');
-            var list = widget.split('.');
-            var instance = null;
-            for (var i in list) {
-                if (instance == null) {
-                    instance = window[list[i]];
-                } else {
-                    instance = instance[list[i]];
-                }
-            }
-            if (!this.id) {
-                var c = (++Scope.widgetCount);
-                var widgetName = widget.toLowerCase();
-                widgetName = widgetName.replace(/\./g, '-');
-                widgetName = widgetName.replace(/_/g, '-');
-                this.id ='w' + c + '-' + widgetName;
-            }
-            var beforeload = this.do('beforeload');
-            if (!beforeload.defaultPrevented) {
-                window[this.id] = new instance(this);
-                this.do('afterload');
-            }
-        }
-    }
-
-    customElements.define('sc-widget', ScopeWidget);
-}
-
-
+// if( typeof customElements !== 'undefined' ){
+//
+//     class ScopeWidget extends HTMLElement {
+//         constructor() {
+//             super();
+//         }
+//         connectedCallback() {
+//             var widget = this.getAttribute('data-widget');
+//             var list = widget.split('.');
+//             var instance = null;
+//             for (var i in list) {
+//                 if (instance == null) {
+//                     instance = window[list[i]];
+//                 } else {
+//                     instance = instance[list[i]];
+//                 }
+//             }
+//             if (!this.id) {
+//                 var c = (++Scope.widgetCount);
+//                 var widgetName = widget.toLowerCase();
+//                 widgetName = widgetName.replace(/\./g, '-');
+//                 widgetName = widgetName.replace(/_/g, '-');
+//                 this.id ='w' + c + '-' + widgetName;
+//             }
+//             var beforeload = this.do('beforeload');
+//             if (!beforeload.defaultPrevented) {
+//                 window[this.id] = new instance(this);
+//                 this.do('afterload');
+//             }
+//         }
+//     }
+//
+//     customElements.define('sc-widget', ScopeWidget);
+// }
 
 window['extend'] = function(){
     this.collection = arguments

@@ -268,7 +268,7 @@ if you're using <span style='color: white;'>Chrome</span>, <span style='color: w
                     Tabs
                 </li>
             </a>
-            <a href="/latest/scope/widgets/yt-player/example.html">
+            <a href="/latest/scope/widgets/youtube-player/example.html">
                 <li data-search-value="Youtube player">
                     Youtube player
                 </li>
