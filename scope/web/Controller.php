@@ -144,6 +144,11 @@ class Controller extends scope\core\Base{
             'view' => $content
         ] );
     }
+    public function renderView( $_view, $data = [] ){
+        $view = new View();
+
+        return $view->renderFile($_view, $data );
+    }
 
     public function json( $data ){
         echo json_encode( $data );

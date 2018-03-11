@@ -389,6 +389,11 @@ extend(Element).with({
         }
     },
     slideUp: function(speed) {
+
+        if( !speed ){
+            speed = 1000;
+        }
+
         var height = this.offsetHeight;
         this.style.height = height;
         this.style.transition = speed + 'ms';
@@ -401,6 +406,11 @@ extend(Element).with({
         }.bind(this), 10);
     },
     slideDown: function(speed) {
+
+        if( !speed ){
+            speed = 1000;
+        }
+
         this.style.height = '';
         var height = this.offsetHeight;
         this.style.height = '0px';
@@ -486,19 +496,175 @@ document.on('DOMContentLoaded', function(e) {
 document.on('click', '[sc-on="click"]', function(e) {
     var target = this.attr('sc-for');
     var trigger = this.attr('sc-trigger');
+    var fn = this.attr('sc-function');
 
-    if (target) {
-        var target = document.findOne(target);
+    if( trigger ){
         if (target) {
-            target.do(trigger);
+            var target = document.findOne(target);
+            if (target) {
+                e.prev();
+
+                target.do(trigger);
+            } else {
+                console.error('Trying to trigger "' + trigger + '" on unknown element "' + target + '".');
+            }
         } else {
-            console.error('Trying to trigger "' + trigger + '" on unknown element "' + target + '".');
+            e.prev();
+            this.do(trigger);
+        }
+    } else if( fn ){
+        if( target ){
+            var target = document.findOne(target);
+            if( target && typeof target[fn] == 'function' ){
+                e.prev();
+                target[fn].call(target, null);
+            } else {
+                console.error('Trying to execute function "' + fn + '" on unknown element "' + target + '".');
+            }
+        }
+    }
+
+
+})
+
+/* Swipe Events */
+
+Element.prototype.swipe = {
+    pressed: false,
+    dispatched: {
+        swiping: false,
+        swipeleft: false,
+        swiperight: false,
+        swipingleft: false,
+        swipingright: false,
+    },
+    relative: {
+        start: {
+            x: null,
+            y: null,
+        },
+        current: {
+            x: null,
+            y: null,
+        },
+        diff: {
+            x: null,
+            y: null
+        }
+    },
+    page: {
+        start: {
+            x: null,
+            y: null,
+        },
+        current: {
+            x: null,
+            y: null,
+        },
+        diff: {
+            x: null,
+            y: null
+        }
+    }
+};
+
+document.on('mousedown touchstart', function( event ){
+    if( event.target !== document ){
+        event.target.swipe.pressed = true;
+        event.target.swipe.relative.start.y = event.pageY - event.target.parentNode.offsetTop;
+        event.target.swipe.relative.start.x = event.pageX - event.target.parentNode.offsetLeft;
+    }
+});
+document.on('mousemove touchmove', function( event ){
+    if( event.target !== document && event.target.swipe.pressed === true ){
+
+        event.target.swipe.relative.current.y = event.pageY - event.target.parentNode.offsetTop;
+        event.target.swipe.relative.current.x = event.pageX - event.target.parentNode.offsetLeft;
+
+        event.target.swipe.relative.diff.y = event.target.swipe.relative.start.y - event.target.swipe.relative.current.y;
+        event.target.swipe.relative.diff.x = event.target.swipe.relative.start.x - event.target.swipe.relative.current.x;
+
+        if( event.target.swipe.dispatched.swiping == false ){
+            if( event.target.do('swipestart').defaultPrevented ){
+                return;
+            }
         }
 
-    } else {
-        this.do(trigger);
+        event.target.do('swiping');
+
+        if( event.target.swipe.dispatched.swiping == false ){
+            event.target.swipe.dispatched.swiping = true;
+        }
+
+        if( event.target.swipe.relative.diff.x > 10 ){
+            if( !event.target.do('swipingleft').defaultPrevented ){
+                if( event.target.swipe.dispatched.swipeleft == false && !event.target.do('swipeleft').defaultPrevented ){
+                    event.target.swipe.dispatched.swipeleft = true;
+                }
+                if( event.target.swipe.dispatched.swipingleft == false ){
+                    event.target.swipe.dispatched.swipingleft = true;
+                }
+            }
+
+        } else if(event.target.swipe.relative.diff.x < -10 ){
+            if( !event.target.do('swipingright').defaultPrevented ){
+                if( event.target.swipe.dispatched.swiperight == false && !event.target.do('swiperight').defaultPrevented ){
+                    event.target.swipe.dispatched.swiperight = true;
+                }
+                if( event.target.swipe.dispatched.swipingright == false ){
+                    event.target.swipe.dispatched.swipingright = true;
+                }
+            }
+        }
     }
-})
+
+
+});
+document.on('mouseup mouseleave touchend', function(e){
+    if( event.target !== document &&  event.target.swipe.pressed === true ){
+
+        event.target.do('swipeend');
+
+        event.target.swipe = {
+            pressed: false,
+            dispatched: {
+                swiping: false,
+                swipeleft: false,
+                swiperight: false,
+                swipingleft: false,
+                swipingright: false,
+            },
+            relative: {
+                start: {
+                    x: null,
+                    y: null,
+                },
+                current: {
+                    x: null,
+                    y: null,
+                },
+                diff: {
+                    x: null,
+                    y: null
+                }
+            },
+            page: {
+                start: {
+                    x: null,
+                    y: null,
+                },
+                current: {
+                    x: null,
+                    y: null,
+                },
+                diff: {
+                    x: null,
+                    y: null
+                }
+            }
+        };
+    }
+});
 
 Scope.documentation = {
     getUserAgent: "\

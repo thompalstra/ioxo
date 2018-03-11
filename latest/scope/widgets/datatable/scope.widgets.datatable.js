@@ -151,7 +151,6 @@ extend( Datatable ).with({
         this.element.appendChild( table );
     },
     createPagination: function( length ){
-        console.log( length / this.pagination.pageSize );
         this.pages = parseInt( Math.ceil( length / this.pagination.pageSize ) );
 
         var ul = this.element.findOne('ul.pagination');

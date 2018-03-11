@@ -78,7 +78,22 @@ extend( Form ).with({
             })
         }
 
-
+        this.element.find('input[type="search"][search-for]').on('input', function(e){
+            var target = sc( this.attr('search-for'), true);
+            search = this.value.toLowerCase();
+            if( target ){
+                target.find('[data-search-value]').forEach(function(el){
+                    var value = el.attr('data-search-value').toLowerCase();
+                    console.log( value.indexOf( search ) );
+                    if( value.indexOf( search ) != -1 ){
+                        console.log('showing', el);
+                        el.show();
+                    } else {
+                        el.hide();
+                    }
+                })
+            }
+        });
     }
 })
 

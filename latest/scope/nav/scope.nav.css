@@ -1,3 +1,100 @@
+.nav-menu{
+
+}
+
+.nav-menu.fixed{
+    position: fixed;
+}
+.nav-menu.top{ top: 0; }
+.nav-menu.right{ right: 0; }
+.nav-menu.bottom{ bottom: 0; }
+.nav-menu.left{ left: 0; }
+
+.nav-menu ul{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    background-color: #f2f2f2;
+    color: #111;
+}
+
+.nav-menu ul li{
+    position: relative;
+    min-height: 50px;
+    min-width: 50px;
+    line-height: 50px;
+    display: inline-block;
+    white-space: nowrap;
+
+    padding: 0 10px;
+}
+
+.nav-menu ul li[sc-icon-after]{
+    padding-right: 50px;
+}
+
+.nav-menu ul li[sc-icon-after]:after{
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.nav-menu ul li[sc-icon-before]{
+    padding-left: 50px;
+}
+.nav-menu ul li[sc-icon-before]:before{
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.nav-menu ul li[is-dropdown] ul{
+    margin: 0 -50px 0 -10px;
+    padding: 0;
+}
+.nav-menu > ul > li[is-dropdown] > ul{
+    margin-left: 0;
+}
+
+.nav-menu ul li[is-dropdown]:after{
+    content: "\E5C5";
+}
+.nav-menu ul li[is-dropdown][show]:after{
+    content: "\E5C7";
+}
+
+.nav-menu.bottom ul li[is-dropdown]:after{
+    content: "\E5C7";
+}
+.nav-menu.bottom ul li[is-dropdown][show]:after{
+    content: "\E5C5";
+}
+.nav-menu > ul > li > ul{
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 200px;
+    margin: 0;
+}
+
+.nav-menu.bottom > ul > li > ul{
+    bottom: 100%;
+    top: auto;
+}
+
+.nav-menu ul li ul li{
+    display: block;
+}
+
+.nav-menu li[is-dropdown] ul{
+    display: none;
+}
+
+.nav-menu li[show] > ul{
+    display: block;
+}
+
 .nav-sidebar{
     position: fixed;
 }

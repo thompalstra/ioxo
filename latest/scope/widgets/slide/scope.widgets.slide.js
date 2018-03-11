@@ -3,7 +3,7 @@ window['Slide'] = window['Scope']['widgets']['Slide'] = function( element ){
 
     this.element.attr('sc-widget-status', 'pending');
 
-    document.on('ready', function(e){
+    document.on('ready', function(event){
         this.ul = this.element.findOne('ul');
         this.wrapper = this.element.findOne('.wrapper');
         this.images = [];
@@ -51,47 +51,41 @@ window['Slide'] = window['Scope']['widgets']['Slide'] = function( element ){
         }
 
         function finish(){
-            this.ul.on('swipeleft', function(e){
-                e.preventDefault();
-                e.stopImmediatePropagation();
-                this.slidePrevious();
+            this.ul.on('swipeleft', function(event){
+                event.preventDefault();
+                event.stopImmediatePropagation();
+                this.prev();
             }.bind(this));
-
-            this.ul.on('longpress', function(e){
-                console.log('longpress');
-            }.bind(this))
-
-            this.ul.on('swiperight', function(e){
-                e.preventDefault();
-                e.stopImmediatePropagation();
-                this.slideNext();
+            this.ul.on('swiperight', function(event){
+                event.prev();
+                event.stop();
+                this.next();
             }.bind(this));
-
             this.element.attr('sc-widget-status', 'done');
         }
     }.bind(this));
 }
 
 extend( window['Scope']['widgets']['Slide'] ).with({
-    slideNext: function(){
+    next: function(){
         var currentIndex = this.getIndex();
         var newIndex = currentIndex + 1;
         if( newIndex <= this.ul.children.length ){
-            this.slideTo( newIndex );
+            this.to( newIndex );
         } else {
-            this.slideTo( 1 );
+            this.to( 1 );
         }
     },
-    slidePrevious: function(){
+    prev: function(){
         var currentIndex = this.getIndex();
         var newIndex = currentIndex - 1;
         if( newIndex >= 1 ){
-            this.slideTo( newIndex );
+            this.to( newIndex );
         } else {
-            this.slideTo( this.ul.children.length );
+            this.to( this.ul.children.length );
         }
     },
-    slideTo: function( i ){
+    to: function( i ){
         this.setIndex(i);
         var i = i - 1;
 

@@ -5,6 +5,11 @@
         <script type="text/javascript" src="http://www.ioxo.nl/latest/scope/scope.core.js"></script>
         <link rel="stylesheet" href="http://www.ioxo.nl/latest/scope/widgets/slide/scope.widgets.slide.css"/>
         <script type="text/javascript" src="http://www.ioxo.nl/latest/scope/widgets/slide/scope.widgets.slide.js"></script>
+        <script>
+            document.on('ready', function(e){
+                showPageCode( '#slide-wrapper', location.href );
+            });
+        </script>
     </head>
     <body>
         <div class='wrapper'>
@@ -18,7 +23,7 @@
         </div>
         <div id='slide-wrapper' class='wrapper'>
             <sc-widget id='w0-slide-1' data-widget="Scope.widgets.Slide" class='scope slide'>
-                <div class='wrapper'>
+                <div class='widget-wrapper'>
                     <ul>
                         <li style="background-image: url( http://getwallpapers.com/wallpaper/full/d/f/9/90066.jpg )"></li>
                         <li style="background-image: url( https://wallpaperstudio10.com/static/wpdb/wallpapers/1920x1080/170657.jpg )"></li>
@@ -30,10 +35,5 @@
                 </div>
             </sc-widget>
         </div>
-        <script>
-            document.on('ready', function(e){
-                showPageCode( '#slide-wrapper', location.href );
-            });
-        </script>
     </body>
 </html>

@@ -65,3 +65,7 @@
 #w0-tabs-about-ioxo h4{
     margin: 5px 0;
 }
+
+.pre-code{
+    white-space: pre-line;
+}
