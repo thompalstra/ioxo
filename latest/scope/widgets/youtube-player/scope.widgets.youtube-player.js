@@ -46,7 +46,7 @@ window['YouTubePlayer'] = window['Scope']['widgets']['YouTubePlayer'] = function
     }.bind(this));
 }
 
-extend( ScopeYTPlayer ).with({
+extend( YouTubePlayer ).with({
     fetch: function( index, list, complete ){
         if( index < list.length ){
 
