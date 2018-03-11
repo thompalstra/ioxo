@@ -2,7 +2,7 @@
     <h2>ScopeJS</h2>
     <p>
         <strong>ScopeJS</strong> is by definition an extension of the current HTML-standards.<br/>
-        By extending the standard HTML classes, defined by <strong><a href="https://www.w3.org">W3</a></strong>, and therefore adding functionality.<br/>
+        By extending the standard HTML classes defined by <strong><a href="https://www.w3.org">W3</a></strong>, this is how ScopeJS adds functionality to elements, without compromising the existing methods.<br/>
     </p>
     <p>
         Compared to other frameworks, ScopeJS does not declare new classes and does nu use wrapper-classes around element. </br>
