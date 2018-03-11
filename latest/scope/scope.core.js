@@ -70,37 +70,43 @@ class Definitions extends Base{
     }
 }
 
-class ScopeWidget extends HTMLElement {
-    constructor() {
-        super();
-    }
-    connectedCallback() {
-        var widget = this.getAttribute('data-widget');
-        var list = widget.split('.');
-        var instance = null;
-        for (var i in list) {
-            if (instance == null) {
-                instance = window[list[i]];
-            } else {
-                instance = instance[list[i]];
+
+if( typeof customElements !== 'undefined' ){
+
+    class ScopeWidget extends HTMLElement {
+        constructor() {
+            super();
+        }
+        connectedCallback() {
+            var widget = this.getAttribute('data-widget');
+            var list = widget.split('.');
+            var instance = null;
+            for (var i in list) {
+                if (instance == null) {
+                    instance = window[list[i]];
+                } else {
+                    instance = instance[list[i]];
+                }
+            }
+            if (!this.id) {
+                var c = (++Scope.widgetCount);
+                var widgetName = widget.toLowerCase();
+                widgetName = widgetName.replace(/\./g, '-');
+                widgetName = widgetName.replace(/_/g, '-');
+                this.id ='w' + c + '-' + widgetName;
+            }
+            var beforeload = this.do('beforeload');
+            if (!beforeload.defaultPrevented) {
+                window[this.id] = new instance(this);
+                this.do('afterload');
             }
         }
-        if (!this.id) {
-            var c = (++Scope.widgetCount);
-            var widgetName = widget.toLowerCase();
-            widgetName = widgetName.replace(/\./g, '-');
-            widgetName = widgetName.replace(/_/g, '-');
-            this.id ='w' + c + '-' + widgetName;
-        }
-        var beforeload = this.do('beforeload');
-        if (!beforeload.defaultPrevented) {
-            window[this.id] = new instance(this);
-            this.do('afterload');
-        }
     }
+
+    customElements.define('sc-widget', ScopeWidget);
 }
 
-customElements.define('sc-widget', ScopeWidget);
+
 
 window['extend'] = function(){
     this.collection = arguments
