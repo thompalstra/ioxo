@@ -12,9 +12,12 @@
 
     <a href="/scope-js/basics" class='btn btn-default flat-to-default epic' sc-on="click" sc-for="#dialog-basics" sc-trigger="toggle">Basics</a>
 
-    <sc-widget id='dialog-basics' class='dialog' data-widget='Scope.widgets.Dialog' data-backdrop='1' data-backdrop-dismiss='1'>
+    <sc-widget id='dialog-basics' class='dialog' data-widget='Scope.widgets.Dialog' data-anim="0" data-backdrop='1' data-backdrop-dismiss='1'>
         <div class='title'>
             Basics
+        </div>
+        <div class='actions'>
+            <button class='btn btn-default flat-to-default turqoise pull-right' sc-on='click' sc-trigger='ok'>OK</button>
         </div>
         <div class='content'>
             <div class='code-wrapper'>
@@ -44,18 +47,18 @@ are required to be casted back to jQuery like: $( HTMLElement ) or $( jQueryElem
 </div>
             </div>
         </div>
-        <div class='actions'>
-            <button class='btn btn-default flat-to-default turqoise pull-right' sc-on='click' sc-trigger='ok'>OK</button>
-        </div>
     </sc-widget>
 
 
 
     <a href="/scope-js/searches" class='btn btn-default flat-to-default epic' sc-on='click' sc-for='#dialog-searches' sc-trigger='toggle'>Searches</a>
 
-    <sc-widget id='dialog-searches' class='dialog' data-widget='Scope.widgets.Dialog' data-backdrop='1' data-backdrop-dismiss='1'>
+    <sc-widget id='dialog-searches' class='dialog' data-widget='Scope.widgets.Dialog' data-anim="0" data-backdrop='1' data-backdrop-dismiss='1'>
         <div class='title'>
             Searches
+        </div>
+        <div class='actions'>
+            <button class='btn btn-default flat-to-default turqoise pull-right' sc-on='click' sc-trigger='ok'>OK</button>
         </div>
         <div class='content'>
             <div class='code-wrapper'>
@@ -88,17 +91,17 @@ this means you cannot simply query a single element and will ALWAYS query the fu
 </div>
             </div>
         </div>
-        <div class='actions'>
-            <button class='btn btn-default flat-to-default turqoise pull-right' sc-on='click' sc-trigger='ok'>OK</button>
-        </div>
     </sc-widget>
 
 
     <a href="/scope-js/internal" class='btn btn-default flat-to-default epic' sc-on="click" sc-trigger="toggle" sc-for="#dialog-internal">Internal</a>
 
-    <sc-widget id='dialog-internal' class='dialog' data-widget='Scope.widgets.Dialog' data-backdrop='1' data-backdrop-dismiss='1'>
+    <sc-widget id='dialog-internal' class='dialog' data-widget='Scope.widgets.Dialog' data-anim="0" data-backdrop='1' data-backdrop-dismiss='1'>
         <div class='title'>
             Internal
+        </div>
+        <div class='actions'>
+            <button class='btn btn-default flat-to-default turqoise pull-right' sc-on='click' sc-trigger='ok'>OK</button>
         </div>
         <div class='content'>
             <div class='code-wrapper'>
@@ -168,17 +171,17 @@ jQuery.fn.addClass = function( value ) {
 </div>
             </div>
         </div>
-        <div class='actions'>
-            <button class='btn btn-default flat-to-default turqoise pull-right' sc-on='click' sc-trigger='ok'>OK</button>
-        </div>
     </sc-widget>
 
 
     <a href="/scope-js/conclusion" class='btn btn-default flat-to-default epic' sc-on="click" sc-for="#dialog-conclusion" sc-trigger="toggle">Conclusion</a>
 
-    <sc-widget id='dialog-conclusion' class='dialog' data-widget='Scope.widgets.Dialog' data-backdrop='1' data-backdrop-dismiss='1'>
+    <sc-widget id='dialog-conclusion' class='dialog' data-widget='Scope.widgets.Dialog' data-anim="0" data-backdrop='1' data-backdrop-dismiss='1'>
         <div class='title'>
             Conclusion
+        </div>
+        <div class='actions'>
+            <button class='btn btn-default flat-to-default turqoise pull-right' sc-on='click' sc-trigger='ok'>OK</button>
         </div>
         <div class='content'>
             <div class='code-wrapper'>
@@ -201,9 +204,6 @@ if you're using <span style='color: white;'>Chrome</span>, <span style='color: w
     </code></pre>
 </div>
             </div>
-        </div>
-        <div class='actions'>
-            <button class='btn btn-default flat-to-default turqoise pull-right' sc-on='click' sc-trigger='ok'>OK</button>
         </div>
     </sc-widget>
     <form id='search-form' class='form'>
@@ -325,13 +325,13 @@ if you're using <span style='color: white;'>Chrome</span>, <span style='color: w
     <div class='title'>
         Deprecation warning
     </div>
-    <div class='content'>
-        This item will soon be removed from the code pool. <br/>
-        Are you sure you want to continue?
-    </div>
     <div class='actions'>
         <button class='btn btn-default flat-to-default turqoise pull-right' sc-on='click' sc-trigger='dismiss'>CANCEL</button>
         <button class='btn btn-default flat-to-default turqoise pull-right' sc-on='click' sc-trigger='ok'>OK</button>
+    </div>
+    <div class='content'>
+        This item will soon be removed from the code pool. <br/>
+        Are you sure you want to continue?
     </div>
 </sc-widget>
 

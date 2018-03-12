@@ -1,6 +1,19 @@
 .dialog{
-
+    display: flex;
+    flex-direction: column;
 }
+.dialog .title{
+    order: 0;
+}
+.dialog .content{
+    order: 50;
+}
+.dialog .actions{
+    order: 100;
+}
+
+
+
 .dialog + backdrop{
     position: fixed;
     top: 0; right: 0; bottom: 0; left: 0;
@@ -21,10 +34,8 @@
     left: 50%;
     transform: translate(-50%, -50%);
 
-    max-height: 80%;
-    max-width: 80%;
-
-    overflow: auto;
+    max-height: 95%;
+    max-width: 95%;
 }
 
 .dialog[show]{
@@ -46,6 +57,7 @@
 
     transition: .6s;
 }
+
 .dialog[show]{
     transform: translate(-50%, -50%);
     opacity: 1;
@@ -56,12 +68,13 @@
 .dialog .title{
     font-weight: bold;
     margin-bottom: 10px;
+    height: 50px;
+    line-height: 50px;
 }
 .dialog .content{
     margin-bottom: 10px;
-}
-
-.dialog .actions{
+    overflow: auto;
+    max-height: 100%;
 }
 
 .dialog{
@@ -72,4 +85,9 @@
 }
 .dialog .actions button{
     font-weight: bold;
+}
+
+.dialog[data-anim="0"] + backdrop,
+.dialog[data-anim="0"]{
+    transition: none;
 }

@@ -31,9 +31,11 @@ extend( Dialog ).with({
         }.bind(this));
     },
     show: function( e ){
+        document.body.style['overflow'] = 'hidden';
         this.element.attr( 'show', '' );
     },
     dismiss: function( e ){
+        document.body.style['overflow'] = '';
         this.element.attr( 'show', null );
     },
     toggle: function( ){
