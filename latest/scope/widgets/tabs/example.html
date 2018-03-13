@@ -14,19 +14,24 @@
                         Home
                     </li>
                 </a>
+                <a href="/scope-js">
+                    <li sc-icon-before="code">
+                        ScopeJS
+                    </li>
+                </a>
             </ul>
         </div>
         <div id='tab-wrapper' class='wrapper'>
-            <sc-widget data-widget='Scope.widgets.Tabs' id="w0-tabs-1" class="tabs" style="margin-top: 10px;">
+            <sc-widget data-widget='Scope.widgets.Tabs' id="w0-tabs-1" data-tab="#tab0" class="tabs" style="margin-top: 10px;">
                 <ul class="tabcontrols">
-                    <li data-target="#tab0" class="active">General</li>
+                    <li data-target="#tab0">General</li>
                     <li disabled>Q&A</li>
                     <li data-target="#tab2">Games</li>
                     <li data-target="#tab3">Gallery</li>
                     <li data-target="#tab4">Location</li>
                 </ul>
                 <ul class="tabcontent">
-                    <li id="tab0" class="active">
+                    <li id="tab0">
                         <h2>General</h2>
                         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
                     </li>
@@ -46,7 +51,6 @@
         </div>
         <script>
             document.on('ready', function(e){
-                // var tabs = new Scope.widgets.Tabs( document.findOne('#w0-tabs-1') );
                 showPageCode( '#tab-wrapper', location.href );
             });
         </script>

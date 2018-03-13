@@ -16,32 +16,6 @@
         </script>
     </head>
     <body>
-
-        <sc-widget class='dialog' data-widget='Scope.widgets.Dialog' data-backdrop='1' data-backdrop-dismiss='1'>
-            <div class='title'>
-                Info
-            </div>
-            <div class='content'>
-                My dialog content, it can contain anything really.
-            </div>
-            <div class='actions'>
-                <button class='btn btn-default flat-to-default alert pull-left' sc-on='click' sc-trigger='help'>HELP</button>
-                <button class='btn btn-default flat-to-default turqoise pull-right' sc-on='click' sc-trigger='ok'>OK</button>
-                <button class='btn btn-default flat-to-default turqoise pull-right' sc-on='click' sc-trigger='dismiss'>CANCEL</button>
-            </div>
-        </sc-widget>
-        <sc-widget class='dialog' data-widget='Scope.widgets.Dialog' data-backdrop='1' data-backdrop-dismiss='0'>
-            <div class='title'>
-                Help
-            </div>
-            <div class='content'>
-                I'm sorry, but we can't help you
-            </div>
-            <div class='actions'>
-                <button class='btn btn-default flat-to-default turqoise pull-right' sc-on='click' sc-trigger='ok'>OK</button>
-            </div>
-        </sc-widget>
-
         <div class='wrapper'>
             <ul class='breadcrumb'>
                 <a href="/">
@@ -49,39 +23,106 @@
                         Home
                     </li>
                 </a>
+                <a href="/scope-js">
+                    <li sc-icon-before="code">
+                        ScopeJS
+                    </li>
+                </a>
             </ul>
         </div>
         <div id='wrapper' class='wrapper'>
-
             <div class='col xs12'>
-                <label class='sc-checkbox'>
-                    <input id='cb1' type="checkbox" class='pull-left action flat bordered'/>
-                    allow javascript
-                </label>
+                <div class='col xs6'>
+                    <label class='sc-checkbox'>
+                        <input id='cb1' type="checkbox" class='pull-left action flat bordered'/>
+                        prevent on OK
+                    </label>
+                </div>
+                <div class='col xs6'>
+                    <a href="/" id='show-dialog-1' class='btn btn-default flat-to-default action'>show dialog</a>
+
+                    <sc-widget class='dialog' data-widget='Scope.widgets.Dialog' data-backdrop='1' data-backdrop-dismiss='1'>
+                        <div class='title'>
+                            Info
+                        </div>
+                        <div class='content'>
+                            My dialog content, it can contain anything really.
+                        </div>
+                        <div class='actions'>
+                            <button class='btn btn-default flat-to-default alert pull-left' sc-on='click' sc-trigger='help'>HELP</button>
+                            <button class='btn btn-default flat-to-default turqoise pull-right' sc-on='click' sc-trigger='ok'>OK</button>
+                            <button class='btn btn-default flat-to-default turqoise pull-right' sc-on='click' sc-trigger='dismiss'>CANCEL</button>
+                        </div>
+                    </sc-widget>
+                    <sc-widget class='dialog' data-widget='Scope.widgets.Dialog' data-backdrop='1' data-backdrop-dismiss='0'>
+                        <div class='title'>
+                            Help
+                        </div>
+                        <div class='content'>
+                            I'm sorry, but we can't help you
+                        </div>
+                        <div class='actions'>
+                            <button class='btn btn-default flat-to-default turqoise pull-right' sc-on='click' sc-trigger='ok'>OK</button>
+                        </div>
+                    </sc-widget>
+                </div>
             </div>
 
-            <a href="/" id='show-dialog-1' class='btn btn-default flat-to-default action'>show dialog</a>
+            <div class='col xs12'>
+                <div class='col xs6'>
+                    <a href="/" id='set-help-content' class='btn btn-default flat-to-default action'>set help page</a>
+                    <a href="/" id='set-info-content' class='btn btn-default flat-to-default action'>set info page</a>
+                </div>
+                <div class='col xs6'>
+                    <a href="/" id='show-dialog-2' class='btn btn-default flat-to-default action' sc-on='click' sc-trigger='toggle' sc-for='#dialog2'>show dialog</a>
+
+                    <sc-widget id='dialog2' class='dialog' data-widget='Scope.widgets.Dialog' data-backdrop='1' data-backdrop-dismiss='1'>
+                        <div class='title'>
+                            Not available
+                        </div>
+                        <div class='content'>
+                            You have not set any content
+                        </div>
+                        <div class='actions'>
+                            <button class='btn btn-default flat-to-default turqoise pull-right' sc-on='click' sc-trigger='dismiss'>CANCEL</button>
+                        </div>
+                    </sc-widget>
+                </div>
+            </div>
         </div>
         <script>
-            sc('#show-dialog-1').on('click', function(event){
-                event.preventDefault();
-                document.findOne('#w1-scope-widgets-dialog').do('show');
-            })
+            document.on('ready', function(e){
 
-            sc('#w1-scope-widgets-dialog').on('help', function(event){
-                sc('#w1-scope-widgets-dialog').do('dismiss');
-                sc('#w2-scope-widgets-dialog').do('show');
-            })
+                sc('#set-help-content', true).on('click', function(event){
+                    event.prev()
+                    window['dialog2'].load('example_help.html');
+                })
+                sc('#set-info-content', true).on('click', function(event){
+                    event.prev()
+                    window['dialog2'].load('example_info.html');
+                })
 
-            sc('#w1-scope-widgets-dialog [sc-trigger="ok"]').on('ok', function(event){
-                if( document.findOne('#cb1').checked ){
-                    event.prev();
-                    event.stop();
-                }
-            })
 
-            sc('#w2-scope-widgets-dialog').on('ok', function(event){
-                sc('#w1-scope-widgets-dialog').do('show');
+                sc('#show-dialog-1').on('click', function(event){
+                    event.preventDefault();
+                    document.findOne('#w1-scope-widgets-dialog').do('show');
+                })
+
+                sc('#w1-scope-widgets-dialog').on('help', function(event){
+                    sc('#w1-scope-widgets-dialog').do('dismiss');
+                    sc('#w2-scope-widgets-dialog').do('show');
+                })
+
+                sc('#w1-scope-widgets-dialog [sc-trigger="ok"]').on('ok', function(event){
+                    if( document.findOne('#cb1').checked ){
+                        event.prev();
+                        event.stop();
+                    }
+                })
+
+                sc('#w2-scope-widgets-dialog').on('ok', function(event){
+                    sc('#w1-scope-widgets-dialog').do('show');
+                });
             });
         </script>
     </div>

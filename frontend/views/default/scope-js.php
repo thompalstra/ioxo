@@ -207,7 +207,12 @@ if you're using <span style='color: white;'>Chrome</span>, <span style='color: w
         </div>
     </sc-widget>
     <form id='search-form' class='form'>
-        <input id='data-search' type="search" search-for="#search-wrapper" name="search" placeholder="search" class="input sky"/>
+        <input id='data-search' type="search" list='searchList' search-for="#search-wrapper" name="search" placeholder="search" class="input sky" autocomplete="off"/>
+        <datalist id='searchList'>
+            <option value='Widgets'/>
+            <option value='Tools'/>
+            <option value='Nav'/>
+        </datalist>
     </form>
     <div id='search-wrapper' class='col xs12'>
         <h2>Widgets</h2>
@@ -219,57 +224,57 @@ if you're using <span style='color: white;'>Chrome</span>, <span style='color: w
         </p>
         <ul class='datalist'>
             <a href="/latest/scope/widgets/card-gallery/example.html">
-                <li data-search-value="Card Gallery">
+                <li data-search-value="Widgets Card Gallery">
                     Card Gallery
                 </li>
             </a>
             <a href="/latest/scope/widgets/cjax/example.html">
-                <li data-search-value="CJAX">
+                <li data-search-value="Widgets CJAX">
                     CJAX
                 </li>
             </a>
             <a href="/latest/scope/widgets/datatable/example.html">
-                <li data-search-value="Datatable">
+                <li data-search-value="Widgets Datatable">
                     Datatable
                 </li>
             </a>
             <a href="/latest/scope/widgets/dialog/example.html">
-                <li data-search-value="Dialog">
+                <li data-search-value="Widgets Dialog">
                     Dialog
                 </li>
             </a>
             <a href="/latest/scope/widgets/form/example.html">
-                <li data-search-value="Form">
+                <li data-search-value="Widgets Form">
                     Form
                 </li>
             </a>
             <a href="/latest/scope/widgets/notification/example.html">
-                <li data-search-value="Notification">
+                <li data-search-value="Widgets Notification">
                     Notification
                 </li>
             </a>
             <a class='deprecated' href="/latest/scope/widgets/sidebar/example.html">
-                <li data-search-value="Sidebar">
+                <li data-search-value="Widgets Sidebar">
                     Sidebar <strong style='color: red;'>(deprecated)</strong>
                 </li>
             </a>
             <a href="/latest/scope/widgets/slide/example.html">
-                <li data-search-value="Slide">
+                <li data-search-value="Widgets Slide">
                     Slide
                 </li>
             </a>
             <a href="/latest/scope/widgets/split-container/example.html">
-                <li data-search-value="SplitContainer">
+                <li data-search-value="Widgets SplitContainer">
                     SplitContainer
                 </li>
             </a>
             <a href="/latest/scope/widgets/tabs/example.html">
-                <li data-search-value="Tabs">
+                <li data-search-value="Widgets Tabs">
                     Tabs
                 </li>
             </a>
             <a href="/latest/scope/widgets/youtube-player/example.html">
-                <li data-search-value="Youtube player">
+                <li data-search-value="Widgets Youtube player">
                     Youtube player
                 </li>
             </a>
@@ -283,18 +288,23 @@ if you're using <span style='color: white;'>Chrome</span>, <span style='color: w
         </p>
         <ul class='datalist'>
             <a href="/latest/scope/tools/datalist/example.html">
-                <li data-search-value="Datalist">
+                <li data-search-value="Tools Datalist">
                     Datalist
                 </li>
             </a>
             <a href="/latest/scope/tools/checkbox/example.html">
-                <li data-search-value="Checkbox">
+                <li data-search-value="Tools Checkbox">
                     Checkbox
                 </li>
             </a>
             <a href="/latest/scope/tools/pop-over/example.html">
-                <li data-search-value="Popover">
+                <li data-search-value="Tools Popover">
                     Popover
+                </li>
+            </a>
+            <a href="/latest/scope/tools/slidebox/example.html">
+                <li data-search-value="Tools Slidebox">
+                    Slidebox
                 </li>
             </a>
         </ul>
@@ -307,12 +317,12 @@ if you're using <span style='color: white;'>Chrome</span>, <span style='color: w
         </p>
         <ul class='datalist'>
             <a href="/latest/scope/nav/sidebar/example.html">
-                <li data-search-value="Sidebar">
+                <li data-search-value="Nav Sidebar">
                     Sidebar
                 </li>
             </a>
             <a href="/latest/scope/nav/menu/example.html">
-                <li data-search-value="Menu">
+                <li data-search-value="Nav Menu">
                     Menu
                 </li>
             </a>

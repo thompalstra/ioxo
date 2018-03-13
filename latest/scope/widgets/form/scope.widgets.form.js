@@ -79,8 +79,10 @@ extend( Form ).with({
         }
 
         this.element.find('input[type="search"][search-for]').on('input', function(e){
+
+
             var target = sc( this.attr('search-for'), true);
-            search = this.value.toLowerCase();
+            search = this.value.toLowerCase().split(' ');
             if( target ){
                 target.find('[data-search-value]').forEach(function(el){
                     var value = el.attr('data-search-value').toLowerCase();

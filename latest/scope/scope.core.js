@@ -275,6 +275,11 @@ extend( Scope ).with({
         return window.Scope.request.send(obj);
     },
 }, true);
+// extend( Object ).with({
+//     defineProperty: function( propertyName, getter, setter ){
+//         Object.defineProperty( this, propertyName, { get: getter, set: setter } );
+//     }
+// }, true)
 
 extend(Element, Document, Window).with({
     on: function(a, b, c) {
@@ -375,8 +380,24 @@ extend(Element).with({
         this.classList.replace(from, to);
     },
     load: function(obj) {
-        onsuccess = obj.onsuccess;
-        onerror = obj.onerror;
+        if( typeof obj === 'string' ){
+            obj = {
+                url: obj
+            };
+        }
+
+        if( typeof obj['onsuccess'] == 'function' ){
+            onsuccess = obj.onsuccess;
+        } else {
+            onsuccess = function(){}
+        }
+
+        if( typeof obj['onerror'] == 'function' ){
+            onerror = obj.onerror;
+        } else {
+            onerror = function(){}
+        }
+
         obj.onsuccess = function(res) {
             this.innerHTML = res.response;
             if (typeof onsuccess == 'function') {
@@ -513,13 +534,12 @@ document.on('click', '[sc-on="click"]', function(e) {
     var target = this.attr('sc-for');
     var trigger = this.attr('sc-trigger');
     var fn = this.attr('sc-function');
-
     if( trigger ){
         if (target) {
             var target = document.findOne(target);
+
             if (target) {
                 e.prev();
-
                 target.do(trigger);
             } else {
                 console.error('Trying to trigger "' + trigger + '" on unknown element "' + target + '".');
