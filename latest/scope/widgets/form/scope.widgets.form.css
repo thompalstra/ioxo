@@ -34,10 +34,28 @@
     padding: 0 5px;
 }
 
-.form .input:focus{
-    -webkit-box-shadow: 0px 0px 20px -5px rgba(0,0,0,0.5);
-    -moz-box-shadow: 0px 0px 20px -5px rgba(0,0,0,0.5);
-    box-shadow: 0px 0px 20px -5px rgba(0,0,0,0.5);
+.form .input.default,
+.form .input.default-to-flat,
+.form .input.flat-to-default:focus{
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+}
+.form .input.flat,
+.form .input.flat-to-default,
+.form .input.default-to-flat:focus{
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+}
+
+.form .input.sky,
+.form .input.default-to-flat.action,
+.form .input.flat-to-default.action:focus{
+    border-bottom-color: transparent;
+}
+.form .input.flat.action,
+.form .input.flat-to-default,
+.form .input.default-to-flat.action:focus{
+    border-bottom-color: #3D8EB9;
 }
 
 .form.vertical{

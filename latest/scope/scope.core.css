@@ -444,6 +444,7 @@ html, body{
 
 .action,
 .action.flat-to-default:active,
+.action.flat-to-default:focus,
 .action.flat-to-default:checked{
     background-color: #3D8EB9;
     color: #f2f2f2;
@@ -453,6 +454,7 @@ html, body{
 }
 .action.flat-to-default,
 .action.default-to-flat:active,
+.action.default-to-flat:focus,
 .action.default-to-flat:checked,
 .action.flat{
     color: #3D8EB9;
@@ -461,6 +463,7 @@ html, body{
 
 .epic,
 .epic.flat-to-default:active,
+.epic.flat-to-default:focus,
 .epic.flat-to-default:checked{
     background-color: #7E3661;
     color: #f2f2f2;
@@ -470,6 +473,7 @@ html, body{
 }
 .epic.flat-to-default,
 .epic.default-to-flat:active,
+.epic.default-to-flat:focus,
 .epic.default-to-flat:checked,
 .epic.flat{
     color: #7E3661;
@@ -478,6 +482,7 @@ html, body{
 
 .success,
 .success.flat-to-default:active,
+.success.flat-to-default:focus,
 .success.flat-to-default:checked{
     background-color: #82C33C;
     color: #f2f2f2;
@@ -487,6 +492,7 @@ html, body{
 }
 .success.flat-to-default,
 .success.default-to-flat:active,
+.success.default-to-flat:focus,
 .success.default-to-flat:checked,
 .success.flat{
     color: #82C33C;
@@ -495,6 +501,7 @@ html, body{
 
 .warning,
 .warning.flat-to-default:active,
+.warning.flat-to-default:focus,
 .warning.flat-to-default:checked{
     background-color: #D03400;
     color: #f2f2f2;
@@ -504,6 +511,7 @@ html, body{
 }
 .warning.flat-to-default,
 .warning.default-to-flat:active,
+.warning.default-to-flat:focus,
 .warning.default-to-flat:checked,
 .warning.flat{
     color: #D03400;
@@ -512,6 +520,7 @@ html, body{
 
 .alert,
 .alert.flat-to-default:active,
+.alert.flat-to-default:focus,
 .alert.flat-to-default:checked{
     background-color: #FF151B;
     color: #f2f2f2;
@@ -521,6 +530,7 @@ html, body{
 }
 .alert.flat-to-default,
 .alert.default-to-flat:active,
+.alert.default-to-flat:focus,
 .alert.default-to-flat:checked,
 .alert.flat{
     color: #FF151B;
@@ -531,6 +541,7 @@ html, body{
 
 .info,
 .info.flat-to-default:active,
+.info.flat-to-default:focus,
 .info.flat-to-default:checked{
     background-color: #51BDCB;
     color: #f2f2f2;
@@ -540,6 +551,7 @@ html, body{
 }
 .info.flat-to-default,
 .info.default-to-flat:active,
+.info.default-to-flat:focus,
 .info.default-to-flat:checked,
 .info.flat{
     color: #51BDCB;
@@ -548,6 +560,7 @@ html, body{
 
 .sky,
 .sky.flat-to-default:active,
+.sky.flat-to-default:focus,
 .sky.flat-to-default:checked{
     background-color: #f2f2f2;
     color: #111;
@@ -557,6 +570,7 @@ html, body{
 }
 .sky.flat-to-default,
 .sky.default-to-flat:active,
+.sky.default-to-flat:focus,
 .sky.default-to-flat:checked,
 .sky.flat{
     color: #111;
