@@ -100,12 +100,9 @@ extend( Form ).with({
 
 extend( Form ).with({
     search: function( input, target, strict ){
-
-        if( typeof strict == 'undefined' ){
-            strict = false;
-        }
-
+        strict = ( typeof strict == 'undefined' ) ? false : true ;
         var filterValues = input.value.split(' ');
+
         target.querySelectorAll('[data-search-value]').forEach(function(el){
             var score = 0;
             for(var i in filterValues){
@@ -114,13 +111,10 @@ extend( Form ).with({
                         score++;
                     }
                 } else {
-
                     if( el.dataset.searchValue.toLowerCase().indexOf( filterValues[i].toLowerCase() ) != -1 ){
                         score++;
-                        console.log( el, score );
                     }
                 }
-
                 if( score == 0 ){
                     el.style['order'] = null;
                     el.classList.add('hidden');
@@ -132,7 +126,6 @@ extend( Form ).with({
         });
 
         var count = target.querySelectorAll('[data-search-value]:not(.hidden)').length;
-
         if( count == 0 ){
             emptyMessage = target.findOne('.sc-empty-search-message');
             if( !( emptyMessage ) ){
@@ -140,18 +133,63 @@ extend( Form ).with({
                     className: 'sc-empty-search-message'
                 } ) );
             }
-
-            console.log( emptyMessage );
-
             emptyMessage.innerHTML = target.dataset.emptyText;
         }
     },
 });
 
-extend( HTMLFormElement ).with({
+class HTMLInlineInputElement extends HTMLElement{
+    constructor(){
+        super();
+        this.addEventListener('input', function(event){
+            this.value = this.innerHTML;
+        })
+    }
+    connectedCallback(){}
+
+    get name(){
+        return this.getAttribute('name');
+    }
+    set name(value){
+        return this.setAttribute('name', value);
+    }
+    get value(){
+        return this.getAttribute('value');
+    }
+    set value(value){
+        return this.setAttribute('value', value);
+    }
+    get valid(){
+        return this.validity.valid;
+    }
+    set valid(value){
+        return this.validity.valid = value;
+    }
+    checkValidity(){
+        if( this.hasAttribute('required') &&  this.value == null || this.value.length == 0 ){
+            console.log('req');
+        } else if( this.hasAttribute('pattern') && this.value.match( this.getAttribute('pattern') ) ){
+            console.log('patt');
+        }
+    }
+}
+
+class HTMLInlineFormElement extends HTMLElement{
+    constructor(){
+        super();
+    }
+    connectedCallback(){
+        document.on('ready', function(event){
+            this.elements = this.querySelectorAll('[name]');
+        }.bind(this))
+    }
+}
+
+extend( HTMLFormElement, HTMLInlineFormElement ).with({
     serialize: function(){
         var data = {};
         this.elements.forEach(function(el){
+            console.log(el, el['name']);
             if( el.tagName.toLowerCase() != 'button' ){
                 data[ el.name ] = el.value;
             }
@@ -160,30 +198,10 @@ extend( HTMLFormElement ).with({
     }
 })
 
-
-window['InlineForm'] = window['Scope']['widgets']['InlineForm'] = function( element ){
-    this.element = element;
-
-    this.registerElements();
-    this.registerGetSet();
-    this.registerListeners();
-
-    console.log('iunline');
-}
-
-extend( InlineForm ).with({
-    registerElements: function(){
-
-    },
-    registerGetSet: function(){
-
-    },
-    registerListeners: function(){
-        this.element.find('[contenteditable="true"]').on('focusin', function(e){
-            console.log(e.type);
-        });
-        this.element.find('[contenteditable="true"]').on('focusout', function(e){
-            console.log(e.type);
-        });
+    if( typeof customElements !== 'undefined' ){
+        customElements.define('inline-form', HTMLInlineFormElement);
+        customElements.define('inline-input', HTMLInlineInputElement);
+    } else {
+        document.createElement('inline-form', HTMLInlineFormElement);
+        document.createElement('inline-input', HTMLInlineInputElement);
     }
-})

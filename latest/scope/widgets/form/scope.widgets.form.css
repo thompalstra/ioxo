@@ -77,13 +77,11 @@
     margin-bottom: 10px;
 }
 
-
-
 .form [contenteditable="true"],
 .form [contenteditable="true"]{
     text-decoration: underline;
     outline: 0;
-    cursor: pointer;
+    cursor: text;
 }
 
 .form [contenteditable="true"]:empty:not(:focus):not(:active){
@@ -92,4 +90,8 @@
 .form [contenteditable="true"]:empty:before{
     content: attr(placeholder);
     color: #aaa;
+}
+
+:invalid{
+    color: #FF00EE ;
 }

@@ -32,6 +32,19 @@
             </ul>
         </div>
         <div id='wrapper' class='wrapper' data-ajax>
+            <p>
+                <strong>ScopeJS</strong> boasts two form types. The regular form and the inline form. <br/>
+
+                <ul>
+                    <li>
+                        The regular form follows the rules and implementations of any other form.
+                    </li>
+                    <li>
+                        The inline form is a custom HTMLElement which is based off of the regular Form element, but is greatly extended.
+                    </li>
+                </ul>
+            </p>
+            <h2>Form</h2>
             <form id='form1' method='POST' class='form' data-inline data-ajax data-validate-on-input data-validate-on-change>
                 <div class='col xs12'>
                     <div class='col xs6'>
@@ -57,13 +70,15 @@
                     </div>
                 </div>
             </form>
-            <sc-widget class='form' data-widget='Scope.widgets.InlineForm'>
-                <h2>hello</h2>
+            <h2>InlineForm</h2>
+            <inline-form id='inline-form1' class='form' >
                 <p>
                     hello my name is
-                    <span class='turqoise flat' contenteditable="true" placeholder="my name" name="name" required></span> and I would like to apply for the functions of <span class='turqoise flat' contenteditable="true" placeholder="the function" name="function" required></span>
+                    <inline-input class='turqoise flat' contenteditable="true" placeholder="my name" name="name" pattern='.{5,10}' required></inline-input>
+                    and I would like to apply for the functions of
+                    <inline-input class='turqoise flat' contenteditable="true" placeholder="the function" name="function" pattern='.{5,10}' required></inline-input>
                 </p>
-            </sc-widget>
+            </inline-form>
         </div>
         <script>
             var form1 = new Scope.widgets.Form( sc('#form1', true) );
