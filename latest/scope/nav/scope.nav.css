@@ -22,12 +22,19 @@
 .nav-menu ul li{
     position: relative;
     min-height: 50px;
-    min-width: 50px;
     line-height: 50px;
     display: inline-block;
     white-space: nowrap;
 
     padding: 0 10px;
+    cursor: pointer;
+}
+
+.nav-menu ul li:hover{
+    background-color: rgba(0,0,0,.02);
+}
+.nav-menu ul li:active{
+    background-color: rgba(0,0,0,.05);
 }
 
 .nav-menu ul li[sc-icon-after]{
@@ -175,40 +182,6 @@
 .nav-sidebar ul li[is-dropdown]{
     position: relative;
 }
-
-/* .nav-sidebar.left ul li[is-dropdown]{
-    padding-right: 0;
-}
-.nav-sidebar.right ul li[is-dropdown]{
-    padding-left: 0;
-} */
-
-/* .nav-sidebar.left ul li[is-dropdown]:after,
-.nav-sidebar.right ul li[is-dropdown]:before{
-    content: "\E5C5";
-    position: absolute;
-    top: 0;
-
-    font-family: "Material Icons";
-    font-size: 24px;
-
-    width: 50px;
-    height: 50px;
-    line-height: 50px;
-    text-align: center;
-} */
-
-/* .nav-sidebar.left ul li[is-dropdown][show]:after,
-.nav-sidebar.right ul li[is-dropdown][show]:after{
-    content: "\E5C7";
-} */
-
-/* .nav-sidebar.left ul li[is-dropdown]:after{
-    right: 0;
-}
-.nav-sidebar.right ul li[is-dropdown]:after{
-    left: 0;
-} */
 
 .nav-sidebar a{
     text-decoration: underline;

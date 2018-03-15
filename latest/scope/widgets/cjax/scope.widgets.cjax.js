@@ -50,7 +50,7 @@ extend( Cjax ).with({
         this.registerListeners();
     },
     registerListeners: function(){
-        this.element.find('a:not([sc-ajax="0"])').forEach(function(element){
+        this.element.find('a:not([data-cjax="0"])').forEach(function(element){
             element.on('click', function(event){
                 event.prev();
                 event.stop();

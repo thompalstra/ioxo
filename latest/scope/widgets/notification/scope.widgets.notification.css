@@ -21,27 +21,21 @@
     width: 100%;
     box-sizing: border-box;
     margin-bottom: 10px;
-    padding-top: 1px;
-    padding-bottom: 1px;
-    padding-left: 1px;
-    padding-right: 1px;
     position: relative;
+    transition: .6s;
     pointer-events: all;
+    opacity: 1;
 }
 .notification .message[data-dismissable]{
     padding-right: 50px;
 }
 .notification .message .content{
-
     display: inline-block;
     box-sizing: border-box;
     float: left;
     width: 100%;
     padding: 10px;
     overflow: auto;
-
-    background-color: white;
-    color: #555;
 }
 .notification .message .dismiss{
     position: absolute;
@@ -59,55 +53,11 @@
     text-align: center;
 }
 
-.notification.left .message.dismiss{
-    animation: messageOutLeft 2s forwards;
-}
-
-.notification.right .message.dismiss{
-    animation: messageOutRight 2s forwards;
-}
-
-@keyframes messageOutLeft{
-    0% {
-        transform: translateX( 0% );
-    } 50% {
-        transform: translateX( -200% );
-        height: inherit;
-        padding-top: 1px;
-        padding-bottom: 1px;
-        margin: 0 0 10px 0;
-        overflow: inherit;
-        pointer-events: none;
-    } 100% {
-        transform: translateX( -200% );
-        height: 0;
-        padding-top: 0px;
-        padding-bottom: 0px;
-        margin: 0 0 0 0;
-        overflow: hidden;
-        pointer-events: none;
-    }
-}
-@keyframes messageOutRight{
-    0% {
-        transform: translateX( 0% );
-    } 50% {
-        /* transform: translateX( 200% ); */
-        height: inherit;
-        padding-top: 1px;
-        padding-bottom: 1px;
-        margin: 0 0 10px 0;
-        overflow: inherit;
-        pointer-events: none;
-    } 100% {
-        transform: translateX( 200% );
-        height: 0;
-        padding-top: 0px;
-        padding-bottom: 0px;
-        margin: 0 0 0 0;
-        overflow: hidden;
-        pointer-events: none;
-    }
+.notification .message.dismiss{
+    opacity: 0 ;
+    margin-bottom: 0 ;
+    margin-top: 0 ;
+    height: 0 ;
 }
 
 .notification{

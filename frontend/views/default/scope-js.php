@@ -8,9 +8,12 @@
         Compared to other frameworks, ScopeJS does not declare new classes and does nu use wrapper-classes around element. </br>
         An example (using jQuery) would be as such:
     </p>
-
-
-    <a href="/scope-js/basics" class='btn btn-default flat-to-default epic' sc-on="click" sc-for="#dialog-basics" sc-trigger="toggle">Basics</a>
+    <div class='row'>
+        <a href="/scope-js/basics" class='btn btn-default flat-to-default epic' sc-on="click" sc-for="#dialog-basics" sc-trigger="toggle">Basics</a>
+        <a href="/scope-js/searches" class='btn btn-default flat-to-default epic' sc-on='click' sc-for='#dialog-searches' sc-trigger='toggle'>Searches</a>
+        <a href="/scope-js/internal" class='btn btn-default flat-to-default epic' sc-on="click" sc-trigger="toggle" sc-for="#dialog-internal">Internal</a>
+        <a href="/scope-js/conclusion" class='btn btn-default flat-to-default epic' sc-on="click" sc-for="#dialog-conclusion" sc-trigger="toggle">Conclusion</a>
+    </div>
 
     <sc-widget id='dialog-basics' class='dialog' data-widget='Scope.widgets.Dialog' data-anim="0" data-backdrop='1' data-backdrop-dismiss='1'>
         <div class='title'>
@@ -48,10 +51,6 @@ are required to be casted back to jQuery like: $( HTMLElement ) or $( jQueryElem
             </div>
         </div>
     </sc-widget>
-
-
-
-    <a href="/scope-js/searches" class='btn btn-default flat-to-default epic' sc-on='click' sc-for='#dialog-searches' sc-trigger='toggle'>Searches</a>
 
     <sc-widget id='dialog-searches' class='dialog' data-widget='Scope.widgets.Dialog' data-anim="0" data-backdrop='1' data-backdrop-dismiss='1'>
         <div class='title'>
@@ -92,9 +91,6 @@ this means you cannot simply query a single element and will ALWAYS query the fu
             </div>
         </div>
     </sc-widget>
-
-
-    <a href="/scope-js/internal" class='btn btn-default flat-to-default epic' sc-on="click" sc-trigger="toggle" sc-for="#dialog-internal">Internal</a>
 
     <sc-widget id='dialog-internal' class='dialog' data-widget='Scope.widgets.Dialog' data-anim="0" data-backdrop='1' data-backdrop-dismiss='1'>
         <div class='title'>
@@ -173,9 +169,6 @@ jQuery.fn.addClass = function( value ) {
         </div>
     </sc-widget>
 
-
-    <a href="/scope-js/conclusion" class='btn btn-default flat-to-default epic' sc-on="click" sc-for="#dialog-conclusion" sc-trigger="toggle">Conclusion</a>
-
     <sc-widget id='dialog-conclusion' class='dialog' data-widget='Scope.widgets.Dialog' data-anim="0" data-backdrop='1' data-backdrop-dismiss='1'>
         <div class='title'>
             Conclusion
@@ -206,23 +199,18 @@ if you're using <span style='color: white;'>Chrome</span>, <span style='color: w
             </div>
         </div>
     </sc-widget>
-    <form id='search-form' class='form'>
-        <input id='data-search' type="search" list='searchList' search-for="#search-wrapper" name="search" placeholder="search" class="input sky" autocomplete="off"/>
-        <datalist id='searchList'>
-            <option value='Widgets'/>
-            <option value='Tools'/>
-            <option value='Nav'/>
-        </datalist>
-    </form>
-    <div id='search-wrapper' class='col xs12'>
-        <h2>Widgets</h2>
-        <p data-search-value="">
-            http://www.ioxo.nl/latest/scope/widgets/<b>widgetname</b> <br/>
-            JS at: <br/> http://www.ioxo.nl/latest/scope/widgets/<b>widgetname</b>/scope.widgets.<b>widgetname</b>.js <br/>
-            CSS at: <br/> http://www.ioxo.nl/latest/scope/widgets/<b>widgetname</b>/scope.widgets.<b>widgetname</b>.css <br/>
-            Examples: <br/> http://www.ioxo.nl/latest/scope/widgets/<b>widgetname</b>/example.html
-        </p>
-        <ul class='datalist'>
+    <div class='row'>
+        <form id='search-form' class='form'>
+            <input id='data-search' type="search" list='searchList' search-for="#search-wrapper" name="search" placeholder="search" class="input sky" autocomplete="off"/>
+            <datalist id='searchList'>
+                <option value='Widgets'/>
+                <option value='Tools'/>
+                <option value='Nav'/>
+            </datalist>
+        </form>
+    </div>
+    <div class='col xs12'>
+        <ul id='search-wrapper' data-empty-text='No items found' class='datalist'>
             <a href="/latest/scope/widgets/card-gallery/example.html">
                 <li data-search-value="Widgets Card Gallery">
                     Card Gallery
@@ -278,15 +266,6 @@ if you're using <span style='color: white;'>Chrome</span>, <span style='color: w
                     Youtube player
                 </li>
             </a>
-        </ul>
-        <h2>Tools</h2>
-        <p data-search-value="">
-            http://www.ioxo.nl/latest/scope/tools/<b>toolname</b> <br/>
-            JS at: <br/> http://www.ioxo.nl/latest/scope/tools/scope.tools.js <br/>
-            CSS at: <br/> http://www.ioxo.nl/latest/scope/tools/scope.tools.css <br/>
-            Examples: <br/> http://www.ioxo.nl/latest/scope/tools/<b>toolname</b>/example.html
-        </p>
-        <ul class='datalist'>
             <a href="/latest/scope/tools/datalist/example.html">
                 <li data-search-value="Tools Datalist">
                     Datalist
@@ -307,15 +286,6 @@ if you're using <span style='color: white;'>Chrome</span>, <span style='color: w
                     Slidebox
                 </li>
             </a>
-        </ul>
-        <h2>Nav</h2>
-        <p data-search-value="">
-            http://www.ioxo.nl/latest/scope/nav/<b>navname</b> <br/>
-            JS at: <br/> http://www.ioxo.nl/latest/scope/nav/scope.nav.js <br/>
-            CSS at: <br/> http://www.ioxo.nl/latest/scope/nav/scope.nav.css <br/>
-            Examples: <br/> http://www.ioxo.nl/latest/scope/nav/<b>navname</b>/example.html
-        </p>
-        <ul class='datalist'>
             <a href="/latest/scope/nav/sidebar/example.html">
                 <li data-search-value="Nav Sidebar">
                     Sidebar
@@ -353,8 +323,6 @@ if you're using <span style='color: white;'>Chrome</span>, <span style='color: w
     });
     sc('#deprecated-dialog').on('ok', function(event){
         location.href = url;
-    })
-
-
+    });
     var searchForm = new Scope.widgets.Form( document.findOne('#search-form') );
 </script>

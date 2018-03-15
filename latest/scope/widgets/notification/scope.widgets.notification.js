@@ -54,14 +54,16 @@ window['NotificationMessage'] = window['Scope']['widgets']['NotificationMessage'
         this.dismiss( );
     }.bind(this), this.timeout );
 
-    this.element.attr('height', this.element.offsetHeight);
+    style = window.getComputedStyle( this.element );
+
+    this.element.attr('height', this.element.offsetHeight + parseFloat( style.marginTop ) + parseFloat( style.marginBottom ) );
 }
 
 extend( NotificationMessage ).with({
     dismiss: function(){
         this.element.addClass('dismiss');
         this.element.timeout = setTimeout( function(e){
-            this.element.remove();
+            // this.element.remove();
         }.bind(this), 2000 );
     }
 })

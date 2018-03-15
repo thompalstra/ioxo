@@ -34,41 +34,11 @@
     padding: 0 5px;
 }
 
-.form .input.default,
-.form .input.default-to-flat,
-.form .input.flat-to-default:focus{
-    border-bottom-width: 2px;
-    border-bottom-style: solid;
-}
-.form .input.flat,
-.form .input.flat-to-default,
-.form .input.default-to-flat:focus{
-    border-bottom-width: 2px;
-    border-bottom-style: solid;
-}
-
-.form .input.sky,
-.form .input.default-to-flat.action,
-.form .input.flat-to-default.action:focus{
-    border-bottom-color: transparent;
-}
-.form .input.flat.action,
-.form .input.flat-to-default,
-.form .input.default-to-flat.action:focus{
-    border-bottom-color: #3D8EB9;
-}
-
 .form.vertical{
 
 }
 
-.form .row{
-    margin-bottom: 10px;
-}
 
-.form .input{
-    width: 100%;
-}
 
 .form [data-error]:not(.bordered),
 .form [data-error]{
@@ -76,8 +46,50 @@
     border-left: 5px solid red;
 }
 
-.form [data-no-error]:not(.bordered),
-.form [data-no-error]{
-    color: #82C33C;
-    border-left: 5px solid #82C33C;
+.form .input.flat,
+.form .input.default-to-flat{
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+}
+
+.form component{
+    display: block;
+}
+
+.form component label{
+    height: 25px;
+    line-height: 25px;
+    padding: 0 10px;
+    display: block;
+}
+
+.form component .input{
+    width: 100%;
+}
+
+.form component .input.flat:not(:focus):not(:active),
+.form component .input.default-to-flat:not(:focus):not(:active){
+    border-bottom-color: #aaa;
+}
+
+.form row{
+    display: block;
+    margin-bottom: 10px;
+}
+
+
+
+.form [contenteditable="true"],
+.form [contenteditable="true"]{
+    text-decoration: underline;
+    outline: 0;
+    cursor: pointer;
+}
+
+.form [contenteditable="true"]:empty:not(:focus):not(:active){
+    color: #aaa;
+}
+.form [contenteditable="true"]:empty:before{
+    content: attr(placeholder);
+    color: #aaa;
 }
