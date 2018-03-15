@@ -91,7 +91,3 @@
     content: attr(placeholder);
     color: #aaa;
 }
-
-:invalid{
-    color: #FF00EE ;
-}

@@ -107,7 +107,7 @@ extend( Form ).with({
             var score = 0;
             for(var i in filterValues){
                 if( strict === true ){
-                    if( el.dataset.searchValue.indexOf( filterValues[i] ) != -1 ){
+                    if( el.dataset.searchValue.toLowerCase().indexOf( filterValues[i].toLowerCase() ) != -1 ){
                         score++;
                     }
                 } else {
@@ -141,11 +141,13 @@ extend( Form ).with({
 class HTMLInlineInputElement extends HTMLElement{
     constructor(){
         super();
+    }
+    connectedCallback(){
+        this.contentEditable = true
         this.addEventListener('input', function(event){
             this.value = this.innerHTML;
         })
     }
-    connectedCallback(){}
 
     get name(){
         return this.getAttribute('name');
@@ -159,18 +161,17 @@ class HTMLInlineInputElement extends HTMLElement{
     set value(value){
         return this.setAttribute('value', value);
     }
-    get valid(){
-        return this.validity.valid;
-    }
-    set valid(value){
-        return this.validity.valid = value;
-    }
     checkValidity(){
         if( this.hasAttribute('required') &&  this.value == null || this.value.length == 0 ){
             console.log('req');
-        } else if( this.hasAttribute('pattern') && this.value.match( this.getAttribute('pattern') ) ){
-            console.log('patt');
+            this.dataset.error = '';
+            return;
         }
+        if( this.hasAttribute('pattern') && this.value.match( this.getAttribute('pattern') ) ){
+            console.log('patt');
+            this.dataset.error = '';
+        }
+
     }
 }
 
