@@ -1,12 +1,6 @@
-Options +FollowSymLinks -MultiViews -Indexes
-
 RewriteEngine on
 RewriteBase /
-
-RewriteCond %{HTTP_HOST}        !^www
-RewriteCond %{HTTP_HOST}        ^([^\.]+)\.([^\.]+)$
-RewriteCond %{DOCUMENT_ROOT}/frontend/$1 -f
-RewriteRule ^(.*)$ frontend/$1 [L]
+Options -Indexes
 
 RewriteCond %{HTTP_HOST}        !^www
 RewriteCond %{HTTP_HOST}        ^([^\.]+)\.([^\.]+)\.([^\.]+)$
