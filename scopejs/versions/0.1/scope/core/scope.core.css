@@ -1,0 +1,168 @@
+@import "https://fonts.googleapis.com/icon?family=Material+Icons";
+.btn {
+  border: 0;
+  padding: 0 15px;
+  cursor: pointer;
+  line-height: 50px;
+  transition: 0.3s;
+}
+.btn.large {
+  line-height: 25px;
+}
+.btn.small {
+  line-height: 15px;
+}
+
+.turqoise {
+  background-color: #4cbbe4;
+  color: #e5e5e5;
+}
+
+.turqoise-flat {
+  color: #4cbbe4;
+  background-color: transparent;
+}
+
+.turqoise-active:hover, .turqoise-active:focus, .turqoise-active:active {
+  background-color: #62c3e7;
+  color: #f2f2f2;
+}
+
+.turqoise-flat-active:hover, .turqoise-flat-active:focus, .turqoise-flat-active:active {
+  background-color: transparent;
+  color: #62c3e7;
+}
+.turqoise-flat-active:hover.turqoise-flat, .turqoise-flat-active:focus.turqoise-flat, .turqoise-flat-active:active.turqoise-flat {
+  text-decoration: underline;
+}
+
+.blue {
+  background-color: #258cd1;
+  color: #e5e5e5;
+}
+
+.blue-flat {
+  color: #258cd1;
+  background-color: transparent;
+}
+
+.blue-active:hover, .blue-active:focus, .blue-active:active {
+  background-color: #3498db;
+  color: #f2f2f2;
+}
+
+.blue-flat-active:hover, .blue-flat-active:focus, .blue-flat-active:active {
+  background-color: transparent;
+  color: #3498db;
+}
+.blue-flat-active:hover.blue-flat, .blue-flat-active:focus.blue-flat, .blue-flat-active:active.blue-flat {
+  text-decoration: underline;
+}
+
+.amethyst {
+  background-color: #8f4bab;
+  color: #e5e5e5;
+}
+
+.amethyst-flat {
+  color: #8f4bab;
+  background-color: transparent;
+}
+
+.amethyst-active:hover, .amethyst-active:focus, .amethyst-active:active {
+  background-color: #9b59b6;
+  color: #f2f2f2;
+}
+
+.amethyst-flat-active:hover, .amethyst-flat-active:focus, .amethyst-flat-active:active {
+  background-color: transparent;
+  color: #9b59b6;
+}
+.amethyst-flat-active:hover.amethyst-flat, .amethyst-flat-active:focus.amethyst-flat, .amethyst-flat-active:active.amethyst-flat {
+  text-decoration: underline;
+}
+
+.alert {
+  background-color: #dc151c;
+  color: #e5e5e5;
+}
+
+.alert-flat {
+  color: #dc151c;
+  background-color: transparent;
+}
+
+.alert-active:hover, .alert-active:focus, .alert-active:active {
+  background-color: #EA2027;
+  color: #f2f2f2;
+}
+
+.alert-flat-active:hover, .alert-flat-active:focus, .alert-flat-active:active {
+  background-color: transparent;
+  color: #EA2027;
+}
+.alert-flat-active:hover.alert-flat, .alert-flat-active:focus.alert-flat, .alert-flat-active:active.alert-flat {
+  text-decoration: underline;
+}
+
+.warning {
+  background-color: #e74b12;
+  color: #e5e5e5;
+}
+
+.warning-flat {
+  color: #e74b12;
+  background-color: transparent;
+}
+
+.warning-active:hover, .warning-active:focus, .warning-active:active {
+  background-color: #EE5A24;
+  color: #f2f2f2;
+}
+
+.warning-flat-active:hover, .warning-flat-active:focus, .warning-flat-active:active {
+  background-color: transparent;
+  color: #EE5A24;
+}
+.warning-flat-active:hover.warning-flat, .warning-flat-active:focus.warning-flat, .warning-flat-active:active.warning-flat {
+  text-decoration: underline;
+}
+
+[icon-before]:before, [icon-after]:after {
+  font-family: "Material Icons";
+}
+
+[icon-after]:after {
+  content: attr(icon-after);
+  float: right;
+}
+
+[icon-before]:before {
+  content: attr(icon-before);
+  float: left;
+}
+
+.wrapper {
+  margin: 0 auto;
+}
+
+@media (min-width: 0px) {
+  .wrapper {
+    width: 100%;
+  }
+}
+@media (min-width: 720px) {
+  .wrapper {
+    width: 720px;
+  }
+}
+@media (min-width: 1280px) {
+  .wrapper {
+    width: 1280px;
+  }
+}
+@media (min-width: 1440px) {
+  .wrapper {
+    width: 1440px;
+  }
+}

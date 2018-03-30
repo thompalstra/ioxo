@@ -2,9 +2,11 @@ let extend;
 let define;
 
 let doc = document;
-let webComponents = document.webComponents = {};
+let customComponents = document.customComponents = {};
 let body = document.body;
 let head = document.head;
+
+
 
 document.addEventListener( 'DOMContentLoaded', function( event ){
     document.dispatchEvent( new CustomEvent( 'loaded' ) );
@@ -13,9 +15,9 @@ document.addEventListener( 'DOMContentLoaded', function( event ){
 extend = function(){
     return {
         arg: arguments,
-        with: function( obj ){
+        with: function( obj, forceProperty ){
             for( var i in this.arg ){
-                var x = ( typeof this.arg[i].prototype == 'undefined' ) ? this.arg[i] : this.arg[i].prototype;
+                var x = ( typeof this.arg[i].prototype == 'undefined' || forceProperty == true ) ? this.arg[i] : this.arg[i].prototype;
                 for( var i in obj ){
                     x[i] = obj[i];
                 }
@@ -30,6 +32,14 @@ define = function( tag, options ){
         customElements.define( tag, options );
     }
 }
+
+var _ = sc = Scope = function(  ){
+
+}
+
+extend( Scope ).with({
+    idCounter: 0
+}, true);
 
 extend( Document, HTMLElement ).with({
     one: function( q ){
@@ -71,6 +81,24 @@ extend( Document, HTMLElement ).with({
         var customEvent = new CustomEvent( eventType, options );
         this.dispatchEvent( customEvent );
         return customEvent;
+    }
+})
+
+extend( HTMLElement ).with({
+    uniqid: function(){
+        return this.id = this.tagName.toLowerCase() + (
+            ( this.hasAttribute('data-component') ? ( '-' + (
+                this.getAttribute('data-component').toLowerCase().replace(/\./g,'-')
+            ) ) : '' )
+        ) + "-" + "e" + ( ++Scope.idCounter );
+    }
+})
+
+extend( HTMLCollection ).with({
+    forEach: function( c ){
+        for( var i = 0; i < this.length; i++ ){
+            c.call( this[i], this[i] );
+        }
     }
 })
 

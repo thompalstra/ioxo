@@ -1,0 +1,216 @@
+@import "https://fonts.googleapis.com/icon?family=Material+Icons";
+
+$blue: #3498db;
+$amethyst: #9b59b6;
+$turqoise: #62c3e7;
+$transparent: transparent;
+$alert: #EA2027;
+$warning: #EE5A24;
+$btn-fg: #f2f2f2;
+
+.btn{
+    border: 0;
+    padding: 0 15px;
+    cursor: pointer;
+    line-height: 50px;
+    transition: .3s;
+
+    &.large{
+        // padding: 20px 25px;
+        line-height: 25px;
+    }
+    &.small{
+        // padding: 5px 10px;
+        line-height: 15px;
+    }
+}
+
+.turqoise{
+    background-color: darken( $turqoise, 5% );
+    color:  darken( $btn-fg, 5% );
+}
+.turqoise-flat{
+    color: darken( $turqoise, 5% );
+    background-color: $transparent;
+}
+.turqoise-active{
+    &:hover,
+    &:focus,
+    &:active{
+        background-color: $turqoise;
+        color: $btn-fg;
+    }
+}
+.turqoise-flat-active{
+    &:hover,
+    &:focus,
+    &:active{
+        &.turqoise-flat{
+            text-decoration: underline;
+        }
+        background-color: $transparent;
+        color: $turqoise;
+    }
+}
+
+.blue{
+    background-color: darken( $blue, 5% );
+    color:  darken( $btn-fg, 5% );
+}
+.blue-flat{
+    color: darken( $blue, 5% );
+    background-color: $transparent;
+}
+.blue-active{
+    &:hover,
+    &:focus,
+    &:active{
+        background-color: $blue;
+        color: $btn-fg;
+    }
+}
+.blue-flat-active{
+    &:hover,
+    &:focus,
+    &:active{
+        &.blue-flat{
+            text-decoration: underline;
+        }
+        background-color: $transparent;
+        color: $blue;
+    }
+}
+
+.amethyst{
+    background-color: darken( $amethyst, 5% );
+    color:  darken( $btn-fg, 5% );
+}
+.amethyst-flat{
+    color: darken( $amethyst, 5% );
+    background-color: $transparent;
+}
+.amethyst-active{
+    &:hover,
+    &:focus,
+    &:active{
+        background-color: $amethyst;
+        color: $btn-fg;
+    }
+}
+.amethyst-flat-active{
+    &:hover,
+    &:focus,
+    &:active{
+        &.amethyst-flat{
+            text-decoration: underline;
+        }
+        background-color: $transparent;
+        color: $amethyst;
+    }
+}
+
+.alert{
+    background-color: darken( $alert, 5% );
+    color:  darken( $btn-fg, 5% );
+}
+.alert-flat{
+    color: darken( $alert, 5% );
+    background-color: $transparent;
+}
+.alert-active{
+    &:hover,
+    &:focus,
+    &:active{
+        background-color: $alert;
+        color: $btn-fg;
+    }
+}
+.alert-flat-active{
+    &:hover,
+    &:focus,
+    &:active{
+        &.alert-flat{
+            text-decoration: underline;
+        }
+        background-color: $transparent;
+        color: $alert;
+    }
+}
+
+.warning{
+    background-color: darken( $warning, 5% );
+    color:  darken( $btn-fg, 5% );
+}
+.warning-flat{
+    color: darken( $warning, 5% );
+    background-color: $transparent;
+}
+.warning-active{
+    &:hover,
+    &:focus,
+    &:active{
+        background-color: $warning;
+        color: $btn-fg;
+    }
+}
+.warning-flat-active{
+    &:hover,
+    &:focus,
+    &:active{
+        &.warning-flat{
+            text-decoration: underline;
+        }
+        background-color: $transparent;
+        color: $warning;
+    }
+}
+
+%material-icon {
+    font-family: "Material Icons";
+}
+
+[icon-after]{
+    &:after{
+        content: attr(icon-after);
+        float: right;
+        @extend %material-icon;
+    }
+}
+[icon-before]{
+    &:before{
+        content: attr(icon-before);
+        float: left;
+        @extend %material-icon;
+    }
+}
+
+.wrapper{
+    margin: 0 auto;
+}
+
+@media (min-width: 0px){
+    .wrapper{
+        width: 100%;
+    }
+}
+@media (min-width: 360px){
+
+}
+@media (min-width: 480px){
+
+}
+@media (min-width: 720px){
+    .wrapper{
+        width: 720px;
+    }
+}
+@media (min-width: 1280px){
+    .wrapper{
+        width: 1280px;
+    }
+}
+@media (min-width: 1440px){
+    .wrapper{
+        width: 1440px;
+    }
+}

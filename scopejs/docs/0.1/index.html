@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>ScopeJS Documentation - 0.1</title>
+
+    <link href="http://ioxo.nl/scopejs/versions/0.1/scope/core/scope.core.css" rel="stylesheet"/>
+    <script src="http://ioxo.nl/scopejs/versions/0.1/scope/core/scope.core.js"></script>
+
+    <link href="http://www.ioxo.nl/scopejs/versions/0.1/scope/components/scope.components.css" rel="stylesheet"/>
+    <script src="http://www.ioxo.nl/scopejs/versions/0.1/scope/components/scope.components.js"></script>
+</head>
+
+<body>
+    <div class='wrapper'>
+        <sc-component class='scope tabs' data-component="Scope.tabs" data-active-tab="#tab0">
+            <ul class='controls'>
+                <li data-target="#tab0">
+                    <span>Core</span>
+                </li>
+                <li data-target="#tab1">
+                    <span>Components</span>
+                </li>
+                <li data-target="#tab2">
+                    <span>Additional</span>
+                </li>
+            </ul>
+            <ul class='content'>
+                <li id='tab0'>
+                    <h2>Core</h2>
+                </li>
+                <li id='tab1'>
+                    <h2>Components</h2>
+                </li>
+                <li id='tab2'>
+                    <h2>Additional</h2>
+                </li>
+            </ul>
+        </sc-component>
+    </div>
+</body>
+
+</html>

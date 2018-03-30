@@ -1,6 +1,6 @@
 RewriteEngine on
 RewriteBase /
-Options -Indexes
+Options +Indexes
 
 RewriteCond %{HTTP_HOST}        !^www
 RewriteCond %{HTTP_HOST}        ^([^\.]+)\.([^\.]+)\.([^\.]+)$
